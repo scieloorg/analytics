@@ -1,0 +1,15 @@
+0.1.0
+-----
+
+-  Thrift Server
+
+0.1.3
+-----
+
+-  Thrift Server improvements
+
+
+1.0.0
+-----
+
+-  RestFul API

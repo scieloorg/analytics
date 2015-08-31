@@ -1,0 +1,46 @@
+body { padding-top: 70px; }
+
+.header-col {
+    color: #FFFFFF;
+    width: 100%;
+    padding-left: 20px;
+    font-size: 20px;
+    padding-top:5px;
+    padding-bottom: 5px;
+    padding-right: 20px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.level1 {
+    background-color: #854F8F;
+    margin-top: -20px;
+}
+
+.level2 {
+    background-color: #A279AA;
+}
+
+.chartframebox {
+    border: 0px;
+    overflow: hidden;
+}
+
+.carousel-control.left {
+    background-color: #FFFFFF;
+    background-image: none;
+}
+
+.carousel-control.right {
+    background-color: #FFFFFF;
+    background-image: none;
+}
+
+.carousel-control {
+    color: #CCCCCC;
+
+}
+
+.carousel-control:hover {
+    color: #C0C0C0;
+}
