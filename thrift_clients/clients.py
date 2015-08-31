@@ -15,12 +15,39 @@ articlemeta_thrift = thriftpy.load(
     os.path.join(os.path.dirname(__file__))+'/articlemeta.thrift')
 
 
+accessstats_thrift = thriftpy.load(
+    os.path.join(os.path.dirname(__file__))+'/accessstats.thrift')
+
+
 class ServerError(Exception):
     def __init__(self, message=None):
         self.message = message or 'thirftclient: ServerError'
     
     def __str__(self):
         return repr(self.message)
+
+class AccessStats(object):
+
+    def __init__(self, address, port):
+        """
+        Cliente thrift para o Articlemeta.
+        """
+        self._address = address
+        self._port = port
+
+    @property
+    def client(self):
+
+        client = make_client(
+            accessstats_thrift.AccessStats,
+            self._address,
+            self._port
+        )
+        return client
+
+    def document(self, code, collection):
+
+        return self.client.document(code, collection)
 
 
 class ArticleMeta(object):

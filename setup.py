@@ -26,7 +26,7 @@ install_requires = [
 test_requires = []
 
 setup(
-    name="access",
+    name="analytics",
     version='0.1.2',
     description="A analytics frontend for SciELO usage and publication statistics",
     author="SciELO",
@@ -58,6 +58,6 @@ setup(
     test_suite="nose.collector",
     entry_points="""\
     [paste.app_factory]
-    main = access:main
+    main = analytics:main
     """,
 )

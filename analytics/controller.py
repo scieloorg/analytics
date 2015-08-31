@@ -1,6 +1,7 @@
 # coding: utf-8
 import logging
 import sys
+import json
 
 import elasticsearch
 from elasticsearch import ElasticsearchException
@@ -92,6 +93,12 @@ def articlemeta(host):
     return ArticleMeta(address, port)
 
 
+def accessstats(host):
+
+    address, port = host.split(':')
+
+    return AccessStats(address, port)
+
 class ArticleMeta(clients.ArticleMeta):
 
     @cache_region.cache_on_arguments()
@@ -123,154 +130,39 @@ class ArticleMeta(clients.ArticleMeta):
         return self._journals[collection] if collection else self._journals
         
 
-class Stats(Elasticsearch):
+class AccessStats(clients.AccessStats):
 
-    def _query_dispatcher(self, *args, **kwargs):
-
-        try:
-            data = self.search(*args, **kwargs)
-        except elasticsearch.SerializationError as e:
-            logging.exception(e)
-            raise e
-        except elasticsearch.TransportError as e:
-            logging.exception(e)
-            raise e
-        except elasticsearch.ConnectionError as e:
-            logging.exception(e)
-            raise e
-        except Exception as e:
-            logging.exception(e)
-            raise e
-
-        return data
-
-    def access_search(self, parameters):
-
-        parameters['index'] = 'accesses'
-        query_result = self._query_dispatcher(**parameters)
-
-        return query_result
-
-    def document(self, code, collection):
-
-        body = {
-            "query": {
-                "bool": {
-                    "must": [{
-                            "match": {
-                                "pid": code
-                            }
-                        },{
-                            "match": {
-                                "collection": collection
-                            }
-
-                        }
-
-                    ]
-                }
-            },
-            "aggs": {
-                "access_total": {
-                    "sum": {
-                        "field": "access_total"
-                    }
-                },
-                "access_html": {
-                    "sum": {
-                        "field": "access_html"
-                    }
-                },
-                "access_pdf": {
-                    "sum": {
-                        "field": "access_pdf"
-                    }
-                },
-                "access_abstract": {
-                    "sum": {
-                        "field": "access_abstract"
-                    }
-                },
-                "access_epdf": {
-                    "sum": {
-                        "field": "access_epdf"
-                    }
-                }
-            }
-        }
-
-        query_result = self._query_dispatcher(
-            index='accesses',
-            doc_type='articles',
-            body=body,
-            size=0
-        )
-
-        response = query_result['aggregations']
-
-        return response
-
-    def access_stats(self, doc_type, aggs, filters=None):
-
-        if not aggs:
-            raise ValueError(
-                u'Aggregation not allowed, %s, expected %s' % (
-                    str(aggs),
-                    str(ALLOWED_DOC_TYPES_N_FACETS[doc_type])
-                )
-            )
-
-        if not doc_type in ALLOWED_DOC_TYPES_N_FACETS.keys():
-            raise ValueError(
-                u'DocumentType not allowed, %s, expected %s' % (
-                    doc_type,
-                    str(ALLOWED_DOC_TYPES_N_FACETS.keys())
-                )
-            )
-        
-        for agg in aggs:
-            if not agg in ALLOWED_DOC_TYPES_N_FACETS[doc_type]:
-                raise ValueError(
-                    u'Aggregation not allowed, %s, expected %s' % (
-                        aggs,
-                        str(ALLOWED_DOC_TYPES_N_FACETS[doc_type])
-                    )
-                )
+    def access_by_month_and_year(self, code, collection):
 
         body = {
             "query": {
                 "match_all": {}
+            },
+            "aggs": {
+                "access_date": {
+                    "terms": {
+                        "field": "access_date"
+                    },
+                    "aggs": {
+                        "access_pdf": {
+                            "sum": {
+                                "field": "access_pdf"
+                            }
+                        },
+                        "access_html": {
+                            "sum": {
+                                "field": "access_html"
+                            }
+                        }
+                    }
+                }
             }
         }
 
-        body.update(construct_aggs(aggs))
+        parameters = [
+            clients.accessstats_thrift.kwargs('size', '0')
+        ]
 
-        if filters:
-            must_terms = []
-            for param, value in filters.items():
-                if not param in ALLOWED_DOC_TYPES_N_FACETS[doc_type]:
-                    raise ValueError(
-                        u'Filter not allowed, %s expected %s' % (
-                            param,
-                            str(ALLOWED_DOC_TYPES_N_FACETS[doc_type])
-                        )
-                    )
-                must_terms.append({'term': {param:value}})
+        query_result = json.loads(self.client.search(json.dumps(body), parameters))
 
-            body['query'] = {
-                "bool": {
-                    "must": must_terms
-                }
-            }
-
-        query_result = self._query_dispatcher(
-            index='accesses',
-            doc_type=doc_type,
-            search_type='count',
-            body=body
-        )
-
-        response = query_result['aggregations']
-
-        return response
-
+        return result)
