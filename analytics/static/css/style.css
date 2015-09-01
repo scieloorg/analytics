@@ -15,10 +15,17 @@ body { padding-top: 70px; }
 .level1 {
     background-color: #854F8F;
     margin-top: -20px;
+    height: 35px;
 }
 
 .level2 {
     background-color: #A279AA;
+    height: 35px;
+}
+
+.level3 {
+    background-color: #CAADDA;
+    height: 35px;
 }
 
 .chartframebox {
@@ -43,4 +50,12 @@ body { padding-top: 70px; }
 
 .carousel-control:hover {
     color: #C0C0C0;
+}
+
+.remove_session {
+    color: #FFFFFF;
+}
+
+.remove_session:hover {
+    color: #854F8F;
 }

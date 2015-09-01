@@ -1,21 +1,22 @@
-<h3>Total de accessos por Mês ano e Ano</h3>
-<p>Total de acesso aos artigos no contexto selecionado por mês e ano de acesso</p>
+<h3>Total de accessos por ano e mês de acesso</h3>
 <div id="bymonthandyear" style="width:60%; height:400px;"></div>
+<p>Total de acesso aos artigos no contexto selecionado por ano e mês de acesso</p>
 <script language="javascript">
-$(document).ready(function() {
+    $(document).ready(function() {
+        var options = {
+            title: {
+                text: 'Total de accessos por ano e mês de aceasso',
+            }
+        };
+        
+        var url =  "http://localhost:6543/ajx/bymonthandyear?code=${selected_code}&collection=${selected_collection}&callback=?";
 
-    var options = {
-        chart: {
-            renderTo: 'container',
-            type: 'spline'
-        },
-        series: [{}]
-    };
-
-    $.getJSON('data.json', function(data) {
-        options.series[0].data = data;
-        var chart = new Highcharts.Chart(options);
+        $.getJSON(url,  function(data) {
+            options['series'] = data['series'];
+            options['xAxis'] = {
+                'categories': data['categories']
+            };
+            $('#bymonthandyear').highcharts(options);
+        });
     });
-
-});
 </script>

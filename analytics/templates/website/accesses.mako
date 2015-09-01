@@ -14,6 +14,12 @@
                     <%include file="access_lifetime.mako"/>
                 </center>
             </div>
+            <div class="item">
+                <center>
+                    <%include file="access_by_document_type.mako"/>
+                </center>
+            </div>
+
           </div>
           <!-- Controls -->
           <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">

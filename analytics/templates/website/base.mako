@@ -46,7 +46,21 @@
       <div class="header-col level2">
         <div class="container-fluid">
             ${selected_journal} (${selected_journal_code})
-            <a href="/?journal=clean" class="btn btn-default btn-xs navbar-right">remove</span></a>
+            <a href="?journal=clean" class="remove_session">
+              <span class="glyphicon glyphicon-remove-circle navbar-right"/>
+            </a>
+        </div>
+      </div>
+      % endif
+    </div>
+    <div class="row">
+      % if selected_document:
+      <div class="header-col level3">
+        <div class="container-fluid">
+            ${selected_document.original_title()}
+            <a href="?document=clean" class="remove_session">
+              <span class="glyphicon glyphicon-remove-circle navbar-right"/>
+            </a>
         </div>
       </div>
       % endif

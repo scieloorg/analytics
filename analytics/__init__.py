@@ -26,7 +26,9 @@ def main(global_config, **settings):
     config.add_route('index_web', '/')
     config.add_route('accesses_web', '/w/accesses')
     config.add_route('production_web', '/w/production')
+    config.add_route('bydocumenttype', '/ajx/bydocumenttype')
     config.add_route('bymonthandyear', '/ajx/bymonthandyear')
+    config.add_route('lifetime', '/ajx/lifetime')
     config.add_request_method(add_accessstats, 'accessstats', reify=True)
     config.add_request_method(add_articlemeta, 'articlemeta', reify=True)
 
@@ -39,7 +41,7 @@ def main(global_config, **settings):
         controller_cache_region.configure('dogpile.cache.pylibmc', **cache_config)
     else:
         views_website_cache_region.configure('dogpile.cache.null')
-        controller_cache_reagion.configure('dogpile.cache.null')
+        controller_cache_region.configure('dogpile.cache.null')
 
     ## Session config
     navegation_session_factory = SignedCookieSessionFactory('sses_navegation')

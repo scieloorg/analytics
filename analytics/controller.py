@@ -2,16 +2,13 @@
 import logging
 import sys
 import json
-
-import elasticsearch
-from elasticsearch import ElasticsearchException
-from elasticsearch import Elasticsearch
-from elasticsearch.client import IndicesClient
+from datetime import datetime
 
 from thrift_clients import clients
 from dogpile.cache import make_region
-
 from xylose.scielodocument import Article, Journal
+
+from analytics import utils
 
 ALLOWED_DOC_TYPES_N_FACETS = {
     'articles': [
@@ -132,16 +129,143 @@ class ArticleMeta(clients.ArticleMeta):
 
 class AccessStats(clients.AccessStats):
 
-    def access_by_month_and_year(self, code, collection):
+    def _code_type(self, code):
+        
+        if utils.REGEX_ISSN.match(code):
+            return 'issn'
+
+        if utils.REGEX_ISSUE.match(code):
+            return 'issue'
+
+        if utils.REGEX_ARTICLE.match(code):
+            return 'pid'
+
+
+    def access_by_document_type(self, code, collection):
+
+        code_type = self._code_type(code)
 
         body = {
             "query": {
                 "match_all": {}
             },
+            "size": 0,
+            "aggs": {
+                "document_type": {
+                    "terms": {
+                        "field": "document_type",
+                        "size": 0
+                    },
+                    "aggs": {
+                        "access_total": {
+                            "sum": {
+                                "field": "access_total"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if code_type:
+            body["query"] = {
+                "match": {
+                    code_type: code
+                }
+            }
+
+        parameters = [
+            clients.accessstats_thrift.kwargs('size', '0')
+        ]
+
+        query_result = json.loads(self.client.search(json.dumps(body), parameters))
+
+        series = [
+            {
+                "name": "Document Type",
+                "data": []
+            }
+        ]
+
+        for bucket in query_result['aggregations']['document_type']['buckets']:
+            item = {
+                "name": bucket['key'],
+                "y": bucket['access_total']['value']
+            }
+            series[0]["data"].append(item)
+
+
+        return {"series": series}
+
+    def access_lifetime(sef, code, collection):
+        body = {
+            "query": {
+                "match_all": {}
+            },
+            "size": 0,
+            "aggs": {
+                "access_year": {
+                    "terms": {
+                        "field": "access_year",
+                        "size": 0,
+                        "order": {
+                            "access_total": "desc"
+                        }
+                    },
+                    "aggs": {
+                        "access_total": {
+                            "sum": {
+                                "field": "access_total"
+                            }
+                        },
+                        "publication_year": {
+                            "terms": {
+                                "field": "publication_year",
+                                "size": 4,
+                                "order": {
+                                    "access_total": "desc"
+                                }
+                            },
+                            "aggs": {
+                                "access_total": {
+                                    "sum": {
+                                        "field": "access_total"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        charts = []
+
+        parameters = [
+            clients.accessstats_thrift.kwargs('size', '0')
+        ]
+
+        query_result = json.loads(self.client.search(json.dumps(body), parameters))
+
+        return query_result
+
+    def access_by_month_and_year(self, code, collection):
+
+        code_type = self._code_type(code)
+
+        body = {
+            "query": {
+                "match_all": {}
+            },
+            "size": 0,
             "aggs": {
                 "access_date": {
                     "terms": {
-                        "field": "access_date"
+                        "field": "access_date",
+                        "size": 0,
+                        "order": {
+                            "_term": "asc"
+                        }
                     },
                     "aggs": {
                         "access_pdf": {
@@ -153,11 +277,30 @@ class AccessStats(clients.AccessStats):
                             "sum": {
                                 "field": "access_html"
                             }
+                        },
+                        "access_epdf": {
+                            "sum": {
+                                "field": "access_epdf"
+                            }
+                        },
+                        "access_abstract": {
+                            "sum": {
+                                "field": "access_abstract"
+                            }
                         }
                     }
                 }
             }
         }
+
+        if code_type:
+            body["query"] = {
+                "match": {
+                    code_type: code
+                }
+            }
+
+        charts = []
 
         parameters = [
             clients.accessstats_thrift.kwargs('size', '0')
@@ -165,4 +308,22 @@ class AccessStats(clients.AccessStats):
 
         query_result = json.loads(self.client.search(json.dumps(body), parameters))
 
-        return result)
+        categories = []
+        series = []
+        html = {'name': 'html', 'data': []}
+        pdf = {'name': 'pdf', 'data': []}
+        abstract = {'name': 'abstract', 'data': []}
+        epdf = {'name': 'epdf', 'data': []}
+        for bucket in query_result['aggregations']['access_date']['buckets']:
+            categories.append(bucket['key_as_string'][0:7])
+            html['data'].append(int(bucket['access_html']['value']))
+            pdf['data'].append(int(bucket['access_pdf']['value']))
+            abstract['data'].append(int(bucket['access_abstract']['value']))
+            epdf['data'].append(int(bucket['access_epdf']['value']))
+
+        series.append(html)
+        series.append(pdf)
+        series.append(abstract)
+        series.append(epdf)
+
+        return {'categories': categories, 'series': series}
