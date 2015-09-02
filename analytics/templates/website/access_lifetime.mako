@@ -1,30 +1,40 @@
-<h3>Vida útil de artigos</h3>
-<p>Vida útil de artigos de acordo com acessos realizados aos artigos e o ano de publicação.</p>
-<div id="lifetime" style="width:60%; height:400px;"></div>
-<script>
-    $(function () { 
-        $('#lifetime').highcharts({
-            chart: {
-                type: 'bar'
+<ul id="lifetime" style="width: 60%; list-style-type: none;"></ul>
+<script language="javascript">
+    $(document).ready(function() {
+        var options = {
+            'chart': {
+                'type': 'column'
             },
-            title: {
-                text: 'Fruit Consumption'
-            },
-            xAxis: {
-                categories: ['Apples', 'Bananas', 'Oranges']
-            },
-            yAxis: {
-                title: {
-                    text: 'Fruit eaten'
+            'xAxis': {
+                'title': {
+                    'text': 'Publication Year',
+                    'align': 'high'
                 }
             },
-            series: [{
-                name: 'Jane',
-                data: [1, 0, 4]
-            }, {
-                name: 'John',
-                data: [5, 7, 3]
-            }]
+            'yAxis': {
+                'title': {
+                    'text': ''
+                }
+            },
+            'title': {
+                'text': 'Vida útil de artigos por número de acessos',
+            },
+            'legend': {
+                'enabled': false
+            }
+        };
+        
+        var url =  "/ajx/accesses/lifetime?code=${selected_code}&collection=${selected_collection_code}&callback=?";
+
+        $.getJSON(url,  function(data) {
+            for (item in data) {
+                options['series'] = data[item]['series'];
+                options['xAxis']['categories'] = data[item]['categories'];
+                options['yAxis']['title']['text'] = 'acessos ' + data[item]['series'][0]['name'];
+                options['title']['text'] = 'Vida útil de artigos por número de acessos em ' + data[item]['series'][0]['name']
+                $('#lifetime').append('<li id="lifetime_'+item+'" style="height: 250px; margin-bottom: 100px; padding: 0px; margin: 0px;"></li>');
+                $('#lifetime_'+item).highcharts(options);
+            };
         });
     });
 </script>

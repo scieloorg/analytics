@@ -18,6 +18,9 @@ def main(global_config, **settings):
     def add_accessstats(request):
         return controller.accessstats(settings['accessstats'])
 
+    def add_publicationstats(request):
+        return controller.publicationstats(settings['publicationstats'])
+
     def add_articlemeta(request):
         return controller.articlemeta(settings['articlemeta'])
 
@@ -25,12 +28,20 @@ def main(global_config, **settings):
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('index_web', '/')
     config.add_route('accesses_web', '/w/accesses')
-    config.add_route('production_web', '/w/production')
-    config.add_route('bydocumenttype', '/ajx/bydocumenttype')
-    config.add_route('bymonthandyear', '/ajx/bymonthandyear')
-    config.add_route('lifetime', '/ajx/lifetime')
+    config.add_route('accesses_bydocumenttype', '/ajx/accesses/bydocumenttype')
+    config.add_route('accesses_bymonthandyear', '/ajx/accesses/bymonthandyear')
+    config.add_route('accesses_lifetime', '/ajx/accesses/lifetime')
+    config.add_route('publication_web', '/w/publication')
+    config.add_route('publication_article_licenses', '/ajx/publication/article_licenses')
+    config.add_route('publication_article_references', '/ajx/publication/article_references')
+    config.add_route('publication_article_languages', '/ajx/publication/article_languages')
+    config.add_route('publication_article_authors', '/ajx/publication/article_authors')
+    config.add_route('publication_article_affiliations', '/ajx/publication/article_affiliations')
+    config.add_route('publication_article_year', '/ajx/publication/article_year')
+    config.add_route('publication_article_subject_areas', '/ajx/publication/article_subject_areas')
     config.add_request_method(add_accessstats, 'accessstats', reify=True)
     config.add_request_method(add_articlemeta, 'articlemeta', reify=True)
+    config.add_request_method(add_publicationstats, 'publicationstats', reify=True)
 
     ## Cache Settings Config
     if 'memcached_host' in settings:

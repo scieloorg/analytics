@@ -46,6 +46,7 @@ def check_session(wrapped):
 
         if document and document != session_document:
             request.session['document'] = document
+            request.session['journal'] = document[1:10]
 
         return wrapped(request, *arg, **kwargs)
 
@@ -123,13 +124,14 @@ def accesses(request):
 
     return data
 
-@view_config(route_name='production_web', renderer='templates/website/production.mako')
+@view_config(route_name='publication_web', renderer='templates/website/publication.mako')
 @base_data_manager
-def production(request):
+def publication(request):
+
+    document = request.GET.get('document', None)
+    collection = request.GET.get('collection', None)
 
     data = request.data_manager
-    data['page'] = 'production'
-
-    data['selected_code'] =  request.GET.get('code', data['selected_code'])
+    data['page'] = 'publication'
 
     return data

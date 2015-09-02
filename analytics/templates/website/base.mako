@@ -70,7 +70,7 @@
         <div class="container-fluid">
           <ul class="nav navbar-nav">
             <li class="${'active' if page == 'accesses' else ''}"><a href="${request.route_url('accesses_web')}">Accesses</a></li>
-            <li class="${'active' if page == 'production' else ''}"><a href="${request.route_url('production_web')}">Production</a></li>
+            <li class="${'active' if page == 'publication' else ''}"><a href="${request.route_url('publication_web')}">Publication</a></li>
           </ul>
         </div> <!-- div container-fluid -->
       </nav>
