@@ -1,4 +1,4 @@
-<div id="article_authors" style="width:60%; height:400px;"></div>
+<div id="article_authors" style="width: 60%; height:400px;"></div>
 <script language="javascript">
     $(document).ready(function() {
         var options = {
@@ -18,12 +18,16 @@
             }
         };
         
-        var url =  "/ajx/publication/article_authors?code=${selected_code}&collection=${selected_collection_code}&callback=?";
+        var url =  "${request.route_url('publication_article_authors')}?code=${selected_code}&collection=${selected_collection_code}&callback=?";
 
         $.getJSON(url,  function(data) {
             options['series'] = data['series'];
             options['xAxis'] = {
-                'categories': data['categories']
+                'categories': data['categories'],
+                'title': {
+                    'text': 'Número de autores',
+                    'align': 'high'
+                }
             };
             $('#article_authors').highcharts(options);
         });

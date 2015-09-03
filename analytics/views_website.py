@@ -112,6 +112,20 @@ def index(request):
 
     return data
 
+@view_config(route_name='accesses_list_journals_web', renderer='templates/website/accesses_list_journals.mako')
+@base_data_manager
+def accesses_list_journals(request):
+
+    document = request.GET.get('document', None)
+    collection = request.GET.get('collection', None)
+
+    data = request.data_manager
+    data['page'] = 'accesses'
+
+    data['aclist'] = request.accessstats.lists('issn', data['selected_code'], data['selected_collection_code'])
+
+    return data
+
 @view_config(route_name='accesses_web', renderer='templates/website/accesses.mako')
 @base_data_manager
 def accesses(request):
@@ -124,9 +138,21 @@ def accesses(request):
 
     return data
 
-@view_config(route_name='publication_web', renderer='templates/website/publication.mako')
+@view_config(route_name='publication_journal_web', renderer='templates/website/publication_journal.mako')
 @base_data_manager
-def publication(request):
+def publication_journal(request):
+
+    document = request.GET.get('document', None)
+    collection = request.GET.get('collection', None)
+
+    data = request.data_manager
+    data['page'] = 'publication'
+
+    return data
+
+@view_config(route_name='publication_article_web', renderer='templates/website/publication_article.mako')
+@base_data_manager
+def publication_article(request):
 
     document = request.GET.get('document', None)
     collection = request.GET.get('collection', None)

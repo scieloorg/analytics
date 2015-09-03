@@ -1,4 +1,4 @@
-<ul id="lifetime" style="width: 60%; list-style-type: none;"></ul>
+<ul id="lifetime" style="width: 60%; list-style-type: none; padding: 0px; margin: 0px;"></ul>
 <script language="javascript">
     $(document).ready(function() {
         var options = {

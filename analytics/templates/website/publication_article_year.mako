@@ -18,12 +18,16 @@
             }
         };
         
-        var url =  "/ajx/publication/article_year?code=${selected_code}&collection=${selected_collection_code}&callback=?";
+        var url =  "${request.route_url('publication_article_year')}?code=${selected_code}&collection=${selected_collection_code}&callback=?";
 
         $.getJSON(url,  function(data) {
             options['series'] = data['series'];
             options['xAxis'] = {
-                'categories': data['categories']
+                'categories': data['categories'],
+                'title': {
+                    'text': 'Ano de publicação',
+                    'align': 'high'
+                }
             };
             $('#article_year').highcharts(options);
         });

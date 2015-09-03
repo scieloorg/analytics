@@ -119,7 +119,9 @@ class PublicationStats(clients.PublicationStats):
         if utils.REGEX_ARTICLE.match(code):
             return 'pid'
 
-    def article_general(self, field, code, collection, size=0):
+
+    @cache_region.cache_on_arguments()
+    def general(self, index, field, code, collection, size=0):
 
         body = {
             "query": {
@@ -157,73 +159,7 @@ class PublicationStats(clients.PublicationStats):
             clients.publicationstats_thrift.kwargs('search_type', 'count')
         ]
 
-        query_result = json.loads(self.client.search('article', json.dumps(body), query_parameters))
-
-        series = [
-            {
-                "name": field,
-                "data": []
-            }
-        ]
-
-        for bucket in query_result['aggregations'][field]['buckets']:
-            item = {
-                "name": bucket['key'],
-                "y": bucket['doc_count']
-            }
-            series[0]["data"].append(item)
-
-        categories = []
-        series = []
-        documents = {'name': 'documents', 'data': []}
-        for bucket in query_result['aggregations'][field]['buckets']:
-            categories.append(bucket['key'])
-            documents['data'].append(int(bucket['doc_count']))
-
-        series.append(documents)
-
-
-        return {"series": series, "categories": categories}
-
-    def article_general(self, field, code, collection, size=0):
-
-        body = {
-            "query": {
-                "bool": {
-                    "must": [{
-                            "match": {
-                                "collection": collection
-                            }
-                        }
-                    ]
-                }
-            },
-            "aggs": {
-                field: {
-                    "terms": {
-                        "field": field,
-                        "size": size
-                    }
-                }
-            }
-        }
-
-        code_type = self._code_type(code)
-
-        if code_type:
-            body["query"]["bool"]["must"].append({
-                    "match": {
-                        code_type: code
-                    }
-                }
-            )
-
-        query_parameters = [
-            clients.publicationstats_thrift.kwargs('size', '0'),
-            clients.publicationstats_thrift.kwargs('search_type', 'count')
-        ]
-
-        query_result = json.loads(self.client.search('article', json.dumps(body), query_parameters))
+        query_result = json.loads(self.client.search(index, json.dumps(body), query_parameters))
 
         series = [
             {
@@ -299,11 +235,121 @@ class AccessStats(clients.AccessStats):
         if utils.REGEX_ARTICLE.match(code):
             return 'pid'
 
+    def lists(self, field, code, collection, size=0, limit=20, offset=0):
+        body = {
+            "query": {
+                "bool": {
+                    "must": [{
+                            "match": {
+                                "collection": collection
+                            }
+                        }
+                    ]
+                }
+            },
+            "size": 0,
+            "aggs": {
+                field: {
+                    "terms": {
+                        "field": field,
+                        "size": 0,
+                        "order": {
+                            "1": "desc"
+                        }
+                  },
+                  "aggs": {
+                        "1": {
+                            "sum": {
+                                "field": "access_total"
+                            }
+                        },
+                        "journal_title": {
+                            "terms": {
+                                "field": "journal_title",
+                                "size": 0,
+                                "order": {
+                                    "access_total": "desc"
+                                }
+                            },
+                            "aggs": {
+                                "access_total": {
+                                    "sum": {
+                                        "field": "access_total"
+                                    }
+                                },
+                                "access_epdf": {
+                                    "sum": {
+                                        "field": "access_epdf"
+                                    }
+                                },
+                                "access_pdf": {
+                                    "sum": {
+                                        "field": "access_pdf"
+                                    }
+                                },
+                                "access_html": {
+                                    "sum": {
+                                        "field": "access_html"
+                                    }
+                                },
+                                "access_abstract": {
+                                    "sum": {
+                                        "field": "access_abstract"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        code_type = self._code_type(code)
+
+        if code_type:
+            body["query"]["bool"]["must"].append({
+                    "match": {
+                        code_type: code
+                    }
+                }
+            )
+
+        query_parameters = [
+            clients.accessstats_thrift.kwargs('size', '0')
+        ]
+
+        query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
+
+        data = []
+
+        for bucket in query_result['aggregations'][field]['buckets']:
+            item = {}
+            item['issn'] = bucket['key']
+            item['title'] = bucket['journal_title']['buckets'][0]['key']
+            item['html'] = int(bucket['journal_title']['buckets'][0]['access_html']['value'])
+            item['pdf'] = int(bucket['journal_title']['buckets'][0]['access_pdf']['value'])
+            item['epdf'] = int(bucket['journal_title']['buckets'][0]['access_epdf']['value'])
+            item['abstract'] = int(bucket['journal_title']['buckets'][0]['access_abstract']['value'])
+            item['total'] = int(bucket['journal_title']['buckets'][0]['access_total']['value'])
+            
+            data.append(item)
+
+        return data
+
+
+    @cache_region.cache_on_arguments()
     def access_by_document_type(self, code, collection):
 
         body = {
             "query": {
-                "match_all": {}
+                "bool": {
+                    "must": [{
+                            "match": {
+                                "collection": collection
+                            }
+                        }
+                    ]
+                }
             },
             "size": 0,
             "aggs": {
@@ -326,11 +372,12 @@ class AccessStats(clients.AccessStats):
         code_type = self._code_type(code)
 
         if code_type:
-            body["query"] = {
-                "match": {
-                    code_type: code
+            body["query"]["bool"]["must"].append({
+                    "match": {
+                        code_type: code
+                    }
                 }
-            }
+            )
 
         query_parameters = [
             clients.accessstats_thrift.kwargs('size', '0')
@@ -355,10 +402,18 @@ class AccessStats(clients.AccessStats):
 
         return {"series": series}
 
+    @cache_region.cache_on_arguments()
     def access_lifetime(self, code, collection):
         body = {
             "query": {
-                "match_all": {}
+                "bool": {
+                    "must": [{
+                            "match": {
+                                "collection": collection
+                            }
+                        }
+                    ]
+                }
             },
             "size": 0,
             "aggs": {
@@ -400,11 +455,12 @@ class AccessStats(clients.AccessStats):
         code_type = self._code_type(code)
 
         if code_type:
-            body["query"] = {
-                "match": {
-                    code_type: code
+            body["query"]["bool"]["must"].append({
+                    "match": {
+                        code_type: code
+                    }
                 }
-            }
+            )
 
         query_parameters = [
             clients.accessstats_thrift.kwargs('size', '0')
@@ -428,11 +484,19 @@ class AccessStats(clients.AccessStats):
 
         return charts
 
+    @cache_region.cache_on_arguments()
     def access_by_month_and_year(self, code, collection):
 
         body = {
             "query": {
-                "match_all": {}
+                "bool": {
+                    "must": [{
+                            "match": {
+                                "collection": collection
+                            }
+                        }
+                    ]
+                }
             },
             "size": 0,
             "aggs": {
@@ -473,11 +537,12 @@ class AccessStats(clients.AccessStats):
         code_type = self._code_type(code)
 
         if code_type:
-            body["query"] = {
-                "match": {
-                    code_type: code
+            body["query"]["bool"]["must"].append({
+                    "match": {
+                        code_type: code
+                    }
                 }
-            }
+            )
 
         query_parameters = [
             clients.accessstats_thrift.kwargs('size', '0')

@@ -1,4 +1,4 @@
-<div id="subject_areas" style="width:60%; height:400px;"></div>
+<div id="licenses" style="width:60%; height:400px;"></div>
 <script language="javascript">
     $(document).ready(function() {
         var options = {
@@ -6,11 +6,11 @@
                 'type': 'column'
             },
             'title': {
-                'text': 'Distribuição de área temática dos documentos',
+                'text': 'Distribuição de licença de uso dos periódicos',
             },
             'yAxis': {
                 'title': {
-                    'text': 'Número de documentos'
+                    'text': 'Número de periódicos'
                 }
             },
             'legend': {
@@ -18,18 +18,18 @@
             }
         };
         
-        var url =  "${request.route_url('publication_article_subject_areas')}?code=${selected_code}&collection=${selected_collection_code}&callback=?";
+        var url =  "${request.route_url('publication_journal_licenses')}?code=${selected_code}&collection=${selected_collection_code}&callback=?";
 
         $.getJSON(url,  function(data) {
             options['series'] = data['series'];
             options['xAxis'] = {
                 'categories': data['categories'],
                 'title': {
-                    'text': 'Areas temáticas',
+                    'text': 'Licenças de uso',
                     'align': 'high'
                 }
             };
-            $('#subject_areas').highcharts(options);
+            $('#licenses').highcharts(options);
         });
     });
 </script>

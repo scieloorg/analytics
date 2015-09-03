@@ -6,11 +6,11 @@
                 'type': 'column'
             },
             'title': {
-                'text': 'Distribuição de área temática dos documentos',
+                'text': 'Distribuição de área temática dos periódicos',
             },
             'yAxis': {
                 'title': {
-                    'text': 'Número de documentos'
+                    'text': 'Número de periódicos'
                 }
             },
             'legend': {
@@ -18,7 +18,7 @@
             }
         };
         
-        var url =  "${request.route_url('publication_article_subject_areas')}?code=${selected_code}&collection=${selected_collection_code}&callback=?";
+        var url =  "${request.route_url('publication_journal_subject_areas')}?code=${selected_code}&collection=${selected_collection_code}&callback=?";
 
         $.getJSON(url,  function(data) {
             options['series'] = data['series'];
