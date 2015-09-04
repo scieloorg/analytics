@@ -2,7 +2,7 @@
 import logging
 import sys
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from thrift_clients import clients
 from dogpile.cache import make_region
@@ -235,13 +235,29 @@ class AccessStats(clients.AccessStats):
         if utils.REGEX_ARTICLE.match(code):
             return 'pid'
 
-    def lists(self, field, code, collection, size=0, limit=20, offset=0):
+    def lists(self, field, code, collection, date_range_start=None, date_range_end=None, size=0, limit=20, offset=0):
+
+        end = datetime.now()
+        start = end - timedelta(365*3)
+
+
+        date_range_start = date_range_start or start.isoformat()
+        date_range_end = date_range_end or end.isoformat()
+
         body = {
             "query": {
                 "bool": {
                     "must": [{
                             "match": {
                                 "collection": collection
+                            }
+                        },
+                        {
+                            "range": {
+                                "access_date": {
+                                    "gte": date_range_start,
+                                    "lte": date_range_end
+                                }
                             }
                         }
                     ]
@@ -338,7 +354,13 @@ class AccessStats(clients.AccessStats):
 
 
     @cache_region.cache_on_arguments()
-    def access_by_document_type(self, code, collection):
+    def access_by_document_type(self, code, collection, date_range_start=None, date_range_end=None):
+
+        end = datetime.now()
+        start = end - timedelta(365*3)
+
+        date_range_start = date_range_start or start.isoformat()[0:10]
+        date_range_end = date_range_end or end.isoformat()[0:10]
 
         body = {
             "query": {
@@ -346,6 +368,14 @@ class AccessStats(clients.AccessStats):
                     "must": [{
                             "match": {
                                 "collection": collection
+                            }
+                        },
+                        {
+                            "range": {
+                                "access_date": {
+                                    "gte": date_range_start,
+                                    "lte": date_range_end
+                                }
                             }
                         }
                     ]
@@ -403,7 +433,14 @@ class AccessStats(clients.AccessStats):
         return {"series": series}
 
     @cache_region.cache_on_arguments()
-    def access_lifetime(self, code, collection):
+    def access_lifetime(self, code, collection, date_range_start=None, date_range_end=None):
+
+        end = datetime.now()
+        start = end - timedelta(365*3)
+
+        date_range_start = date_range_start or start.isoformat()[0:10]
+        date_range_end = date_range_end or end.isoformat()[0:10]
+
         body = {
             "query": {
                 "bool": {
@@ -411,11 +448,18 @@ class AccessStats(clients.AccessStats):
                             "match": {
                                 "collection": collection
                             }
+                        },
+                        {
+                            "range": {
+                                "access_date": {
+                                    "gte": date_range_start,
+                                    "lte": date_range_end
+                                }
+                            }
                         }
                     ]
                 }
-            },
-            "size": 0,
+            },            "size": 0,
             "aggs": {
                 "access_year": {
                     "terms": {
@@ -485,7 +529,13 @@ class AccessStats(clients.AccessStats):
         return charts
 
     @cache_region.cache_on_arguments()
-    def access_by_month_and_year(self, code, collection):
+    def access_by_month_and_year(self, code, collection, date_range_start=None, date_range_end=None):
+
+        end = datetime.now()
+        start = end - timedelta(365*3)
+
+        date_range_start = date_range_start or start.isoformat()[0:10]
+        date_range_end = date_range_end or end.isoformat()[0:10]
 
         body = {
             "query": {
@@ -493,6 +543,14 @@ class AccessStats(clients.AccessStats):
                     "must": [{
                             "match": {
                                 "collection": collection
+                            }
+                        },
+                        {
+                            "range": {
+                                "access_date": {
+                                    "gte": date_range_start,
+                                    "lte": date_range_end
+                                }
                             }
                         }
                     ]

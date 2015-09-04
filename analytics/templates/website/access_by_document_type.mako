@@ -10,7 +10,7 @@
             }
         };
         
-        var url =  "/ajx/accesses/bydocumenttype?code=${selected_code}&collection=${selected_collection_code}&callback=?";
+        var url =  "/ajx/accesses/bydocumenttype?code=${selected_code}&collection=${selected_collection_code}&range_start=${range_start}&range_end=${range_end}&callback=?";
         $.getJSON(url,  function(data) {
             options['series'] = data['series'];
             $('#bydocumenttype').highcharts(options);

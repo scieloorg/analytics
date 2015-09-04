@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/static/bootstrap-3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/bootstrap-3.2.0/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/daterangepicker/daterangepicker.css" />
     <script src="/static/jquery-1.11.1/jquery-1.11.1.min.js"></script>
   </header>
   <body>
@@ -115,8 +116,10 @@
       </div>
     </div>
     <script src="/static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+    <script src="/static/moment/moment.min.js"></script>
     <script src="/static/highcharts/highcharts.min.js"></script>
     <script src="/static/highcharts/plugins/export-csv-master/export-csv.js"></script>
+    <script src="/static/daterangepicker/daterangepicker.js"></script>
     <script>$('.collapse').collapse()</script>
     <%block name="extra_js" />
   </body>

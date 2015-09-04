@@ -1,6 +1,7 @@
 <%inherit file="base.mako"/>
 
 <%block name="central_container">
+  <%include file="access_datepicker.mako"/>
   <h3>Acessos documentos por periódicos</h3>
   <table class="table">
     <tr>

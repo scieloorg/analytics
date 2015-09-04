@@ -126,8 +126,10 @@ def bymonthandyear(request):
 
     collection = request.GET.get('collection', None)
     code = request.GET.get('code', None)
+    range_start = request.GET.get('range_start', None)
+    range_end = request.GET.get('range_end', None)
 
-    data = request.accessstats.access_by_month_and_year(code, collection)
+    data = request.accessstats.access_by_month_and_year(code, collection, range_start, range_end)
 
     return data
 
@@ -137,8 +139,10 @@ def documenttype(request):
 
     collection = request.GET.get('collection', None)
     code = request.GET.get('code', None)
+    range_start = request.GET.get('range_start', None)
+    range_end = request.GET.get('range_end', None)
 
-    data = request.accessstats.access_by_document_type(code, collection)
+    data = request.accessstats.access_by_document_type(code, collection, range_start, range_end)
 
     return data
 
@@ -148,7 +152,9 @@ def lifetime(request):
 
     collection = request.GET.get('collection', None)
     code = request.GET.get('code', None)
+    range_start = request.GET.get('range_start', None)
+    range_end = request.GET.get('range_end', None)
 
-    data = request.accessstats.access_lifetime(code, collection)
+    data = request.accessstats.access_lifetime(code, collection, range_start, range_end)
 
     return data
