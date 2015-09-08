@@ -12,5 +12,6 @@ def add_localizer(event):
     localizer = get_localizer(request)
     def auto_translate(*args, **kwargs):
         return localizer.translate(tsf(*args, **kwargs))
+
     request.localizer = localizer
     request.translate = auto_translate
