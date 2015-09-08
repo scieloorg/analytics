@@ -1,20 +1,25 @@
+## coding: utf-8
 <%inherit file="base.mako"/>
 
 <%block name="central_container">
   <%include file="access_datepicker.mako"/>
-  <h3>Acessos documentos por periódicos</h3>
+  <h3>${_(u'Top 100 artigos por número de acessos')}</h3>
   <table class="table">
     <tr>
-      <th>periódico</th>
+      <th>${_(u'artigo')}</th>
       <th>html</th>
       <th>pdf</th>
       <th>epdf</th>
-      <th>abstract</th>
-      <th>total</th>
+      <th>${_(u'resumo')}</th>
+      <th>${_(u'total')}</th>
     </tr>
     % for item in aclist:
       <tr>
-        <td><a href="?journal=${item['issn']}">${item['title']}</a></td>
+        <td>
+          <a href="http://${selected_collection}/scielo.php?script=sci_arttext&amp;pid=${item['pid']}" target="_blank">
+            <span class="glyphicon glyphicon-globe" />
+          </a>
+          <a href="${request.route_url('accesses_web')}?document=${item['pid']}">${item['pid']}</a></td>
         <td>${item['html']}</td>
         <td>${item['pdf']}</td>
         <td>${item['epdf']}</td>

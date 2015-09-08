@@ -1,8 +1,9 @@
+## coding: utf-8
  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
  <html>
   <header>
-    <title>SciELO Estatísticas</title>
+    <title>${_(u'SciELO Estatísticas')}</title>
     <link rel="stylesheet" href="/static/bootstrap-3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/bootstrap-3.2.0/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
@@ -16,13 +17,13 @@
           <div class="navbar-header">
             <a class="navbar-brand" href="#">
               <span class="glyphicon glyphicon-stats"></span>
-              SciELO Estatísticas
+              ${_(u"SciELO Estatísticas")}
             </a>
           </div>
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Coleções <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">${_(u'Coleções')} <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                   % for acron, name in sorted(collections.items(), key=lambda x: x[1]):
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="?collection=${acron}">${name}</a></li>
@@ -30,7 +31,7 @@
                 </ul>
               </li>
             </ul>
-            <button type="submit" class="btn navbar-btn" data-toggle="modal" data-target="#journal_selector_modal">selecionar periódico</button>
+            <button type="submit" class="btn navbar-btn" data-toggle="modal" data-target="#journal_selector_modal">${_(u'selecionar periódico')}</button>
           </div> <!-- collapse -->
         </div> <!-- container-fluid -->
       </nav>
@@ -71,17 +72,18 @@
         <div class="container-fluid">
           <ul class="nav navbar-nav">
             <li class="${'active' if page == 'accesses' else ''}">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Acessos <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${_(u'Acessos')} <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="${request.route_url('accesses_web')}">Gráficos</a></li>
-                <li><a href="${request.route_url('accesses_list_journals_web')}">Periódicos</a></li>
+                <li><a href="${request.route_url('accesses_web')}">${_(u'Gráficos')}</a></li>
+                <li><a href="${request.route_url('accesses_list_journals_web')}">${_(u'Periódicos')}</a></li>
+                <li><a href="${request.route_url('accesses_list_articles_web')}">${_(u'Top 100 Artigos')}</a></li>
               </ul>
             </li>
             <li class="${'active' if page == 'publication' else ''}">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Publicação <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${_(u'Publicação')} <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="${request.route_url('publication_article_web')}">Gráficos de documentos</a></li>
-                <li><a href="${request.route_url('publication_journal_web')}">Gráficos de periódicos</a></li>
+                <li><a href="${request.route_url('publication_article_web')}">${_(u'Gráficos de documentos')}</a></li>
+                <li><a href="${request.route_url('publication_journal_web')}">${_(u'Gráficos de periódicos')}</a></li>
               </ul>
             </li>
           </ul>
@@ -96,12 +98,12 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">fechar</span></button>
-            <h4 class="modal-title" id="myModalLabel">selecionar periódico</h4>
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">${_(u'fechar')}</span></button>
+            <h4 class="modal-title" id="myModalLabel">${_(u'selecionar periódico')}</h4>
           </div>
           <form role="form" method="GET">
             <div class="modal-body">
-                Selecionar um periódico:
+                ${_(u'selecionar um periódico')}:
                 <select class="form-control" name="journal">
                   % for issn, title in sorted(journals.items(), key=lambda x: x[1]):
                     <option value="${issn}">${title}</option>
@@ -109,7 +111,7 @@
                 </select>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-primary">selecionar</button>
+              <button type="submit" class="btn btn-primary">${_(u'selecionar')}</button>
             </div>
           </form>
         </div>

@@ -1,3 +1,4 @@
+## coding: utf-8
 <div id="article_year" style="width:60%; height:400px;"></div>
 <script language="javascript">
     $(document).ready(function() {
@@ -6,11 +7,11 @@
                 'type': 'column'
             },
             'title': {
-                'text': 'Distribuição de ano de publicação dos documentos',
+                'text': '${_(u'Distribuição de ano de publicação dos documentos')}',
             },
             'yAxis': {
                 'title': {
-                    'text': 'Número de documentos'
+                    'text': '${_(u'Número de documentos')}'
                 }
             },
             'legend': {
@@ -25,7 +26,7 @@
             options['xAxis'] = {
                 'categories': data['categories'],
                 'title': {
-                    'text': 'Ano de publicação',
+                    'text': '${_(u'Ano de publicação')}',
                     'align': 'high'
                 }
             };

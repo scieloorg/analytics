@@ -1,3 +1,4 @@
+## coding: utf-8
 <ul id="lifetime" style="width: 60%; list-style-type: none; padding: 0px; margin: 0px;"></ul>
 <script language="javascript">
     $(document).ready(function() {
@@ -7,7 +8,7 @@
             },
             'xAxis': {
                 'title': {
-                    'text': 'Publication Year',
+                    'text': '${_(u"Ano de Publicação")}',
                     'align': 'high'
                 }
             },
@@ -17,7 +18,7 @@
                 }
             },
             'title': {
-                'text': 'Vida útil de artigos por número de acessos',
+                'text': '${_(u"Vida útil de artigos por número de acessos")}',
             },
             'legend': {
                 'enabled': false
@@ -31,7 +32,7 @@
                 options['series'] = data[item]['series'];
                 options['xAxis']['categories'] = data[item]['categories'];
                 options['yAxis']['title']['text'] = 'acessos ' + data[item]['series'][0]['name'];
-                options['title']['text'] = 'Vida útil de artigos por número de acessos em ' + data[item]['series'][0]['name']
+                options['title']['text'] = '${_(u'Vida útil de artigos por número de acessos em ')}' + data[item]['series'][0]['name']
                 $('#lifetime').append('<li id="lifetime_'+item+'" style="height: 250px; margin-bottom: 100px; padding: 0px; margin: 0px;"></li>');
                 $('#lifetime_'+item).highcharts(options);
             };

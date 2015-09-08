@@ -1,13 +1,14 @@
+## coding: utf-8
 <div id="bymonthandyear" style="width:60%; height:400px;"></div>
 <script language="javascript">
     $(document).ready(function() {
         var options = {
             'title': {
-                'text': 'Total de acessos por ano e mês',
+                'text': '${_(u'Total de acessos por ano e mês')}',
             },
             'yAxis': {
                 'title': {
-                    'text': 'Acessos'
+                    'text': '${_(u'Acessos')}'
                 }
             }
         };

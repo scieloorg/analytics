@@ -10,6 +10,8 @@ from xylose.scielodocument import Article, Journal
 
 from analytics import utils
 
+PAGE_SIZE = 20
+
 ALLOWED_DOC_TYPES_N_FACETS = {
     'articles': [
         'collection',
@@ -235,7 +237,7 @@ class AccessStats(clients.AccessStats):
         if utils.REGEX_ARTICLE.match(code):
             return 'pid'
 
-    def lists(self, field, code, collection, date_range_start=None, date_range_end=None, size=0, limit=20, offset=0):
+    def list_journals(self, code, collection, date_range_start=None, date_range_end=None):
 
         end = datetime.now()
         start = end - timedelta(365*3)
@@ -265,9 +267,9 @@ class AccessStats(clients.AccessStats):
             },
             "size": 0,
             "aggs": {
-                field: {
+                "issn": {
                     "terms": {
-                        "field": field,
+                        "field": "issn",
                         "size": 0,
                         "order": {
                             "1": "desc"
@@ -338,7 +340,7 @@ class AccessStats(clients.AccessStats):
 
         data = []
 
-        for bucket in query_result['aggregations'][field]['buckets']:
+        for bucket in query_result['aggregations']['issn']['buckets']:
             item = {}
             item['issn'] = bucket['key']
             item['title'] = bucket['journal_title']['buckets'][0]['key']
@@ -347,6 +349,107 @@ class AccessStats(clients.AccessStats):
             item['epdf'] = int(bucket['journal_title']['buckets'][0]['access_epdf']['value'])
             item['abstract'] = int(bucket['journal_title']['buckets'][0]['access_abstract']['value'])
             item['total'] = int(bucket['journal_title']['buckets'][0]['access_total']['value'])
+            
+            data.append(item)
+
+        return data
+
+
+    def list_articles(self, code, collection, date_range_start=None, date_range_end=None):
+
+        end = datetime.now()
+        start = end - timedelta(365*3)
+
+
+        date_range_start = date_range_start or start.isoformat()
+        date_range_end = date_range_end or end.isoformat()
+
+        body = {
+            "query": {
+                "bool": {
+                    "must": [{
+                            "match": {
+                                "collection": collection
+                            }
+                        },
+                        {
+                            "range": {
+                                "access_date": {
+                                    "gte": date_range_start,
+                                    "lte": date_range_end
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "size": 0,
+            "aggs": {
+                "pid": {
+                    "terms": {
+                        "field": "pid",
+                        "size": 100,
+                        "order": {
+                            "access_total": "desc"
+                        }
+                    },
+                    "aggs": {
+                        "access_total": {
+                            "sum": {
+                                "field": "access_total"
+                            }
+                        },
+                        "access_epdf": {
+                            "sum": {
+                                "field": "access_epdf"
+                            }
+                        },
+                        "access_pdf": {
+                            "sum": {
+                                "field": "access_pdf"
+                            }
+                        },
+                        "access_html": {
+                            "sum": {
+                                "field": "access_html"
+                            }
+                        },
+                        "access_abstract": {
+                            "sum": {
+                                "field": "access_abstract"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        code_type = self._code_type(code)
+
+        if code_type:
+            body["query"]["bool"]["must"].append({
+                    "match": {
+                        code_type: code
+                    }
+                }
+            )
+
+        query_parameters = [
+            clients.accessstats_thrift.kwargs('size', '0')
+        ]
+
+        query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
+
+        data = []
+
+        for bucket in query_result['aggregations']['pid']['buckets']:
+            item = {}
+            item['pid'] = bucket['key']
+            item['html'] = int(bucket['access_html']['value'])
+            item['pdf'] = int(bucket['access_pdf']['value'])
+            item['epdf'] = int(bucket['access_epdf']['value'])
+            item['abstract'] = int(bucket['access_abstract']['value'])
+            item['total'] = int(bucket['access_total']['value'])
             
             data.append(item)
 

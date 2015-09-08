@@ -1,3 +1,4 @@
+## coding: utf-8
 <div id="journal_status" style="width:60%; height:400px;"></div>
 <script language="javascript">
     $(document).ready(function() {
@@ -6,11 +7,11 @@
                 'type': 'column'
             },
             'title': {
-                'text': 'Distribuição de periódicos por situação atual de publicação no SciELO',
+                'text': '${_(u'Distribuição de periódicos por situação atual de publicação no SciELO')}',
             },
             'yAxis': {
                 'title': {
-                    'text': 'Número de periódicos'
+                    'text': '${_(u'Número de periódicos')}'
                 }
             },
             'legend': {
@@ -25,7 +26,7 @@
             options['xAxis'] = {
                 'categories': data['categories'],
                 'title': {
-                    'text': 'Situação da publicação',
+                    'text': '${_(u'Situação da publicação')}',
                     'align': 'high'
                 }
             };

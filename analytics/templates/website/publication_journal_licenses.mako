@@ -1,3 +1,4 @@
+## coding: utf-8
 <div id="licenses" style="width:60%; height:400px;"></div>
 <script language="javascript">
     $(document).ready(function() {
@@ -6,11 +7,11 @@
                 'type': 'column'
             },
             'title': {
-                'text': 'Distribuição de licença de uso dos periódicos',
+                'text': '${_(u'Distribuição de licença de uso dos periódicos')}',
             },
             'yAxis': {
                 'title': {
-                    'text': 'Número de periódicos'
+                    'text': '${_(u'Número de periódicos')}'
                 }
             },
             'legend': {
@@ -25,7 +26,7 @@
             options['xAxis'] = {
                 'categories': data['categories'],
                 'title': {
-                    'text': 'Licenças de uso',
+                    'text': '${_(u'Licenças de uso')}',
                     'align': 'high'
                 }
             };

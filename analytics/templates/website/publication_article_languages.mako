@@ -1,3 +1,4 @@
+## coding: utf-8
 <div id="article_languages" style="width:60%; height:400px;"></div>
 <script language="javascript">
     $(document).ready(function() {
@@ -6,11 +7,11 @@
                 'type': 'column'
             },
             'title': {
-                'text': 'Distribuição de idiomas dos documentos',
+                'text': '${_(u'Distribuição de idiomas dos documentos')}',
             },
             'yAxis': {
                 'title': {
-                    'text': 'Número de documentos'
+                    'text': '${_(u'Número de documentos')}'
                 }
             },
             'legend': {
@@ -25,7 +26,7 @@
             options['xAxis'] = {
                 'categories': data['categories'],
                 'title': {
-                    'text': 'Idiomas de publicação',
+                    'text': '${_(u'Idiomas de publicação')}',
                     'align': 'high'
                 }
             };

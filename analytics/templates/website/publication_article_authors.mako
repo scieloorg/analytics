@@ -1,3 +1,4 @@
+## coding: utf-8
 <div id="article_authors" style="width: 60%; height:400px;"></div>
 <script language="javascript">
     $(document).ready(function() {
@@ -6,11 +7,11 @@
                 'type': 'column'
             },
             'title': {
-                'text': 'Distribuição de número de autores dos documentos',
+                'text': '${_(u'Distribuição de número de autores dos documentos')}',
             },
             'yAxis': {
                 'title': {
-                    'text': 'Número de documentos'
+                    'text': '${_(u'Número de documentos')}'
                 }
             },
             'legend': {
@@ -25,7 +26,7 @@
             options['xAxis'] = {
                 'categories': data['categories'],
                 'title': {
-                    'text': 'Número de autores',
+                    'text': '${_(u'Número de autores')}',
                     'align': 'high'
                 }
             };

@@ -1,3 +1,4 @@
+## coding: utf-8
 <%inherit file="base.mako"/>
 
 <%block name="central_container">
@@ -28,11 +29,11 @@
           <!-- Controls -->
           <a class="left carousel-control" href="#carousel-production" role="button" data-slide="prev">
             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
+            <span class="sr-only">${_(u'anterioru')}</span>
           </a>
           <a class="right carousel-control" href="#carousel-production" role="button" data-slide="next">
             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
+            <span class="sr-only">${_(u'próximo')}</span>
           </a>
     </div>
 </%block>

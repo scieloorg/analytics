@@ -1,13 +1,14 @@
+## coding: utf-8
 <div class="row container-fluid" style="padding-left: 30px;">
   <form class="form-inline">
     <div class="form-group">
-      <label class="sr-only" for="exampleInputAmount">Período</label>
+      <label class="sr-only" for="exampleInputAmount">${_(u'Período')}</label>
       <div class="input-group">
         <div class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></div>
         <input type="text" id="daterange" style="width: 180px; height: 30px;"/>
-        <div class="input-group-addon"><a href="?range_start=${y3}&amp;range_end=${today}">3 anos</a></div>
-        <div class="input-group-addon"><a href="?range_start=${y2}&amp;range_end=${today}">2 anos</a></div>
-        <div class="input-group-addon"><a href="?range_start=${y1}&amp;range_end=${today}">1 anos</a></div>
+        <div class="input-group-addon"><a href="?range_start=${y3}&amp;range_end=${today}">${_('3 anos')}</a></div>
+        <div class="input-group-addon"><a href="?range_start=${y2}&amp;range_end=${today}">${_('2 anos')}</a></div>
+        <div class="input-group-addon"><a href="?range_start=${y1}&amp;range_end=${today}">${_('1 anos')}</a></div>
       </div>
     </div>
   </form>

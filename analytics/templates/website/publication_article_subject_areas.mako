@@ -1,3 +1,4 @@
+## coding: utf-8
 <div id="subject_areas" style="width:60%; height:400px;"></div>
 <script language="javascript">
     $(document).ready(function() {
@@ -6,11 +7,11 @@
                 'type': 'column'
             },
             'title': {
-                'text': 'Distribuição de área temática dos documentos',
+                'text': '${_(u'Distribuição de área temática dos documentos')}',
             },
             'yAxis': {
                 'title': {
-                    'text': 'Número de documentos'
+                    'text': '${_(u'Número de documentos')}'
                 }
             },
             'legend': {
@@ -25,7 +26,7 @@
             options['xAxis'] = {
                 'categories': data['categories'],
                 'title': {
-                    'text': 'Areas temáticas',
+                    'text': '${_(u'Areas temáticas')}',
                     'align': 'high'
                 }
             };

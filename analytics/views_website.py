@@ -115,7 +115,7 @@ def base_data_manager(wrapped):
         journal_code = request.session.get('journal', None)
         range_end = request.session.get('range_end', datetime.datetime.now().isoformat()[0:10])
         range_start = request.session.get('range_start', (datetime.datetime.now() - datetime.timedelta(365*3)).isoformat()[0:10])
-        document_code = utils.REGEX_ARTICLE.match(request.GET.get('document', ''))
+        document_code = utils.REGEX_ARTICLE.match(request.session.get('document', ''))
         if document_code:
             document_code = document_code.string
 
@@ -136,18 +136,14 @@ def index(request):
 
     return data
 
-@view_config(route_name='accesses_list_journals_web', renderer='templates/website/accesses_list_journals.mako')
+@view_config(route_name='accesses_list_journals_web', renderer='templates/website/access_list_journals.mako')
 @base_data_manager
 def accesses_list_journals(request):
-
-    document = request.GET.get('document', None)
-    collection = request.GET.get('collection', None)
 
     data = request.data_manager
     data['page'] = 'accesses'
 
-    data['aclist'] = request.accessstats.lists(
-        'issn',
+    data['aclist'] = request.accessstats.list_journals(
         data['selected_code'],
         data['selected_collection_code'],
         data['range_start'],
@@ -156,12 +152,27 @@ def accesses_list_journals(request):
 
     return data
 
+
+@view_config(route_name='accesses_list_articles_web', renderer='templates/website/access_list_articles.mako')
+@base_data_manager
+def accesses_list_articles(request):
+
+    data = request.data_manager
+    data['page'] = 'accesses'
+
+    data['aclist'] = request.accessstats.list_articles(
+        data['selected_code'],
+        data['selected_collection_code'],
+        data['range_start'],
+        data['range_end']
+    )
+
+    return data
+
+
 @view_config(route_name='accesses_web', renderer='templates/website/accesses.mako')
 @base_data_manager
 def accesses(request):
-
-    document = request.GET.get('document', None)
-    collection = request.GET.get('collection', None)
 
     data = request.data_manager
     data['page'] = 'accesses'
@@ -172,9 +183,6 @@ def accesses(request):
 @base_data_manager
 def publication_journal(request):
 
-    document = request.GET.get('document', None)
-    collection = request.GET.get('collection', None)
-
     data = request.data_manager
     data['page'] = 'publication'
 
@@ -183,9 +191,6 @@ def publication_journal(request):
 @view_config(route_name='publication_article_web', renderer='templates/website/publication_article.mako')
 @base_data_manager
 def publication_article(request):
-
-    document = request.GET.get('document', None)
-    collection = request.GET.get('collection', None)
 
     data = request.data_manager
     data['page'] = 'publication'

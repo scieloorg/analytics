@@ -21,6 +21,7 @@ install_requires = [
     'pyramid_mako',
     'pyramid_debugtoolbar',
     'waitress',
+    'Babel>=2.0'
     ]
 
 test_requires = []
@@ -50,6 +51,14 @@ setup(
         "git+https://github.com/scieloorg/xylose@v0.31#egg=xylose",
         "git+https://github.com/scieloorg/thriftpy-wrap@0.1.1#egg=thriftpywrap"
     ],
+    message_extractors = {
+        'analytics': [
+            ('**.py', 'python', None),
+            ('templates/**.html', 'mako', None),
+            ('templates/**.mako', 'mako', None),
+            ('static/**', 'ignore', None)
+        ]
+    },
     include_package_data=True,
     zip_safe=False,
     setup_requires=["nose>=1.0", "coverage"],

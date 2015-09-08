@@ -1,3 +1,4 @@
+## coding: utf-8
 <div id="journal_year" style="width:60%; height:400px;"></div>
 <script language="javascript">
     $(document).ready(function() {
@@ -6,11 +7,11 @@
                 'type': 'column'
             },
             'title': {
-                'text': 'Distribuição de periódicos por ano de inclusão no SciELO',
+                'text': '${_(u'Distribuição de periódicos por ano de inclusão no SciELO')}',
             },
             'yAxis': {
                 'title': {
-                    'text': 'Número de periódicos'
+                    'text': '${_(u'Número de periódicos')}'
                 }
             },
             'legend': {
@@ -25,7 +26,7 @@
             options['xAxis'] = {
                 'categories': data['categories'],
                 'title': {
-                    'text': 'Ano de inclusão',
+                    'text': '${_(u'Ano de inclusão')}',
                     'align': 'high'
                 }
             };

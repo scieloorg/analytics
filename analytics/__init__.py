@@ -29,6 +29,7 @@ def main(global_config, **settings):
     config.add_route('index_web', '/')
     config.add_route('accesses_web', '/w/accesses')
     config.add_route('accesses_list_journals_web', '/w/accesses/list/journals')
+    config.add_route('accesses_list_articles_web', '/w/accesses/list/articles')
     config.add_route('accesses_bydocumenttype', '/ajx/accesses/bydocumenttype')
     config.add_route('accesses_bymonthandyear', '/ajx/accesses/bymonthandyear')
     config.add_route('accesses_lifetime', '/ajx/accesses/lifetime')
@@ -48,6 +49,13 @@ def main(global_config, **settings):
     config.add_request_method(add_accessstats, 'accessstats', reify=True)
     config.add_request_method(add_articlemeta, 'articlemeta', reify=True)
     config.add_request_method(add_publicationstats, 'publicationstats', reify=True)
+
+
+    config.add_subscriber('analytics.subscribers.add_renderer_globals',
+                          'pyramid.events.BeforeRender')
+    config.add_subscriber('analytics.subscribers.add_localizer',
+                          'pyramid.events.NewRequest')
+    config.add_translation_dirs('analytics:locale')
 
     ## Cache Settings Config
     if 'memcached_host' in settings:

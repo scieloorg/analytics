@@ -1,3 +1,4 @@
+## coding: utf-8
 <div id="bydocumenttype" style="width:60%; height:400px;"></div>
 <script language="javascript">
     $(document).ready(function() {
@@ -6,7 +7,7 @@
                 type: 'pie'
             },
             title: {
-                text: 'Total de accessos por tipo de documento',
+                text: '${_('Total de accessos por tipo de documento')}',
             }
         };
         
