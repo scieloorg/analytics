@@ -153,6 +153,23 @@ def accesses_list_journals(request):
     return data
 
 
+@view_config(route_name='accesses_list_issues_web', renderer='templates/website/access_list_issues.mako')
+@base_data_manager
+def accesses_list_issues(request):
+
+    data = request.data_manager
+    data['page'] = 'accesses'
+
+    data['aclist'] = request.accessstats.list_issues(
+        data['selected_code'],
+        data['selected_collection_code'],
+        data['range_start'],
+        data['range_end']
+    )
+
+    return data
+
+
 @view_config(route_name='accesses_list_articles_web', renderer='templates/website/access_list_articles.mako')
 @base_data_manager
 def accesses_list_articles(request):

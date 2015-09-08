@@ -355,6 +355,107 @@ class AccessStats(clients.AccessStats):
         return data
 
 
+    def list_issues(self, code, collection, date_range_start=None, date_range_end=None):
+
+        end = datetime.now()
+        start = end - timedelta(365*3)
+
+
+        date_range_start = date_range_start or start.isoformat()
+        date_range_end = date_range_end or end.isoformat()
+
+        body = {
+            "query": {
+                "bool": {
+                    "must": [{
+                            "match": {
+                                "collection": collection
+                            }
+                        },
+                        {
+                            "range": {
+                                "access_date": {
+                                    "gte": date_range_start,
+                                    "lte": date_range_end
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "size": 0,
+            "aggs": {
+                "issue": {
+                    "terms": {
+                        "field": "issue",
+                        "size": 100,
+                        "order": {
+                            "access_total": "desc"
+                        }
+                    },
+                    "aggs": {
+                        "access_total": {
+                            "sum": {
+                                "field": "access_total"
+                            }
+                        },
+                        "access_epdf": {
+                            "sum": {
+                                "field": "access_epdf"
+                            }
+                        },
+                        "access_pdf": {
+                            "sum": {
+                                "field": "access_pdf"
+                            }
+                        },
+                        "access_html": {
+                            "sum": {
+                                "field": "access_html"
+                            }
+                        },
+                        "access_abstract": {
+                            "sum": {
+                                "field": "access_abstract"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        code_type = self._code_type(code)
+
+        if code_type:
+            body["query"]["bool"]["must"].append({
+                    "match": {
+                        code_type: code
+                    }
+                }
+            )
+
+        query_parameters = [
+            clients.accessstats_thrift.kwargs('size', '0')
+        ]
+
+        query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
+
+        data = []
+
+        for bucket in query_result['aggregations']['issue']['buckets']:
+            item = {}
+            item['issue'] = bucket['key']
+            item['html'] = int(bucket['access_html']['value'])
+            item['pdf'] = int(bucket['access_pdf']['value'])
+            item['epdf'] = int(bucket['access_epdf']['value'])
+            item['abstract'] = int(bucket['access_abstract']['value'])
+            item['total'] = int(bucket['access_total']['value'])
+            
+            data.append(item)
+
+        return data
+
+
     def list_articles(self, code, collection, date_range_start=None, date_range_end=None):
 
         end = datetime.now()

@@ -29,6 +29,7 @@ def main(global_config, **settings):
     config.add_route('index_web', '/')
     config.add_route('accesses_web', '/w/accesses')
     config.add_route('accesses_list_journals_web', '/w/accesses/list/journals')
+    config.add_route('accesses_list_issues_web', '/w/accesses/list/issues')
     config.add_route('accesses_list_articles_web', '/w/accesses/list/articles')
     config.add_route('accesses_bydocumenttype', '/ajx/accesses/bydocumenttype')
     config.add_route('accesses_bymonthandyear', '/ajx/accesses/bymonthandyear')
