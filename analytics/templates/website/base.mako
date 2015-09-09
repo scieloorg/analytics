@@ -3,7 +3,7 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
  <html>
   <header>
-    <title>${_(u'SciELO Estatísticas')}</title>
+    <title>${_(u'SciELO Estatísticas')} (Beta)</title>
     <link rel="stylesheet" href="/static/bootstrap-3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/bootstrap-3.2.0/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
@@ -17,7 +17,7 @@
           <div class="navbar-header">
             <a class="navbar-brand" href="#">
               <span class="glyphicon glyphicon-stats"></span>
-              ${_(u"SciELO Estatísticas")}
+              ${_(u"SciELO Estatísticas")} (Beta)
             </a>
           </div>
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -87,14 +87,57 @@
                 <li><a href="${request.route_url('publication_journal_web')}">${_(u'Gráficos de periódicos')}</a></li>
               </ul>
             </li>
+            <li class="${'active' if page == 'faq' else ''}">
+              <a href="${request.route_url('faq_web')}">FAQ</a>
+            </li>
           </ul>
         </div> <!-- div container-fluid -->
       </nav>
     </div> <!-- div row -->
 
-    <div class="row container-fluid">
+    <div class="row container-fluid" style="padding-left: 30px; pading-right: 30px;">
       <%block name="central_container" />
     </div><!-- div row -->
+    <div class="row container-fluid footer">
+      <div class="col-md-4">
+        <p>
+          <strong>
+            SciELO - Scientific Electronic Library Online <br>
+            <a href="http://www.fapesp.br" target="_blank">FAPESP</a>
+            <a href="http://www.cnpq.br" target="_blank">CNPq</a>
+            <a href="http://www.bireme.org">BIREME</a>
+            <a href="http://www.fapunifesp.edu.br" target="_blank">FapUnifesp</a>
+          </strong>
+        </p>
+        <p>
+          Avenida Onze de Junho, 269 - Vila Clementino 04041-050 São Paulo</p>
+          <p>Tel.: +55 11 5083-3639/59 - Email: <a href="mailto:scielo@scielo.org">scielo@scielo.org</a>
+        </p>
+      </div>
+      <div class="col-md-3">
+        <h4>${_(u'Ajuda')}</h4>
+        <ul>
+          <li><a href="http://github.com/scieloorg/analytics/issues/new">${_(u'Reportar error')}</a></li>
+          <li><a href="http://groups.google.com/group/scielo-discuss" target="_blank">${_(u'Lista de discussão')}</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <h4>${_(u'Desenvolvimento')}</h4>
+        <ul>
+          <li><a href="http://www.github.com/scieloorg/" target="_blank">GitHub</a></li>
+          <li><a href="http://groups.google.com/group/scielo-dev" target="_blank">${_(u'Lista de desenvolvimento')}</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2">
+        <form id="form_languages" method="POST">
+          <select id="lang_options" name="_LOCALE_">
+            <option value="pt" ${'selected=""' if locale == 'pt' else ''}>Português</option>
+            <option value="en" ${'selected=""' if locale == 'en' else ''}>English</option>
+            <option value="es" ${'selected=""' if locale == 'es' else ''}>Español</option>
+          </select>
+        </form>
+      </div>
+    </div>
     <div class="modal fade" id="journal_selector_modal" tabindex="-1" role="dialog" aria-labelledby="journal_selector_modal" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -105,7 +148,7 @@
           <form role="form" method="GET">
             <div class="modal-body">
                 ${_(u'selecionar um periódico')}:
-                <select class="form-control" name="journal">
+                <select name="journal">
                   % for issn, title in sorted(journals.items(), key=lambda x: x[1]):
                     <option value="${issn}">${title}</option>
                   % endfor
@@ -124,6 +167,12 @@
     <script src="/static/highcharts/plugins/export-csv-master/export-csv.js"></script>
     <script src="/static/daterangepicker/daterangepicker.js"></script>
     <script>$('.collapse').collapse()</script>
+    <script>
+      $('#lang_options').change(
+        function(){
+          $('#form_languages').submit();
+        });
+    </script>
     <%block name="extra_js" />
   </body>
 </html>

@@ -20,6 +20,7 @@ def check_session(wrapped):
         document = request.GET.get('document', None)
         range_start = request.GET.get('range_start', None)
         range_end = request.GET.get('range_end', None)
+        locale = request.GET.get('_LOCALE_', request.locale_name)
 
         if journal == 'clean' and 'journal' in request.session:
             del(request.session['journal'])
@@ -38,6 +39,7 @@ def check_session(wrapped):
         session_document = request.session.get('document', None)
         session_range_start = request.session.get('range_start', None)
         session_range_end = request.session.get('range_end', None)
+        session_locale = request.session.get('_LOCALE_', None)
 
         if collection and collection != session_collection:
             request.session['collection'] = collection
@@ -58,6 +60,9 @@ def check_session(wrapped):
 
         if range_end and range_end != session_range_end:
             request.session['range_end'] = range_end
+
+        if locale and locale != session_locale:
+            request.session['_LOCALE_'] = locale
 
         return wrapped(request, *arg, **kwargs)
 
@@ -120,6 +125,7 @@ def base_data_manager(wrapped):
             document_code = document_code.string
 
         data = get_data_manager(collection_code, journal_code, document_code, range_start, range_end)
+        data['locale'] = request.session.get('_LOCALE_', request.locale_name)
         setattr(request, 'data_manager', data)
 
         return wrapped(request, *arg, **kwargs)
@@ -135,6 +141,17 @@ def index(request):
     data['page'] = 'home'
 
     return data
+
+
+@view_config(route_name='faq_web', renderer='templates/website/faq.mako')
+@base_data_manager
+def faq(request):
+
+    data = request.data_manager
+    data['page'] = 'faq'
+
+    return data
+
 
 @view_config(route_name='accesses_list_journals_web', renderer='templates/website/access_list_journals.mako')
 @base_data_manager

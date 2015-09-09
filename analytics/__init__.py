@@ -25,8 +25,9 @@ def main(global_config, **settings):
         return controller.articlemeta(settings['articlemeta'])
 
     config.include('pyramid_mako')
-    config.add_static_view('static', 'static', cache_max_age=3600)
+    config.add_static_view('static', 'static', cache_max_age=2592000) # a month cache
     config.add_route('index_web', '/')
+    config.add_route('faq_web', '/w/faq')
     config.add_route('accesses_web', '/w/accesses')
     config.add_route('accesses_list_journals_web', '/w/accesses/list/journals')
     config.add_route('accesses_list_issues_web', '/w/accesses/list/issues')

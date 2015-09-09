@@ -59,3 +59,9 @@ body { padding-top: 70px; }
 .remove_session:hover {
     color: #854F8F;
 }
+
+.footer {
+    border-top: solid 1px #CCCCCC;
+    margin-top: 100px;
+    padding-top: 30px;
+}
