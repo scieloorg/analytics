@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: analytics 0.1.2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-09-08 17:05-0300\n"
+"POT-Creation-Date: 2015-09-10 09:05-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -111,7 +111,7 @@ msgid "Coleções"
 msgstr ""
 
 #: analytics/templates/website/base.mako:34
-#: analytics/templates/website/base.mako:103
+#: analytics/templates/website/base.mako:146
 msgid "selecionar periódico"
 msgstr ""
 
@@ -143,16 +143,70 @@ msgstr ""
 msgid "Gráficos de periódicos"
 msgstr ""
 
-#: analytics/templates/website/base.mako:102
+#: analytics/templates/website/base.mako:118
+msgid "Ajuda"
+msgstr ""
+
+#: analytics/templates/website/base.mako:120
+msgid "Reportar error"
+msgstr ""
+
+#: analytics/templates/website/base.mako:121
+msgid "Lista de discussão"
+msgstr ""
+
+#: analytics/templates/website/base.mako:125
+msgid "Desenvolvimento"
+msgstr ""
+
+#: analytics/templates/website/base.mako:128
+msgid "Lista de desenvolvimento"
+msgstr ""
+
+#: analytics/templates/website/base.mako:145
 msgid "fechar"
 msgstr ""
 
-#: analytics/templates/website/base.mako:107
+#: analytics/templates/website/base.mako:150
 msgid "selecionar um periódico"
 msgstr ""
 
-#: analytics/templates/website/base.mako:115
+#: analytics/templates/website/base.mako:158
 msgid "selecionar"
+msgstr ""
+
+#: analytics/templates/website/faq.mako:5
+msgid "Perguntas Frequentes (Acessos)"
+msgstr ""
+
+#: analytics/templates/website/faq.mako:7
+msgid "Por que algumas coleções não possuem estatísticas de acesso?"
+msgstr ""
+
+#: analytics/templates/website/faq.mako:13
+msgid "Por que algumas coleções possuem acessos computados para um período maior?"
+msgstr ""
+
+#: analytics/templates/website/faq.mako:19 analytics/templates/website/faq.mako:43
+msgid "O que esta sendo contabilizado?"
+msgstr ""
+
+#: analytics/templates/website/faq.mako:24
+msgid ""
+"Porque os indicadores desta ferramenta são diferentes dos fornecidos em "
+"outras ferramentas SciELO?"
+msgstr ""
+
+#: analytics/templates/website/faq.mako:32 analytics/templates/website/faq.mako:50
+msgid "Qual a periodicidade de atualização dos indicadores?"
+msgstr ""
+
+#: analytics/templates/website/faq.mako:35
+msgid "Perguntas Frequentes (Publicação)"
+msgstr ""
+
+#: analytics/templates/website/faq.mako:37
+msgid "Porque algumas coleções possuem dados desatualizados?"
 msgstr ""
 
 #: analytics/templates/website/publication_article_affiliations.mako:10
