@@ -19,7 +19,7 @@
           <a href="http://${selected_collection}/scielo.php?script=sci_issuetoc&amp;pid=${item['issue'][1:]}" target="_blank">
             <span class="glyphicon glyphicon-globe" />
           </a>
-          ${item['issue']}
+          ${item['title']}
         </td>
         <td>${item['html']}</td>
         <td>${item['pdf']}</td>

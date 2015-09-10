@@ -390,33 +390,49 @@ class AccessStats(clients.AccessStats):
                         "field": "issue",
                         "size": 100,
                         "order": {
-                            "access_total": "desc"
+                            "1": "desc"
                         }
-                    },
-                    "aggs": {
-                        "access_total": {
+                  },
+                  "aggs": {
+                        "1": {
                             "sum": {
                                 "field": "access_total"
                             }
                         },
-                        "access_epdf": {
-                            "sum": {
-                                "field": "access_epdf"
-                            }
-                        },
-                        "access_pdf": {
-                            "sum": {
-                                "field": "access_pdf"
-                            }
-                        },
-                        "access_html": {
-                            "sum": {
-                                "field": "access_html"
-                            }
-                        },
-                        "access_abstract": {
-                            "sum": {
-                                "field": "access_abstract"
+                        "issue_title": {
+                            "terms": {
+                                "field": "issue_title",
+                                "size": 1,
+                                "order": {
+                                    "access_total": "desc"
+                                }
+                            },
+                            "aggs": {
+                                "access_total": {
+                                    "sum": {
+                                        "field": "access_total"
+                                    }
+                                },
+                                "access_epdf": {
+                                    "sum": {
+                                        "field": "access_epdf"
+                                    }
+                                },
+                                "access_pdf": {
+                                    "sum": {
+                                        "field": "access_pdf"
+                                    }
+                                },
+                                "access_html": {
+                                    "sum": {
+                                        "field": "access_html"
+                                    }
+                                },
+                                "access_abstract": {
+                                    "sum": {
+                                        "field": "access_abstract"
+                                    }
+                                }
                             }
                         }
                     }
@@ -445,11 +461,12 @@ class AccessStats(clients.AccessStats):
         for bucket in query_result['aggregations']['issue']['buckets']:
             item = {}
             item['issue'] = bucket['key']
-            item['html'] = int(bucket['access_html']['value'])
-            item['pdf'] = int(bucket['access_pdf']['value'])
-            item['epdf'] = int(bucket['access_epdf']['value'])
-            item['abstract'] = int(bucket['access_abstract']['value'])
-            item['total'] = int(bucket['access_total']['value'])
+            item['title'] = bucket['issue_title']['buckets'][0]['key']
+            item['html'] = int(bucket['issue_title']['buckets'][0]['access_html']['value'])
+            item['pdf'] = int(bucket['issue_title']['buckets'][0]['access_pdf']['value'])
+            item['epdf'] = int(bucket['issue_title']['buckets'][0]['access_epdf']['value'])
+            item['abstract'] = int(bucket['issue_title']['buckets'][0]['access_abstract']['value'])
+            item['total'] = int(bucket['issue_title']['buckets'][0]['access_total']['value'])
             
             data.append(item)
 
@@ -491,33 +508,49 @@ class AccessStats(clients.AccessStats):
                         "field": "pid",
                         "size": 100,
                         "order": {
-                            "access_total": "desc"
+                            "1": "desc"
                         }
-                    },
-                    "aggs": {
-                        "access_total": {
+                  },
+                  "aggs": {
+                        "1": {
                             "sum": {
                                 "field": "access_total"
                             }
                         },
-                        "access_epdf": {
-                            "sum": {
-                                "field": "access_epdf"
-                            }
-                        },
-                        "access_pdf": {
-                            "sum": {
-                                "field": "access_pdf"
-                            }
-                        },
-                        "access_html": {
-                            "sum": {
-                                "field": "access_html"
-                            }
-                        },
-                        "access_abstract": {
-                            "sum": {
-                                "field": "access_abstract"
+                        "document_title": {
+                            "terms": {
+                                "field": "document_title",
+                                "size": 1,
+                                "order": {
+                                    "access_total": "desc"
+                                }
+                            },
+                            "aggs": {
+                                "access_total": {
+                                    "sum": {
+                                        "field": "access_total"
+                                    }
+                                },
+                                "access_epdf": {
+                                    "sum": {
+                                        "field": "access_epdf"
+                                    }
+                                },
+                                "access_pdf": {
+                                    "sum": {
+                                        "field": "access_pdf"
+                                    }
+                                },
+                                "access_html": {
+                                    "sum": {
+                                        "field": "access_html"
+                                    }
+                                },
+                                "access_abstract": {
+                                    "sum": {
+                                        "field": "access_abstract"
+                                    }
+                                }
                             }
                         }
                     }
@@ -546,11 +579,12 @@ class AccessStats(clients.AccessStats):
         for bucket in query_result['aggregations']['pid']['buckets']:
             item = {}
             item['pid'] = bucket['key']
-            item['html'] = int(bucket['access_html']['value'])
-            item['pdf'] = int(bucket['access_pdf']['value'])
-            item['epdf'] = int(bucket['access_epdf']['value'])
-            item['abstract'] = int(bucket['access_abstract']['value'])
-            item['total'] = int(bucket['access_total']['value'])
+            item['title'] = bucket['document_title']['buckets'][0]['key']
+            item['html'] = int(bucket['document_title']['buckets'][0]['access_html']['value'])
+            item['pdf'] = int(bucket['document_title']['buckets'][0]['access_pdf']['value'])
+            item['epdf'] = int(bucket['document_title']['buckets'][0]['access_epdf']['value'])
+            item['abstract'] = int(bucket['document_title']['buckets'][0]['access_abstract']['value'])
+            item['total'] = int(bucket['document_title']['buckets'][0]['access_total']['value'])
             
             data.append(item)
 
