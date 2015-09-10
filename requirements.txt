@@ -11,4 +11,4 @@ Babel==2.0
 -e git+https://github.com/scieloorg/xylose@0.32#egg=xylose
 -e git+https://github.com/scieloorg/access_stats@0.1.2#egg=publication_stats
 -e git+https://github.com/scieloorg/thriftpy-wrap@0.1.1#egg=thriftpywrap
--e git+https://github.com/scieloorg/analytics@0.0.1#egg=analytics
+-e git+https://github.com/scieloorg/analytics@0.0.2#egg=analytics

@@ -28,7 +28,7 @@ test_requires = []
 
 setup(
     name="analytics",
-    version='0.1.2',
+    version='0.0.2',
     description="A analytics frontend for SciELO usage and publication statistics",
     author="SciELO",
     author_email="scielo-dev@googlegroups.com",
@@ -48,7 +48,7 @@ setup(
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
     ],
     dependency_links=[
-        "git+https://github.com/scieloorg/xylose@v0.31#egg=xylose",
+        "git+https://github.com/scieloorg/xylose@v0.32#egg=xylose",
         "git+https://github.com/scieloorg/thriftpy-wrap@0.1.1#egg=thriftpywrap"
     ],
     message_extractors = {
