@@ -237,6 +237,7 @@ class AccessStats(clients.AccessStats):
         if utils.REGEX_ARTICLE.match(code):
             return 'pid'
 
+    @cache_region.cache_on_arguments()
     def list_journals(self, code, collection, date_range_start=None, date_range_end=None):
 
         end = datetime.now()
@@ -354,7 +355,7 @@ class AccessStats(clients.AccessStats):
 
         return data
 
-
+    @cache_region.cache_on_arguments()
     def list_issues(self, code, collection, date_range_start=None, date_range_end=None):
 
         end = datetime.now()
@@ -473,6 +474,7 @@ class AccessStats(clients.AccessStats):
         return data
 
 
+    @cache_region.cache_on_arguments()
     def list_articles(self, code, collection, date_range_start=None, date_range_end=None):
 
         end = datetime.now()
