@@ -486,21 +486,31 @@ class AccessStats(clients.AccessStats):
 
         body = {
             "query": {
-                "bool": {
-                    "must": [{
-                            "match": {
-                                "collection": collection
-                            }
-                        },
-                        {
-                            "range": {
-                                "access_date": {
-                                    "gte": date_range_start,
-                                    "lte": date_range_end
+                "filtered": {
+                    "query": {
+                        "bool": {
+                            "must": [
+                                {
+                                    "match": {
+                                        "collection": collection
+                                    }
+                                },
+                                {
+                                    "range": {
+                                        "access_date": {
+                                            "gte": date_range_start,
+                                            "lte": date_range_end
+                                        }
+                                    }
                                 }
-                            }
+                            ]
                         }
-                    ]
+                    },
+                    "filter": {
+                        "exists": {
+                            "field": "document_title"
+                        }
+                    }
                 }
             },
             "size": 0,
@@ -560,6 +570,8 @@ class AccessStats(clients.AccessStats):
             }
         }
 
+        print json.dumps(body, indent=2)
+
         code_type = self._code_type(code)
 
         if code_type:
@@ -581,7 +593,10 @@ class AccessStats(clients.AccessStats):
         for bucket in query_result['aggregations']['pid']['buckets']:
             item = {}
             item['pid'] = bucket['key']
-            item['title'] = bucket['document_title']['buckets'][0]['key']
+            try:
+                item['title'] = bucket['document_title']['buckets'][0]['key']
+            except:
+                import pdb; pdb.set_trace();
             item['html'] = int(bucket['document_title']['buckets'][0]['access_html']['value'])
             item['pdf'] = int(bucket['document_title']['buckets'][0]['access_pdf']['value'])
             item['epdf'] = int(bucket['document_title']['buckets'][0]['access_epdf']['value'])
