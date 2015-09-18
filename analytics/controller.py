@@ -570,12 +570,10 @@ class AccessStats(clients.AccessStats):
             }
         }
 
-        print json.dumps(body, indent=2)
-
         code_type = self._code_type(code)
 
         if code_type:
-            body["query"]["bool"]["must"].append({
+            body["query"]["filtered"]["query"]["bool"]["must"].append({
                     "match": {
                         code_type: code
                     }
@@ -593,10 +591,7 @@ class AccessStats(clients.AccessStats):
         for bucket in query_result['aggregations']['pid']['buckets']:
             item = {}
             item['pid'] = bucket['key']
-            try:
-                item['title'] = bucket['document_title']['buckets'][0]['key']
-            except:
-                import pdb; pdb.set_trace();
+            item['title'] = bucket['document_title']['buckets'][0]['key']
             item['html'] = int(bucket['document_title']['buckets'][0]['access_html']['value'])
             item['pdf'] = int(bucket['document_title']['buckets'][0]['access_pdf']['value'])
             item['epdf'] = int(bucket['document_title']['buckets'][0]['access_epdf']['value'])

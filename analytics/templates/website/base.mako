@@ -15,7 +15,7 @@
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container-fluid">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="${request.route_url('index_web')}">
               <span class="glyphicon glyphicon-stats"></span>
               ${_(u"SciELO Estatísticas")} (Beta)
             </a>
@@ -95,7 +95,7 @@
       </nav>
     </div> <!-- div row -->
 
-    <div class="row container-fluid" style="padding-left: 30px; pading-right: 30px;">
+    <div class="row container-fluid" style="padding-left: 30px; padding-right: 30px;">
       <%block name="central_container" />
     </div><!-- div row -->
     <div class="row container-fluid footer">

@@ -25,7 +25,7 @@ def main(global_config, **settings):
         return controller.articlemeta(settings['articlemeta'])
 
     config.include('pyramid_mako')
-    config.add_static_view('static', 'static', cache_max_age=2592000) # a month cache
+    config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('index_web', '/')
     config.add_route('faq_web', '/w/faq')
     config.add_route('accesses_web', '/w/accesses')
@@ -62,7 +62,7 @@ def main(global_config, **settings):
     ## Cache Settings Config
     if 'memcached_host' in settings:
         cache_config = {}
-        cache_config['expiration_time'] = int(settings.get('memcached_expiration_time', 3600))
+        cache_config['expiration_time'] = int(settings.get('memcached_expiration_time', 2592000)) # a month cache
         cache_config['arguments'] = {'url': settings['memcached_host'], 'binary': True}
         views_website_cache_region.configure('dogpile.cache.pylibmc', **cache_config)
         controller_cache_region.configure('dogpile.cache.pylibmc', **cache_config)
