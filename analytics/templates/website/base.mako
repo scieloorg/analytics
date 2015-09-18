@@ -12,10 +12,10 @@
   </header>
   <body>
     <div class="row">
-      <nav class="navbar navbar-inverse navbar-fixed-top logo_analytics" role="navigation" style="border-bottom: 0px;">
+      <nav class="navbar navbar-inverse navbar-fixed-top logo_analytics" role="navigation">
         <div class="container-fluid">
-          <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right" style="padding-right: 30px;">
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">${_(u'Coleções')} <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
@@ -24,8 +24,10 @@
                   % endfor
                 </ul>
               </li>
+              <li>
+                <button type="submit" class="btn navbar-btn" data-toggle="modal" data-target="#journal_selector_modal">${_(u'selecionar periódico')}</button>
+              </li>
             </ul>
-            <button type="submit" class="btn navbar-btn" data-toggle="modal" data-target="#journal_selector_modal">${_(u'selecionar periódico')}</button>
           </div> <!-- collapse -->
         </div> <!-- container-fluid -->
       </nav>
