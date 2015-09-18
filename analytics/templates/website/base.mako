@@ -12,7 +12,7 @@
   </header>
   <body>
     <div class="row">
-      <nav class="navbar navbar-inverse navbar-fixed-top logo_analytics" role="navigation">
+      <nav class="navbar navbar-inverse navbar-fixed-top logo_analytics" role="navigation" style="border-bottom: 0px;">
         <div class="container-fluid">
           <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
