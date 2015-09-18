@@ -65,3 +65,8 @@ body { padding-top: 70px; }
     margin-top: 100px;
     padding-top: 30px;
 }
+
+.logo_analytics {
+    background-image: url("/static/images/logo_analytics.png");
+    background-repeat: no-repeat;
+}

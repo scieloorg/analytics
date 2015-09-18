@@ -12,15 +12,9 @@
   </header>
   <body>
     <div class="row">
-      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <nav class="navbar navbar-inverse navbar-fixed-top logo_analytics" role="navigation">
         <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="${request.route_url('index_web')}">
-              <span class="glyphicon glyphicon-stats"></span>
-              ${_(u"SciELO Estatísticas")} (Beta)
-            </a>
-          </div>
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">${_(u'Coleções')} <span class="caret"></span></a>
