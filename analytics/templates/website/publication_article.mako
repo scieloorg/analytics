@@ -17,6 +17,11 @@
             </div>
             <div class="item">
                 <center>
+                    <%include file="publication_article_document_type.mako"/>
+                </center>
+            </div>
+            <div class="item">
+                <center>
                     <%include file="publication_article_languages.mako"/>
                 </center>
             </div>

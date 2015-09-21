@@ -89,6 +89,16 @@ def publication_article_subject_areas(request):
     return data
 
 
+@view_config(route_name='publication_article_document_type', request_method='GET', renderer='jsonp')
+def publication_article_document_type(request):
+
+    collection = request.GET.get('collection', None)
+    code = request.GET.get('code', None)
+
+    data = request.publicationstats.general('article', 'document_type', code, collection)
+
+    return data
+
 @view_config(route_name='publication_article_licenses', request_method='GET', renderer='jsonp')
 def publication_article_licenses(request):
 
