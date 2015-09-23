@@ -237,6 +237,23 @@ class AccessStats(clients.AccessStats):
         if utils.REGEX_ARTICLE.match(code):
             return 'pid'
 
+    def _compute_list_journals(self, query_result):
+        data = []
+
+        for bucket in query_result['aggregations']['issn']['buckets']:
+            item = {}
+            item['issn'] = bucket['key']
+            item['title'] = bucket['journal_title']['buckets'][0]['key']
+            item['html'] = int(bucket['journal_title']['buckets'][0]['access_html']['value'])
+            item['pdf'] = int(bucket['journal_title']['buckets'][0]['access_pdf']['value'])
+            item['epdf'] = int(bucket['journal_title']['buckets'][0]['access_epdf']['value'])
+            item['abstract'] = int(bucket['journal_title']['buckets'][0]['access_abstract']['value'])
+            item['total'] = int(bucket['journal_title']['buckets'][0]['access_total']['value'])
+            
+            data.append(item)
+
+        return data
+
     @cache_region.cache_on_arguments()
     def list_journals(self, code, collection, date_range_start=None, date_range_end=None):
 
@@ -339,17 +356,22 @@ class AccessStats(clients.AccessStats):
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
 
+        import pdb; pdb.set_trace()
+
+        return self._compute_list_journals(query_result)
+
+    def _compute_list_issues(self, query_result):
         data = []
 
-        for bucket in query_result['aggregations']['issn']['buckets']:
+        for bucket in query_result['aggregations']['issue']['buckets']:
             item = {}
-            item['issn'] = bucket['key']
-            item['title'] = bucket['journal_title']['buckets'][0]['key']
-            item['html'] = int(bucket['journal_title']['buckets'][0]['access_html']['value'])
-            item['pdf'] = int(bucket['journal_title']['buckets'][0]['access_pdf']['value'])
-            item['epdf'] = int(bucket['journal_title']['buckets'][0]['access_epdf']['value'])
-            item['abstract'] = int(bucket['journal_title']['buckets'][0]['access_abstract']['value'])
-            item['total'] = int(bucket['journal_title']['buckets'][0]['access_total']['value'])
+            item['issue'] = bucket['key']
+            item['title'] = bucket['issue_title']['buckets'][0]['key']
+            item['html'] = int(bucket['issue_title']['buckets'][0]['access_html']['value'])
+            item['pdf'] = int(bucket['issue_title']['buckets'][0]['access_pdf']['value'])
+            item['epdf'] = int(bucket['issue_title']['buckets'][0]['access_epdf']['value'])
+            item['abstract'] = int(bucket['issue_title']['buckets'][0]['access_abstract']['value'])
+            item['total'] = int(bucket['issue_title']['buckets'][0]['access_total']['value'])
             
             data.append(item)
 
@@ -457,22 +479,24 @@ class AccessStats(clients.AccessStats):
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
 
+        return self._compute_list_issues(query_result)
+
+    def _compute_list_articles(self, query_result):
         data = []
 
-        for bucket in query_result['aggregations']['issue']['buckets']:
+        for bucket in query_result['aggregations']['pid']['buckets']:
             item = {}
-            item['issue'] = bucket['key']
-            item['title'] = bucket['issue_title']['buckets'][0]['key']
-            item['html'] = int(bucket['issue_title']['buckets'][0]['access_html']['value'])
-            item['pdf'] = int(bucket['issue_title']['buckets'][0]['access_pdf']['value'])
-            item['epdf'] = int(bucket['issue_title']['buckets'][0]['access_epdf']['value'])
-            item['abstract'] = int(bucket['issue_title']['buckets'][0]['access_abstract']['value'])
-            item['total'] = int(bucket['issue_title']['buckets'][0]['access_total']['value'])
+            item['pid'] = bucket['key']
+            item['title'] = bucket['document_title']['buckets'][0]['key']
+            item['html'] = int(bucket['document_title']['buckets'][0]['access_html']['value'])
+            item['pdf'] = int(bucket['document_title']['buckets'][0]['access_pdf']['value'])
+            item['epdf'] = int(bucket['document_title']['buckets'][0]['access_epdf']['value'])
+            item['abstract'] = int(bucket['document_title']['buckets'][0]['access_abstract']['value'])
+            item['total'] = int(bucket['document_title']['buckets'][0]['access_total']['value'])
             
             data.append(item)
 
         return data
-
 
     @cache_region.cache_on_arguments()
     def list_articles(self, code, collection, date_range_start=None, date_range_end=None):
@@ -586,22 +610,26 @@ class AccessStats(clients.AccessStats):
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
 
-        data = []
+        return self._compute_list_articles(query_result)
 
-        for bucket in query_result['aggregations']['pid']['buckets']:
-            item = {}
-            item['pid'] = bucket['key']
-            item['title'] = bucket['document_title']['buckets'][0]['key']
-            item['html'] = int(bucket['document_title']['buckets'][0]['access_html']['value'])
-            item['pdf'] = int(bucket['document_title']['buckets'][0]['access_pdf']['value'])
-            item['epdf'] = int(bucket['document_title']['buckets'][0]['access_epdf']['value'])
-            item['abstract'] = int(bucket['document_title']['buckets'][0]['access_abstract']['value'])
-            item['total'] = int(bucket['document_title']['buckets'][0]['access_total']['value'])
-            
-            data.append(item)
 
-        return data
+    def _compute_access_by_document_type(self, query_result):
+        series = [
+            {
+                "name": "Document Type",
+                "data": []
+            }
+        ]
 
+        for bucket in query_result['aggregations']['document_type']['buckets']:
+            item = {
+                "name": bucket['key'],
+                "y": bucket['access_total']['value']
+            }
+            series[0]["data"].append(item)
+
+
+        return {"series": series}
 
     @cache_region.cache_on_arguments()
     def access_by_document_type(self, code, collection, date_range_start=None, date_range_end=None):
@@ -665,22 +693,25 @@ class AccessStats(clients.AccessStats):
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
 
-        series = [
-            {
-                "name": "Document Type",
-                "data": []
-            }
-        ]
-
-        for bucket in query_result['aggregations']['document_type']['buckets']:
-            item = {
-                "name": bucket['key'],
-                "y": bucket['access_total']['value']
-            }
-            series[0]["data"].append(item)
+        return self._compute_access_by_document_type(query_result)
 
 
-        return {"series": series}
+    def _compute_access_lifetime(self, query_result):
+        charts = []
+
+        for bucket_access_year in query_result['aggregations']['access_year']['buckets']:
+            access_total = {'name': bucket_access_year['key'], 'data': []}
+            categories = []
+            for bucket_access_total in bucket_access_year['publication_year']['buckets']:
+                access_total['data'].append(int(bucket_access_total['access_total']['value']))
+                categories.append(bucket_access_total['key'])
+            
+            charts.append({
+                'categories': categories,
+                'series': [access_total]
+            })
+
+        return charts
 
     @cache_region.cache_on_arguments()
     def access_lifetime(self, code, collection, date_range_start=None, date_range_end=None):
@@ -762,21 +793,28 @@ class AccessStats(clients.AccessStats):
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
         
-        charts = []
+        return self._compute_access_lifetime(query_result)
 
-        for bucket_access_year in query_result['aggregations']['access_year']['buckets']:
-            access_total = {'name': bucket_access_year['key'], 'data': []}
-            categories = []
-            for bucket_access_total in bucket_access_year['publication_year']['buckets']:
-                access_total['data'].append(int(bucket_access_total['access_total']['value']))
-                categories.append(bucket_access_total['key'])
-            
-            charts.append({
-                'categories': categories,
-                'series': [access_total]
-            })
+    def _compute_access_by_month_and_year(self, query_result):
+        categories = []
+        series = []
+        html = {'name': 'html', 'data': []}
+        pdf = {'name': 'pdf', 'data': []}
+        abstract = {'name': 'abstract', 'data': []}
+        epdf = {'name': 'epdf', 'data': []}
+        for bucket in query_result['aggregations']['access_date']['buckets']:
+            categories.append(bucket['key_as_string'][0:7])
+            html['data'].append(int(bucket['access_html']['value']))
+            pdf['data'].append(int(bucket['access_pdf']['value']))
+            abstract['data'].append(int(bucket['access_abstract']['value']))
+            epdf['data'].append(int(bucket['access_epdf']['value']))
 
-        return charts
+        series.append(html)
+        series.append(pdf)
+        series.append(abstract)
+        series.append(epdf)
+
+        return {'categories': categories, 'series': series}
 
     @cache_region.cache_on_arguments()
     def access_by_month_and_year(self, code, collection, date_range_start=None, date_range_end=None):
@@ -858,22 +896,4 @@ class AccessStats(clients.AccessStats):
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
 
-        categories = []
-        series = []
-        html = {'name': 'html', 'data': []}
-        pdf = {'name': 'pdf', 'data': []}
-        abstract = {'name': 'abstract', 'data': []}
-        epdf = {'name': 'epdf', 'data': []}
-        for bucket in query_result['aggregations']['access_date']['buckets']:
-            categories.append(bucket['key_as_string'][0:7])
-            html['data'].append(int(bucket['access_html']['value']))
-            pdf['data'].append(int(bucket['access_pdf']['value']))
-            abstract['data'].append(int(bucket['access_abstract']['value']))
-            epdf['data'].append(int(bucket['access_epdf']['value']))
-
-        series.append(html)
-        series.append(pdf)
-        series.append(abstract)
-        series.append(epdf)
-
-        return {'categories': categories, 'series': series}
+        return self._compute_access_by_month_and_year(query_result)
