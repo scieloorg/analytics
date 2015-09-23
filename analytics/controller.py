@@ -122,6 +122,33 @@ class PublicationStats(clients.PublicationStats):
             return 'pid'
 
 
+    def _compute_general(self, query_result, field):
+        series = [
+            {
+                "name": field,
+                "data": []
+            }
+        ]
+
+        for bucket in query_result['aggregations'][field]['buckets']:
+            item = {
+                "name": bucket['key'],
+                "y": bucket['doc_count']
+            }
+            series[0]["data"].append(item)
+
+        categories = []
+        series = []
+        documents = {'name': 'documents', 'data': []}
+        for bucket in query_result['aggregations'][field]['buckets']:
+            categories.append(bucket['key'])
+            documents['data'].append(int(bucket['doc_count']))
+
+        series.append(documents)
+
+
+        return {"series": series, "categories": categories}
+
     @cache_region.cache_on_arguments()
     def general(self, index, field, code, collection, size=0):
 
@@ -163,31 +190,7 @@ class PublicationStats(clients.PublicationStats):
 
         query_result = json.loads(self.client.search(index, json.dumps(body), query_parameters))
 
-        series = [
-            {
-                "name": field,
-                "data": []
-            }
-        ]
-
-        for bucket in query_result['aggregations'][field]['buckets']:
-            item = {
-                "name": bucket['key'],
-                "y": bucket['doc_count']
-            }
-            series[0]["data"].append(item)
-
-        categories = []
-        series = []
-        documents = {'name': 'documents', 'data': []}
-        for bucket in query_result['aggregations'][field]['buckets']:
-            categories.append(bucket['key'])
-            documents['data'].append(int(bucket['doc_count']))
-
-        series.append(documents)
-
-
-        return {"series": series, "categories": categories}
+        return self._compute_general(query_result, field)
 
 
 class ArticleMeta(clients.ArticleMeta):

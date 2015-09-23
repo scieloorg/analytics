@@ -13,6 +13,95 @@ class ControllerTest(unittest.TestCase):
     def setUp(self):
 
         self._as = controller.AccessStats('localhost', '11600')
+        self._pu = controller.PublicationStats('localhost', '11600')
+
+    def test_publishing_general(self):
+        query_result = {
+            "hits": {
+                "hits": [],
+                "total": 345,
+                "max_score": 0.0
+            },
+            "timed_out": False,
+            "took": 3,
+            "aggregations": {
+                "subject_areas": {
+                    "buckets": [
+                        {
+                            "key": "Health Sciences",
+                            "doc_count": 113
+                        },
+                        {
+                            "key": "Human Sciences",
+                            "doc_count": 95
+                        },
+                        {
+                            "key": "Agricultural Sciences",
+                            "doc_count": 46
+                        },
+                        {
+                            "key": "Biological Sciences",
+                            "doc_count": 43
+                        },
+                        {
+                            "key": "Applied Social Sciences",
+                            "doc_count": 41
+                        },
+                        {
+                            "key": "Engineering",
+                            "doc_count": 23
+                        },
+                        {
+                            "key": "Exact and Earth Sciences",
+                            "doc_count": 22
+                        },
+                        {
+                            "key": "Linguistics, Letters and Arts",
+                            "doc_count": 13
+                        }
+                    ],
+                    "doc_count_error_upper_bound": 0,
+                    "sum_other_doc_count": 0
+                }
+            },
+            "_shards": {
+                "successful": 5,
+                "failed": 0,
+                "total": 5
+            }
+        }
+
+        expected = {
+            "series": [
+                {
+                    "data": [
+                        113,
+                        95,
+                        46,
+                        43,
+                        41,
+                        23,
+                        22,
+                        13
+                    ],
+                    "name": "documents"
+                }
+            ],
+            "categories": [
+                "Health Sciences",
+                "Human Sciences",
+                "Agricultural Sciences",
+                "Biological Sciences",
+                "Applied Social Sciences",
+                "Engineering",
+                "Exact and Earth Sciences",
+                "Linguistics, Letters and Arts"
+            ]
+        }
+
+        result = self._pu._compute_general(query_result, 'subject_areas')
+
+        self.assertEqual(expected, result)
 
     def test_access_list_journals(self):
         query_result = {
