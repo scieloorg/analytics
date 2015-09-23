@@ -55,7 +55,7 @@ setup(
         "git+https://github.com/scieloorg/xylose@v0.33#egg=xylose",
         "git+https://github.com/scieloorg/thriftpy-wrap@0.1.1#egg=thriftpywrap",
         "git+https://github.com/scieloorg/access_stats@0.1.4#egg=access_stats",
-        "git+https://github.com/scieloorg/publication_stats@0.2.4#egg=access_stats",
+        "git+https://github.com/scieloorg/publication_stats@0.2.4#egg=publication_stats",
         "git+https://github.com/scieloorg/analytics@0.0.4#egg=analytics"
     ],
     message_extractors = {
