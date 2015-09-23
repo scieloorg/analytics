@@ -21,7 +21,7 @@ pyramid.includes =
 elasticsearch = 127.0.0.1
 articlemeta = articlemeta.scielo.org:11720
 
-memcached_host = 127.0.0.1
+#memcached_host = 127.0.0.1
 memcached_expiration_time =3600
 
 ###
