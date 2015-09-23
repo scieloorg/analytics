@@ -10,10 +10,10 @@ with open(os.path.join(here, 'CHANGES.txt')) as f:
     CHANGES = f.read()
 
 install_requires = [
-    'requests>=2.6.0',
-    'elasticsearch>=1.3.0',
+    'requests>=2.7.0',
+    'elasticsearch>=1.7.0',
     'cython>=0.22',
-    'thriftpy>=0.2.0',
+    'thriftpy>=0.3.1',
     'thriftpywrap',
     'xylose',
     'pyramid>=1.5.7',
@@ -21,7 +21,11 @@ install_requires = [
     'pyramid_mako',
     'pyramid_debugtoolbar',
     'waitress',
-    'Babel>=2.0'
+    'Babel>=2.0',
+    'dogpile.cache>=0.5.6',
+    'pylibmc>=1.5.0',
+    'publication_stats',
+    'analytics'
     ]
 
 test_requires = []
@@ -49,7 +53,9 @@ setup(
     ],
     dependency_links=[
         "git+https://github.com/scieloorg/xylose@v0.32#egg=xylose",
-        "git+https://github.com/scieloorg/thriftpy-wrap@0.1.1#egg=thriftpywrap"
+        "git+https://github.com/scieloorg/thriftpy-wrap@0.1.1#egg=thriftpywrap",
+        "git+https://github.com/scieloorg/access_stats@0.1.2#egg=publication_stats",
+        "git+https://github.com/scieloorg/analytics@0.0.4#egg=analytics"
     ],
     message_extractors = {
         'analytics': [
