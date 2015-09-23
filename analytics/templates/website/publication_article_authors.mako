@@ -1,6 +1,12 @@
 ## coding: utf-8
-<div id="article_authors" style="width: 60%; height:400px;"></div>
+<div id="article_authors" style="width: 60%; height:400px;">
+    <span id="loading_article_authors">
+        <img src="/static/images/loading.gif" />
+        <h5>${_(u'loading')}</h5>
+    </span>
+</div>
 <script language="javascript">
+    $("#loading_article_authors").show();
     $(document).ready(function() {
         var options = {
             'chart': {
@@ -31,6 +37,7 @@
                 }
             };
             $('#article_authors').highcharts(options);
+            $("#loading_article_authors").hide();
         });
     });
 </script>

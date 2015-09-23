@@ -1,6 +1,12 @@
 ## coding: utf-8
-<div id="subject_areas" style="width:60%; height:400px;"></div>
+<div id="article_subject_areas" style="width:60%; height:400px;">
+    <span id="loading_subject_areas">
+        <img src="/static/images/loading.gif" />
+        <h5>${_(u'loading')}</h5>
+    </span>
+</div>
 <script language="javascript">
+    $("#loading_subject_areas").show();
     $(document).ready(function() {
         var options = {
             'chart': {
@@ -30,7 +36,8 @@
                     'align': 'high'
                 }
             };
-            $('#subject_areas').highcharts(options);
+            $('#article_subject_areas').highcharts(options);
+            $("#loading_subject_areas").hide();
         });
     });
 </script>

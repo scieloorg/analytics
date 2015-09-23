@@ -1,6 +1,12 @@
 ## coding: utf-8
-<div id="journal_year" style="width:60%; height:400px;"></div>
+<div id="journal_year" style="width:60%; height:400px;">
+    <span id="loading_journal_year">
+        <img src="/static/images/loading.gif" />
+        <h5>${_(u'loading')}</h5>
+    </span>
+</div>
 <script language="javascript">
+    $("#loading_journal_year").show();
     $(document).ready(function() {
         var options = {
             'chart': {
@@ -31,6 +37,7 @@
                 }
             };
             $('#journal_year').highcharts(options);
+            $("#loading_journal_year").hide();
         });
     });
 </script>

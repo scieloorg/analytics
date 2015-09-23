@@ -1,6 +1,12 @@
 ## coding: utf-8
-<div id="document_type" style="width:60%; height:400px;"></div>
+<div id="document_type" style="width:60%; height:400px;">
+    <span id="loading_document_type">
+        <img src="/static/images/loading.gif" />
+        <h5>${_(u'loading')}</h5>
+    </span>
+</div>
 <script language="javascript">
+    $("#loading_document_type").show();
     $(document).ready(function() {
         var options = {
             'chart': {
@@ -31,6 +37,7 @@
                 }
             };
             $('#document_type').highcharts(options);
+            $("#loading_document_type").hide();
         });
     });
 </script>
