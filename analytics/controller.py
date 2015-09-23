@@ -356,8 +356,6 @@ class AccessStats(clients.AccessStats):
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
 
-        import pdb; pdb.set_trace()
-
         return self._compute_list_journals(query_result)
 
     def _compute_list_issues(self, query_result):

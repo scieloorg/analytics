@@ -9,7 +9,5 @@ gevent==1.0.2
 pylibmc==1.5.0
 Babel==2.0
 -e git+https://github.com/scieloorg/xylose@0.33#egg=xylose
--e git+https://github.com/scieloorg/access_stats@0.1.4#egg=access_stats
--e git+https://github.com/scieloorg/publication_stats@0.2.4#egg=publication_stats
 -e git+https://github.com/scieloorg/thriftpy-wrap@0.1.1#egg=thriftpywrap
 -e git+https://github.com/scieloorg/analytics@0.0.4#egg=analytics
