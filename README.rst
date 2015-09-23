@@ -1,5 +1,10 @@
 Access Stats
 ============
 
-RPC Server to retrieve statistics from the documents and journals published at
-the SciELO Network databases.
+Interface web para consulta de indicadores de acessos e publicação das coleções da rede SciELO.
+
+Build Status
+============
+
+.. image:: https://travis-ci.org/scieloorg/analytics.svg?branch=master
+    :target: https://travis-ci.org/scieloorg/analytics
