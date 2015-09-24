@@ -6,9 +6,10 @@
       <div class="input-group">
         <div class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></div>
         <input type="text" id="daterange" style="width: 180px; height: 30px;"/>
-        <div class="input-group-addon"><a href="?range_start=${y3}&amp;range_end=${today}">${_('3 anos')}</a></div>
-        <div class="input-group-addon"><a href="?range_start=${y2}&amp;range_end=${today}">${_('2 anos')}</a></div>
-        <div class="input-group-addon"><a href="?range_start=${y1}&amp;range_end=${today}">${_('1 anos')}</a></div>
+        <div class="input-group-addon"><a href="?range_start=${y3}&amp;range_end=${today}">${_(u'3 anos')}</a></div>
+        <div class="input-group-addon"><a href="?range_start=${y2}&amp;range_end=${today}">${_(u'2 anos')}</a></div>
+        <div class="input-group-addon"><a href="?range_start=${y1}&amp;range_end=${today}">${_(u'1 anos')}</a></div>
+        <div class="input-group-addon"><a href="?range_start=0&amp;range_end=${today}">${_(u'tudo')}</a></div>
       </div>
     </div>
   </form>
