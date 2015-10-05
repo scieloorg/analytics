@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: analytics 0.1.2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-09-21 09:54-0300\n"
+"POT-Creation-Date: 2015-09-24 11:49-0300\n"
 "PO-Revision-Date: 2015-09-08 16:42-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: fr <LL@li.org>\n"
@@ -17,15 +17,33 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.0\n"
 
-#: analytics/templates/website/access_by_document_type.mako:10
+#: analytics/templates/website/access_by_document_type.mako:5
+#: analytics/templates/website/access_by_month_and_year.mako:5
+#: analytics/templates/website/access_lifetime.mako:5
+#: analytics/templates/website/publication_article_affiliations.mako:5
+#: analytics/templates/website/publication_article_authors.mako:5
+#: analytics/templates/website/publication_article_document_type.mako:5
+#: analytics/templates/website/publication_article_languages.mako:5
+#: analytics/templates/website/publication_article_licenses.mako:5
+#: analytics/templates/website/publication_article_references.mako:5
+#: analytics/templates/website/publication_article_subject_areas.mako:5
+#: analytics/templates/website/publication_article_year.mako:5
+#: analytics/templates/website/publication_journal_licenses.mako:5
+#: analytics/templates/website/publication_journal_status.mako:5
+#: analytics/templates/website/publication_journal_subject_areas.mako:5
+#: analytics/templates/website/publication_journal_year.mako:5
+msgid "loading"
+msgstr ""
+
+#: analytics/templates/website/access_by_document_type.mako:16
 msgid "Total de accessos por tipo de documento"
 msgstr ""
 
-#: analytics/templates/website/access_by_month_and_year.mako:7
+#: analytics/templates/website/access_by_month_and_year.mako:13
 msgid "Total de acessos por ano e mês"
 msgstr ""
 
-#: analytics/templates/website/access_by_month_and_year.mako:11
+#: analytics/templates/website/access_by_month_and_year.mako:17
 #: analytics/templates/website/base.mako:71
 msgid "Acessos"
 msgstr ""
@@ -46,15 +64,19 @@ msgstr ""
 msgid "1 anos"
 msgstr ""
 
-#: analytics/templates/website/access_lifetime.mako:11
+#: analytics/templates/website/access_datepicker.mako:12
+msgid "tudo"
+msgstr ""
+
+#: analytics/templates/website/access_lifetime.mako:16
 msgid "Ano de Publicação"
 msgstr ""
 
-#: analytics/templates/website/access_lifetime.mako:21
+#: analytics/templates/website/access_lifetime.mako:26
 msgid "Vida útil de artigos por número de acessos"
 msgstr ""
 
-#: analytics/templates/website/access_lifetime.mako:35
+#: analytics/templates/website/access_lifetime.mako:40
 msgid "Vida útil de artigos por número de acessos em "
 msgstr ""
 
@@ -287,80 +309,80 @@ msgid ""
 " de lentidão e indisponibilidade do serviços são esperados nesta fase."
 msgstr ""
 
-#: analytics/templates/website/publication_article_affiliations.mako:10
+#: analytics/templates/website/publication_article_affiliations.mako:16
 msgid "Distribuição de países de afiliação dos documentos"
 msgstr ""
 
-#: analytics/templates/website/publication_article_affiliations.mako:14
-#: analytics/templates/website/publication_article_authors.mako:14
-#: analytics/templates/website/publication_article_document_type.mako:14
-#: analytics/templates/website/publication_article_languages.mako:14
-#: analytics/templates/website/publication_article_licenses.mako:14
-#: analytics/templates/website/publication_article_references.mako:14
-#: analytics/templates/website/publication_article_subject_areas.mako:14
-#: analytics/templates/website/publication_article_year.mako:14
+#: analytics/templates/website/publication_article_affiliations.mako:20
+#: analytics/templates/website/publication_article_authors.mako:20
+#: analytics/templates/website/publication_article_document_type.mako:20
+#: analytics/templates/website/publication_article_languages.mako:20
+#: analytics/templates/website/publication_article_licenses.mako:20
+#: analytics/templates/website/publication_article_references.mako:20
+#: analytics/templates/website/publication_article_subject_areas.mako:20
+#: analytics/templates/website/publication_article_year.mako:20
 msgid "Número de documentos"
 msgstr ""
 
-#: analytics/templates/website/publication_article_affiliations.mako:29
+#: analytics/templates/website/publication_article_affiliations.mako:35
 msgid "País de afiliação"
 msgstr ""
 
-#: analytics/templates/website/publication_article_authors.mako:10
+#: analytics/templates/website/publication_article_authors.mako:16
 msgid "Distribuição de número de autores dos documentos"
 msgstr ""
 
-#: analytics/templates/website/publication_article_authors.mako:29
+#: analytics/templates/website/publication_article_authors.mako:35
 msgid "Número de autores"
 msgstr ""
 
-#: analytics/templates/website/publication_article_document_type.mako:10
+#: analytics/templates/website/publication_article_document_type.mako:16
 msgid "Distribuição por tipo de documento"
 msgstr ""
 
-#: analytics/templates/website/publication_article_document_type.mako:29
+#: analytics/templates/website/publication_article_document_type.mako:35
 msgid "Tipos de documentos"
 msgstr ""
 
-#: analytics/templates/website/publication_article_languages.mako:10
+#: analytics/templates/website/publication_article_languages.mako:16
 msgid "Distribuição de idiomas dos documentos"
 msgstr ""
 
-#: analytics/templates/website/publication_article_languages.mako:29
+#: analytics/templates/website/publication_article_languages.mako:35
 msgid "Idiomas de publicação"
 msgstr ""
 
-#: analytics/templates/website/publication_article_licenses.mako:10
+#: analytics/templates/website/publication_article_licenses.mako:16
 msgid "Distribuição de licença de uso dos documentos"
 msgstr ""
 
-#: analytics/templates/website/publication_article_licenses.mako:29
-#: analytics/templates/website/publication_journal_licenses.mako:29
+#: analytics/templates/website/publication_article_licenses.mako:35
+#: analytics/templates/website/publication_journal_licenses.mako:35
 msgid "Licenças de uso"
 msgstr ""
 
-#: analytics/templates/website/publication_article_references.mako:10
+#: analytics/templates/website/publication_article_references.mako:16
 msgid "Distribuição de número de referências bibliográficas dos documentos"
 msgstr ""
 
-#: analytics/templates/website/publication_article_references.mako:29
+#: analytics/templates/website/publication_article_references.mako:35
 msgid "Referências bibliográficas"
 msgstr ""
 
-#: analytics/templates/website/publication_article_subject_areas.mako:10
+#: analytics/templates/website/publication_article_subject_areas.mako:16
 msgid "Distribuição de área temática dos documentos"
 msgstr ""
 
-#: analytics/templates/website/publication_article_subject_areas.mako:29
-#: analytics/templates/website/publication_journal_subject_areas.mako:29
+#: analytics/templates/website/publication_article_subject_areas.mako:35
+#: analytics/templates/website/publication_journal_subject_areas.mako:35
 msgid "Areas temáticas"
 msgstr ""
 
-#: analytics/templates/website/publication_article_year.mako:10
+#: analytics/templates/website/publication_article_year.mako:16
 msgid "Distribuição de ano de publicação dos documentos"
 msgstr ""
 
-#: analytics/templates/website/publication_article_year.mako:29
+#: analytics/templates/website/publication_article_year.mako:35
 msgid "Ano de publicação"
 msgstr ""
 
@@ -368,34 +390,34 @@ msgstr ""
 msgid "anterioru"
 msgstr ""
 
-#: analytics/templates/website/publication_journal_licenses.mako:10
+#: analytics/templates/website/publication_journal_licenses.mako:16
 msgid "Distribuição de licença de uso dos periódicos"
 msgstr ""
 
-#: analytics/templates/website/publication_journal_licenses.mako:14
-#: analytics/templates/website/publication_journal_status.mako:14
-#: analytics/templates/website/publication_journal_subject_areas.mako:14
-#: analytics/templates/website/publication_journal_year.mako:14
+#: analytics/templates/website/publication_journal_licenses.mako:20
+#: analytics/templates/website/publication_journal_status.mako:20
+#: analytics/templates/website/publication_journal_subject_areas.mako:20
+#: analytics/templates/website/publication_journal_year.mako:20
 msgid "Número de periódicos"
 msgstr ""
 
-#: analytics/templates/website/publication_journal_status.mako:10
+#: analytics/templates/website/publication_journal_status.mako:16
 msgid "Distribuição de periódicos por situação atual de publicação no SciELO"
 msgstr ""
 
-#: analytics/templates/website/publication_journal_status.mako:29
+#: analytics/templates/website/publication_journal_status.mako:35
 msgid "Situação da publicação"
 msgstr ""
 
-#: analytics/templates/website/publication_journal_subject_areas.mako:10
+#: analytics/templates/website/publication_journal_subject_areas.mako:16
 msgid "Distribuição de área temática dos periódicos"
 msgstr ""
 
-#: analytics/templates/website/publication_journal_year.mako:10
+#: analytics/templates/website/publication_journal_year.mako:16
 msgid "Distribuição de periódicos por ano de inclusão no SciELO"
 msgstr ""
 
-#: analytics/templates/website/publication_journal_year.mako:29
+#: analytics/templates/website/publication_journal_year.mako:35
 msgid "Ano de inclusão"
 msgstr ""
 

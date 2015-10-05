@@ -70,3 +70,7 @@ body { padding-top: 70px; }
     background-image: url("/static/images/logo_analytics.png");
     background-repeat: no-repeat;
 }
+
+.chart {
+    margin-top: 50px;
+}

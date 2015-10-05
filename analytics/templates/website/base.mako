@@ -90,8 +90,7 @@
         </div> <!-- div container-fluid -->
       </nav>
     </div> <!-- div row -->
-
-    <div class="row container-fluid" style="padding-left: 30px; padding-right: 30px;">
+    <div class="row container-fluid">
       <%block name="central_container" />
     </div><!-- div row -->
     <div class="row container-fluid footer">

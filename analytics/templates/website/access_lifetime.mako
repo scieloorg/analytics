@@ -31,7 +31,6 @@
         };
         
         var url =  "/ajx/accesses/lifetime?code=${selected_code}&collection=${selected_collection_code}&range_start=${range_start}&range_end=${range_end}&callback=?";
-
         $.getJSON(url,  function(data) {
             for (item in data) {
                 options['series'] = data[item]['series'];
@@ -40,7 +39,7 @@
                 options['title']['text'] = '${_(u'Vida útil de artigos por número de acessos em ')}' + data[item]['series'][0]['name']
                 $('#lifetime').append('<li id="lifetime_'+item+'" style="height: 250px; margin-bottom: 100px; padding: 0px; margin: 0px;"></li>');
                 $('#lifetime_'+item).highcharts(options);
-                $("#loading_lifetime").show();
+                $("#loading_lifetime").hide();
             };
         });
     });

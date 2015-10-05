@@ -24,9 +24,7 @@
                 'enabled': false
             }
         };
-        
         var url =  "${request.route_url('publication_article_references')}?code=${selected_code}&collection=${selected_collection_code}&callback=?";
-
         $.getJSON(url,  function(data) {
             options['series'] = data['series'];
             options['xAxis'] = {
