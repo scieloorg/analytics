@@ -162,6 +162,11 @@
     <script src="/static/highcharts/plugins/export-csv-master/export-csv.js"></script>
     <script src="/static/daterangepicker/daterangepicker.js"></script>
     <script>$('.collapse').collapse()</script>
+    <script type="text/javascript">
+      Highcharts.setOptions({
+        colors: ['#3366CC', '#DC3912', '#FF9900', '#109618', '#990099', '#0099C6', '#DD4477', '#66AA00', '#B82E2E', '#316395', '#22AA99', '#AAAA11', '#6633CC', '#E67300', '#8B0707', '#651067']
+      });
+    </script>
     <script>
       $('#lang_options').change(
         function(){

@@ -8,25 +8,10 @@
 <script language="javascript">
     $("#loading_bymonthandyear").show();
     $(document).ready(function() {
-        var options = {
-            'title': {
-                'text': '${_(u'Total de acessos por ano e mês')}',
-            },
-            'yAxis': {
-                'title': {
-                    'text': '${_(u'Acessos')}'
-                }
-            }
-        };
-        
         var url =  "/ajx/accesses/bymonthandyear?code=${selected_code}&collection=${selected_collection_code}&range_start=${range_start}&range_end=${range_end}&callback=?";
 
         $.getJSON(url,  function(data) {
-            options['series'] = data['series'];
-            options['xAxis'] = {
-                'categories': data['categories']
-            };
-            $('#bymonthandyear').highcharts(options);
+            $('#bymonthandyear').highcharts(data['options']);
             $("#loading_bymonthandyear").hide();
         });
     });

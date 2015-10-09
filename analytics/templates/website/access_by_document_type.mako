@@ -8,19 +8,9 @@
 <script language="javascript">
     $("#loading_bydocumenttype").show();
     $(document).ready(function() {
-        var options = {
-            chart: {
-                type: 'pie'
-            },
-            title: {
-                text: '${_('Total de accessos por tipo de documento')}',
-            }
-        };
-        
         var url =  "/ajx/accesses/bydocumenttype?code=${selected_code}&collection=${selected_collection_code}&range_start=${range_start}&range_end=${range_end}&callback=?";
         $.getJSON(url,  function(data) {
-            options['series'] = data['series'];
-            $('#bydocumenttype').highcharts(options);
+            $('#bydocumenttype').highcharts(data['options']);
             $("#loading_bydocumenttype").hide();
         });
     });
