@@ -3,168 +3,161 @@ from pyramid.response import Response
 import pyramid.httpexceptions as exc
 
 
-@view_config(route_name='publication_article_references', request_method='GET', renderer='jsonp')
-def publication_article_references(request):
+class ViewsAjax(object):
+    def __init__(self, request):
+        self.request = request
 
-    collection = request.GET.get('collection', None)
-    code = request.GET.get('code', None)
+    @property
+    def collection(self):
+        return self.request.GET.get('collection', None)
 
-    data = request.publicationstats.general('article', 'citations', code, collection, 40)
+    @view_config(route_name='publication_article_references', request_method='GET', renderer='jsonp')
+    def publication_article_references(self):
 
-    return data
+        code = self.request.GET.get('code', None)
 
-@view_config(route_name='publication_article_authors', request_method='GET', renderer='jsonp')
-def publication_article_authors(request):
+        data = self.request.publicationstats.general('article', 'citations', code, self.collection, 40)
 
-    collection = request.GET.get('collection', None)
-    code = request.GET.get('code', None)
+        return data
 
-    data = request.publicationstats.general('article', 'authors', code, collection)
+    @view_config(route_name='publication_article_authors', request_method='GET', renderer='jsonp')
+    def publication_article_authors(self):
 
-    return data
+        code = self.request.GET.get('code', None)
 
-@view_config(route_name='publication_article_affiliations', request_method='GET', renderer='jsonp')
-def publication_article_affiliations(request):
+        data = self.request.publicationstats.general('article', 'authors', code, self.collection)
 
-    collection = request.GET.get('collection', None)
-    code = request.GET.get('code', None)
+        return data
 
-    data = request.publicationstats.general('article', 'aff_countries', code, collection, 20)
+    @view_config(route_name='publication_article_affiliations', request_method='GET', renderer='jsonp')
+    def publication_article_affiliations(self):
 
-    return data
+        code = self.request.GET.get('code', None)
 
+        data = self.request.publicationstats.general('article', 'aff_countries', code, self.collection, 20)
 
-@view_config(route_name='publication_article_year', request_method='GET', renderer='jsonp')
-def publication_article_year(request):
+        return data
 
-    collection = request.GET.get('collection', None)
-    code = request.GET.get('code', None)
 
-    data = request.publicationstats.general('article', 'publication_year', code, collection)
+    @view_config(route_name='publication_article_year', request_method='GET', renderer='jsonp')
+    def publication_article_year(self):
 
-    return data
+        code = self.request.GET.get('code', None)
 
+        data = self.request.publicationstats.general('article', 'publication_year', code, self.collection)
 
-@view_config(route_name='publication_article_languages', request_method='GET', renderer='jsonp')
-def publication_article_languages(request):
+        return data
 
-    collection = request.GET.get('collection', None)
-    code = request.GET.get('code', None)
 
-    data = request.publicationstats.general('article', 'languages', code, collection)
+    @view_config(route_name='publication_article_languages', request_method='GET', renderer='jsonp')
+    def publication_article_languages(self):
 
-    return data
+        code = self.request.GET.get('code', None)
 
+        data = self.request.publicationstats.general('article', 'languages', code, self.collection)
 
-@view_config(route_name='publication_journal_status', request_method='GET', renderer='jsonp')
-def publication_journal_status(request):
+        return data
 
-    collection = request.GET.get('collection', None)
-    code = request.GET.get('code', None)
 
-    data = request.publicationstats.general('journal', 'status', code, collection)
+    @view_config(route_name='publication_journal_status', request_method='GET', renderer='jsonp')
+    def publication_journal_status(self):
 
-    return data
+        code = self.request.GET.get('code', None)
 
+        data = self.request.publicationstats.general('journal', 'status', code, self.collection)
 
-@view_config(route_name='publication_journal_year', request_method='GET', renderer='jsonp')
-def publication_journal_year(request):
+        return data
 
-    collection = request.GET.get('collection', None)
-    code = request.GET.get('code', None)
 
-    data = request.publicationstats.general('journal', 'included_at_year', code, collection)
+    @view_config(route_name='publication_journal_year', request_method='GET', renderer='jsonp')
+    def publication_journal_year(self):
 
-    return data
+        code = self.request.GET.get('code', None)
 
+        data = self.request.publicationstats.general('journal', 'included_at_year', code, self.collection)
 
-@view_config(route_name='publication_article_subject_areas', request_method='GET', renderer='jsonp')
-def publication_article_subject_areas(request):
+        return data
 
-    collection = request.GET.get('collection', None)
-    code = request.GET.get('code', None)
 
-    data = request.publicationstats.general('article', 'subject_areas', code, collection)
+    @view_config(route_name='publication_article_subject_areas', request_method='GET', renderer='jsonp')
+    def publication_article_subject_areas(self):
 
-    return data
+        code = self.request.GET.get('code', None)
 
+        data = self.request.publicationstats.general('article', 'subject_areas', code, self.collection)
 
-@view_config(route_name='publication_article_document_type', request_method='GET', renderer='jsonp')
-def publication_article_document_type(request):
+        return data
 
-    collection = request.GET.get('collection', None)
-    code = request.GET.get('code', None)
 
-    data = request.publicationstats.general('article', 'document_type', code, collection)
+    @view_config(route_name='publication_article_document_type', request_method='GET', renderer='jsonp')
+    def publication_article_document_type(self):
 
-    return data
+        code = self.request.GET.get('code', None)
 
-@view_config(route_name='publication_article_licenses', request_method='GET', renderer='jsonp')
-def publication_article_licenses(request):
+        data = self.request.publicationstats.general('article', 'document_type', code, self.collection)
 
-    collection = request.GET.get('collection', None)
-    code = request.GET.get('code', None)
+        return data
 
-    data = request.publicationstats.general('article', 'license', code, collection)
+    @view_config(route_name='publication_article_licenses', request_method='GET', renderer='jsonp')
+    def publication_article_licenses(self):
 
-    return data
+        code = self.request.GET.get('code', None)
 
+        data = self.request.publicationstats.general('article', 'license', code, self.collection)
 
-@view_config(route_name='publication_journal_subject_areas', request_method='GET', renderer='jsonp')
-def publication_journal_subject_areas(request):
+        return data
 
-    collection = request.GET.get('collection', None)
-    code = request.GET.get('code', None)
 
-    data = request.publicationstats.general('journal', 'subject_areas', code, collection)
+    @view_config(route_name='publication_journal_subject_areas', request_method='GET', renderer='jsonp')
+    def publication_journal_subject_areas(self):
 
-    return data
+        code = self.request.GET.get('code', None)
 
+        data = self.request.publicationstats.general('journal', 'subject_areas', code, self.collection)
 
-@view_config(route_name='publication_journal_licenses', request_method='GET', renderer='jsonp')
-def publication_journal_licenses(request):
+        return data
 
-    collection = request.GET.get('collection', None)
-    code = request.GET.get('code', None)
 
-    data = request.publicationstats.general('journal', 'license', code, collection)
+    @view_config(route_name='publication_journal_licenses', request_method='GET', renderer='jsonp')
+    def publication_journal_licenses(self):
 
-    return data
+        code = self.request.GET.get('code', None)
 
-@view_config(route_name='accesses_bymonthandyear', request_method='GET', renderer='jsonp')
-def bymonthandyear(request):
+        data = self.request.publicationstats.general('journal', 'license', code, self.collection)
 
-    collection = request.GET.get('collection', None)
-    code = request.GET.get('code', None)
-    range_start = request.GET.get('range_start', None)
-    range_end = request.GET.get('range_end', None)
+        return data
 
-    data = request.accessstats.access_by_month_and_year(code, collection, range_start, range_end)
+    @view_config(route_name='accesses_bymonthandyear', request_method='GET', renderer='jsonp')
+    def bymonthandyear(self):
 
-    return data
+        code = self.request.GET.get('code', None)
+        range_start = self.request.GET.get('range_start', None)
+        range_end = self.request.GET.get('range_end', None)
 
+        data = self.request.accessstats.access_by_month_and_year(code, self.collection, range_start, range_end)
 
-@view_config(route_name='accesses_bydocumenttype', request_method='GET', renderer='jsonp')
-def documenttype(request):
+        return data
 
-    collection = request.GET.get('collection', None)
-    code = request.GET.get('code', None)
-    range_start = request.GET.get('range_start', None)
-    range_end = request.GET.get('range_end', None)
 
-    data = request.accessstats.access_by_document_type(code, collection, range_start, range_end)
+    @view_config(route_name='accesses_bydocumenttype', request_method='GET', renderer='jsonp')
+    def documenttype(self):
 
-    return data
+        code = self.request.GET.get('code', None)
+        range_start = self.request.GET.get('range_start', None)
+        range_end = self.request.GET.get('range_end', None)
 
+        data = self.request.accessstats.access_by_document_type(code, self.collection, range_start, range_end)
 
-@view_config(route_name='accesses_lifetime', request_method='GET', renderer='jsonp')
-def lifetime(request):
+        return data
 
-    collection = request.GET.get('collection', None)
-    code = request.GET.get('code', None)
-    range_start = request.GET.get('range_start', None)
-    range_end = request.GET.get('range_end', None)
 
-    data = request.accessstats.access_lifetime(code, collection, range_start, range_end)
+    @view_config(route_name='accesses_lifetime', request_method='GET', renderer='jsonp')
+    def lifetime(self):
 
-    return data
+        code = self.request.GET.get('code', None)
+        range_start = self.request.GET.get('range_start', None)
+        range_end = self.request.GET.get('range_end', None)
+
+        data = self.request.accessstats.access_lifetime(code, self.collection, range_start, range_end)
+
+        return data
