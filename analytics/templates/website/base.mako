@@ -19,8 +19,8 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">${_(u'Coleções')} <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  % for acron, name in sorted(collections.items(), key=lambda x: x[1]):
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="?collection=${acron}">${name}</a></li>
+                  % for acron, info in sorted(collections.items(), key=lambda x: x[1]['name']):
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="?collection=${acron}">${info['name']}</a></li>
                   % endfor
                 </ul>
               </li>
@@ -35,7 +35,7 @@
     <div class="row">
       <div class="header-col level1">
         <div class="container-fluid">
-            <span id="collection_name">${selected_collection}</span>
+            <span id="collection_name">${selected_collection['name']}</span>
         </div>
       </div>
     </div>
@@ -162,6 +162,11 @@
     <script src="/static/highcharts/plugins/export-csv-master/export-csv.js"></script>
     <script src="/static/daterangepicker/daterangepicker.js"></script>
     <script>$('.collapse').collapse()</script>
+    <script type="text/javascript">
+      Highcharts.setOptions({
+        colors: ['#3366CC', '#DC3912', '#FF9900', '#109618', '#990099', '#0099C6', '#DD4477', '#66AA00', '#B82E2E', '#316395', '#22AA99', '#AAAA11', '#6633CC', '#E67300', '#8B0707', '#651067']
+      });
+    </script>
     <script>
       $('#lang_options').change(
         function(){

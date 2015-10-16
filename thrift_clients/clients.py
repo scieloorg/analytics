@@ -167,5 +167,4 @@ class ArticleMeta(object):
             offset += 1000
 
     def collections(self):
-        
         return [i for i in self.client.get_collection_identifiers()]

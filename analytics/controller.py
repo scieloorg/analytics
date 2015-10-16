@@ -200,7 +200,7 @@ class ArticleMeta(clients.ArticleMeta):
         try: 
             return self._certified_collections
         except AttributeError:
-            self._certified_collections = {i.acronym:i.domain for i in self.collections() if i.status == 'certified'} 
+            self._certified_collections = {i.acronym:{'name': i.name, 'domain': i.domain} for i in self.collections() if i.has_analytics} 
 
         return self._certified_collections
 
@@ -208,7 +208,7 @@ class ArticleMeta(clients.ArticleMeta):
     def collections_journals(self, collection=None):
 
         if not collection:
-            collections = self.certified_collections
+            collections = self.certified_collections()
         else:
             collections = [collection]
 
@@ -221,7 +221,7 @@ class ArticleMeta(clients.ArticleMeta):
                     coll = self._journals.setdefault(collection, {})
                     coll[journal.scielo_issn] = journal.title
 
-        return self._journals[collection] if collection else self._journals
+        return self._journals.get(collection, {}) if collection else self._journals
         
 
 class AccessStats(clients.AccessStats):

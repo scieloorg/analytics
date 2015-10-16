@@ -16,7 +16,7 @@
     % for item in aclist:
       <tr>
         <td>
-          <a href="http://${selected_collection}/scielo.php?script=sci_arttext&amp;pid=${item['pid']}" target="_blank">
+          <a href="http://${selected_collection['domain']}/scielo.php?script=sci_arttext&amp;pid=${item['pid']}" target="_blank">
             <span class="glyphicon glyphicon-globe" />
           </a>
           <a href="${request.route_url('accesses_web')}?document=${item['pid']}">${item['title']}</a></td>
