@@ -4,6 +4,7 @@ from pyramid.config import Configurator
 from pyramid.settings import aslist, asbool
 
 from analytics import controller
+from analytics import charts_config
 from thrift_clients import clients
 
 from analytics.views_website import cache_region as views_website_cache_region
@@ -23,6 +24,9 @@ def main(global_config, **settings):
 
     def add_articlemeta(request):
         return controller.articlemeta(settings['articlemeta'])
+
+    def add_chartsconfig(request):
+        return charts_config.chartsconfig(request)
 
     config.include('pyramid_mako')
     config.add_static_view('static', 'static', cache_max_age=3600)
@@ -52,6 +56,7 @@ def main(global_config, **settings):
     config.add_request_method(add_accessstats, 'accessstats', reify=True)
     config.add_request_method(add_articlemeta, 'articlemeta', reify=True)
     config.add_request_method(add_publicationstats, 'publicationstats', reify=True)
+    config.add_request_method(add_chartsconfig, 'chartsconfig', reify=True)
 
 
     config.add_subscriber('analytics.subscribers.add_renderer_globals',
