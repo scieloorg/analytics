@@ -40,7 +40,6 @@ class ViewsAjax(object):
             'categories': data['categories'],
             'title': {'text': self._(u'Referências bibliográficas')}
             }
-        chart['plotOptions'] = {'series': {'colorByPoint': True}}
         chart['legend'] = {'enabled': False}
         chart['series'] = data['series']
         chart['yAxis']['title'] = {'text': self._(u'Número de documentos') }
@@ -60,7 +59,6 @@ class ViewsAjax(object):
             'categories': data['categories'],
             'title': {'text': self._(u'Número de autores')}
             }
-        chart['plotOptions'] = {'series': {'colorByPoint': True}}
         chart['legend'] = {'enabled': False}
         chart['series'] = data['series']
         chart['yAxis']['title'] = {'text': self._(u'Número de documentos') }
@@ -101,7 +99,6 @@ class ViewsAjax(object):
             'categories': data['categories'],
             'title': {'text': self._(u'Ano de publicação')}
             }
-        chart['plotOptions'] = {'series': {'colorByPoint': True}}
         chart['legend'] = {'enabled': False}
         chart['series'] = data['series']
         chart['yAxis']['title'] = {'text': self._(u'Número de documentos') }
@@ -164,7 +161,6 @@ class ViewsAjax(object):
             'categories': data['categories'],
             'title': {'text': self._(u'Ano de inclusão')}
             }
-        chart['plotOptions'] = {'series': {'colorByPoint': True}}
         chart['legend'] = {'enabled': False}
         chart['series'] = data['series']
         chart['yAxis']['title'] = {'text': self._(u'Número de periódicos') }
