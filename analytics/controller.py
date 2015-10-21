@@ -150,7 +150,9 @@ class PublicationStats(clients.PublicationStats):
         return {"series": series, "categories": categories}
 
     @cache_region.cache_on_arguments()
-    def general(self, index, field, code, collection, size=0):
+    def general(self, index, field, code, collection, size=0, sort_term = None):
+
+        sort_term = sort_term if sort_term in ['asc', 'desc'] else None
 
         body = {
             "query": {
@@ -172,6 +174,9 @@ class PublicationStats(clients.PublicationStats):
                 }
             }
         }
+
+        if sort_term:
+            body['aggs'][field]['terms']['order'] = {"_term": sort_term}
 
         code_type = self._code_type(code)
 
@@ -748,7 +753,7 @@ class AccessStats(clients.AccessStats):
                         "field": "access_year",
                         "size": 0,
                         "order": {
-                            "access_total": "desc"
+                            "_term": "desc"
                         }
                     },
                     "aggs": {
@@ -762,7 +767,7 @@ class AccessStats(clients.AccessStats):
                                 "field": "publication_year",
                                 "size": 30,
                                 "order": {
-                                    "access_total": "desc"
+                                    "_term": "desc"
                                 }
                             },
                             "aggs": {
