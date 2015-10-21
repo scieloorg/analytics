@@ -20,7 +20,7 @@ class ViewsAjax(object):
 
         code = self.request.GET.get('code', None)
 
-        data = self.request.publicationstats.general('article', 'citations', code, self.collection, 40)
+        data = self.request.publicationstats.general('article', 'citations', code, self.collection, 40, 'asc')
 
         return self.request.chartsconfig.publication_article_references(data)
 
@@ -29,7 +29,7 @@ class ViewsAjax(object):
 
         code = self.request.GET.get('code', None)
 
-        data = self.request.publicationstats.general('article', 'authors', code, self.collection)
+        data = self.request.publicationstats.general('article', 'authors', code, self.collection, 0, 'asc')
 
         return self.request.chartsconfig.publication_article_authors(data)
 
@@ -48,7 +48,7 @@ class ViewsAjax(object):
 
         code = self.request.GET.get('code', None)
 
-        data = self.request.publicationstats.general('article', 'publication_year', code, self.collection)
+        data = self.request.publicationstats.general('article', 'publication_year', code, self.collection, 0, 'desc' )
 
         return self.request.chartsconfig.publication_article_year(data)
 
@@ -78,7 +78,7 @@ class ViewsAjax(object):
 
         code = self.request.GET.get('code', None)
 
-        data = self.request.publicationstats.general('journal', 'included_at_year', code, self.collection)
+        data = self.request.publicationstats.general('journal', 'included_at_year', code, self.collection, 0, 'asc')
 
         return self.request.chartsconfig.publication_journal_year(data)
 
