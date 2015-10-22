@@ -35,7 +35,7 @@ class ControllerTest(unittest.TestCase):
             "total": 297733
         }
 
-        result = self._pu._compute_collection_size(query_result, 'issn')
+        result = self._pu._compute_collection_size(query_result, 'documents')
 
         self.assertEqual(expected, result)
 
