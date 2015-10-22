@@ -213,6 +213,15 @@ def accesses(request):
 
     return data
 
+@view_config(route_name='publication_size_web', renderer='templates/website/publication_size.mako')
+@base_data_manager
+def publication_size(request):
+
+    data = request.data_manager
+    data['page'] = 'publication'
+
+    return data
+
 @view_config(route_name='publication_journal_web', renderer='templates/website/publication_journal.mako')
 @base_data_manager
 def publication_journal(request):

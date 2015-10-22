@@ -150,7 +150,7 @@ class PublicationStats(clients.PublicationStats):
         return {"series": series, "categories": categories}
 
     @cache_region.cache_on_arguments()
-    def general(self, index, field, code, collection, size=0, sort_term = None):
+    def general(self, index, field, code, collection, size=0, sort_term=None):
 
         sort_term = sort_term if sort_term in ['asc', 'desc'] else None
 
@@ -197,6 +197,67 @@ class PublicationStats(clients.PublicationStats):
 
         return self._compute_general(query_result, field)
 
+    def _compute_collection_size(self, query_result, field):
+
+        if field == 'documents':
+            try:
+                return {'total': query_result['hits']['total']}
+            except:
+                return None
+
+        
+        try:
+            return {'total': query_result['aggregations'][field]['value']}
+        except:
+            return None
+
+    def collection_size(self, code, collection, field):
+
+        if not field in ['issue', 'issn', 'citations', 'documents']:
+            raise ValueError('Expected values for field: [issue, issn, citations, documents]')
+
+        body = {
+            "query": {
+                "bool": {
+                    "must": [{
+                            "match": {
+                                "collection": collection
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+
+        code_type = self._code_type(code)
+
+        if code_type:
+            body["query"]["bool"]["must"].append({
+                    "match": {
+                        code_type: code
+                    }
+                }
+            )
+
+        query_parameters = [
+            clients.publicationstats_thrift.kwargs('size', '0'),
+            clients.publicationstats_thrift.kwargs('search_type', 'count')
+        ]
+
+        aggs_type = 'sum' if field == 'citations' else 'cardinality'
+
+        if field != 'documents':
+            body['aggs'] = { 
+                field: {
+                    aggs_type: {
+                        "field": field
+                    }
+                }
+            }
+
+        query_result = json.loads(self.client.search('article', json.dumps(body), query_parameters))
+
+        return self._compute_collection_size(query_result, field)
 
 class ArticleMeta(clients.ArticleMeta):
 

@@ -79,6 +79,7 @@
             <li class="${'active' if page == 'publication' else ''}">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${_(u'Publicação')} <span class="caret"></span></a>
               <ul class="dropdown-menu">
+                <li><a href="${request.route_url('publication_size_web')}">${_(u'Dimenções da coleção')}</a></li>
                 <li><a href="${request.route_url('publication_article_web')}">${_(u'Gráficos de documentos')}</a></li>
                 <li><a href="${request.route_url('publication_journal_web')}">${_(u'Gráficos de periódicos')}</a></li>
               </ul>
@@ -90,7 +91,13 @@
         </div> <!-- div container-fluid -->
       </nav>
     </div> <!-- div row -->
-    <div class="row container-fluid">
+    <div class="row container-fluid" style="padding-left: 40px; padding-right: 40px;">
+      <div class="panel panel-info">
+          <div class="panel-heading">${_(u'Ferramenta em desenvolvimento disponível em versão Beta Test.')}</div>
+          <div class="panel-body">
+              ${_(u'Esta ferramenta esta em desenvolvimento e foi publicada com o objetivo de realizar testes de uso e performance. Todos os indicadores carregados são reais e estão sendo atualizados e inseridos gradativamente. Problemas de lentidão e indisponibilidade do serviços são esperados nesta fase.')}
+          </div>
+      </div>
       <%block name="central_container" />
     </div><!-- div row -->
     <div class="row container-fluid footer">
@@ -161,6 +168,7 @@
     <script src="/static/highcharts/highcharts.min.js"></script>
     <script src="/static/highcharts/plugins/export-csv-master/export-csv.js"></script>
     <script src="/static/daterangepicker/daterangepicker.js"></script>
+    <script src="/static/jquery-1.11.1/plugins/jquery.number.min.js"></script>
     <script>$('.collapse').collapse()</script>
     <script type="text/javascript">
       Highcharts.setOptions({
