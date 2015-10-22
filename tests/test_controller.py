@@ -15,6 +15,108 @@ class ControllerTest(unittest.TestCase):
         self._as = controller.AccessStats('localhost', '11600')
         self._pu = controller.PublicationStats('localhost', '11600')
 
+    def test_collection_size_documents(self):
+        query_result = {
+            "hits": {
+                "hits": [],
+                "total": 297733,
+                "max_score": 0.0
+            },
+            "took": 9,
+            "timed_out": False,
+            "_shards": {
+                "successful": 5,
+                "failed": 0,
+                "total": 5
+            }
+        }
+
+        expected = {
+            "total": 297733
+        }
+
+        result = self._pu._compute_collection_size(query_result, 'documents')
+
+        self.assertEqual(expected, result)
+
+    def test_collection_size_issn(self):
+        query_result = {
+            "took": 11,
+            "timed_out": False,
+            "_shards": {
+                "total": 5,
+                "successful": 5,
+                "failed": 0
+            },
+            "hits": {
+                "total": 297733,
+                "max_score": 0,
+                "hits": []
+            },
+            "aggregations": {
+                "issn": {
+                    "value": 344
+                }
+            }
+        }
+
+        expected = {
+            "total": 344
+        }
+
+        result = self._pu._compute_collection_size(query_result, 'issn')
+
+        self.assertEqual(expected, result)
+
+    def test_collection_size_issue(self):
+        query_result = {
+            "took": 11,
+            "timed_out": False,
+            "_shards": {
+                "total": 5,
+                "successful": 5,
+                "failed": 0
+            },
+            "hits": {
+                "total": 297733,
+                "max_score": 0,
+                "hits": []
+            },
+            "aggregations": {
+                "issue": {
+                    "value": 3440
+                }
+            }
+        }
+
+        expected = {
+            "total": 3440
+        }
+
+        result = self._pu._compute_collection_size(query_result, 'issue')
+
+        self.assertEqual(expected, result)
+
+    def test_collection_size_none(self):
+        query_result = {
+            "took": 11,
+            "timed_out": False,
+            "_shards": {
+                "total": 5,
+                "successful": 5,
+                "failed": 0
+            },
+            "hits": {
+                "total": 297733,
+                "max_score": 0,
+                "hits": []
+            }
+        }
+
+        result = self._pu._compute_collection_size(query_result, 'issn')
+
+        self.assertEqual(None, result)
+
     def test_publishing_general(self):
         query_result = {
             "hits": {

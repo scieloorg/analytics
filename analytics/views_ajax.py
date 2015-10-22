@@ -131,6 +131,16 @@ class ViewsAjax(object):
 
         return self.request.chartsconfig.publication_journal_licenses(data)
 
+    @view_config(route_name='publication_size', request_method='GET', renderer='jsonp')
+    def publication_size(self):
+
+        code = self.request.GET.get('code', None)
+        field = self.request.GET.get('field', None)
+
+        data = self.request.publicationstats.collection_size(code, self.collection, field)
+
+        return data
+
     @view_config(route_name='accesses_bymonthandyear', request_method='GET', renderer='jsonp')
     def bymonthandyear(self):
 
