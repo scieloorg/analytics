@@ -211,6 +211,7 @@ class PublicationStats(clients.PublicationStats):
         except:
             return None
 
+    @cache_region.cache_on_arguments()
     def collection_size(self, code, collection, field):
 
         if not field in ['issue', 'issn', 'citations', 'documents']:
@@ -258,6 +259,109 @@ class PublicationStats(clients.PublicationStats):
         query_result = json.loads(self.client.search('article', json.dumps(body), query_parameters))
 
         return self._compute_collection_size(query_result, field)
+
+    def _compute_citable_documents(self, query_result):
+        series = [
+            {
+                'id': 'citable_documents',
+                'data': []
+            },
+            {
+                'id': 'not_citable_documents',
+                'data': []
+            }
+        ]
+
+        categories = []
+
+        for bucket in query_result['aggregations']['publication_year']['buckets'][::-1]:
+            categories.append(bucket['key'])
+            series[0]["data"].append(bucket['citable_documents']['doc_count'])
+            series[1]["data"].append(bucket['not_citable_documents']['doc_count'])
+
+        return {"series": series, "categories": categories}
+
+    @cache_region.cache_on_arguments()
+    def citable_documents(self, code, collection):
+
+        body = {
+            "query": {
+                "bool": {
+                    "must": [{
+                            "match": {
+                                "collection": collection
+                            }
+                        }
+                    ]
+                }
+            },
+            "aggs": {
+                "publication_year": {
+                    "terms": {
+                        "field": "publication_year",
+                        "order": {
+                            "_term": "desc"
+                        }
+                    },
+                    "aggs": {
+                        "citable_documents": {
+                            "filter": {
+                                "bool": {
+                                    "should": [
+                                        {
+                                            "term": {
+                                                "document_type": "research-article"
+                                            }
+                                        },
+                                        {
+                                            "term": {
+                                                "document_type": "review-article"
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "not_citable_documents": {
+                            "filter": {
+                                "bool": {
+                                    "must_not": [
+                                        {
+                                            "term": {
+                                                "document_type": "research-article"
+                                            }
+                                        },
+                                        {
+                                            "term": {
+                                                "document_type": "review-article"
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        code_type = self._code_type(code)
+
+        if code_type:
+            body["query"]["bool"]["must"].append({
+                    "match": {
+                        code_type: code
+                    }
+                }
+            )
+
+        query_parameters = [
+            clients.publicationstats_thrift.kwargs('size', '0'),
+        ]
+
+        query_result = json.loads(self.client.search('article', json.dumps(body), query_parameters))
+
+        return self._compute_citable_documents(query_result)
 
 class ArticleMeta(clients.ArticleMeta):
 

@@ -83,6 +83,15 @@ class ViewsAjax(object):
         return self.request.chartsconfig.publication_journal_year(data)
 
 
+    @view_config(route_name='publication_article_citable_documents', request_method='GET', renderer='jsonp')
+    def publication_article_citable_documents(self):
+
+        code = self.request.GET.get('code', None)
+
+        data = self.request.publicationstats.citable_documents(code, self.collection)
+
+        return self.request.chartsconfig.publication_article_citable_documents(data)
+
     @view_config(route_name='publication_article_subject_areas', request_method='GET', renderer='jsonp')
     def publication_article_subject_areas(self):
 

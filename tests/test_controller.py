@@ -117,6 +117,181 @@ class ControllerTest(unittest.TestCase):
 
         self.assertEqual(None, result)
 
+    def test_publishing_citable_documents(self):
+        query_result = {
+            "hits": {
+                "hits": [],
+                "total": 295525,
+                "max_score": 0.0
+            },
+            "timed_out": False,
+            "took": 7,
+            "aggregations": {
+                "publication_year": {
+                    "buckets": [
+                        {
+                            "citable_documents": {
+                                "doc_count": 11940
+                            },
+                            "not_citable_documents": {
+                                "doc_count": 1779
+                            },
+                            "key": "2015",
+                            "doc_count": 13719
+                        },
+                        {
+                            "citable_documents": {
+                                "doc_count": 19237
+                            },
+                            "not_citable_documents": {
+                                "doc_count": 2719
+                            },
+                            "key": "2014",
+                            "doc_count": 21956
+                        },
+                        {
+                            "citable_documents": {
+                                "doc_count": 19686
+                            },
+                            "not_citable_documents": {
+                                "doc_count": 2304
+                            },
+                            "key": "2013",
+                            "doc_count": 21990
+                        },
+                        {
+                            "citable_documents": {
+                                "doc_count": 20248
+                            },
+                            "not_citable_documents": {
+                                "doc_count": 2191
+                            },
+                            "key": "2012",
+                            "doc_count": 22439
+                        },
+                        {
+                            "citable_documents": {
+                                "doc_count": 20300
+                            },
+                            "not_citable_documents": {
+                                "doc_count": 1962
+                            },
+                            "key": "2011",
+                            "doc_count": 22262
+                        },
+                        {
+                            "citable_documents": {
+                                "doc_count": 18829
+                            },
+                            "not_citable_documents": {
+                                "doc_count": 2251
+                            },
+                            "key": "2010",
+                            "doc_count": 21080
+                        },
+                        {
+                            "citable_documents": {
+                                "doc_count": 17644
+                            },
+                            "not_citable_documents": {
+                                "doc_count": 1881
+                            },
+                            "key": "2009",
+                            "doc_count": 19525
+                        },
+                        {
+                            "citable_documents": {
+                                "doc_count": 16341
+                            },
+                            "not_citable_documents": {
+                                "doc_count": 1957
+                            },
+                            "key": "2008",
+                            "doc_count": 18298
+                        },
+                        {
+                            "citable_documents": {
+                                "doc_count": 15096
+                            },
+                            "not_citable_documents": {
+                                "doc_count": 2189
+                            },
+                            "key": "2007",
+                            "doc_count": 17285
+                        },
+                        {
+                            "citable_documents": {
+                                "doc_count": 13410
+                            },
+                            "not_citable_documents": {
+                                "doc_count": 1925
+                            },
+                            "key": "2006",
+                            "doc_count": 15335
+                        }
+                    ],
+                    "doc_count_error_upper_bound": 0,
+                    "sum_other_doc_count": 101636
+                }
+            },
+            "_shards": {
+                "successful": 5,
+                "failed": 0,
+                "total": 5
+            }
+        }
+
+        expected = {
+            "series": [
+                {
+                    "data": [
+                        13410,
+                        15096,
+                        16341,
+                        17644,
+                        18829,
+                        20300,
+                        20248,
+                        19686,
+                        19237,
+                        11940
+                    ],
+                    "id": "citable_documents"
+                },
+                {
+                    "data": [
+                        1925,
+                        2189,
+                        1957,
+                        1881,
+                        2251,
+                        1962,
+                        2191,
+                        2304,
+                        2719,
+                        1779
+                    ],
+                    "id": "not_citable_documents"
+                }
+            ],
+            "categories": [
+                "2006",
+                "2007",
+                "2008",
+                "2009",
+                "2010",
+                "2011",
+                "2012",
+                "2013",
+                "2014",
+                "2015"
+            ]
+        }
+
+        result = self._pu._compute_citable_documents(query_result)\
+
+        self.assertEqual(expected, result)
+
     def test_publishing_general(self):
         query_result = {
             "hits": {
