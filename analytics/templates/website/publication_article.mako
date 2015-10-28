@@ -27,6 +27,9 @@
     <div class="chart">
       <%include file="publication_article_references.mako"/>
     </div>
+    <div class="chart">
+      <%include file="publication_article_citable_documents.mako"/>
+    </div>
   </center>
 </%block>
 
