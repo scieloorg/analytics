@@ -104,6 +104,120 @@ def publicationstats(host):
 
     return PublicationStats(address, port)
 
+def bibliometrics(host):
+
+    address, port = host.split(':')
+
+    return Citedby(address, port)
+
+
+class Citedby(clients.Citedby):
+
+    def granted_citations(self, issn, size=100):
+        body = {
+            "query": {
+                "match": {
+                    "issn": issn
+                }
+            },
+            "aggs": {
+                "reference_source": {
+                    "terms": {
+                        "field": "reference_source",
+                        "size": size
+                    }
+                }
+            }
+        }
+
+        query_parameters = [
+            clients.citedby_thrift.kwargs('size', '0'),
+            clients.citedby_thrift.kwargs('search_type', 'count')
+        ]
+
+        query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
+
+        return query_result
+
+    def received_citations(self, titles, size=100):
+
+        body = {
+            "query": {
+                "bool": {
+                    "should": []
+                }
+            },
+            "aggs": {
+                "source": {
+                    "terms": {
+                        "field": "source"
+                    }
+                }
+            }
+        }
+
+        for title in titles:
+
+            item = {
+                "fuzzy": {
+                    "reference_source": {
+                        "value": title,
+                        "fuzziness" : 3,
+                        "max_expansions": 50
+                    }
+                }
+            }
+
+            body['query']['bool']['should'].append(item)
+
+        query_parameters = [
+            clients.citedby_thrift.kwargs('size', '0'),
+            clients.citedby_thrift.kwargs('search_type', 'count')
+        ]
+
+        query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
+
+        return query_result
+
+    def citing_forms(self, titles, size=100):
+
+        body = {
+            "query": {
+                "bool": {
+                    "should": []
+                }
+            },
+            "aggs": {
+                "reference_source": {
+                    "terms": {
+                        "field": "reference_source"
+                    }
+                }
+            }
+        }
+
+        for title in titles:
+
+            item = {
+                "fuzzy": {
+                    "reference_source": {
+                        "value": title,
+                        "fuzziness" : 3,
+                        "max_expansions": 50
+                    }
+                }
+            }
+
+            body['query']['bool']['should'].append(item)
+
+        query_parameters = [
+            clients.citedby_thrift.kwargs('size', '0'),
+            clients.citedby_thrift.kwargs('search_type', 'count')
+        ]
+
+        query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
+
+        return query_result
 
 class PublicationStats(clients.PublicationStats):
 

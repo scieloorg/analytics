@@ -15,6 +15,52 @@ class ViewsAjax(object):
     def collection(self):
         return self.request.GET.get('collection', None)
 
+    @view_config(route_name='bibliometrics_citing_forms', request_method='GET', renderer='jsonp')
+    def bibliometrics_citing_forms(self):
+
+        issn = self.request.GET.get('issn', None)
+        titles = self.request.GET.getall('titles')
+
+        if issn:
+            journal = self.request.articlemeta.journal(code=issn)
+            titles.append(journal.title)
+            titles.append(journal.abbreviated_title)
+
+        if len(titles) == 0:
+            return None
+
+        data = self.request.bibliometrics.citing_forms(list(set(titles)), size=100)
+
+        return data
+
+    @view_config(route_name='bibliometrics_received', request_method='GET', renderer='jsonp')
+    def bibliometrics_received(self):
+        
+        issn = self.request.GET.get('issn', None)
+        titles = self.request.GET.getall('titles')
+
+        if issn:
+            journal = self.request.articlemeta.journal(code=issn)
+            titles.append(journal.title)
+            titles.append(journal.abbreviated_title)
+        
+
+        if len(titles) == 0:
+            return None
+
+        data = self.request.bibliometrics.received_citations(list(set(titles)), size=100)
+
+        return data
+
+    @view_config(route_name='bibliometrics_granted', request_method='GET', renderer='jsonp')
+    def bibliometrics_granted(self):
+
+        issn = self.request.GET.get('issn', None)
+
+        data = self.request.bibliometrics.granted_citations(issn, size=100)
+
+        return data
+
     @view_config(route_name='publication_article_references', request_method='GET', renderer='jsonp')
     def publication_article_references(self):
 

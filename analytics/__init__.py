@@ -25,6 +25,9 @@ def main(global_config, **settings):
     def add_articlemeta(request):
         return controller.articlemeta(settings['articlemeta'])
 
+    def add_bibliometrics(request):
+        return controller.bibliometrics(settings['citedby'])
+
     def add_chartsconfig(request):
         return charts_config.chartsconfig(request)
 
@@ -56,9 +59,13 @@ def main(global_config, **settings):
     config.add_route('publication_article_affiliations', '/ajx/publication/article/affiliations')
     config.add_route('publication_article_year', '/ajx/publication/article/year')
     config.add_route('publication_article_subject_areas', '/ajx/publication/article/subject_areas')
+    config.add_route('bibliometrics_granted', '/ajx/bibliometrics/granted')
+    config.add_route('bibliometrics_received', '/ajx/bibliometrics/received')
+    config.add_route('bibliometrics_citing_forms', '/ajx/bibliometrics/citing_forms')
     config.add_request_method(add_accessstats, 'accessstats', reify=True)
     config.add_request_method(add_articlemeta, 'articlemeta', reify=True)
     config.add_request_method(add_publicationstats, 'publicationstats', reify=True)
+    config.add_request_method(add_bibliometrics, 'bibliometrics', reify=True)
     config.add_request_method(add_chartsconfig, 'chartsconfig', reify=True)
 
 

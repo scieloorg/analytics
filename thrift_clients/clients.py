@@ -14,12 +14,14 @@ logger = logging.getLogger(__name__)
 articlemeta_thrift = thriftpy.load(
     os.path.join(os.path.dirname(__file__))+'/articlemeta.thrift')
 
-
 accessstats_thrift = thriftpy.load(
     os.path.join(os.path.dirname(__file__))+'/accessstats.thrift')
 
 publicationstats_thrift = thriftpy.load(
     os.path.join(os.path.dirname(__file__))+'/publicationstats.thrift')
+
+citedby_thrift = thriftpy.load(
+    os.path.join(os.path.dirname(__file__))+'/citedby.thrift')
 
 
 class ServerError(Exception):
@@ -28,6 +30,26 @@ class ServerError(Exception):
     
     def __str__(self):
         return repr(self.message)
+
+
+class Citedby(object):
+
+    def __init__(self, address, port):
+        """
+        Cliente thrift para o Cited By.
+        """
+        self._address = address
+        self._port = port
+
+    @property
+    def client(self):
+
+        client = make_client(
+            citedby_thrift.Citedby,
+            self._address,
+            self._port
+        )
+        return client
 
 
 class PublicationStats(object):
@@ -98,6 +120,26 @@ class ArticleMeta(object):
         return client
 
 
+    def journal(self, code, collection=None):
+
+        kwargs = {
+            'code': code,
+        }
+
+        if collection:
+            kwargs['collection'] = collection
+
+        journal = self.client.get_journal(**kwargs)
+
+        if not journal:
+            return None
+
+        jjournal = json.loads(journal)
+        xjournal = Journal(jjournal)
+
+        return xjournal
+
+
     def journals(self, collection=None, issn=None):
         offset = 0
         while True:
@@ -107,16 +149,9 @@ class ArticleMeta(object):
 
             for identifier in identifiers:
 
-                journal = self.client.get_journal(
-                    code=identifier.code[0], collection=identifier.collection)
-
-                jjournal = json.loads(journal)
-
-                xjournal = Journal(jjournal)
-
-                logger.info('Journal loaded: %s_%s' % ( identifier.collection, identifier.code))
-
-                yield xjournal
+                yield self.journal(
+                    code=identifier.code[0], collection=identifier.collection
+                )
 
             offset += 1000
 
@@ -135,10 +170,8 @@ class ArticleMeta(object):
         if fmt == 'xylose':
             jarticle = json.loads(article)
             xarticle = Article(jarticle)
-            logger.info('Document loaded: %s_%s' % ( collection, code))
             return xarticle
         else:
-            logger.info('Document loaded: %s_%s' % ( collection, code))
             return article
 
 
