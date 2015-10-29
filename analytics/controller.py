@@ -113,6 +113,18 @@ def bibliometrics(host):
 
 class Citedby(clients.Citedby):
 
+    def _compute_granted(self, query_result):
+
+        itens = []
+        for bucket in query_result['aggregations']['reference_source']['buckets']:
+            item = {
+                "source": bucket['key'],
+                "count": bucket['doc_count']
+            }
+            itens.append(item)
+
+        return itens
+
     def granted_citations(self, issn, size=100):
         body = {
             "query": {
@@ -137,7 +149,19 @@ class Citedby(clients.Citedby):
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
 
-        return query_result
+        return self._compute_granted(query_result)
+
+    def _compute_received(self, query_result):
+
+        itens = []
+        for bucket in query_result['aggregations']['source']['buckets']:
+            item = {
+                "source": bucket['key'],
+                "count": bucket['doc_count']
+            }
+            itens.append(item)
+
+        return itens
 
     def received_citations(self, titles, size=100):
 
@@ -177,7 +201,19 @@ class Citedby(clients.Citedby):
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
 
-        return query_result
+        return self._compute_received(query_result)
+
+    def _compute_citing_forms(self, query_result):
+
+        itens = []
+        for bucket in query_result['aggregations']['reference_source']['buckets']:
+            item = {
+                "source": bucket['key'],
+                "count": bucket['doc_count']
+            }
+            itens.append(item)
+
+        return itens
 
     def citing_forms(self, titles, size=100):
 
@@ -217,7 +253,7 @@ class Citedby(clients.Citedby):
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
 
-        return query_result
+        return self._compute_citing_forms(query_result)
 
 class PublicationStats(clients.PublicationStats):
 

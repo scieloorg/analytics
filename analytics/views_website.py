@@ -134,6 +134,55 @@ def base_data_manager(wrapped):
 
     return wrapper
 
+@view_config(route_name='bibliometrics_list_citing_forms_web', request_method='GET', renderer='templates/website/bibliometrics_list_citing_forms.mako')
+@base_data_manager
+def bibliometrics_list_citing_forms(request):
+    data = request.data_manager
+    data['page'] = 'bibliometrics'
+    titles = request.GET.getall('titles')
+
+    if data['selected_journal_code']:
+        journal = request.articlemeta.journal(code=data['selected_journal_code'])
+        titles.append(journal.title)
+        titles.append(journal.abbreviated_title)
+
+    data['blist'] = []
+    if not len(titles) == 0:
+        data['blist'] = request.bibliometrics.citing_forms(list(set(titles)), size=100)
+
+    return data
+
+@view_config(route_name='bibliometrics_list_received_web', request_method='GET', renderer='templates/website/bibliometrics_list_received.mako')
+@base_data_manager
+def bibliometrics_list_received(request):
+    data = request.data_manager
+    data['page'] = 'bibliometrics'
+    titles = request.GET.getall('titles')
+
+    if data['selected_journal_code']:
+        journal = request.articlemeta.journal(code=data['selected_journal_code'])
+        titles.append(journal.title)
+        titles.append(journal.abbreviated_title)
+
+    data['blist'] = []
+    if not len(titles) == 0:
+        data['blist'] = request.bibliometrics.received_citations(list(set(titles)), size=100)
+
+    return data
+
+@view_config(route_name='bibliometrics_list_granted_web', request_method='GET', renderer='templates/website/bibliometrics_list_granted.mako')
+@base_data_manager
+def bibliometrics_list_granted(request):
+    data = request.data_manager
+    data['page'] = 'bibliometrics'
+
+    data ['blist'] = []
+    if data['selected_journal_code']:
+        data['blist'] = request.bibliometrics.granted_citations(
+            data['selected_journal_code'], size=100)
+
+    return data
+
 @view_config(route_name='index_web', renderer='templates/website/home.mako')
 @base_data_manager
 def index(request):
