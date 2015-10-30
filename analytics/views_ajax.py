@@ -15,6 +15,20 @@ class ViewsAjax(object):
     def collection(self):
         return self.request.GET.get('collection', None)
 
+    @view_config(route_name='bibliometrics_journal_self_citation', request_method='GET', renderer='jsonp')
+    def bibliometrics_journal_self_citation(self):
+
+        code = self.request.GET.get('code', None)
+        collection = self.request.GET.get('collection', None)
+        if 'titles' in self.request.GET:
+            titles = self.request.GET['titles'].split(',')
+        else:
+            titles = []
+
+        data = self.request.stats.citation_self_citation(code, collection, titles, size=0)
+
+        return self.request.chartsconfig.bibliometrics_journal_self_citation(data)
+
     @view_config(route_name='publication_article_references', request_method='GET', renderer='jsonp')
     def publication_article_references(self):
 

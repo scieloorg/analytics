@@ -46,9 +46,9 @@ class Configuration(SingletonMixin):
     @classmethod
     def from_env(cls):
         try:
-            filepath = os.environ['ACCESSSTATS_SETTINGS_FILE']
+            filepath = os.environ['ANALYTICS_SETTINGS_FILE']
         except KeyError:
-            raise ValueError('missing env variable ACCESSSTATS_SETTINGS_FILE')
+            raise ValueError('missing env variable ANALYTICS_SETTINGS_FILE')
 
         return cls.from_file(filepath)
 

@@ -4,6 +4,7 @@ import sys
 import json
 from datetime import datetime, timedelta
 
+from pyramid.settings import aslist
 from thrift_clients import clients
 from dogpile.cache import make_region
 from xylose.scielodocument import Article, Journal
@@ -76,15 +77,6 @@ class ServerError(Exception):
         return repr(self.message)
 
 
-def stats(*args, **kwargs):
-
-    if not 'hosts' in kwargs:
-        kwargs['hosts'] = ['esa.scielo.org', 'esb.scielo.org']
-
-    st  = Stats(*args, **kwargs)
-
-    return st
-
 def articlemeta(host):
 
     address, port = host.split(':')
@@ -111,7 +103,96 @@ def bibliometrics(host):
     return Citedby(address, port)
 
 
+class Stats(object):
+
+    def __init__(self):
+        config = utils.Configuration.from_env()
+        settings = dict(config.items())
+        self.articlemeta = articlemeta(settings['app:main']['articlemeta'])
+        self.accesstats = accessstats(settings['app:main']['accessstats'])
+        self.publicationstats = publicationstats(settings['app:main']['publicationstats'])
+        self.bibliometrics = bibliometrics(settings['app:main']['citedby'])
+
+    def citation_self_citation(self, issn, collection, titles, size=0):
+        self_citation = self.bibliometrics.self_citation(issn, titles, size=size)
+        citations = self.publicationstats.general('article', 'publication_year', issn, collection)
+        return self_citation
+
+
 class Citedby(clients.Citedby):
+
+    def _compute_self_citation(self, query_result):
+        series = [
+            {
+                'id': 'self_citations',
+                'data': []
+            }
+        ]
+
+        categories = []
+
+        for bucket in query_result['aggregations']['publication_year']['buckets']:
+            categories.append(bucket['key'])
+            series[0]["data"].append(bucket['doc_count'])
+
+        return {"series": series, "categories": categories}
+
+    def self_citation(self, issn, titles, size=0):
+
+        body = {
+            "query": {
+                "filtered" : {
+                    "query": {
+                        "bool": {
+                            "should": []
+                        }
+                    },
+                    "filter": {
+                        "term": {
+                            "issn": issn
+                        }
+                    }
+                }
+            },
+            "aggs": {
+                "publication_year": {
+                    "terms": {
+                        "field": "publication_year",
+                        "size": size,
+                        "order": {
+                            "_term": "asc"
+                        }
+                    }
+                }
+            }
+        }
+
+        for title in titles:
+
+            if len(title) == 0:
+                continue
+
+            item = {
+                "fuzzy": {
+                    "reference_source": {
+                        "value": title,
+                        "fuzziness" : 3,
+                        "max_expansions": 50
+                    }
+                }
+            }
+
+            body['query']['filtered']['query']['bool']['should'].append(item)
+
+        query_parameters = [
+            clients.citedby_thrift.kwargs('size', '0'),
+            clients.citedby_thrift.kwargs('search_type', 'count')
+        ]
+
+        query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
+
+        return self._compute_self_citation(query_result)
+
 
     def _compute_granted(self, query_result):
 
@@ -451,7 +532,8 @@ class PublicationStats(clients.PublicationStats):
                         "field": "publication_year",
                         "order": {
                             "_term": "desc"
-                        }
+                        },
+                        "size": 0
                     },
                     "aggs": {
                         "citable_documents": {
@@ -542,7 +624,6 @@ class ArticleMeta(clients.ArticleMeta):
                     coll[journal.scielo_issn] = journal.title
 
         return self._journals.get(collection, {}) if collection else self._journals
-        
 
 class AccessStats(clients.AccessStats):
 

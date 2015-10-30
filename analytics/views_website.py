@@ -134,6 +134,26 @@ def base_data_manager(wrapped):
 
     return wrapper
 
+@view_config(route_name='bibliometrics_journal_web', renderer='templates/website/bibliometrics_journal.mako')
+@base_data_manager
+def bibliometrics_journal(request):
+
+    data = request.data_manager
+    data['page'] = 'bibliometrics'
+    titles = request.GET.get('titles', '').split(',')
+
+    data['titles'] = []
+    if data['selected_journal_code']:
+        journal = request.articlemeta.journal(code=data['selected_journal_code'])
+        titles.append(journal.title)
+        titles.append(journal.abbreviated_title)
+
+    if not len(titles) == 0:
+        forms = set([i.strip() for i in titles])
+        data['titles'] = u','.join(forms)
+
+    return data
+
 @view_config(route_name='bibliometrics_list_citing_forms_web', request_method='GET', renderer='templates/website/bibliometrics_list_citing_forms.mako')
 @base_data_manager
 def bibliometrics_list_citing_forms(request):
@@ -147,7 +167,7 @@ def bibliometrics_list_citing_forms(request):
         titles.append(journal.abbreviated_title)
 
     data['blist'] = []
-
+    data['titles'] = []
     if not len(titles) == 0:
         forms = set([i.strip() for i in titles])
         data['blist'] = request.bibliometrics.citing_forms(forms, size=100)
@@ -168,7 +188,7 @@ def bibliometrics_list_received(request):
         titles.append(journal.abbreviated_title)
 
     data['blist'] = []
-
+    data['titles'] = []
     if not len(titles) == 0:
         forms = set([i.strip() for i in titles])
         data['blist'] = request.bibliometrics.received_citations(forms, size=100)
