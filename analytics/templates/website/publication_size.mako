@@ -5,19 +5,6 @@
     <div class="row container-fluid">
         <div class="col-md-3">
             <%include file="publication_size_journals.mako"/>
-        </div>
-        <div class="col-md-3">
-            <%include file="publication_size_issues.mako"/>
-        </div>
-        <div class="col-md-3">
-            <%include file="publication_size_documents.mako"/>
-        </div>
-        <div class="col-md-3">
-            <%include file="publication_size_citations.mako"/>
-        </div>
-    </div>
-    <div class="row container-fluid">
-        <div class="col-md-3">
             <div class="panel panel-info">
               <div class="panel-heading">
                 <h3 class="panel-title">${_(u'Sobre os números')}</h3>
@@ -28,6 +15,7 @@
             </div>
         </div>
         <div class="col-md-3">
+            <%include file="publication_size_issues.mako"/>
             <div class="panel panel-info">
               <div class="panel-heading">
                 <h3 class="panel-title">${_(u'Sobre os números')}</h3>
@@ -38,6 +26,7 @@
             </div>
         </div>
         <div class="col-md-3">
+            <%include file="publication_size_documents.mako"/>
             <div class="panel panel-info">
               <div class="panel-heading">
                 <h3 class="panel-title">${_(u'Sobre os números')}</h3>
@@ -48,6 +37,7 @@
             </div>
         </div>
         <div class="col-md-3">
+            <%include file="publication_size_citations.mako"/>
             <div class="panel panel-info">
               <div class="panel-heading">
                 <h3 class="panel-title">${_(u'Sobre os números')}</h3>

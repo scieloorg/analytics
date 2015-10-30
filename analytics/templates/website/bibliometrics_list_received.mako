@@ -2,6 +2,13 @@
 <%inherit file="base.mako"/>
 
 <%block name="central_container">
+  <div class="row container-fluid">
+    <form class="form-inline" method="GET">
+        <label>Formas do título</label>
+        <input type="text" name="titles" class="col-md-8" id="tokenfield" value="${titles}"/>
+        <button type="submit" class="btn btn-default">${_(u'aplicar')}</button>
+    </form>
+  </div>
   % if not selected_journal_code:
     <div class="panel panel-warning">
       <div class="panel-heading">
@@ -12,18 +19,24 @@
       </div>
     </div>
   % endif
-  <h3>${_(u'Top 100 Citações recebidas')}</h3>
+  <h3>${_(u'Top 100 citações recebidas por periódicos')}</h3>
   <table class="table">
     <tr>
       <th>${_(u'título')}</th>
       <th>${_(u'total')}</th>
     </tr>
+    <%total=0%>
     % for item in blist:
+      <%total+=item['count']%>
       <tr>
         <td>${item['source']}</td>
         <td>${item['count']}</td>
       </tr>
     % endfor
+      <tr>
+        <th>${_(u'total')}</th>
+        <th>${total}</th>
+      </tr>        
     % if len(blist) == 0:
       <tr>
         <td colspan="2">${_(u'sem resultados')}</td>
@@ -33,5 +46,9 @@
 </%block>
 
 <%block name="extra_js">
-
+  <script>
+    $('#tokenfield').tokenfield({
+      'limit': 5
+    })
+  </script>
 </%block>

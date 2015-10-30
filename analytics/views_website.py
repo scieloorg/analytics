@@ -139,7 +139,7 @@ def base_data_manager(wrapped):
 def bibliometrics_list_citing_forms(request):
     data = request.data_manager
     data['page'] = 'bibliometrics'
-    titles = request.GET.getall('titles')
+    titles = request.GET.get('titles', '').split(',')
 
     if data['selected_journal_code']:
         journal = request.articlemeta.journal(code=data['selected_journal_code'])
@@ -147,8 +147,11 @@ def bibliometrics_list_citing_forms(request):
         titles.append(journal.abbreviated_title)
 
     data['blist'] = []
+
     if not len(titles) == 0:
-        data['blist'] = request.bibliometrics.citing_forms(list(set(titles)), size=100)
+        forms = set([i.strip() for i in titles])
+        data['blist'] = request.bibliometrics.citing_forms(forms, size=100)
+        data['titles'] = u','.join(forms)
 
     return data
 
@@ -157,7 +160,7 @@ def bibliometrics_list_citing_forms(request):
 def bibliometrics_list_received(request):
     data = request.data_manager
     data['page'] = 'bibliometrics'
-    titles = request.GET.getall('titles')
+    titles = request.GET.get('titles', '').split(',')
 
     if data['selected_journal_code']:
         journal = request.articlemeta.journal(code=data['selected_journal_code'])
@@ -165,8 +168,11 @@ def bibliometrics_list_received(request):
         titles.append(journal.abbreviated_title)
 
     data['blist'] = []
+
     if not len(titles) == 0:
-        data['blist'] = request.bibliometrics.received_citations(list(set(titles)), size=100)
+        forms = set([i.strip() for i in titles])
+        data['blist'] = request.bibliometrics.received_citations(forms, size=100)
+        data['titles'] = u','.join(forms)
 
     return data
 

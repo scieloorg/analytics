@@ -12,18 +12,24 @@
       </div>
     </div>
   % endif
-  <h3>${_(u'Top 100 Citações concedidas')}</h3>
+  <h3>${_(u'Top 100 citações concedidas por periódico')}</h3>
   <table class="table">
     <tr>
       <th>${_(u'título')}</th>
       <th>${_(u'total')}</th>
     </tr>
+    <%total=0%>
     % for item in blist:
+    <%total+=item['count']%>
       <tr>
         <td>${item['source']}</td>
         <td>${item['count']}</td>
       </tr>
     % endfor
+      <tr>
+        <th>${_(u'total')}</th>
+        <th>${total}</th>
+      </tr>        
     % if len(blist) == 0:
       <tr>
         <td colspan="2">${_(u'sem resultados')}</td>
