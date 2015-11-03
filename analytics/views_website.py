@@ -170,7 +170,7 @@ def bibliometrics_list_citing_forms(request):
     data['titles'] = []
     if not len(titles) == 0:
         forms = set([i.strip() for i in titles])
-        data['blist'] = request.bibliometrics.citing_forms(forms, size=100)
+        data['blist'] = request.bibliometrics.citing_forms(forms)
         data['titles'] = u','.join(forms)
 
     return data
@@ -191,7 +191,7 @@ def bibliometrics_list_received(request):
     data['titles'] = []
     if not len(titles) == 0:
         forms = set([i.strip() for i in titles])
-        data['blist'] = request.bibliometrics.received_citations(forms, size=100)
+        data['blist'] = request.bibliometrics.received_citations(forms)
         data['titles'] = u','.join(forms)
 
     return data
@@ -205,7 +205,7 @@ def bibliometrics_list_granted(request):
     data ['blist'] = []
     if data['selected_journal_code']:
         data['blist'] = request.bibliometrics.granted_citations(
-            data['selected_journal_code'], size=100)
+            data['selected_journal_code'])
 
     return data
 

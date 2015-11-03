@@ -28,7 +28,10 @@ ALLOWED_DOC_TYPES_N_FACETS = {
     ]
 }
 
-cache_region = make_region(name='controller_cache')
+cache_region = make_region(
+    name='controller_cache',
+    #function_key_generator = utils.dogpile_controller_key_generator
+)
 
 def construct_aggs(aggs, size=0):
     """
@@ -113,10 +116,47 @@ class Stats(object):
         self.publicationstats = publicationstats(settings['app:main']['publicationstats'])
         self.bibliometrics = bibliometrics(settings['app:main']['citedby'])
 
+    def _compute_citation_self_citation(self, self_citations, citations):
+
+        d_self_citations = dict(zip(
+            self_citations['categories'],
+            self_citations['series'][0]['data']
+        ))
+
+        d_citations = dict(zip(
+            citations['categories'],
+            citations['series'][0]['data']
+        ))
+
+        data = {
+            'series': [
+                {
+                    'name': citations['series'][0]['name'],
+                    'data': []
+                },
+                {
+                    'name': self_citations['series'][0]['name'],
+                    'data': []
+                }
+            ],
+            'categories': []
+        }
+
+
+        for year in sorted(set(d_citations.keys()+d_self_citations.keys())):
+            data['categories'].append(year)
+            data['series'][0]['data'].append(d_citations.get(year, 0))
+            data['series'][1]['data'].append(d_self_citations.get(year, 0))
+
+        return data
+
     def citation_self_citation(self, issn, collection, titles, size=0):
-        self_citation = self.bibliometrics.self_citation(issn, titles, size=size)
-        citations = self.publicationstats.general('article', 'publication_year', issn, collection)
-        return self_citation
+
+        self_citations = self.bibliometrics.self_citation(issn, titles, size=size)
+
+        citations = self.publicationstats.citations_year(issn, collection)
+
+        return self._compute_citation_self_citation(self_citations, citations)
 
 
 class Citedby(clients.Citedby):
@@ -124,7 +164,7 @@ class Citedby(clients.Citedby):
     def _compute_self_citation(self, query_result):
         series = [
             {
-                'id': 'self_citations',
+                'name': 'self_citations',
                 'data': []
             }
         ]
@@ -206,7 +246,7 @@ class Citedby(clients.Citedby):
 
         return itens
 
-    def granted_citations(self, issn, size=100):
+    def granted_citations(self, issn, size=0):
         body = {
             "query": {
                 "match": {
@@ -244,7 +284,7 @@ class Citedby(clients.Citedby):
 
         return itens
 
-    def received_citations(self, titles, size=100):
+    def received_citations(self, titles, size=0):
 
         body = {
             "query": {
@@ -255,13 +295,17 @@ class Citedby(clients.Citedby):
             "aggs": {
                 "source": {
                     "terms": {
-                        "field": "source"
+                        "field": "source",
+                        "size":size
                     }
                 }
             }
         }
 
         for title in titles:
+
+            if len(title.strip()) == 0:
+                continue
 
             item = {
                 "fuzzy": {
@@ -296,7 +340,7 @@ class Citedby(clients.Citedby):
 
         return itens
 
-    def citing_forms(self, titles, size=100):
+    def citing_forms(self, titles, size=0):
 
         body = {
             "query": {
@@ -307,8 +351,9 @@ class Citedby(clients.Citedby):
             "aggs": {
                 "reference_source": {
                     "terms": {
-                        "field": "reference_source"
-                    }
+                        "field": "reference_source",
+                        "size":size
+                    },
                 }
             }
         }
@@ -351,6 +396,70 @@ class PublicationStats(clients.PublicationStats):
 
         if utils.REGEX_ARTICLE.match(code):
             return 'pid'
+
+    def _compute_citations_year(self, query_result):
+        series = [
+            {
+                'name': 'citations',
+                'data': []
+            }
+        ]
+
+        categories = []
+
+        for bucket in query_result['aggregations']['publication_year']['buckets'][::-1]:
+            categories.append(bucket['key'])
+            series[0]["data"].append(bucket['citations']['value'])
+
+        return {"series": series, "categories": categories}
+
+    def citations_year(self, code, collection):
+
+        body = {
+            "query": {
+                "bool": {
+                    "must": [{
+                            "match": {
+                                "collection": collection
+                            }
+                        }
+                    ]
+                }
+            },
+            "aggs": {
+                "publication_year": {
+                    "terms": {
+                        "field": "publication_year",
+                        "size": 0
+                    },
+                    "aggs": {
+                        "citations": {
+                            "sum": {
+                                "field": "citations"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        code_type = self._code_type(code)
+
+        if code_type:
+            body["query"]["bool"]["must"].append({
+                    "match": {
+                        code_type: code
+                    }
+                }
+            )
+
+        query_parameters = [
+            clients.publicationstats_thrift.kwargs('size', '0'),
+        ]
+
+        query_result = json.loads(self.client.search('article', json.dumps(body), query_parameters))
+
+        return self._compute_citations_year(query_result)
 
 
     def _compute_general(self, query_result, field):
@@ -494,11 +603,11 @@ class PublicationStats(clients.PublicationStats):
     def _compute_citable_documents(self, query_result):
         series = [
             {
-                'id': 'citable_documents',
+                'name': 'citable_documents',
                 'data': []
             },
             {
-                'id': 'not_citable_documents',
+                'name': 'not_citable_documents',
                 'data': []
             }
         ]

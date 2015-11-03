@@ -28,10 +28,10 @@ class ChartsConfig(object):
         name = {'self_citations': self._(u'Auto citação'), 'citations': self._(u'Citações')}
 
         for i, serie in enumerate(data['series']):
-            data['series'][i]['name'] = name[serie['id']]
+            data['series'][i]['name'] = name[serie['name']]
 
         chart = self.highchart
-        chart['chart']['type'] = 'column'
+        chart['chart']['type'] = 'area'
         chart['title'] = {'text': self._(u'Distribuição de citações e auto citações')}
         chart['xAxis'] = {
             'categories': data['categories'],
@@ -44,11 +44,11 @@ class ChartsConfig(object):
             'headerFormat': self._(u'Ano de publicação') + ' <strong>{point.key}</strong><br>',
             'pointFormat': u'<span style="color:{point.color}">\u25CF</span> {series.name}: <strong>{point.y}</strong> ({point.percentage:.0f}%)<br/>'
         }
-        chart['plotOptions'] = {
-            'column': {
-                'stacking': 'normal'
-            }
-        }
+        # chart['plotOptions'] = {
+        #     'column': {
+        #         'stacking': 'normal'
+        #     }
+        # }
 
         return {'options': chart}
 
@@ -57,10 +57,10 @@ class ChartsConfig(object):
         name = {'citable_documents': self._(u'Documentos citáveis'), 'not_citable_documents': self._(u'Documentos não citáveis')}
 
         for i, serie in enumerate(data['series']):
-            data['series'][i]['name'] = name[serie['id']]
+            data['series'][i]['name'] = name[serie['name']]
 
         chart = self.highchart
-        chart['chart']['type'] = 'column'
+        chart['chart']['type'] = 'area'
         chart['title'] = {'text': self._(u'Distribuição de documentos citáveis e não citáveis')}
         chart['xAxis'] = {
             'categories': data['categories'],
@@ -73,11 +73,11 @@ class ChartsConfig(object):
             'headerFormat': self._(u'Ano de publicação') + ' <strong>{point.key}</strong><br>',
             'pointFormat': u'<span style="color:{point.color}">\u25CF</span> {series.name}: <strong>{point.y}</strong> ({point.percentage:.0f}%)<br/>'
         }
-        chart['plotOptions'] = {
-            'column': {
-                'stacking': 'normal'
-            }
-        }
+        # chart['plotOptions'] = {
+        #     'column': {
+        #         'stacking': 'normal'
+        #     }
+        # }
 
         return {'options': chart}
 

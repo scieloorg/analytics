@@ -14,6 +14,87 @@ class ControllerTest(unittest.TestCase):
 
         self._as = controller.AccessStats('localhost', '11600')
         self._pu = controller.PublicationStats('localhost', '11600')
+        self._stats = controller.Stats()
+
+    def test_citation_self_citation(self):
+        self_citations = {
+            "series": [
+                {
+                    "data": [
+                        20,
+                        22,
+                        33,
+                        21
+                    ],
+                    "id": "self_citations"
+                }
+            ],
+            "categories": [
+                "2000",
+                "2001",
+                "2002",
+                "2003"
+            ]
+        }
+
+        citations = {
+            "series": [
+                {
+                    "data": [
+                        269,
+                        445,
+                        869,
+                        558
+                    ],
+                    "id": "citations"
+                }
+            ],
+            "categories": [
+                "1999",
+                "2000",
+                "2001",
+                "2002"
+            ]
+        }
+
+        expected = {
+            "series": [
+                {
+                    "data": [
+                        0,
+                        20,
+                        22,
+                        33,
+                        21
+                    ],
+                    "id": "self_citations"
+                },
+                {
+                    "data": [
+                        269,
+                        445,
+                        869,
+                        558,
+                        0
+                    ],
+                    "id": "citations"
+                }
+            ],
+            "categories": [
+                "1999",
+                "2000",
+                "2001",
+                "2002",
+                "2003"
+            ]
+        }
+
+        self.assertEqual(expected,
+            self._stats._compute_citation_self_citation(
+                self_citations,
+                citations
+            )
+        )
 
     def test_collection_size_documents(self):
         query_result = {

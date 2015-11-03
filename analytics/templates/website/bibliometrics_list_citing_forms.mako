@@ -18,31 +18,32 @@
         ${_(u'É necessário selecionar um periódico para dados bibliométricos.')}
       </div>
     </div>
-  % endif
-  <h3>${_(u'Formas de citação encontrada para o periódico selecionado')}</h3>
-  <table class="table">
-    <tr>
-      <th>${_(u'título')}</th>
-      <th>${_(u'total')}</th>
-    </tr>
-    <%total=0%>
-    % for item in blist:
-      <%total+=item['count']%>
+  % else:
+    <h3>${_(u'Formas de citação encontrada para o periódico selecionado')}</h3>
+    <table class="table">
       <tr>
-        <td>${item['source']}</td>
-        <td>${item['count']}</td>
-      </tr>
-    % endfor
-      <tr>
+        <th>${_(u'título')}</th>
         <th>${_(u'total')}</th>
-        <th>${total}</th>
-      </tr>        
-    % if len(blist) == 0:
-      <tr>
-        <td colspan="2">${_(u'sem resultados')}</td>
-      </tr>    
-    % endif
-  </table>
+      </tr>
+      <%total=0%>
+      % for item in blist:
+        <%total+=item['count']%>
+        <tr>
+          <td>${item['source']}</td>
+          <td>${item['count']}</td>
+        </tr>
+      % endfor
+        <tr>
+          <th>${_(u'total')}</th>
+          <th>${total}</th>
+        </tr>        
+      % if len(blist) == 0:
+        <tr>
+          <td colspan="2">${_(u'sem resultados')}</td>
+        </tr>    
+      % endif
+    </table>  
+  % endif
 </%block>
 
 <%block name="extra_js">

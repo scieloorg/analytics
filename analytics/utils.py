@@ -12,6 +12,14 @@ REGEX_ISSN = re.compile("^[0-9]{4}-[0-9]{3}[0-9xX]$")
 REGEX_ISSUE = re.compile("^[0-9]{4}-[0-9]{3}[0-9xX][0-2][0-9]{3}[0-9]{4}$")
 REGEX_ARTICLE = re.compile("^S[0-9]{4}-[0-9]{3}[0-9xX][0-2][0-9]{3}[0-9]{4}[0-9]{5}$")
 
+def dogpile_controller_key_generator(namespace, fn, *kwargs):
+
+    fname = fn.__name__
+
+    def generate_key(*the_args):
+        return str(namespace) + "_" + str(fname) + "_".join(str(s) for s in the_args[1:])
+
+    return generate_key
 
 class SingletonMixin(object):
     """
