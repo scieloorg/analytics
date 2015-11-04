@@ -30,7 +30,7 @@ ALLOWED_DOC_TYPES_N_FACETS = {
 
 cache_region = make_region(
     name='controller_cache',
-    #function_key_generator = utils.dogpile_controller_key_generator
+    function_key_generator = utils.dogpile_controller_key_generator
 )
 
 def construct_aggs(aggs, size=0):
@@ -103,7 +103,7 @@ def bibliometrics(host):
 
     address, port = host.split(':')
 
-    return Citedby(address, port)
+    return CitedbyStats(address, port)
 
 
 class Stats(object):
@@ -152,16 +152,17 @@ class Stats(object):
 
     def citation_self_citation(self, issn, collection, titles, size=0):
 
-        self_citations = self.bibliometrics.self_citation(issn, titles, size=size)
+        self_citations = self.bibliometrics.self_citations(issn, titles)
 
         citations = self.publicationstats.citations_year(issn, collection)
 
         return self._compute_citation_self_citation(self_citations, citations)
 
 
-class Citedby(clients.Citedby):
+class CitedbyStats(clients.Citedby):
 
-    def _compute_self_citation(self, query_result):
+    def _compute_self_citations(self, query_result):
+
         series = [
             {
                 'name': 'self_citations',
@@ -177,7 +178,8 @@ class Citedby(clients.Citedby):
 
         return {"series": series, "categories": categories}
 
-    def self_citation(self, issn, titles, size=0):
+    @cache_region.cache_on_arguments()
+    def self_citations(self, issn, titles, size=0):
 
         body = {
             "query": {
@@ -231,10 +233,10 @@ class Citedby(clients.Citedby):
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
 
-        return self._compute_self_citation(query_result)
+        return self._compute_self_citations(query_result)
 
 
-    def _compute_granted(self, query_result):
+    def _compute_granted_citations(self, query_result):
 
         itens = []
         for bucket in query_result['aggregations']['reference_source']['buckets']:
@@ -246,6 +248,7 @@ class Citedby(clients.Citedby):
 
         return itens
 
+    @cache_region.cache_on_arguments()
     def granted_citations(self, issn, size=0):
         body = {
             "query": {
@@ -270,9 +273,9 @@ class Citedby(clients.Citedby):
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
 
-        return self._compute_granted(query_result)
+        return self._compute_granted_citations(query_result)
 
-    def _compute_received(self, query_result):
+    def _compute_received_citations(self, query_result):
 
         itens = []
         for bucket in query_result['aggregations']['source']['buckets']:
@@ -284,6 +287,7 @@ class Citedby(clients.Citedby):
 
         return itens
 
+    @cache_region.cache_on_arguments()
     def received_citations(self, titles, size=0):
 
         body = {
@@ -326,7 +330,7 @@ class Citedby(clients.Citedby):
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
 
-        return self._compute_received(query_result)
+        return self._compute_received_citations(query_result)
 
     def _compute_citing_forms(self, query_result):
 
@@ -340,6 +344,7 @@ class Citedby(clients.Citedby):
 
         return itens
 
+    @cache_region.cache_on_arguments()
     def citing_forms(self, titles, size=0):
 
         body = {
@@ -359,6 +364,9 @@ class Citedby(clients.Citedby):
         }
 
         for title in titles:
+
+            if len(title.strip()) == 0:
+                continue
 
             item = {
                 "fuzzy": {
@@ -413,6 +421,7 @@ class PublicationStats(clients.PublicationStats):
 
         return {"series": series, "categories": categories}
 
+    @cache_region.cache_on_arguments()
     def citations_year(self, code, collection):
 
         body = {

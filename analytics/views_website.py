@@ -149,7 +149,7 @@ def bibliometrics_journal(request):
         titles.append(journal.abbreviated_title)
 
     if not len(titles) == 0:
-        forms = set([i.strip() for i in titles])
+        forms = set([i.strip() for i in titles if i])
         data['titles'] = u','.join(forms)
 
     return data
@@ -169,7 +169,7 @@ def bibliometrics_list_citing_forms(request):
     data['blist'] = []
     data['titles'] = []
     if not len(titles) == 0:
-        forms = set([i.strip() for i in titles])
+        forms = set([i.strip() for i in titles if i])
         data['blist'] = request.bibliometrics.citing_forms(forms)
         data['titles'] = u','.join(forms)
 
@@ -190,7 +190,7 @@ def bibliometrics_list_received(request):
     data['blist'] = []
     data['titles'] = []
     if not len(titles) == 0:
-        forms = set([i.strip() for i in titles])
+        forms = set([i.strip() for i in titles if i])
         data['blist'] = request.bibliometrics.received_citations(forms)
         data['titles'] = u','.join(forms)
 

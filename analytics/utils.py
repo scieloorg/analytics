@@ -2,6 +2,7 @@
 import os
 import weakref
 import re
+import unicodedata
 
 try:
     from ConfigParser import SafeConfigParser
@@ -17,9 +18,21 @@ def dogpile_controller_key_generator(namespace, fn, *kwargs):
     fname = fn.__name__
 
     def generate_key(*the_args):
-        return str(namespace) + "_" + str(fname) + "_".join(str(s) for s in the_args[1:])
+
+        key = [
+            str(namespace),
+            str(fname)
+        ]
+        key += [str(i) for i in the_args[1:]]
+
+        return "_".join(key)
 
     return generate_key
+
+
+def remove_accents(data):
+    nfkd_form = unicodedata.normalize('NFKD', data.strip())
+    return u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
 
 class SingletonMixin(object):
     """

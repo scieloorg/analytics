@@ -14,7 +14,234 @@ class ControllerTest(unittest.TestCase):
 
         self._as = controller.AccessStats('localhost', '11600')
         self._pu = controller.PublicationStats('localhost', '11600')
+        self._cb = controller.CitedbyStats('localhost', '11600')
         self._stats = controller.Stats()
+
+    def test_compute_citing_forms(self):
+
+        query_result = {
+            "hits": {
+                "hits": [],
+                "total": 14561,
+                "max_score": 0.0
+            },
+            "timed_out": False,
+            "took": 38818,
+            "aggregations": {
+                "reference_source": {
+                    "buckets": [
+                        {
+                            "key": u"Rev Saúde Pública",
+                            "doc_count": 8217
+                        },
+                        {
+                            "key": u"Revista de Saúde Pública",
+                            "doc_count": 3120
+                        },
+                        {
+                            "key": u"Rev. Saúde Pública",
+                            "doc_count": 1639
+                        }
+                    ],
+                    "doc_count_error_upper_bound": 0,
+                    "sum_other_doc_count": 0
+                }
+            },
+            "_shards": {
+                "successful": 5,
+                "failed": 0,
+                "total": 5
+            }
+        }
+
+        expected = [
+            {
+                "source": u"Rev Saúde Pública",
+                "count": 8217
+            },
+            {
+                "source": u"Revista de Saúde Pública",
+                "count": 3120
+            },
+            {
+                "source": u"Rev. Saúde Pública",
+                "count": 1639
+            }
+        ]
+
+        result = self._cb._compute_citing_forms(query_result)
+
+        self.assertEqual(expected, result)
+
+    def test_compute_received_citations(self):
+
+        query_result = {
+            "hits": {
+                "hits": [],
+                "total": 14549,
+                "max_score": 0.0
+            },
+            "timed_out": False,
+            "took": 29198,
+            "aggregations": {
+                "source": {
+                    "buckets": [
+                        {
+                            "key": u"Cadernos de Saúde Pública",
+                            "doc_count": 3607
+                        },
+                        {
+                            "key": u"Revista de Saúde Pública",
+                            "doc_count": 1714
+                        },
+                        {
+                            "key": u"Ciência & Saúde Coletiva",
+                            "doc_count": 935
+                        }
+                    ],
+                    "doc_count_error_upper_bound": 0,
+                    "sum_other_doc_count": 0
+                }
+            },
+            "_shards": {
+                "successful": 5,
+                "failed": 0,
+                "total": 5
+            }
+        }
+
+        expected = [
+            {
+                "source": u"Cadernos de Saúde Pública",
+                "count": 3607
+            },
+            {
+                "source": u"Revista de Saúde Pública",
+                "count": 1714
+            },
+            {
+                "source": u"Ciência & Saúde Coletiva",
+                "count": 935
+            }
+        ]
+
+        result = self._cb._compute_received_citations(query_result)
+
+        self.assertEqual(expected, result)
+
+    def test_compute_granted_citations(self):
+
+        query_result = {
+            "hits": {
+                "hits": [],
+                "total": 67602,
+                "max_score": 0.0
+            },
+            "timed_out": False,
+            "took": 4715,
+            "aggregations": {
+                "reference_source": {
+                    "buckets": [
+                        {
+                            "key": u"Rev. Saúde públ.",
+                            "doc_count": 1371
+                        },
+                        {
+                            "key": u"Rev Saúde Pública",
+                            "doc_count": 898
+                        },
+                        {
+                            "key": u"Lancet",
+                            "doc_count": 823
+                        }
+                    ],
+                    "doc_count_error_upper_bound": 0,
+                    "sum_other_doc_count": 0
+                }
+            },
+            "_shards": {
+                "successful": 5,
+                "failed": 0,
+                "total": 5
+            }
+        }
+
+        expected = [
+            {
+                "source": u"Rev. Saúde públ.",
+                "count": 1371
+            },
+            {
+                "source": u"Rev Saúde Pública",
+                "count": 898
+            },
+            {
+                "source": u"Lancet",
+                "count": 823
+            }
+        ]
+
+        result = self._cb._compute_granted_citations(query_result)
+
+        self.assertEqual(expected, result)
+
+    def test_compute_self_citations(self):
+        query_result = {
+            "hits": {
+                "hits": [],
+                "total": 1714,
+                "max_score": 0.0
+            },
+            "timed_out": False,
+            "took": 13686,
+            "aggregations": {
+                "publication_year": {
+                    "buckets": [
+                        {
+                            "key": "1993",
+                            "doc_count": 119
+                        },
+                        {
+                            "key": "1994",
+                            "doc_count": 83
+                        },
+                        {
+                            "key": "1995",
+                            "doc_count": 111
+                        }
+                    ],
+                    "doc_count_error_upper_bound": 0,
+                    "sum_other_doc_count": 0
+                }
+            },
+            "_shards": {
+                "successful": 5,
+                "failed": 0,
+                "total": 5
+            }
+        }        
+
+        expected = {
+            "series": [
+                {
+                    "data": [
+                        119,
+                        83,
+                        111
+                    ],
+                    "name": "self_citations"
+                }
+            ],
+            "categories": [
+                "1993",
+                "1994",
+                "1995"
+            ]
+        }
+
+        result = self._cb._compute_self_citations(query_result)
+
+        self.assertEqual(expected, result)
 
     def test_citation_self_citation(self):
         self_citations = {
@@ -26,7 +253,7 @@ class ControllerTest(unittest.TestCase):
                         33,
                         21
                     ],
-                    "id": "self_citations"
+                    "name": "self_citations"
                 }
             ],
             "categories": [
@@ -46,7 +273,7 @@ class ControllerTest(unittest.TestCase):
                         869,
                         558
                     ],
-                    "id": "citations"
+                    "name": "citations"
                 }
             ],
             "categories": [
@@ -61,23 +288,23 @@ class ControllerTest(unittest.TestCase):
             "series": [
                 {
                     "data": [
-                        0,
-                        20,
-                        22,
-                        33,
-                        21
-                    ],
-                    "id": "self_citations"
-                },
-                {
-                    "data": [
                         269,
                         445,
                         869,
                         558,
                         0
                     ],
-                    "id": "citations"
+                    "name": "citations"
+                },
+                {
+                    "data": [
+                        0,
+                        20,
+                        22,
+                        33,
+                        21
+                    ],
+                    "name": "self_citations"
                 }
             ],
             "categories": [
@@ -212,76 +439,6 @@ class ControllerTest(unittest.TestCase):
                     "buckets": [
                         {
                             "citable_documents": {
-                                "doc_count": 11940
-                            },
-                            "not_citable_documents": {
-                                "doc_count": 1779
-                            },
-                            "key": "2015",
-                            "doc_count": 13719
-                        },
-                        {
-                            "citable_documents": {
-                                "doc_count": 19237
-                            },
-                            "not_citable_documents": {
-                                "doc_count": 2719
-                            },
-                            "key": "2014",
-                            "doc_count": 21956
-                        },
-                        {
-                            "citable_documents": {
-                                "doc_count": 19686
-                            },
-                            "not_citable_documents": {
-                                "doc_count": 2304
-                            },
-                            "key": "2013",
-                            "doc_count": 21990
-                        },
-                        {
-                            "citable_documents": {
-                                "doc_count": 20248
-                            },
-                            "not_citable_documents": {
-                                "doc_count": 2191
-                            },
-                            "key": "2012",
-                            "doc_count": 22439
-                        },
-                        {
-                            "citable_documents": {
-                                "doc_count": 20300
-                            },
-                            "not_citable_documents": {
-                                "doc_count": 1962
-                            },
-                            "key": "2011",
-                            "doc_count": 22262
-                        },
-                        {
-                            "citable_documents": {
-                                "doc_count": 18829
-                            },
-                            "not_citable_documents": {
-                                "doc_count": 2251
-                            },
-                            "key": "2010",
-                            "doc_count": 21080
-                        },
-                        {
-                            "citable_documents": {
-                                "doc_count": 17644
-                            },
-                            "not_citable_documents": {
-                                "doc_count": 1881
-                            },
-                            "key": "2009",
-                            "doc_count": 19525
-                        },
-                        {
-                            "citable_documents": {
                                 "doc_count": 16341
                             },
                             "not_citable_documents": {
@@ -328,44 +485,23 @@ class ControllerTest(unittest.TestCase):
                     "data": [
                         13410,
                         15096,
-                        16341,
-                        17644,
-                        18829,
-                        20300,
-                        20248,
-                        19686,
-                        19237,
-                        11940
+                        16341
                     ],
-                    "id": "citable_documents"
+                    "name": "citable_documents"
                 },
                 {
                     "data": [
                         1925,
                         2189,
-                        1957,
-                        1881,
-                        2251,
-                        1962,
-                        2191,
-                        2304,
-                        2719,
-                        1779
+                        1957
                     ],
-                    "id": "not_citable_documents"
+                    "name": "not_citable_documents"
                 }
             ],
             "categories": [
                 "2006",
                 "2007",
-                "2008",
-                "2009",
-                "2010",
-                "2011",
-                "2012",
-                "2013",
-                "2014",
-                "2015"
+                "2008"
             ]
         }
 
@@ -396,26 +532,6 @@ class ControllerTest(unittest.TestCase):
                         {
                             "key": "Agricultural Sciences",
                             "doc_count": 46
-                        },
-                        {
-                            "key": "Biological Sciences",
-                            "doc_count": 43
-                        },
-                        {
-                            "key": "Applied Social Sciences",
-                            "doc_count": 41
-                        },
-                        {
-                            "key": "Engineering",
-                            "doc_count": 23
-                        },
-                        {
-                            "key": "Exact and Earth Sciences",
-                            "doc_count": 22
-                        },
-                        {
-                            "key": "Linguistics, Letters and Arts",
-                            "doc_count": 13
                         }
                     ],
                     "doc_count_error_upper_bound": 0,
@@ -435,12 +551,7 @@ class ControllerTest(unittest.TestCase):
                     "data": [
                         113,
                         95,
-                        46,
-                        43,
-                        41,
-                        23,
-                        22,
-                        13
+                        46
                     ],
                     "name": "documents"
                 }
@@ -448,12 +559,7 @@ class ControllerTest(unittest.TestCase):
             "categories": [
                 "Health Sciences",
                 "Human Sciences",
-                "Agricultural Sciences",
-                "Biological Sciences",
-                "Applied Social Sciences",
-                "Engineering",
-                "Exact and Earth Sciences",
-                "Linguistics, Letters and Arts"
+                "Agricultural Sciences"
             ]
         }
 
