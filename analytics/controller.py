@@ -216,8 +216,8 @@ class CitedbyStats(clients.Citedby):
 
             item = {
                 "fuzzy": {
-                    "reference_source": {
-                        "value": title,
+                    "reference_source_cleaned": {
+                        "value": utils.clean_string(title),
                         "fuzziness" : 3,
                         "max_expansions": 50
                     }
@@ -313,8 +313,8 @@ class CitedbyStats(clients.Citedby):
 
             item = {
                 "fuzzy": {
-                    "reference_source": {
-                        "value": title,
+                    "reference_source_cleaned": {
+                        "value": utils.clean_string(title),
                         "fuzziness" : 3,
                         "max_expansions": 50
                     }
@@ -370,8 +370,8 @@ class CitedbyStats(clients.Citedby):
 
             item = {
                 "fuzzy": {
-                    "reference_source": {
-                        "value": title,
+                    "reference_source_cleaned": {
+                        "value": utils.clean_string(title),
                         "fuzziness" : 3,
                         "max_expansions": 50
                     }
