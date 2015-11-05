@@ -90,6 +90,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${_(u'Bibliometria')} <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="${request.route_url('bibliometrics_journal_web')}">${_(u'Gráficos')}</a></li>
+                <li><a href="${request.route_url('bibliometrics_list_impact_factor_web')}">${_(u'Fator de Impacto 1, 2, 3 e 4 anos')}</a></li>
                 <li><a href="${request.route_url('bibliometrics_list_granted_web')}">${_(u'Citações concedidas por periódicos')}</a></li>
                 <li><a href="${request.route_url('bibliometrics_list_received_web')}">${_(u'Citações recebidas por periódicos')}</a></li>
                 <li><a href="${request.route_url('bibliometrics_list_citing_forms_web')}">${_(u'Formas de citação do periódico')}</a></li>

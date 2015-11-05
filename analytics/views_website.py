@@ -156,6 +156,29 @@ def bibliometrics_journal(request):
 
     return data
 
+@view_config(route_name='bibliometrics_list_impact_factor_web', request_method='GET', renderer='templates/website/bibliometrics_list_impact_factor.mako')
+@base_data_manager
+def bibliometrics_list_impact_factor(request):
+    data = request.data_manager
+    data['page'] = 'bibliometrics'
+    titles = request.GET.get('titles', None)
+
+    titles = titles.split(',') if titles else []
+
+    if data['selected_journal_code']:
+        journal = request.articlemeta.journal(code=data['selected_journal_code'])
+        titles.append(journal.title)
+        titles.append(journal.abbreviated_title)
+
+    data['blist'] = {}
+    data['titles'] = []
+    if titles and not len(titles) == 0:
+        forms = set([i.strip() for i in titles if i])
+        data['blist'] = request.stats.impact_factor(data['selected_journal_code'], journal.collection_acronym, titles)
+        data['titles'] = u','.join(forms)
+
+    return data
+
 @view_config(route_name='bibliometrics_list_citing_forms_web', request_method='GET', renderer='templates/website/bibliometrics_list_citing_forms.mako')
 @base_data_manager
 def bibliometrics_list_citing_forms(request):

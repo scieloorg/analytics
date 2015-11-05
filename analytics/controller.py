@@ -158,7 +158,7 @@ class Stats(object):
 
         return self._compute_citation_self_citation(self_citations, citations)
 
-    def _compute_citations_per_document_per_year(self, pub_citing_years, citable_docs):
+    def _compute_impact_factor(self, pub_citing_years, citable_docs):
         """
         Computa o fator de impacto em 2, 3 e 4 anos.
         """
@@ -186,32 +186,32 @@ class Stats(object):
             year2 = str(int(year)-2)
             year3 = str(int(year)-3)
             year4 = str(int(year)-4)
-            cit_docs[year]['citing_count1'] = pcy.get(year, {}).get(year1, 0)
-            cit_docs[year]['citing_count2'] = pcy.get(year, {}).get(year2, 0)
-            cit_docs[year]['citing_count3'] = pcy.get(year, {}).get(year3, 0)
-            cit_docs[year]['citing_count4'] = pcy.get(year, {}).get(year4, 0)
-            cit_docs[year]['citable_docs1'] = cit_docs.get(year1, {'citable_docs': 0})['citable_docs']
-            cit_docs[year]['citable_docs2'] = cit_docs.get(year2, {'citable_docs': 0})['citable_docs']
-            cit_docs[year]['citable_docs3'] = cit_docs.get(year3, {'citable_docs': 0})['citable_docs']
-            cit_docs[year]['citable_docs4'] = cit_docs.get(year4, {'citable_docs': 0})['citable_docs']
+            cit_docs[year]['citing_count1'] = float(pcy.get(year, {}).get(year1, 0))
+            cit_docs[year]['citing_count2'] = float(pcy.get(year, {}).get(year2, 0))
+            cit_docs[year]['citing_count3'] = float(pcy.get(year, {}).get(year3, 0))
+            cit_docs[year]['citing_count4'] = float(pcy.get(year, {}).get(year4, 0))
+            cit_docs[year]['citable_docs1'] = float(cit_docs.get(year1, {'citable_docs': 0})['citable_docs'])
+            cit_docs[year]['citable_docs2'] = float(cit_docs.get(year2, {'citable_docs': 0})['citable_docs'])
+            cit_docs[year]['citable_docs3'] = float(cit_docs.get(year3, {'citable_docs': 0})['citable_docs'])
+            cit_docs[year]['citable_docs4'] = float(cit_docs.get(year4, {'citable_docs': 0})['citable_docs'])
 
             try:
-                fi1 = float(cit_docs[year]['citing_count1'])/float(cit_docs[year]['citable_docs1'])
+                fi1 = (cit_docs[year]['citing_count1'])/(cit_docs[year]['citable_docs1'])
             except:
                 fi1 = 0
 
             try:
-                fi2 = float(cit_docs[year]['citing_count1']+cit_docs[year]['citing_count2'])/float(cit_docs[year]['citable_docs1']+cit_docs[year]['citable_docs2'])
+                fi2 = (cit_docs[year]['citing_count1']+cit_docs[year]['citing_count2'])/(cit_docs[year]['citable_docs1']+cit_docs[year]['citable_docs2'])
             except:
                 fi2 = 0
 
             try:
-                fi3 = float(cit_docs[year]['citing_count1']+cit_docs[year]['citing_count2']+cit_docs[year]['citing_count3'])/float(cit_docs[year]['citable_docs1']+cit_docs[year]['citable_docs2']+cit_docs[year]['citable_docs3'])
+                fi3 = (cit_docs[year]['citing_count1']+cit_docs[year]['citing_count2']+cit_docs[year]['citing_count3'])/(cit_docs[year]['citable_docs1']+cit_docs[year]['citable_docs2']+cit_docs[year]['citable_docs3'])
             except:
                 fi3 = 0
 
             try:
-                fi4 = float(cit_docs[year]['citing_count1']+cit_docs[year]['citing_count2']+cit_docs[year]['citing_count3']+cit_docs[year]['citing_count4'])/float(cit_docs[year]['citable_docs1']+cit_docs[year]['citable_docs2']+cit_docs[year]['citable_docs3']+cit_docs[year]['citable_docs4'])
+                fi4 = (cit_docs[year]['citing_count1']+cit_docs[year]['citing_count2']+cit_docs[year]['citing_count3']+cit_docs[year]['citing_count4'])/(cit_docs[year]['citable_docs1']+cit_docs[year]['citable_docs2']+cit_docs[year]['citable_docs3']+cit_docs[year]['citable_docs4'])
             except:
                 fi4 = 0
 
@@ -220,29 +220,22 @@ class Stats(object):
             cit_docs[year]['fi3'] = fi3
             cit_docs[year]['fi4'] = fi4
 
-        series = [
-            {
-                'name': 'self_citations',
-                'data': []
-            }
-        ]
 
-        categories = []
+        return cit_docs
 
-        return 0
-
-    def citations_per_document_per_year(self, issn, collection, titles):
+    @cache_region.cache_on_arguments()
+    def impact_factor(self, issn, collection, titles):
 
         pub_citing_years = self.bibliometrics.publication_and_citing_years(titles)
 
         citable_docs = self.publicationstats.citable_documents(issn, collection)
 
-        return self._compute_citation_self_citation(pub_citing_years, citable_docs)
+        return self._compute_impact_factor(pub_citing_years, citable_docs)
 
 
 class CitedbyStats(clients.Citedby):
 
-    def _compute_publication_citing_years(self, query_result):
+    def _compute_publication_and_citing_years(self, query_result):
         """
         Metodo mantido apenas por padronização. Nenhum gráfico é montado
         diretamente com esses dados. Ele é utilizado em composição com outros
@@ -252,6 +245,7 @@ class CitedbyStats(clients.Citedby):
 
         return query_result
 
+    @cache_region.cache_on_arguments()
     def publication_and_citing_years(self, titles, size=0):
 
         body = {
@@ -302,7 +296,7 @@ class CitedbyStats(clients.Citedby):
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
 
-        return self._compute_publication_citing_year(query_result)
+        return self._compute_publication_and_citing_years(query_result)
 
     def _compute_self_citations(self, query_result):
 

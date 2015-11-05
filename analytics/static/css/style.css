@@ -74,3 +74,7 @@ body { padding-top: 70px; }
 .chart {
     margin-top: 50px;
 }
+
+.table-impact-factor .table-impact-factor-header {
+    background-color: #F0F0F0;
+}
