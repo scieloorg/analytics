@@ -41,8 +41,11 @@ class ChartsConfig(object):
         chart['series'] = data['series']
         chart['yAxis']['title'] = {'text': self._(u'Número de documentos') }
         chart['tooltip'] = {
-            'headerFormat': self._(u'Ano de publicação') + ' <strong>{point.key}</strong><br>',
-            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> {series.name}: <strong>{point.y}</strong> ({point.percentage:.0f}%)<br/>'
+            'shared': True,
+            'useHTML': True,
+            'headerFormat': self._(u'Ano de publicação') + ' <strong>{point.key}</strong><table>',
+            'pointFormat': u'<tr><td><span style="color:{point.color}">\u25CF</span> {series.name}: </td><td style="text-align: right"><strong>{point.y}</strong></td><td style="text-align: right">&nbsp;({point.percentage:.0f}%)</td></tr>',
+            'footerFormat': '</table>'
         }
         chart['plotOptions'] = {
             'column': {
@@ -66,8 +69,7 @@ class ChartsConfig(object):
         chart['yAxis']['title'] = {'text': self._(u'Número de documentos') }
         chart['tooltip'] = {
             'headerFormat': '',
-            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'%s documentos com %s referências bibliográficas' % ('<strong>{point.y}</strong>', '<strong>{point.category}</strong>')),
-            'followPointer': True
+            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'%s documentos com %s referências bibliográficas' % ('<strong>{point.y}</strong>', '<strong>{point.category}</strong>'))
         }
         
         return {'options': chart}
@@ -86,8 +88,7 @@ class ChartsConfig(object):
         chart['yAxis']['title'] = {'text': self._(u'Número de documentos') }
         chart['tooltip'] = {
             'headerFormat': '',
-            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'%s documentos com %s autores' % ('<strong>{point.y}</strong>', '<strong>{point.category}</strong>')),
-            'followPointer': True
+            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'%s documentos com %s autores' % ('<strong>{point.y}</strong>', '<strong>{point.category}</strong>'))
         }
 
         return {'options': chart}
@@ -107,13 +108,15 @@ class ChartsConfig(object):
         chart['yAxis']['title'] = {'text': self._(u'Número de documentos') }
         chart['tooltip'] = {
             'headerFormat': '',
-            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'País de afiliação') + ' <strong>{point.category}</strong><br>' + self._(u'Documentos') + ': <strong>{point.y}</strong>',
-            'followPointer': True
+            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'País de afiliação') + ' <strong>{point.category}</strong><br>' + self._(u'Documentos') + ': <strong>{point.y}</strong>'
         }
 
         return {'options': chart}
 
     def publication_article_year(self, data):
+
+        data['categories'] = data['categories'][::-1]
+        data['series'][0]['data'] = data['series'][0]['data'][::-1]
 
         chart = self.highchart
         chart['chart']['type'] = 'column'
@@ -127,8 +130,7 @@ class ChartsConfig(object):
         chart['yAxis']['title'] = {'text': self._(u'Número de documentos') }
         chart['tooltip'] = {
             'headerFormat': '',
-            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'Ano de publicação') + ' <strong>{point.category}</strong><br>' + self._(u'Documentos') + ': <strong>{point.y}</strong>',
-            'followPointer': True
+            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'Ano de publicação') + ' <strong>{point.category}</strong><br>' + self._(u'Documentos') + ': <strong>{point.y}</strong>'
         }
 
         return {'options': chart}
@@ -148,8 +150,7 @@ class ChartsConfig(object):
         chart['yAxis']['title'] = {'text': self._(u'Número de documentos') }
         chart['tooltip'] = {
             'headerFormat': '',
-            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'Idioma do documento') + ' <strong>{point.category}</strong><br>' + self._(u'Documentos') + ': <strong>{point.y}</strong>',
-            'followPointer': True
+            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'Idioma do documento') + ' <strong>{point.category}</strong><br>' + self._(u'Documentos') + ': <strong>{point.y}</strong>'
         }
 
         return {'options': chart}
@@ -169,8 +170,7 @@ class ChartsConfig(object):
         chart['yAxis']['title'] = {'text': self._(u'Número de periódicos') }
         chart['tooltip'] = {
             'headerFormat': '',
-            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'Situação da publicação') + ' <strong>{point.category}</strong><br>' + self._(u'Periódicos') + ': <strong>{point.y}</strong>',
-            'followPointer': True
+            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'Situação da publicação') + ' <strong>{point.category}</strong><br>' + self._(u'Periódicos') + ': <strong>{point.y}</strong>'
         }
 
         return {'options': chart}
@@ -189,8 +189,7 @@ class ChartsConfig(object):
         chart['yAxis']['title'] = {'text': self._(u'Número de periódicos') }
         chart['tooltip'] = {
             'headerFormat': '',
-            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'Ano de inclusão') + ' <strong>{point.category}</strong><br>' + self._(u'Periódicos') + ': <strong>{point.y}</strong>',
-            'followPointer': True
+            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'Ano de inclusão') + ' <strong>{point.category}</strong><br>' + self._(u'Periódicos') + ': <strong>{point.y}</strong>'
         }
 
         return {'options': chart}
@@ -230,8 +229,7 @@ class ChartsConfig(object):
         chart['yAxis']['title'] = {'text': self._(u'Número de documentos') }
         chart['tooltip'] = {
             'headerFormat': '',
-            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'Tipo de documento') + ' <strong>{point.category}</strong><br>' + self._(u'Documentos') + ': <strong>{point.y}</strong>',
-            'followPointer': True
+            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'Tipo de documento') + ' <strong>{point.category}</strong><br>' + self._(u'Documentos') + ': <strong>{point.y}</strong>'
         }
 
         return {'options': chart}
@@ -251,8 +249,7 @@ class ChartsConfig(object):
         chart['yAxis']['title'] = {'text': self._(u'Número de documentos') }
         chart['tooltip'] = {
             'headerFormat': '',
-            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'Licença') + ' <strong>{point.category}</strong><br>' + self._(u'Documentos') + ': <strong>{point.y}</strong>',
-            'followPointer': True
+            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'Licença') + ' <strong>{point.category}</strong><br>' + self._(u'Documentos') + ': <strong>{point.y}</strong>'
         }
 
         return {'options': chart}
@@ -292,8 +289,7 @@ class ChartsConfig(object):
         chart['yAxis']['title'] = {'text': self._(u'Número de periódicos') }
         chart['tooltip'] = {
             'headerFormat': '',
-            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'Licença') + ' <strong>{point.category}</strong><br>' + self._(u'Periódicos') + ': <strong>{point.y}</strong>',
-            'followPointer': True
+            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'Licença') + ' <strong>{point.category}</strong><br>' + self._(u'Periódicos') + ': <strong>{point.y}</strong>'
         }
 
         return {'options': chart}
@@ -307,8 +303,7 @@ class ChartsConfig(object):
         chart['yAxis']['title'] = {'text': self._(u'Acessos') }
         chart['tooltip'] = {
             'headerFormat': '',
-            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> {point.category}<br>' + self._(u'Acessos a') + ' <strong>{series.name}</strong>: {point.y}',
-            'followPointer': True
+            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> {point.category}<br>' + self._(u'Acessos a') + ' <strong>{series.name}</strong>: {point.y}'
         }
 
         return {'options': chart}
@@ -321,8 +316,7 @@ class ChartsConfig(object):
         chart['series'] = data['series']
         chart['tooltip'] = {
                 'headerFormat': '',
-                'pointFormat': u'<span style="color:{point.color}">\u25CF</span> '+ self._(u'%s acessos a documentos do tipo %s' % ('<strong>{point.y}</strong>', '<strong>{point.name}</strong>')),
-                'followPointer': True
+                'pointFormat': u'<span style="color:{point.color}">\u25CF</span> '+ self._(u'%s acessos a documentos do tipo %s' % ('<strong>{point.y}</strong> ({point.percentage:.0f}%)', '<strong>{point.name}</strong>'))
             }
 
         return {'options': chart}
@@ -339,9 +333,9 @@ class ChartsConfig(object):
             chart['series'] = item['series']
             chart['yAxis']['title'] = {'text': self._(u'Acessos') + item['series'][0]['name'] }
             chart['tooltip'] = {
+                'shared': True,
                 'headerFormat': '',
-                'pointFormat': u'<span style="color:{point.color}">\u25CF</span> '+ self._(u'Ano de referência') +' <strong>{series.name}</strong><br>' + self._(u'%s acessos aos documentos do ano %s' % ('<strong>{point.y}</strong>', '<strong>{point.category}</strong>')),
-                'followPointer': True
+                'pointFormat': u'<span style="color:{point.color}">\u25CF</span> '+ self._(u'Ano de referência') +' <strong>{series.name}</strong><br>' + self._(u'%s acessos aos documentos do ano %s' % ('<strong>{point.y}</strong>', '<strong>{point.category}</strong>'))
             }
             charts.append(chart)
 
