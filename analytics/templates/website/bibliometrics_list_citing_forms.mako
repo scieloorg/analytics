@@ -2,13 +2,6 @@
 <%inherit file="base.mako"/>
 
 <%block name="central_container">
-  <div class="row container-fluid">
-    <form class="form-inline" method="GET">
-        <label>Formas do título</label>
-        <input type="text" name="titles" class="col-md-8" id="tokenfield" value="${titles}"/>
-        <button type="submit" class="btn btn-default">${_(u'aplicar')}</button>
-    </form>
-  </div>
   % if not selected_journal_code:
     <div class="panel panel-warning">
       <div class="panel-heading">
@@ -19,6 +12,13 @@
       </div>
     </div>
   % else:
+    <div class="row container-fluid">
+      <form class="form-inline" method="GET">
+          <label>Formas do título</label>
+          <input type="text" name="titles" class="col-md-8" id="tokenfield" value="${titles}"/>
+          <button type="submit" class="btn btn-default">${_(u'aplicar')}</button>
+      </form>
+    </div>
     <h3>${_(u'Formas de citação encontrada para o periódico selecionado')}</h3>
     <table class="table">
       <tr>

@@ -140,15 +140,17 @@ def bibliometrics_journal(request):
 
     data = request.data_manager
     data['page'] = 'bibliometrics'
-    titles = request.GET.get('titles', '').split(',')
+    titles = request.GET.get('titles', None)
 
-    data['titles'] = []
+    titles = titles.split(',') if titles else []
+
     if data['selected_journal_code']:
         journal = request.articlemeta.journal(code=data['selected_journal_code'])
         titles.append(journal.title)
         titles.append(journal.abbreviated_title)
-
-    if not len(titles) == 0:
+    
+    data['titles'] = []
+    if titles and not len(titles) == 0:
         forms = set([i.strip() for i in titles if i])
         data['titles'] = u','.join(forms)
 
@@ -159,7 +161,9 @@ def bibliometrics_journal(request):
 def bibliometrics_list_citing_forms(request):
     data = request.data_manager
     data['page'] = 'bibliometrics'
-    titles = request.GET.get('titles', '').split(',')
+    titles = request.GET.get('titles', None)
+
+    titles = titles.split(',') if titles else []
 
     if data['selected_journal_code']:
         journal = request.articlemeta.journal(code=data['selected_journal_code'])
@@ -168,7 +172,7 @@ def bibliometrics_list_citing_forms(request):
 
     data['blist'] = []
     data['titles'] = []
-    if not len(titles) == 0:
+    if titles and not len(titles) == 0:
         forms = set([i.strip() for i in titles if i])
         data['blist'] = request.bibliometrics.citing_forms(forms)
         data['titles'] = u','.join(forms)
@@ -180,7 +184,9 @@ def bibliometrics_list_citing_forms(request):
 def bibliometrics_list_received(request):
     data = request.data_manager
     data['page'] = 'bibliometrics'
-    titles = request.GET.get('titles', '').split(',')
+    titles = request.GET.get('titles', None)
+
+    titles = titles.split(',') if titles else []
 
     if data['selected_journal_code']:
         journal = request.articlemeta.journal(code=data['selected_journal_code'])
@@ -189,7 +195,7 @@ def bibliometrics_list_received(request):
 
     data['blist'] = []
     data['titles'] = []
-    if not len(titles) == 0:
+    if titles and not len(titles) == 0:
         forms = set([i.strip() for i in titles if i])
         data['blist'] = request.bibliometrics.received_citations(forms)
         data['titles'] = u','.join(forms)
