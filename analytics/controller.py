@@ -150,7 +150,7 @@ class Stats(object):
 
         return data
 
-    def citation_self_citation(self, issn, collection, titles, size=0):
+    def citation_self_citation(self, issn, collection, titles):
 
         self_citations = self.bibliometrics.self_citations(issn, titles)
 
@@ -158,8 +158,151 @@ class Stats(object):
 
         return self._compute_citation_self_citation(self_citations, citations)
 
+    def _compute_citations_per_document_per_year(self, pub_citing_years, citable_docs):
+        """
+        Computa o fator de impacto em 2, 3 e 4 anos.
+        """
+
+        cit_docs = {}
+
+        for serie in citable_docs['series']:
+            if serie['name'] == 'citable_documents':
+                break
+
+        cit_docs = dict(zip(
+            citable_docs['categories'],
+            [{'citable_docs':i} for i in serie['data']]
+        ))
+
+        pcy = {}
+
+        for publication_year in pub_citing_years['aggregations']['publication_year']['buckets']:
+            pcy.setdefault(publication_year['key'], {})
+            for citing_year in publication_year['reference_publication_year']['buckets']:
+                pcy[publication_year['key']][citing_year['key']] = citing_year['doc_count']
+
+        for year, content in cit_docs.items():
+            year1 = str(int(year)-1)
+            year2 = str(int(year)-2)
+            year3 = str(int(year)-3)
+            year4 = str(int(year)-4)
+            cit_docs[year]['citing_count1'] = pcy.get(year, {}).get(year1, 0)
+            cit_docs[year]['citing_count2'] = pcy.get(year, {}).get(year2, 0)
+            cit_docs[year]['citing_count3'] = pcy.get(year, {}).get(year3, 0)
+            cit_docs[year]['citing_count4'] = pcy.get(year, {}).get(year4, 0)
+            cit_docs[year]['citable_docs1'] = cit_docs.get(year1, {'citable_docs': 0})['citable_docs']
+            cit_docs[year]['citable_docs2'] = cit_docs.get(year2, {'citable_docs': 0})['citable_docs']
+            cit_docs[year]['citable_docs3'] = cit_docs.get(year3, {'citable_docs': 0})['citable_docs']
+            cit_docs[year]['citable_docs4'] = cit_docs.get(year4, {'citable_docs': 0})['citable_docs']
+
+            try:
+                fi1 = float(cit_docs[year]['citing_count1'])/float(cit_docs[year]['citable_docs1'])
+            except:
+                fi1 = 0
+
+            try:
+                fi2 = float(cit_docs[year]['citing_count1']+cit_docs[year]['citing_count2'])/float(cit_docs[year]['citable_docs1']+cit_docs[year]['citable_docs2'])
+            except:
+                fi2 = 0
+
+            try:
+                fi3 = float(cit_docs[year]['citing_count1']+cit_docs[year]['citing_count2']+cit_docs[year]['citing_count3'])/float(cit_docs[year]['citable_docs1']+cit_docs[year]['citable_docs2']+cit_docs[year]['citable_docs3'])
+            except:
+                fi3 = 0
+
+            try:
+                fi4 = float(cit_docs[year]['citing_count1']+cit_docs[year]['citing_count2']+cit_docs[year]['citing_count3']+cit_docs[year]['citing_count4'])/float(cit_docs[year]['citable_docs1']+cit_docs[year]['citable_docs2']+cit_docs[year]['citable_docs3']+cit_docs[year]['citable_docs4'])
+            except:
+                fi4 = 0
+
+            cit_docs[year]['fi1'] = fi1
+            cit_docs[year]['fi2'] = fi2
+            cit_docs[year]['fi3'] = fi3
+            cit_docs[year]['fi4'] = fi4
+
+        series = [
+            {
+                'name': 'self_citations',
+                'data': []
+            }
+        ]
+
+        categories = []
+
+        return 0
+
+    def citations_per_document_per_year(self, issn, collection, titles):
+
+        pub_citing_years = self.bibliometrics.publication_and_citing_years(titles)
+
+        citable_docs = self.publicationstats.citable_documents(issn, collection)
+
+        return self._compute_citation_self_citation(pub_citing_years, citable_docs)
+
 
 class CitedbyStats(clients.Citedby):
+
+    def _compute_publication_citing_years(self, query_result):
+        """
+        Metodo mantido apenas por padronização. Nenhum gráfico é montado
+        diretamente com esses dados. Ele é utilizado em composição com outros
+        resultados. POr esse motivo esta sendo retornado no formato padrão de
+        resposta do ElasticSearch.
+        """
+
+        return query_result
+
+    def publication_and_citing_years(self, titles, size=0):
+
+        body = {
+            "query": {
+                "bool": {
+                    "should": []
+                }
+            },
+            "aggs": {
+                "publication_year": {
+                    "terms": {
+                        "field": "publication_year",
+                        "size": size
+                    },
+                    "aggs": {
+                        "reference_publication_year": {
+                            "terms": {
+                                "field": "reference_publication_year",
+                                "size": size
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        for title in titles:
+
+            if len(title.strip()) == 0:
+                continue
+
+            item = {
+                "fuzzy": {
+                    "reference_source_cleaned": {
+                        "value": utils.clean_string(title),
+                        "fuzziness" : 3,
+                        "max_expansions": 50
+                    }
+                }
+            }
+
+            body['query']['bool']['should'].append(item)
+
+        query_parameters = [
+            clients.citedby_thrift.kwargs('size', '0'),
+            clients.citedby_thrift.kwargs('search_type', 'count')
+        ]
+
+        query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
+
+        return self._compute_publication_citing_year(query_result)
 
     def _compute_self_citations(self, query_result):
 

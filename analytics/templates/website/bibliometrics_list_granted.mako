@@ -12,7 +12,7 @@
       </div>
     </div>
   % else:
-    <h3>${_(u'Top 100 citações concedidas por periódico')}</h3>
+    <h3>${_(u'Citações concedidas por periódico')}</h3>
     <table class="table">
       <tr>
         <th>${_(u'título')}</th>

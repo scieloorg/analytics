@@ -17,6 +17,3212 @@ class ControllerTest(unittest.TestCase):
         self._cb = controller.CitedbyStats('localhost', '11600')
         self._stats = controller.Stats()
 
+    def test_compute_citations_per_document_per_year(self):
+
+        pub_citing_years = {
+               "took": 28423,
+               "timed_out": False,
+               "_shards": {
+                  "total": 5,
+                  "successful": 5,
+                  "failed": 0
+               },
+               "hits": {
+                  "total": 19297,
+                  "max_score": 0,
+                  "hits": []
+               },
+               "aggregations": {
+                  "publication_year": {
+                     "doc_count_error_upper_bound": 0,
+                     "sum_other_doc_count": 0,
+                     "buckets": [
+                        {
+                           "key": "2011",
+                           "doc_count": 2820,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "2007",
+                                    "doc_count": 321
+                                 },
+                                 {
+                                    "key": "2005",
+                                    "doc_count": 272
+                                 },
+                                 {
+                                    "key": "2009",
+                                    "doc_count": 272
+                                 },
+                                 {
+                                    "key": "2006",
+                                    "doc_count": 233
+                                 },
+                                 {
+                                    "key": "2008",
+                                    "doc_count": 233
+                                 },
+                                 {
+                                    "key": "2004",
+                                    "doc_count": 205
+                                 },
+                                 {
+                                    "key": "2000",
+                                    "doc_count": 184
+                                 },
+                                 {
+                                    "key": "2003",
+                                    "doc_count": 170
+                                 },
+                                 {
+                                    "key": "2002",
+                                    "doc_count": 160
+                                 },
+                                 {
+                                    "key": "2001",
+                                    "doc_count": 149
+                                 },
+                                 {
+                                    "key": "2010",
+                                    "doc_count": 91
+                                 },
+                                 {
+                                    "key": "1997",
+                                    "doc_count": 85
+                                 },
+                                 {
+                                    "key": "1998",
+                                    "doc_count": 58
+                                 },
+                                 {
+                                    "key": "1999",
+                                    "doc_count": 54
+                                 },
+                                 {
+                                    "key": "1996",
+                                    "doc_count": 38
+                                 },
+                                 {
+                                    "key": "1995",
+                                    "doc_count": 36
+                                 },
+                                 {
+                                    "key": "1993",
+                                    "doc_count": 32
+                                 },
+                                 {
+                                    "key": "1994",
+                                    "doc_count": 31
+                                 },
+                                 {
+                                    "key": "1991",
+                                    "doc_count": 24
+                                 },
+                                 {
+                                    "key": "1992",
+                                    "doc_count": 22
+                                 },
+                                 {
+                                    "key": "2011",
+                                    "doc_count": 21
+                                 },
+                                 {
+                                    "key": "1987",
+                                    "doc_count": 20
+                                 },
+                                 {
+                                    "key": "1990",
+                                    "doc_count": 13
+                                 },
+                                 {
+                                    "key": "1986",
+                                    "doc_count": 12
+                                 },
+                                 {
+                                    "key": "1989",
+                                    "doc_count": 12
+                                 },
+                                 {
+                                    "key": "1988",
+                                    "doc_count": 11
+                                 },
+                                 {
+                                    "key": "1980",
+                                    "doc_count": 7
+                                 },
+                                 {
+                                    "key": "1984",
+                                    "doc_count": 7
+                                 },
+                                 {
+                                    "key": "1985",
+                                    "doc_count": 6
+                                 },
+                                 {
+                                    "key": "1977",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1983",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1971",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1976",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1973",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1975",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1978",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1981",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1969",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1970",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1974",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1968",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1972",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1979",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1982",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "key": "2010",
+                           "doc_count": 2633,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "2007",
+                                    "doc_count": 280
+                                 },
+                                 {
+                                    "key": "2006",
+                                    "doc_count": 269
+                                 },
+                                 {
+                                    "key": "2005",
+                                    "doc_count": 243
+                                 },
+                                 {
+                                    "key": "2004",
+                                    "doc_count": 209
+                                 },
+                                 {
+                                    "key": "2000",
+                                    "doc_count": 206
+                                 },
+                                 {
+                                    "key": "2002",
+                                    "doc_count": 188
+                                 },
+                                 {
+                                    "key": "2003",
+                                    "doc_count": 175
+                                 },
+                                 {
+                                    "key": "2008",
+                                    "doc_count": 169
+                                 },
+                                 {
+                                    "key": "2001",
+                                    "doc_count": 154
+                                 },
+                                 {
+                                    "key": "2009",
+                                    "doc_count": 111
+                                 },
+                                 {
+                                    "key": "1997",
+                                    "doc_count": 94
+                                 },
+                                 {
+                                    "key": "1998",
+                                    "doc_count": 74
+                                 },
+                                 {
+                                    "key": "1999",
+                                    "doc_count": 62
+                                 },
+                                 {
+                                    "key": "1996",
+                                    "doc_count": 53
+                                 },
+                                 {
+                                    "key": "1993",
+                                    "doc_count": 39
+                                 },
+                                 {
+                                    "key": "1995",
+                                    "doc_count": 36
+                                 },
+                                 {
+                                    "key": "1987",
+                                    "doc_count": 32
+                                 },
+                                 {
+                                    "key": "1992",
+                                    "doc_count": 28
+                                 },
+                                 {
+                                    "key": "1986",
+                                    "doc_count": 27
+                                 },
+                                 {
+                                    "key": "1990",
+                                    "doc_count": 25
+                                 },
+                                 {
+                                    "key": "1994",
+                                    "doc_count": 22
+                                 },
+                                 {
+                                    "key": "1988",
+                                    "doc_count": 20
+                                 },
+                                 {
+                                    "key": "1985",
+                                    "doc_count": 16
+                                 },
+                                 {
+                                    "key": "1989",
+                                    "doc_count": 13
+                                 },
+                                 {
+                                    "key": "1991",
+                                    "doc_count": 13
+                                 },
+                                 {
+                                    "key": "2010",
+                                    "doc_count": 9
+                                 },
+                                 {
+                                    "key": "1980",
+                                    "doc_count": 8
+                                 },
+                                 {
+                                    "key": "1982",
+                                    "doc_count": 8
+                                 },
+                                 {
+                                    "key": "1983",
+                                    "doc_count": 8
+                                 },
+                                 {
+                                    "key": "1976",
+                                    "doc_count": 6
+                                 },
+                                 {
+                                    "key": "1977",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1984",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1974",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1981",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1978",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1979",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1970",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1971",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1972",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1975",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1967",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1969",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1973",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "key": "2008",
+                           "doc_count": 2396,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "2005",
+                                    "doc_count": 239
+                                 },
+                                 {
+                                    "key": "2004",
+                                    "doc_count": 232
+                                 },
+                                 {
+                                    "key": "2002",
+                                    "doc_count": 225
+                                 },
+                                 {
+                                    "key": "2000",
+                                    "doc_count": 219
+                                 },
+                                 {
+                                    "key": "2006",
+                                    "doc_count": 213
+                                 },
+                                 {
+                                    "key": "2003",
+                                    "doc_count": 187
+                                 },
+                                 {
+                                    "key": "2001",
+                                    "doc_count": 170
+                                 },
+                                 {
+                                    "key": "1997",
+                                    "doc_count": 141
+                                 },
+                                 {
+                                    "key": "2007",
+                                    "doc_count": 103
+                                 },
+                                 {
+                                    "key": "1998",
+                                    "doc_count": 88
+                                 },
+                                 {
+                                    "key": "1999",
+                                    "doc_count": 82
+                                 },
+                                 {
+                                    "key": "2008",
+                                    "doc_count": 67
+                                 },
+                                 {
+                                    "key": "1996",
+                                    "doc_count": 59
+                                 },
+                                 {
+                                    "key": "1993",
+                                    "doc_count": 48
+                                 },
+                                 {
+                                    "key": "1990",
+                                    "doc_count": 36
+                                 },
+                                 {
+                                    "key": "1994",
+                                    "doc_count": 35
+                                 },
+                                 {
+                                    "key": "1995",
+                                    "doc_count": 33
+                                 },
+                                 {
+                                    "key": "1991",
+                                    "doc_count": 31
+                                 },
+                                 {
+                                    "key": "1992",
+                                    "doc_count": 29
+                                 },
+                                 {
+                                    "key": "1989",
+                                    "doc_count": 27
+                                 },
+                                 {
+                                    "key": "1987",
+                                    "doc_count": 26
+                                 },
+                                 {
+                                    "key": "1986",
+                                    "doc_count": 22
+                                 },
+                                 {
+                                    "key": "1988",
+                                    "doc_count": 14
+                                 },
+                                 {
+                                    "key": "1985",
+                                    "doc_count": 12
+                                 },
+                                 {
+                                    "key": "1983",
+                                    "doc_count": 8
+                                 },
+                                 {
+                                    "key": "1980",
+                                    "doc_count": 7
+                                 },
+                                 {
+                                    "key": "1979",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1981",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1982",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1984",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1972",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1977",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1978",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1900",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1968",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1970",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1974",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1976",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1966",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1969",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1973",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1975",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "key": "2009",
+                           "doc_count": 2348,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "2005",
+                                    "doc_count": 237
+                                 },
+                                 {
+                                    "key": "2006",
+                                    "doc_count": 234
+                                 },
+                                 {
+                                    "key": "2007",
+                                    "doc_count": 228
+                                 },
+                                 {
+                                    "key": "2004",
+                                    "doc_count": 211
+                                 },
+                                 {
+                                    "key": "2002",
+                                    "doc_count": 202
+                                 },
+                                 {
+                                    "key": "2000",
+                                    "doc_count": 177
+                                 },
+                                 {
+                                    "key": "2003",
+                                    "doc_count": 175
+                                 },
+                                 {
+                                    "key": "2001",
+                                    "doc_count": 141
+                                 },
+                                 {
+                                    "key": "2008",
+                                    "doc_count": 112
+                                 },
+                                 {
+                                    "key": "1997",
+                                    "doc_count": 92
+                                 },
+                                 {
+                                    "key": "1998",
+                                    "doc_count": 72
+                                 },
+                                 {
+                                    "key": "1999",
+                                    "doc_count": 63
+                                 },
+                                 {
+                                    "key": "1993",
+                                    "doc_count": 44
+                                 },
+                                 {
+                                    "key": "1996",
+                                    "doc_count": 43
+                                 },
+                                 {
+                                    "key": "1995",
+                                    "doc_count": 39
+                                 },
+                                 {
+                                    "key": "1994",
+                                    "doc_count": 36
+                                 },
+                                 {
+                                    "key": "1990",
+                                    "doc_count": 28
+                                 },
+                                 {
+                                    "key": "1987",
+                                    "doc_count": 23
+                                 },
+                                 {
+                                    "key": "1986",
+                                    "doc_count": 22
+                                 },
+                                 {
+                                    "key": "1989",
+                                    "doc_count": 20
+                                 },
+                                 {
+                                    "key": "1992",
+                                    "doc_count": 19
+                                 },
+                                 {
+                                    "key": "2009",
+                                    "doc_count": 16
+                                 },
+                                 {
+                                    "key": "1988",
+                                    "doc_count": 13
+                                 },
+                                 {
+                                    "key": "1981",
+                                    "doc_count": 12
+                                 },
+                                 {
+                                    "key": "1991",
+                                    "doc_count": 12
+                                 },
+                                 {
+                                    "key": "1980",
+                                    "doc_count": 10
+                                 },
+                                 {
+                                    "key": "1985",
+                                    "doc_count": 10
+                                 },
+                                 {
+                                    "key": "1978",
+                                    "doc_count": 7
+                                 },
+                                 {
+                                    "key": "1984",
+                                    "doc_count": 7
+                                 },
+                                 {
+                                    "key": "1973",
+                                    "doc_count": 6
+                                 },
+                                 {
+                                    "key": "1979",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1982",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1983",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1969",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1972",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1974",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1971",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1976",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1977",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1947",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1948",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1967",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1970",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1975",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "2010",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "key": "2007",
+                           "doc_count": 1753,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "2000",
+                                    "doc_count": 207
+                                 },
+                                 {
+                                    "key": "2002",
+                                    "doc_count": 179
+                                 },
+                                 {
+                                    "key": "2004",
+                                    "doc_count": 171
+                                 },
+                                 {
+                                    "key": "2005",
+                                    "doc_count": 161
+                                 },
+                                 {
+                                    "key": "2001",
+                                    "doc_count": 142
+                                 },
+                                 {
+                                    "key": "2003",
+                                    "doc_count": 139
+                                 },
+                                 {
+                                    "key": "1997",
+                                    "doc_count": 93
+                                 },
+                                 {
+                                    "key": "2006",
+                                    "doc_count": 93
+                                 },
+                                 {
+                                    "key": "1998",
+                                    "doc_count": 85
+                                 },
+                                 {
+                                    "key": "1999",
+                                    "doc_count": 64
+                                 },
+                                 {
+                                    "key": "1996",
+                                    "doc_count": 58
+                                 },
+                                 {
+                                    "key": "1993",
+                                    "doc_count": 45
+                                 },
+                                 {
+                                    "key": "1994",
+                                    "doc_count": 42
+                                 },
+                                 {
+                                    "key": "1995",
+                                    "doc_count": 38
+                                 },
+                                 {
+                                    "key": "1987",
+                                    "doc_count": 33
+                                 },
+                                 {
+                                    "key": "1990",
+                                    "doc_count": 28
+                                 },
+                                 {
+                                    "key": "1991",
+                                    "doc_count": 27
+                                 },
+                                 {
+                                    "key": "1992",
+                                    "doc_count": 21
+                                 },
+                                 {
+                                    "key": "1988",
+                                    "doc_count": 19
+                                 },
+                                 {
+                                    "key": "2007",
+                                    "doc_count": 19
+                                 },
+                                 {
+                                    "key": "1989",
+                                    "doc_count": 16
+                                 },
+                                 {
+                                    "key": "1986",
+                                    "doc_count": 14
+                                 },
+                                 {
+                                    "key": "1980",
+                                    "doc_count": 9
+                                 },
+                                 {
+                                    "key": "1978",
+                                    "doc_count": 8
+                                 },
+                                 {
+                                    "key": "1985",
+                                    "doc_count": 6
+                                 },
+                                 {
+                                    "key": "1974",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1976",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1984",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1973",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1977",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1982",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1983",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1969",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1972",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1979",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1981",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1000",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1968",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1970",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1975",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "key": "2006",
+                           "doc_count": 1334,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "2000",
+                                    "doc_count": 166
+                                 },
+                                 {
+                                    "key": "2002",
+                                    "doc_count": 148
+                                 },
+                                 {
+                                    "key": "2003",
+                                    "doc_count": 142
+                                 },
+                                 {
+                                    "key": "2004",
+                                    "doc_count": 116
+                                 },
+                                 {
+                                    "key": "2001",
+                                    "doc_count": 110
+                                 },
+                                 {
+                                    "key": "1997",
+                                    "doc_count": 105
+                                 },
+                                 {
+                                    "key": "1999",
+                                    "doc_count": 76
+                                 },
+                                 {
+                                    "key": "2005",
+                                    "doc_count": 75
+                                 },
+                                 {
+                                    "key": "1998",
+                                    "doc_count": 58
+                                 },
+                                 {
+                                    "key": "1996",
+                                    "doc_count": 48
+                                 },
+                                 {
+                                    "key": "1993",
+                                    "doc_count": 42
+                                 },
+                                 {
+                                    "key": "1995",
+                                    "doc_count": 32
+                                 },
+                                 {
+                                    "key": "1994",
+                                    "doc_count": 27
+                                 },
+                                 {
+                                    "key": "1990",
+                                    "doc_count": 25
+                                 },
+                                 {
+                                    "key": "1992",
+                                    "doc_count": 23
+                                 },
+                                 {
+                                    "key": "1991",
+                                    "doc_count": 21
+                                 },
+                                 {
+                                    "key": "1989",
+                                    "doc_count": 19
+                                 },
+                                 {
+                                    "key": "2006",
+                                    "doc_count": 18
+                                 },
+                                 {
+                                    "key": "1987",
+                                    "doc_count": 13
+                                 },
+                                 {
+                                    "key": "1986",
+                                    "doc_count": 11
+                                 },
+                                 {
+                                    "key": "1988",
+                                    "doc_count": 11
+                                 },
+                                 {
+                                    "key": "1984",
+                                    "doc_count": 8
+                                 },
+                                 {
+                                    "key": "1985",
+                                    "doc_count": 6
+                                 },
+                                 {
+                                    "key": "1977",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1981",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1978",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1980",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1975",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1983",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1972",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1976",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1979",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1969",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1970",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1974",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1982",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "key": "2005",
+                           "doc_count": 1103,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "2000",
+                                    "doc_count": 150
+                                 },
+                                 {
+                                    "key": "2001",
+                                    "doc_count": 130
+                                 },
+                                 {
+                                    "key": "2002",
+                                    "doc_count": 119
+                                 },
+                                 {
+                                    "key": "2003",
+                                    "doc_count": 93
+                                 },
+                                 {
+                                    "key": "1997",
+                                    "doc_count": 88
+                                 },
+                                 {
+                                    "key": "1999",
+                                    "doc_count": 66
+                                 },
+                                 {
+                                    "key": "1998",
+                                    "doc_count": 65
+                                 },
+                                 {
+                                    "key": "1996",
+                                    "doc_count": 55
+                                 },
+                                 {
+                                    "key": "2004",
+                                    "doc_count": 53
+                                 },
+                                 {
+                                    "key": "1993",
+                                    "doc_count": 42
+                                 },
+                                 {
+                                    "key": "1994",
+                                    "doc_count": 40
+                                 },
+                                 {
+                                    "key": "1995",
+                                    "doc_count": 29
+                                 },
+                                 {
+                                    "key": "1991",
+                                    "doc_count": 24
+                                 },
+                                 {
+                                    "key": "1992",
+                                    "doc_count": 24
+                                 },
+                                 {
+                                    "key": "1987",
+                                    "doc_count": 15
+                                 },
+                                 {
+                                    "key": "1988",
+                                    "doc_count": 14
+                                 },
+                                 {
+                                    "key": "1990",
+                                    "doc_count": 12
+                                 },
+                                 {
+                                    "key": "2005",
+                                    "doc_count": 11
+                                 },
+                                 {
+                                    "key": "1989",
+                                    "doc_count": 10
+                                 },
+                                 {
+                                    "key": "1984",
+                                    "doc_count": 9
+                                 },
+                                 {
+                                    "key": "1986",
+                                    "doc_count": 9
+                                 },
+                                 {
+                                    "key": "1978",
+                                    "doc_count": 6
+                                 },
+                                 {
+                                    "key": "1980",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1981",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1982",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1975",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1976",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1983",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1970",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1972",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1973",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1977",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1979",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1985",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1954",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1969",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1971",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "key": "2004",
+                           "doc_count": 921,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "2000",
+                                    "doc_count": 141
+                                 },
+                                 {
+                                    "key": "1997",
+                                    "doc_count": 107
+                                 },
+                                 {
+                                    "key": "2001",
+                                    "doc_count": 90
+                                 },
+                                 {
+                                    "key": "2002",
+                                    "doc_count": 88
+                                 },
+                                 {
+                                    "key": "1998",
+                                    "doc_count": 68
+                                 },
+                                 {
+                                    "key": "1999",
+                                    "doc_count": 56
+                                 },
+                                 {
+                                    "key": "1996",
+                                    "doc_count": 47
+                                 },
+                                 {
+                                    "key": "1993",
+                                    "doc_count": 40
+                                 },
+                                 {
+                                    "key": "2003",
+                                    "doc_count": 37
+                                 },
+                                 {
+                                    "key": "1987",
+                                    "doc_count": 29
+                                 },
+                                 {
+                                    "key": "1994",
+                                    "doc_count": 27
+                                 },
+                                 {
+                                    "key": "1995",
+                                    "doc_count": 25
+                                 },
+                                 {
+                                    "key": "1990",
+                                    "doc_count": 23
+                                 },
+                                 {
+                                    "key": "1989",
+                                    "doc_count": 21
+                                 },
+                                 {
+                                    "key": "1992",
+                                    "doc_count": 19
+                                 },
+                                 {
+                                    "key": "1991",
+                                    "doc_count": 18
+                                 },
+                                 {
+                                    "key": "1986",
+                                    "doc_count": 17
+                                 },
+                                 {
+                                    "key": "2004",
+                                    "doc_count": 12
+                                 },
+                                 {
+                                    "key": "1988",
+                                    "doc_count": 9
+                                 },
+                                 {
+                                    "key": "1980",
+                                    "doc_count": 7
+                                 },
+                                 {
+                                    "key": "1982",
+                                    "doc_count": 7
+                                 },
+                                 {
+                                    "key": "1981",
+                                    "doc_count": 6
+                                 },
+                                 {
+                                    "key": "1978",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1984",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1972",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1983",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1985",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1973",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1974",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1976",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1969",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1971",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1977",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1979",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "key": "2003",
+                           "doc_count": 679,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "2000",
+                                    "doc_count": 135
+                                 },
+                                 {
+                                    "key": "1997",
+                                    "doc_count": 77
+                                 },
+                                 {
+                                    "key": "1998",
+                                    "doc_count": 61
+                                 },
+                                 {
+                                    "key": "1999",
+                                    "doc_count": 47
+                                 },
+                                 {
+                                    "key": "2001",
+                                    "doc_count": 44
+                                 },
+                                 {
+                                    "key": "2002",
+                                    "doc_count": 32
+                                 },
+                                 {
+                                    "key": "1996",
+                                    "doc_count": 31
+                                 },
+                                 {
+                                    "key": "1993",
+                                    "doc_count": 25
+                                 },
+                                 {
+                                    "key": "1989",
+                                    "doc_count": 21
+                                 },
+                                 {
+                                    "key": "1994",
+                                    "doc_count": 21
+                                 },
+                                 {
+                                    "key": "1986",
+                                    "doc_count": 19
+                                 },
+                                 {
+                                    "key": "1990",
+                                    "doc_count": 19
+                                 },
+                                 {
+                                    "key": "1995",
+                                    "doc_count": 17
+                                 },
+                                 {
+                                    "key": "1988",
+                                    "doc_count": 16
+                                 },
+                                 {
+                                    "key": "1991",
+                                    "doc_count": 15
+                                 },
+                                 {
+                                    "key": "1992",
+                                    "doc_count": 12
+                                 },
+                                 {
+                                    "key": "1987",
+                                    "doc_count": 11
+                                 },
+                                 {
+                                    "key": "1981",
+                                    "doc_count": 10
+                                 },
+                                 {
+                                    "key": "2003",
+                                    "doc_count": 10
+                                 },
+                                 {
+                                    "key": "1978",
+                                    "doc_count": 8
+                                 },
+                                 {
+                                    "key": "1984",
+                                    "doc_count": 8
+                                 },
+                                 {
+                                    "key": "1980",
+                                    "doc_count": 7
+                                 },
+                                 {
+                                    "key": "1985",
+                                    "doc_count": 6
+                                 },
+                                 {
+                                    "key": "1982",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1975",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1979",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1973",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1974",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1976",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1983",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1968",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1969",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1971",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1972",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1977",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "key": "2002",
+                           "doc_count": 509,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "2000",
+                                    "doc_count": 80
+                                 },
+                                 {
+                                    "key": "1997",
+                                    "doc_count": 48
+                                 },
+                                 {
+                                    "key": "1998",
+                                    "doc_count": 40
+                                 },
+                                 {
+                                    "key": "1999",
+                                    "doc_count": 39
+                                 },
+                                 {
+                                    "key": "1996",
+                                    "doc_count": 37
+                                 },
+                                 {
+                                    "key": "1995",
+                                    "doc_count": 29
+                                 },
+                                 {
+                                    "key": "2001",
+                                    "doc_count": 29
+                                 },
+                                 {
+                                    "key": "1993",
+                                    "doc_count": 23
+                                 },
+                                 {
+                                    "key": "1990",
+                                    "doc_count": 21
+                                 },
+                                 {
+                                    "key": "1994",
+                                    "doc_count": 20
+                                 },
+                                 {
+                                    "key": "1987",
+                                    "doc_count": 18
+                                 },
+                                 {
+                                    "key": "1986",
+                                    "doc_count": 13
+                                 },
+                                 {
+                                    "key": "1988",
+                                    "doc_count": 13
+                                 },
+                                 {
+                                    "key": "1991",
+                                    "doc_count": 13
+                                 },
+                                 {
+                                    "key": "1992",
+                                    "doc_count": 11
+                                 },
+                                 {
+                                    "key": "1981",
+                                    "doc_count": 9
+                                 },
+                                 {
+                                    "key": "1989",
+                                    "doc_count": 9
+                                 },
+                                 {
+                                    "key": "1983",
+                                    "doc_count": 7
+                                 },
+                                 {
+                                    "key": "1984",
+                                    "doc_count": 7
+                                 },
+                                 {
+                                    "key": "1985",
+                                    "doc_count": 7
+                                 },
+                                 {
+                                    "key": "2002",
+                                    "doc_count": 7
+                                 },
+                                 {
+                                    "key": "1976",
+                                    "doc_count": 6
+                                 },
+                                 {
+                                    "key": "1978",
+                                    "doc_count": 6
+                                 },
+                                 {
+                                    "key": "1972",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1980",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1973",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1977",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1982",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1948",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1974",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1975",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1979",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "key": "2001",
+                           "doc_count": 438,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "1997",
+                                    "doc_count": 47
+                                 },
+                                 {
+                                    "key": "1998",
+                                    "doc_count": 35
+                                 },
+                                 {
+                                    "key": "1993",
+                                    "doc_count": 29
+                                 },
+                                 {
+                                    "key": "1994",
+                                    "doc_count": 29
+                                 },
+                                 {
+                                    "key": "1996",
+                                    "doc_count": 29
+                                 },
+                                 {
+                                    "key": "1990",
+                                    "doc_count": 27
+                                 },
+                                 {
+                                    "key": "1999",
+                                    "doc_count": 27
+                                 },
+                                 {
+                                    "key": "2000",
+                                    "doc_count": 25
+                                 },
+                                 {
+                                    "key": "1995",
+                                    "doc_count": 21
+                                 },
+                                 {
+                                    "key": "1989",
+                                    "doc_count": 20
+                                 },
+                                 {
+                                    "key": "1991",
+                                    "doc_count": 16
+                                 },
+                                 {
+                                    "key": "1992",
+                                    "doc_count": 14
+                                 },
+                                 {
+                                    "key": "1987",
+                                    "doc_count": 13
+                                 },
+                                 {
+                                    "key": "1985",
+                                    "doc_count": 12
+                                 },
+                                 {
+                                    "key": "1986",
+                                    "doc_count": 12
+                                 },
+                                 {
+                                    "key": "1988",
+                                    "doc_count": 12
+                                 },
+                                 {
+                                    "key": "1980",
+                                    "doc_count": 11
+                                 },
+                                 {
+                                    "key": "1981",
+                                    "doc_count": 9
+                                 },
+                                 {
+                                    "key": "1984",
+                                    "doc_count": 9
+                                 },
+                                 {
+                                    "key": "1978",
+                                    "doc_count": 8
+                                 },
+                                 {
+                                    "key": "1982",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1983",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1972",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1975",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1977",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1979",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1970",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1974",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "2001",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1968",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1969",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1973",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1976",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "2002",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "key": "2012",
+                           "doc_count": 435,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "2008",
+                                    "doc_count": 51
+                                 },
+                                 {
+                                    "key": "2007",
+                                    "doc_count": 45
+                                 },
+                                 {
+                                    "key": "2005",
+                                    "doc_count": 43
+                                 },
+                                 {
+                                    "key": "2002",
+                                    "doc_count": 38
+                                 },
+                                 {
+                                    "key": "2009",
+                                    "doc_count": 37
+                                 },
+                                 {
+                                    "key": "2006",
+                                    "doc_count": 34
+                                 },
+                                 {
+                                    "key": "2004",
+                                    "doc_count": 32
+                                 },
+                                 {
+                                    "key": "2000",
+                                    "doc_count": 25
+                                 },
+                                 {
+                                    "key": "1997",
+                                    "doc_count": 18
+                                 },
+                                 {
+                                    "key": "2010",
+                                    "doc_count": 18
+                                 },
+                                 {
+                                    "key": "2003",
+                                    "doc_count": 16
+                                 },
+                                 {
+                                    "key": "1998",
+                                    "doc_count": 9
+                                 },
+                                 {
+                                    "key": "2001",
+                                    "doc_count": 9
+                                 },
+                                 {
+                                    "key": "2011",
+                                    "doc_count": 8
+                                 },
+                                 {
+                                    "key": "1994",
+                                    "doc_count": 7
+                                 },
+                                 {
+                                    "key": "1999",
+                                    "doc_count": 7
+                                 },
+                                 {
+                                    "key": "1993",
+                                    "doc_count": 6
+                                 },
+                                 {
+                                    "key": "1979",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "2012",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1984",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1991",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1982",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1983",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1989",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1990",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1992",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1996",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1972",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1977",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1978",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1980",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1986",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1987",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "key": "2000",
+                           "doc_count": 405,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "1993",
+                                    "doc_count": 40
+                                 },
+                                 {
+                                    "key": "2000",
+                                    "doc_count": 35
+                                 },
+                                 {
+                                    "key": "1997",
+                                    "doc_count": 32
+                                 },
+                                 {
+                                    "key": "1996",
+                                    "doc_count": 30
+                                 },
+                                 {
+                                    "key": "1998",
+                                    "doc_count": 26
+                                 },
+                                 {
+                                    "key": "1995",
+                                    "doc_count": 25
+                                 },
+                                 {
+                                    "key": "1990",
+                                    "doc_count": 24
+                                 },
+                                 {
+                                    "key": "1986",
+                                    "doc_count": 23
+                                 },
+                                 {
+                                    "key": "1991",
+                                    "doc_count": 22
+                                 },
+                                 {
+                                    "key": "1987",
+                                    "doc_count": 20
+                                 },
+                                 {
+                                    "key": "1992",
+                                    "doc_count": 20
+                                 },
+                                 {
+                                    "key": "1994",
+                                    "doc_count": 18
+                                 },
+                                 {
+                                    "key": "1988",
+                                    "doc_count": 14
+                                 },
+                                 {
+                                    "key": "1999",
+                                    "doc_count": 12
+                                 },
+                                 {
+                                    "key": "1989",
+                                    "doc_count": 10
+                                 },
+                                 {
+                                    "key": "1978",
+                                    "doc_count": 9
+                                 },
+                                 {
+                                    "key": "1980",
+                                    "doc_count": 8
+                                 },
+                                 {
+                                    "key": "1981",
+                                    "doc_count": 6
+                                 },
+                                 {
+                                    "key": "1977",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1983",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1984",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1985",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1968",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1976",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1970",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1972",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1973",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1974",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1982",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "key": "1999",
+                           "doc_count": 279,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "1993",
+                                    "doc_count": 36
+                                 },
+                                 {
+                                    "key": "1995",
+                                    "doc_count": 25
+                                 },
+                                 {
+                                    "key": "1997",
+                                    "doc_count": 24
+                                 },
+                                 {
+                                    "key": "1994",
+                                    "doc_count": 23
+                                 },
+                                 {
+                                    "key": "1988",
+                                    "doc_count": 22
+                                 },
+                                 {
+                                    "key": "1996",
+                                    "doc_count": 22
+                                 },
+                                 {
+                                    "key": "1990",
+                                    "doc_count": 17
+                                 },
+                                 {
+                                    "key": "1989",
+                                    "doc_count": 15
+                                 },
+                                 {
+                                    "key": "1991",
+                                    "doc_count": 15
+                                 },
+                                 {
+                                    "key": "1998",
+                                    "doc_count": 13
+                                 },
+                                 {
+                                    "key": "1987",
+                                    "doc_count": 12
+                                 },
+                                 {
+                                    "key": "1992",
+                                    "doc_count": 12
+                                 },
+                                 {
+                                    "key": "1986",
+                                    "doc_count": 7
+                                 },
+                                 {
+                                    "key": "1974",
+                                    "doc_count": 6
+                                 },
+                                 {
+                                    "key": "1982",
+                                    "doc_count": 6
+                                 },
+                                 {
+                                    "key": "1981",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1972",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1980",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1973",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1975",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1976",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1984",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1999",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1967",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1969",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1970",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1978",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "key": "1998",
+                           "doc_count": 271,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "1993",
+                                    "doc_count": 34
+                                 },
+                                 {
+                                    "key": "1994",
+                                    "doc_count": 27
+                                 },
+                                 {
+                                    "key": "1996",
+                                    "doc_count": 27
+                                 },
+                                 {
+                                    "key": "1991",
+                                    "doc_count": 16
+                                 },
+                                 {
+                                    "key": "1987",
+                                    "doc_count": 14
+                                 },
+                                 {
+                                    "key": "1989",
+                                    "doc_count": 14
+                                 },
+                                 {
+                                    "key": "1992",
+                                    "doc_count": 14
+                                 },
+                                 {
+                                    "key": "1995",
+                                    "doc_count": 14
+                                 },
+                                 {
+                                    "key": "1997",
+                                    "doc_count": 14
+                                 },
+                                 {
+                                    "key": "1986",
+                                    "doc_count": 13
+                                 },
+                                 {
+                                    "key": "1990",
+                                    "doc_count": 12
+                                 },
+                                 {
+                                    "key": "1988",
+                                    "doc_count": 9
+                                 },
+                                 {
+                                    "key": "1978",
+                                    "doc_count": 8
+                                 },
+                                 {
+                                    "key": "1980",
+                                    "doc_count": 8
+                                 },
+                                 {
+                                    "key": "1985",
+                                    "doc_count": 8
+                                 },
+                                 {
+                                    "key": "1982",
+                                    "doc_count": 7
+                                 },
+                                 {
+                                    "key": "1998",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1969",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1975",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1976",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1979",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1981",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1984",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1968",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1971",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1974",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1970",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1983",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "key": "1997",
+                           "doc_count": 266,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "1991",
+                                    "doc_count": 31
+                                 },
+                                 {
+                                    "key": "1993",
+                                    "doc_count": 28
+                                 },
+                                 {
+                                    "key": "1988",
+                                    "doc_count": 22
+                                 },
+                                 {
+                                    "key": "1990",
+                                    "doc_count": 22
+                                 },
+                                 {
+                                    "key": "1989",
+                                    "doc_count": 18
+                                 },
+                                 {
+                                    "key": "1995",
+                                    "doc_count": 18
+                                 },
+                                 {
+                                    "key": "1994",
+                                    "doc_count": 17
+                                 },
+                                 {
+                                    "key": "1987",
+                                    "doc_count": 16
+                                 },
+                                 {
+                                    "key": "1986",
+                                    "doc_count": 15
+                                 },
+                                 {
+                                    "key": "1996",
+                                    "doc_count": 13
+                                 },
+                                 {
+                                    "key": "1985",
+                                    "doc_count": 12
+                                 },
+                                 {
+                                    "key": "1992",
+                                    "doc_count": 9
+                                 },
+                                 {
+                                    "key": "1978",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1997",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1974",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1979",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1980",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1981",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1972",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1983",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1970",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1971",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1975",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1982",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1984",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1967",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1973",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1976",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "key": "1996",
+                           "doc_count": 207,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "1993",
+                                    "doc_count": 31
+                                 },
+                                 {
+                                    "key": "1996",
+                                    "doc_count": 19
+                                 },
+                                 {
+                                    "key": "1986",
+                                    "doc_count": 17
+                                 },
+                                 {
+                                    "key": "1987",
+                                    "doc_count": 15
+                                 },
+                                 {
+                                    "key": "1995",
+                                    "doc_count": 15
+                                 },
+                                 {
+                                    "key": "1989",
+                                    "doc_count": 11
+                                 },
+                                 {
+                                    "key": "1990",
+                                    "doc_count": 11
+                                 },
+                                 {
+                                    "key": "1992",
+                                    "doc_count": 11
+                                 },
+                                 {
+                                    "key": "1991",
+                                    "doc_count": 10
+                                 },
+                                 {
+                                    "key": "1988",
+                                    "doc_count": 9
+                                 },
+                                 {
+                                    "key": "1978",
+                                    "doc_count": 8
+                                 },
+                                 {
+                                    "key": "1984",
+                                    "doc_count": 8
+                                 },
+                                 {
+                                    "key": "1994",
+                                    "doc_count": 8
+                                 },
+                                 {
+                                    "key": "1981",
+                                    "doc_count": 6
+                                 },
+                                 {
+                                    "key": "1982",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1985",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1967",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1980",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1983",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1970",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1973",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1977",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1968",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1971",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1975",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1976",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "key": "1995",
+                           "doc_count": 168,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "1993",
+                                    "doc_count": 24
+                                 },
+                                 {
+                                    "key": "1986",
+                                    "doc_count": 21
+                                 },
+                                 {
+                                    "key": "1990",
+                                    "doc_count": 15
+                                 },
+                                 {
+                                    "key": "1994",
+                                    "doc_count": 13
+                                 },
+                                 {
+                                    "key": "1991",
+                                    "doc_count": 12
+                                 },
+                                 {
+                                    "key": "1989",
+                                    "doc_count": 11
+                                 },
+                                 {
+                                    "key": "1981",
+                                    "doc_count": 10
+                                 },
+                                 {
+                                    "key": "1978",
+                                    "doc_count": 8
+                                 },
+                                 {
+                                    "key": "1985",
+                                    "doc_count": 8
+                                 },
+                                 {
+                                    "key": "1992",
+                                    "doc_count": 8
+                                 },
+                                 {
+                                    "key": "1975",
+                                    "doc_count": 7
+                                 },
+                                 {
+                                    "key": "1987",
+                                    "doc_count": 7
+                                 },
+                                 {
+                                    "key": "1988",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1995",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1973",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1974",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1980",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1983",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1984",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1970",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1977",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1979",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1996",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "key": "1993",
+                           "doc_count": 150,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "1991",
+                                    "doc_count": 14
+                                 },
+                                 {
+                                    "key": "1985",
+                                    "doc_count": 13
+                                 },
+                                 {
+                                    "key": "1987",
+                                    "doc_count": 12
+                                 },
+                                 {
+                                    "key": "1990",
+                                    "doc_count": 12
+                                 },
+                                 {
+                                    "key": "1989",
+                                    "doc_count": 11
+                                 },
+                                 {
+                                    "key": "1986",
+                                    "doc_count": 9
+                                 },
+                                 {
+                                    "key": "1988",
+                                    "doc_count": 9
+                                 },
+                                 {
+                                    "key": "1992",
+                                    "doc_count": 8
+                                 },
+                                 {
+                                    "key": "1993",
+                                    "doc_count": 8
+                                 },
+                                 {
+                                    "key": "1980",
+                                    "doc_count": 6
+                                 },
+                                 {
+                                    "key": "1981",
+                                    "doc_count": 6
+                                 },
+                                 {
+                                    "key": "1979",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1982",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1983",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1968",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1975",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1976",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1977",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1978",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1973",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1984",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1970",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1971",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1972",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "key": "1994",
+                           "doc_count": 139,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "1990",
+                                    "doc_count": 19
+                                 },
+                                 {
+                                    "key": "1988",
+                                    "doc_count": 14
+                                 },
+                                 {
+                                    "key": "1993",
+                                    "doc_count": 14
+                                 },
+                                 {
+                                    "key": "1987",
+                                    "doc_count": 12
+                                 },
+                                 {
+                                    "key": "1989",
+                                    "doc_count": 11
+                                 },
+                                 {
+                                    "key": "1991",
+                                    "doc_count": 11
+                                 },
+                                 {
+                                    "key": "1985",
+                                    "doc_count": 10
+                                 },
+                                 {
+                                    "key": "1986",
+                                    "doc_count": 8
+                                 },
+                                 {
+                                    "key": "1981",
+                                    "doc_count": 6
+                                 },
+                                 {
+                                    "key": "1982",
+                                    "doc_count": 6
+                                 },
+                                 {
+                                    "key": "1978",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1984",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1992",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1972",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1974",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1975",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1983",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1994",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1969",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1971",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1973",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1976",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1979",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1980",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "key": "1992",
+                           "doc_count": 31,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "1987",
+                                    "doc_count": 7
+                                 },
+                                 {
+                                    "key": "1988",
+                                    "doc_count": 5
+                                 },
+                                 {
+                                    "key": "1984",
+                                    "doc_count": 4
+                                 },
+                                 {
+                                    "key": "1989",
+                                    "doc_count": 3
+                                 },
+                                 {
+                                    "key": "1981",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1990",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1991",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1971",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1976",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1978",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1983",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1985",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1986",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "key": "1991",
+                           "doc_count": 6,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "1989",
+                                    "doc_count": 2
+                                 },
+                                 {
+                                    "key": "1980",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1987",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1990",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1991",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "key": "1987",
+                           "doc_count": 2,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "1973",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1980",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "key": "1990",
+                           "doc_count": 2,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "1986",
+                                    "doc_count": 1
+                                 },
+                                 {
+                                    "key": "1988",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "key": "1988",
+                           "doc_count": 1,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "1985",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "key": "1989",
+                           "doc_count": 1,
+                           "reference_publication_year": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                 {
+                                    "key": "1987",
+                                    "doc_count": 1
+                                 }
+                              ]
+                           }
+                        }
+                     ]
+                  }
+               }
+            }
+
+        citable_docs = {
+            "series": [
+                {
+                    "data": [
+                        19,
+                        13,
+                        25,
+                        22,
+                        24,
+                        40,
+                        40,
+                        39,
+                        47,
+                        32,
+                        52,
+                        50,
+                        39,
+                        44,
+                        60,
+                        27,
+                        31,
+                        41,
+                        48,
+                        35,
+                        43,
+                        42,
+                        53,
+                        57,
+                        53,
+                        57,
+                        52,
+                        54,
+                        53,
+                        69,
+                        83,
+                        78,
+                        66,
+                        103,
+                        80,
+                        110,
+                        104,
+                        131,
+                        141,
+                        176,
+                        173,
+                        178,
+                        165,
+                        136,
+                        144,
+                        139,
+                        153,
+                        101,
+                        75
+                    ],
+                    "name": "citable_documents"
+                },
+                {
+                    "data": [
+                        5,
+                        4,
+                        3,
+                        5,
+                        8,
+                        8,
+                        3,
+                        10,
+                        13,
+                        14,
+                        5,
+                        6,
+                        9,
+                        12,
+                        10,
+                        12,
+                        26,
+                        25,
+                        16,
+                        33,
+                        23,
+                        39,
+                        27,
+                        24,
+                        25,
+                        14,
+                        20,
+                        21,
+                        24,
+                        15,
+                        13,
+                        10,
+                        22,
+                        21,
+                        10,
+                        23,
+                        20,
+                        23,
+                        6,
+                        37,
+                        15,
+                        9,
+                        18,
+                        16,
+                        10,
+                        14,
+                        25,
+                        9,
+                        10
+                    ],
+                    "name": "not_citable_documents"
+                }
+            ],
+            "categories": [
+                "1967",
+                "1968",
+                "1969",
+                "1970",
+                "1971",
+                "1972",
+                "1973",
+                "1974",
+                "1975",
+                "1976",
+                "1977",
+                "1978",
+                "1979",
+                "1980",
+                "1981",
+                "1982",
+                "1983",
+                "1984",
+                "1985",
+                "1986",
+                "1987",
+                "1988",
+                "1989",
+                "1990",
+                "1991",
+                "1992",
+                "1993",
+                "1994",
+                "1995",
+                "1996",
+                "1997",
+                "1998",
+                "1999",
+                "2000",
+                "2001",
+                "2002",
+                "2003",
+                "2004",
+                "2005",
+                "2006",
+                "2007",
+                "2008",
+                "2009",
+                "2010",
+                "2011",
+                "2012",
+                "2013",
+                "2014",
+                "2015"
+            ]
+        }
+        result = self._stats._compute_citations_per_document_per_year(pub_citing_years, citable_docs)
+
+        expected = {}
+
+        self.assertEqual(expected, result)
+
     def test_compute_citing_forms(self):
 
         query_result = {

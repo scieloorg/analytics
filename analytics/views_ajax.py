@@ -25,7 +25,7 @@ class ViewsAjax(object):
         else:
             titles = []
 
-        data = self.request.stats.citation_self_citation(code, collection, titles, size=0)
+        data = self.request.stats.citation_self_citation(code, collection, titles)
 
         return self.request.chartsconfig.bibliometrics_journal_self_citation(data)
 
