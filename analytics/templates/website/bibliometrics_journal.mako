@@ -19,17 +19,15 @@
             <button type="submit" class="btn btn-default">${_(u'aplicar')}</button>
         </form>
       </div>
-      <center>
-        <div class="chart">
-          <%include file="publication_article_citable_documents.mako"/>
-        </div>
-        <div class="chart">
-          <%include file="bibliometrics_journal_impact_factor_chart.mako"/>
-        </div>
-        <div class="chart">
-          <%include file="bibliometrics_journal_received_self_and_granted_citation_chart.mako"/>
-        </div>
-      </center>  
+      <div class="chart">
+        <%include file="publication_article_citable_documents.mako"/>
+      </div>
+      <div class="chart">
+        <%include file="bibliometrics_journal_impact_factor_chart.mako"/>
+      </div>
+      <div class="chart">
+        <%include file="bibliometrics_journal_received_self_and_granted_citation_chart.mako"/>
+      </div>
   % endif
 </%block>
 

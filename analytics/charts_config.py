@@ -43,8 +43,8 @@ class ChartsConfig(object):
         chart['series'] = data['series']
         chart['yAxis']['title'] = {'text': self._(u'Fator de Impacto') }
         chart['tooltip'] = {
-            'headerFormat': '',
-            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> {point.category}<br>' + self._(u'Acessos a') + ' <strong>{series.name}</strong>: {point.y}',
+            'headerFormat': self._(u'Fator de impacto'),
+            'pointFormat': u'<br/><strong>'+self._(u'Ano base')+u'</strong>: {point.category}<br/><strong>{series.name}</strong>: {point.y}',
             'followPointer': True
         }
 
@@ -68,7 +68,7 @@ class ChartsConfig(object):
         chart['series'] = data['series']
         chart['yAxis']['title'] = {'text': self._(u'Número de citações') }
         chart['tooltip'] = {
-            'headerFormat': self._(u'Ano de publicação') + ' <strong>{point.key}</strong><br>',
+            'headerFormat': self._(u'Ano de publicação') + ' <strong>{point.key}</strong><br/>',
             'pointFormat': u'<span style="color:{point.color}">\u25CF</span> {series.name}: <strong>{point.y}</strong> ({point.percentage:.0f}%)<br/>'
         }
 
