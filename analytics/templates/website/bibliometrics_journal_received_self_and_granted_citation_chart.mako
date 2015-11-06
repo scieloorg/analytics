@@ -8,7 +8,7 @@
 <script language="javascript">
     $("#loading_selfcitation").show();
     $(document).ready(function() {
-        var url =  "${request.route_url('bibliometrics_journal_self_citation')}?code=${selected_code}&collection=${selected_collection_code}&titles=${titles}&callback=?";
+        var url =  "${request.route_url('bibliometrics_journal_received_self_and_granted_citation_chart')}?code=${selected_code}&collection=${selected_collection_code}&titles=${titles}&callback=?";
 
         $.getJSON(url,  function(data) {
             $('#selfcitation').highcharts(data['options']);

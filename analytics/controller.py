@@ -114,47 +114,57 @@ class Stats(object):
         self.access = accessstats(accessstats_host)
         self.bibliometrics = bibliometrics(bibliometrics_host)
 
-    def _compute_citation_self_citation(self, self_citations, citations):
+    def _compute_received_self_and_granted_citation_chart(self, self_citations, granted_citations, received_citations):
 
-        d_self_citations = dict(zip(
-            self_citations['categories'],
-            self_citations['series'][0]['data']
-        ))
+        joined_data = {}
 
-        d_citations = dict(zip(
-            citations['categories'],
-            citations['series'][0]['data']
-        ))
+        for item in self_citations['aggregations']['publication_year']['buckets']:
+            joined_data.setdefault(item['key'], {'self_citation': 0, 'granted_citation': 0, 'received_citation': 0})
+            joined_data[item['key']]['self_citation'] = item['doc_count']
+
+        for item in granted_citations['aggregations']['publication_year']['buckets']:
+            joined_data.setdefault(item['key'], {'self_citation': 0, 'granted_citation': 0, 'received_citation': 0})
+            joined_data[item['key']]['granted_citation'] = item['citations']['value']
+        
+
+        for item in received_citations['aggregations']['publication_year']['buckets']:
+            joined_data.setdefault(item['key'], {'self_citation': 0, 'granted_citation': 0, 'received_citation': 0})
+            joined_data[item['key']]['received_citation'] = item['doc_count']
+
 
         data = {
             'series': [
                 {
-                    'name': citations['series'][0]['name'],
+                    'name': 'granted_citation',
                     'data': []
                 },
                 {
-                    'name': self_citations['series'][0]['name'],
+                    'name': 'received_citation',
+                    'data': []
+                },
+                {
+                    'name': 'self_citation',
                     'data': []
                 }
             ],
             'categories': []
         }
 
-
-        for year in sorted(set(d_citations.keys()+d_self_citations.keys())):
+        for year, values in sorted(joined_data.items()):
             data['categories'].append(year)
-            data['series'][0]['data'].append(d_citations.get(year, 0))
-            data['series'][1]['data'].append(d_self_citations.get(year, 0))
+            data['series'][0]['data'].append(values['granted_citation'])
+            data['series'][1]['data'].append(values['received_citation'])
+            data['series'][2]['data'].append(values['self_citation'])
 
         return data
 
-    def citation_self_citation(self, issn, collection, titles):
+    def received_self_and_granted_citation_chart(self, issn, collection, titles):
 
-        self_citations = self.bibliometrics.self_citations(issn, titles)
+        self_citations = self.bibliometrics.self_citations(issn, titles, raw=True)
+        granted_citations = self.publication.granted_citations_by_year(issn, collection, raw=True)
+        received_citations = self.bibliometrics.received_citations_by_year(titles, raw=True)
 
-        citations = self.publication.citations_year(issn, collection)
-
-        return self._compute_citation_self_citation(self_citations, citations)
+        return self._compute_received_self_and_granted_citation_chart(self_citations, granted_citations, received_citations)
 
     def _compute_impact_factor(self, pub_citing_years, citable_docs):
         """
@@ -240,6 +250,31 @@ class Stats(object):
 
         return self._compute_impact_factor(pub_citing_years, citable_docs)
 
+    def _compute_impact_factor_chart(self, query_result):
+
+        series = []
+        for i in range(6):
+            series.append(
+                {
+                    'name': 'impact_factor_%d' % i,
+                    'data': []
+                }
+            )
+
+        categories = []
+
+        for base_year, data in sorted(query_result.items()):
+            categories.append(base_year)
+            for i in range(6):
+                series[i]["data"].append(data['fi%d' % i])
+
+        return {"series": series, "categories": categories}
+
+    def impact_factor_chart(self, issn, collection, titles):
+
+        query_result = self.impact_factor(issn, collection, titles)
+
+        return self._compute_impact_factor_chart(query_result)
 
 class CitedbyStats(clients.Citedby):
 
@@ -426,6 +461,65 @@ class CitedbyStats(clients.Citedby):
 
         return query_result if raw else computed
 
+    def _compute_received_citations_by_year(self, query_result):
+
+        itens = []
+        for bucket in query_result['aggregations']['publication_year']['buckets']:
+            item = {
+                "source": bucket['key'],
+                "count": bucket['doc_count']
+            }
+            itens.append(item)
+
+        return itens
+
+    @cache_region.cache_on_arguments()
+    def received_citations_by_year(self, titles, size=0, raw=False):
+
+        body = {
+            "query": {
+                "bool": {
+                    "should": []
+                }
+            },
+            "aggs": {
+                "publication_year": {
+                    "terms": {
+                        "field": "publication_year",
+                        "size":size
+                    }
+                }
+            }
+        }
+
+        for title in titles:
+
+            if len(title.strip()) == 0:
+                continue
+
+            item = {
+                "fuzzy": {
+                    "reference_source_cleaned": {
+                        "value": utils.clean_string(title),
+                        "fuzziness" : 3,
+                        "max_expansions": 50
+                    }
+                }
+            }
+
+            body['query']['bool']['should'].append(item)
+
+        query_parameters = [
+            clients.citedby_thrift.kwargs('size', '0'),
+            clients.citedby_thrift.kwargs('search_type', 'count')
+        ]
+
+        query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
+
+        computed = self._compute_received_citations_by_year(query_result)
+
+        return query_result if raw else computed
+
     def _compute_received_citations(self, query_result):
 
         itens = []
@@ -484,6 +578,7 @@ class CitedbyStats(clients.Citedby):
         computed = self._compute_received_citations(query_result)
 
         return query_result if raw else computed
+
 
     def _compute_citing_forms(self, query_result):
 
@@ -560,7 +655,7 @@ class PublicationStats(clients.PublicationStats):
         if utils.REGEX_ARTICLE.match(code):
             return 'pid'
 
-    def _compute_citations_year(self, query_result):
+    def _compute_granted_citations_by_year(self, query_result):
         series = [
             {
                 'name': 'citations',
@@ -577,7 +672,7 @@ class PublicationStats(clients.PublicationStats):
         return {"series": series, "categories": categories}
 
     @cache_region.cache_on_arguments()
-    def citations_year(self, code, collection, raw=False):
+    def granted_citations_by_year(self, code, collection, raw=False):
 
         body = {
             "query": {
@@ -623,7 +718,7 @@ class PublicationStats(clients.PublicationStats):
 
         query_result = json.loads(self.client.search('article', json.dumps(body), query_parameters))
 
-        computed = self._compute_citations_year(query_result)
+        computed = self._compute_granted_citations_by_year(query_result)
 
         return query_result if raw else computed
 

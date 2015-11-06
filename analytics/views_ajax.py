@@ -15,8 +15,8 @@ class ViewsAjax(object):
     def collection(self):
         return self.request.GET.get('collection', None)
 
-    @view_config(route_name='bibliometrics_journal_self_citation', request_method='GET', renderer='jsonp')
-    def bibliometrics_journal_self_citation(self):
+    @view_config(route_name='bibliometrics_journal_impact_factor_chart', request_method='GET', renderer='jsonp')
+    def bibliometrics_journal_impact_factor_chart(self):
 
         code = self.request.GET.get('code', None)
         collection = self.request.GET.get('collection', None)
@@ -25,9 +25,23 @@ class ViewsAjax(object):
         else:
             titles = []
 
-        data = self.request.stats.citation_self_citation(code, collection, titles)
+        data = self.request.stats.impact_factor_chart(code, collection, titles)
 
-        return self.request.chartsconfig.bibliometrics_journal_self_citation(data)
+        return self.request.chartsconfig.bibliometrics_impact_factor(data)
+
+    @view_config(route_name='bibliometrics_journal_received_self_and_granted_citation_chart', request_method='GET', renderer='jsonp')
+    def bibliometrics_journal_received_self_and_granted_citation_chart(self):
+
+        code = self.request.GET.get('code', None)
+        collection = self.request.GET.get('collection', None)
+        if 'titles' in self.request.GET:
+            titles = self.request.GET['titles'].split(',')
+        else:
+            titles = []
+
+        data = self.request.stats.received_self_and_granted_citation_chart(code, collection, titles)
+
+        return self.request.chartsconfig.bibliometrics_journal_received_self_and_granted_citation_chart(data)
 
     @view_config(route_name='publication_article_references', request_method='GET', renderer='jsonp')
     def publication_article_references(self):

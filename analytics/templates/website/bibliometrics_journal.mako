@@ -24,7 +24,10 @@
           <%include file="publication_article_citable_documents.mako"/>
         </div>
         <div class="chart">
-          <%include file="bibliometrics_journal_self_citation.mako"/>
+          <%include file="bibliometrics_journal_impact_factor_chart.mako"/>
+        </div>
+        <div class="chart">
+          <%include file="bibliometrics_journal_received_self_and_granted_citation_chart.mako"/>
         </div>
       </center>  
   % endif

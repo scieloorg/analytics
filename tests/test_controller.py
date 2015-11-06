@@ -2040,83 +2040,180 @@ class ControllerTest(unittest.TestCase):
 
         self.assertEqual(expected, result)
 
-    def test_citation_self_citation(self):
+    def test_compute_received_self_and_granted_citation_chart(self):
+
         self_citations = {
-            "series": [
-                {
-                    "data": [
-                        20,
-                        22,
-                        33,
-                        21
+            "hits": {
+                "hits": [],
+                "total": 8676,
+                "max_score": 0.0
+            },
+            "timed_out": False,
+            "took": 98,
+            "aggregations": {
+                "publication_year": {
+                    "buckets": [
+                        {
+                            "key": "2012",
+                            "doc_count": 616
+                        },
+                        {
+                            "key": "2013",
+                            "doc_count": 594
+                        },
+                        {
+                            "key": "2014",
+                            "doc_count": 1102
+                        },
+                        {
+                            "key": "2015",
+                            "doc_count": 584
+                        }
                     ],
-                    "name": "self_citations"
+                    "doc_count_error_upper_bound": 0,
+                    "sum_other_doc_count": 0
                 }
-            ],
-            "categories": [
-                "2000",
-                "2001",
-                "2002",
-                "2003"
-            ]
+            },
+            "_shards": {
+                "successful": 5,
+                "failed": 0,
+                "total": 5
+            }
         }
 
-        citations = {
-            "series": [
-                {
-                    "data": [
-                        269,
-                        445,
-                        869,
-                        558
+        granted_citations = {
+            "hits": {
+                "hits": [],
+                "total": 5912,
+                "max_score": 0.0
+            },
+            "timed_out": False,
+            "took": 6,
+            "aggregations": {
+                "publication_year": {
+                    "buckets": [
+                        {
+                            "citations": {
+                                "value": 8696.0
+                            },
+                            "key": "2014",
+                            "doc_count": 316
+                        },
+                        {
+                            "citations": {
+                                "value": 8614.0
+                            },
+                            "key": "2013",
+                            "doc_count": 306
+                        },
+                        {
+                            "citations": {
+                                "value": 7423.0
+                            },
+                            "key": "2012",
+                            "doc_count": 273
+                        },
+                        {
+                            "citations": {
+                                "value": 5574.0
+                            },
+                            "key": "2015",
+                            "doc_count": 188
+                        }
                     ],
-                    "name": "citations"
+                    "doc_count_error_upper_bound": 0,
+                    "sum_other_doc_count": 0
                 }
-            ],
-            "categories": [
-                "1999",
-                "2000",
-                "2001",
-                "2002"
-            ]
+            },
+            "_shards": {
+                "successful": 5,
+                "failed": 0,
+                "total": 5
+            }
+        }
+
+        received_citations = {
+            "hits": {
+                "hits": [],
+                "total": 44045,
+                "max_score": 0.0
+            },
+            "timed_out": False,
+            "took": 2018,
+            "aggregations": {
+                "publication_year": {
+                    "buckets": [
+                        {
+                            "key": "2014",
+                            "doc_count": 6645
+                        },
+                        {
+                            "key": "2013",
+                            "doc_count": 5030
+                        },
+                        {
+                            "key": "2012",
+                            "doc_count": 4684
+                        },
+                        {
+                            "key": "2015",
+                            "doc_count": 3984
+                        }
+                    ],
+                    "doc_count_error_upper_bound": 0,
+                    "sum_other_doc_count": 0
+                }
+            },
+            "_shards": {
+                "successful": 5,
+                "failed": 0,
+                "total": 5
+            }
         }
 
         expected = {
             "series": [
                 {
                     "data": [
-                        269,
-                        445,
-                        869,
-                        558,
-                        0
+                        7423.0,
+                        8614.0,
+                        8696.0,
+                        5574.0
                     ],
-                    "name": "citations"
+                    "name": "granted_citation"
                 },
                 {
                     "data": [
-                        0,
-                        20,
-                        22,
-                        33,
-                        21
+                        4684,
+                        5030,
+                        6645,
+                        3984
                     ],
-                    "name": "self_citations"
+                    "name": "received_citation"
+                },
+                {
+                    "data": [
+                        616,
+                        594,
+                        1102,
+                        584
+                    ],
+                    "name": "self_citation"
                 }
             ],
             "categories": [
-                "1999",
-                "2000",
-                "2001",
-                "2002",
-                "2003"
+                "2012",
+                "2013",
+                "2014",
+                "2015"
             ]
         }
 
         self.assertEqual(expected,
-            self._stats._compute_citation_self_citation(
+            self._stats._compute_received_self_and_granted_citation_chart(
                 self_citations,
-                citations
+                granted_citations,
+                received_citations
             )
         )
 

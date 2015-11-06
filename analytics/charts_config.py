@@ -23,16 +23,43 @@ class ChartsConfig(object):
 
         return _higchart
 
-    def bibliometrics_journal_self_citation(self, data):
+    def bibliometrics_impact_factor(self, data):
 
-        name = {'self_citations': self._(u'Auto citação'), 'citations': self._(u'Citações')}
+        name = {
+            'impact_factor_0': self._(u'imediatez'),
+            'impact_factor_1': self._(u'1 ano'),
+            'impact_factor_2': self._(u'2 anos'),
+            'impact_factor_3': self._(u'3 anos'),
+            'impact_factor_4': self._(u'4 anos'),
+            'impact_factor_5': self._(u'5 anos')
+        }
+
+        for i, serie in enumerate(data['series']):
+            data['series'][i]['name'] = name[serie['name']]
+
+        chart = self.highchart
+        chart['title'] = {'text': self._(u'Fator de impacto em 1, 2, 3, 4, 5 anos e indice de imediatez')}
+        chart['xAxis'] = {'categories': data['categories']}
+        chart['series'] = data['series']
+        chart['yAxis']['title'] = {'text': self._(u'Fator de Impacto') }
+        chart['tooltip'] = {
+            'headerFormat': '',
+            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> {point.category}<br>' + self._(u'Acessos a') + ' <strong>{series.name}</strong>: {point.y}',
+            'followPointer': True
+        }
+
+        return {'options': chart}
+
+    def bibliometrics_journal_received_self_and_granted_citation_chart(self, data):
+
+        name = {'self_citation': self._(u'Auto citação'), 'granted_citation': self._(u'Citações concedidas'), 'received_citation': self._(u'Citações recebidas')}
 
         for i, serie in enumerate(data['series']):
             data['series'][i]['name'] = name[serie['name']]
 
         chart = self.highchart
         chart['chart']['type'] = 'area'
-        chart['title'] = {'text': self._(u'Distribuição de citações e auto citações')}
+        chart['title'] = {'text': self._(u'Distribuição de citações concedidas, recebidas e auto citações')}
         chart['xAxis'] = {
             'categories': data['categories'],
             'title': {'text': None}
@@ -44,11 +71,6 @@ class ChartsConfig(object):
             'headerFormat': self._(u'Ano de publicação') + ' <strong>{point.key}</strong><br>',
             'pointFormat': u'<span style="color:{point.color}">\u25CF</span> {series.name}: <strong>{point.y}</strong> ({point.percentage:.0f}%)<br/>'
         }
-        # chart['plotOptions'] = {
-        #     'column': {
-        #         'stacking': 'normal'
-        #     }
-        # }
 
         return {'options': chart}
 
@@ -73,11 +95,6 @@ class ChartsConfig(object):
             'headerFormat': self._(u'Ano de publicação') + ' <strong>{point.key}</strong><br>',
             'pointFormat': u'<span style="color:{point.color}">\u25CF</span> {series.name}: <strong>{point.y}</strong> ({point.percentage:.0f}%)<br/>'
         }
-        # chart['plotOptions'] = {
-        #     'column': {
-        #         'stacking': 'normal'
-        #     }
-        # }
 
         return {'options': chart}
 
