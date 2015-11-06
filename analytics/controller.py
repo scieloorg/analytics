@@ -162,36 +162,40 @@ class Stats(object):
         """
 
         cit_docs = {}
-
-        for serie in citable_docs['series']:
-            if serie['name'] == 'citable_documents':
-                break
-
-        cit_docs = dict(zip(
-            citable_docs['categories'],
-            [{'citable_docs':i} for i in serie['data']]
-        ))
+        for pub_year in citable_docs['aggregations']['publication_year']['buckets']:
+            cit_docs.setdefault(pub_year['key'], {'citable_docs': pub_year['citable_documents']['doc_count']})
 
         pcy = {}
-
         for publication_year in pub_citing_years['aggregations']['publication_year']['buckets']:
             pcy.setdefault(publication_year['key'], {})
             for citing_year in publication_year['reference_publication_year']['buckets']:
                 pcy[publication_year['key']][citing_year['key']] = citing_year['doc_count']
 
+
         for year, content in cit_docs.items():
+            year0 = year
             year1 = str(int(year)-1)
             year2 = str(int(year)-2)
             year3 = str(int(year)-3)
             year4 = str(int(year)-4)
+            year5 = str(int(year)-5)
+            cit_docs[year]['citing_count0'] = float(pcy.get(year, {}).get(year, 0))
             cit_docs[year]['citing_count1'] = float(pcy.get(year, {}).get(year1, 0))
             cit_docs[year]['citing_count2'] = float(pcy.get(year, {}).get(year2, 0))
             cit_docs[year]['citing_count3'] = float(pcy.get(year, {}).get(year3, 0))
             cit_docs[year]['citing_count4'] = float(pcy.get(year, {}).get(year4, 0))
+            cit_docs[year]['citing_count5'] = float(pcy.get(year, {}).get(year5, 0))
+            cit_docs[year]['citable_docs0'] = content.get('citable_docs', 0)
             cit_docs[year]['citable_docs1'] = float(cit_docs.get(year1, {'citable_docs': 0})['citable_docs'])
             cit_docs[year]['citable_docs2'] = float(cit_docs.get(year2, {'citable_docs': 0})['citable_docs'])
             cit_docs[year]['citable_docs3'] = float(cit_docs.get(year3, {'citable_docs': 0})['citable_docs'])
             cit_docs[year]['citable_docs4'] = float(cit_docs.get(year4, {'citable_docs': 0})['citable_docs'])
+            cit_docs[year]['citable_docs5'] = float(cit_docs.get(year5, {'citable_docs': 0})['citable_docs'])
+
+            try:
+                fi0 = (cit_docs[year]['citing_count0'])/(cit_docs[year]['citable_docs0'])
+            except:
+                fi0 = 0
 
             try:
                 fi1 = (cit_docs[year]['citing_count1'])/(cit_docs[year]['citable_docs1'])
@@ -213,20 +217,26 @@ class Stats(object):
             except:
                 fi4 = 0
 
+            try:
+                fi5 = (cit_docs[year]['citing_count1']+cit_docs[year]['citing_count2']+cit_docs[year]['citing_count3']+cit_docs[year]['citing_count4']+cit_docs[year]['citing_count5'])/(cit_docs[year]['citable_docs1']+cit_docs[year]['citable_docs2']+cit_docs[year]['citable_docs3']+cit_docs[year]['citable_docs4']+cit_docs[year]['citable_docs5'])
+            except:
+                fi5 = 0
+
+            cit_docs[year]['fi0'] = fi0
             cit_docs[year]['fi1'] = fi1
             cit_docs[year]['fi2'] = fi2
             cit_docs[year]['fi3'] = fi3
             cit_docs[year]['fi4'] = fi4
-
+            cit_docs[year]['fi5'] = fi5
 
         return cit_docs
 
     @cache_region.cache_on_arguments()
     def impact_factor(self, issn, collection, titles):
 
-        pub_citing_years = self.bibliometrics.publication_and_citing_years(titles)
+        pub_citing_years = self.bibliometrics.publication_and_citing_years(titles, raw=True)
 
-        citable_docs = self.publication.citable_documents(issn, collection)
+        citable_docs = self.publication.citable_documents(issn, collection, raw=True)
 
         return self._compute_impact_factor(pub_citing_years, citable_docs)
 

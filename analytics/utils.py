@@ -17,7 +17,7 @@ def dogpile_controller_key_generator(namespace, fn, *kwargs):
 
     fname = fn.__name__
 
-    def generate_key(*the_args):
+    def generate_key(*the_args, **the_kwargs):
 
         key = [
             str(namespace),
