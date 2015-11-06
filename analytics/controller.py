@@ -108,13 +108,11 @@ def bibliometrics(host):
 
 class Stats(object):
 
-    def __init__(self):
-        config = utils.Configuration.from_env()
-        settings = dict(config.items())
-        self.articlemeta = articlemeta(settings['app:main']['articlemeta'])
-        self.accesstats = accessstats(settings['app:main']['accessstats'])
-        self.publicationstats = publicationstats(settings['app:main']['publicationstats'])
-        self.bibliometrics = bibliometrics(settings['app:main']['citedby'])
+    def __init__(self, articlemeta_host, publicationstats_host, accessstats_host, bibliometrics_host):
+        self.articlemeta = articlemeta(articlemeta_host)
+        self.publication = publicationstats(publicationstats_host)
+        self.access = accessstats(accessstats_host)
+        self.bibliometrics = bibliometrics(bibliometrics_host)
 
     def _compute_citation_self_citation(self, self_citations, citations):
 
@@ -154,7 +152,7 @@ class Stats(object):
 
         self_citations = self.bibliometrics.self_citations(issn, titles)
 
-        citations = self.publicationstats.citations_year(issn, collection)
+        citations = self.publication.citations_year(issn, collection)
 
         return self._compute_citation_self_citation(self_citations, citations)
 
@@ -228,7 +226,7 @@ class Stats(object):
 
         pub_citing_years = self.bibliometrics.publication_and_citing_years(titles)
 
-        citable_docs = self.publicationstats.citable_documents(issn, collection)
+        citable_docs = self.publication.citable_documents(issn, collection)
 
         return self._compute_impact_factor(pub_citing_years, citable_docs)
 
@@ -246,7 +244,7 @@ class CitedbyStats(clients.Citedby):
         return query_result
 
     @cache_region.cache_on_arguments()
-    def publication_and_citing_years(self, titles, size=0):
+    def publication_and_citing_years(self, titles, size=0, raw=False):
 
         body = {
             "query": {
@@ -296,7 +294,9 @@ class CitedbyStats(clients.Citedby):
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
 
-        return self._compute_publication_and_citing_years(query_result)
+        computed = self._compute_publication_and_citing_years(query_result)
+
+        return query_result if raw else computed
 
     def _compute_self_citations(self, query_result):
 
@@ -316,7 +316,7 @@ class CitedbyStats(clients.Citedby):
         return {"series": series, "categories": categories}
 
     @cache_region.cache_on_arguments()
-    def self_citations(self, issn, titles, size=0):
+    def self_citations(self, issn, titles, size=0, raw=False):
 
         body = {
             "query": {
@@ -370,7 +370,9 @@ class CitedbyStats(clients.Citedby):
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
 
-        return self._compute_self_citations(query_result)
+        computed = self._compute_self_citations(query_result)
+
+        return query_result if raw else computed
 
 
     def _compute_granted_citations(self, query_result):
@@ -386,7 +388,7 @@ class CitedbyStats(clients.Citedby):
         return itens
 
     @cache_region.cache_on_arguments()
-    def granted_citations(self, issn, size=0):
+    def granted_citations(self, issn, size=0, raw=False):
         body = {
             "query": {
                 "match": {
@@ -410,7 +412,9 @@ class CitedbyStats(clients.Citedby):
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
 
-        return self._compute_granted_citations(query_result)
+        computed = self._compute_granted_citations(query_result)
+
+        return query_result if raw else computed
 
     def _compute_received_citations(self, query_result):
 
@@ -425,7 +429,7 @@ class CitedbyStats(clients.Citedby):
         return itens
 
     @cache_region.cache_on_arguments()
-    def received_citations(self, titles, size=0):
+    def received_citations(self, titles, size=0, raw=False):
 
         body = {
             "query": {
@@ -467,7 +471,9 @@ class CitedbyStats(clients.Citedby):
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
 
-        return self._compute_received_citations(query_result)
+        computed = self._compute_received_citations(query_result)
+
+        return query_result if raw else computed
 
     def _compute_citing_forms(self, query_result):
 
@@ -482,7 +488,7 @@ class CitedbyStats(clients.Citedby):
         return itens
 
     @cache_region.cache_on_arguments()
-    def citing_forms(self, titles, size=0):
+    def citing_forms(self, titles, size=0, raw=False):
 
         body = {
             "query": {
@@ -524,7 +530,9 @@ class CitedbyStats(clients.Citedby):
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
 
-        return self._compute_citing_forms(query_result)
+        computed = self._compute_citing_forms(query_result)
+
+        return query_result if raw else computed
 
 class PublicationStats(clients.PublicationStats):
 
@@ -559,7 +567,7 @@ class PublicationStats(clients.PublicationStats):
         return {"series": series, "categories": categories}
 
     @cache_region.cache_on_arguments()
-    def citations_year(self, code, collection):
+    def citations_year(self, code, collection, raw=False):
 
         body = {
             "query": {
@@ -605,7 +613,9 @@ class PublicationStats(clients.PublicationStats):
 
         query_result = json.loads(self.client.search('article', json.dumps(body), query_parameters))
 
-        return self._compute_citations_year(query_result)
+        computed = self._compute_citations_year(query_result)
+
+        return query_result if raw else computed
 
 
     def _compute_general(self, query_result, field):
@@ -636,7 +646,7 @@ class PublicationStats(clients.PublicationStats):
         return {"series": series, "categories": categories}
 
     @cache_region.cache_on_arguments()
-    def general(self, index, field, code, collection, size=0, sort_term=None):
+    def general(self, index, field, code, collection, size=0, sort_term=None, raw=False):
 
         sort_term = sort_term if sort_term in ['asc', 'desc'] else None
 
@@ -681,7 +691,9 @@ class PublicationStats(clients.PublicationStats):
 
         query_result = json.loads(self.client.search(index, json.dumps(body), query_parameters))
 
-        return self._compute_general(query_result, field)
+        computed = self._compute_general(query_result, field)
+
+        return query_result if raw else computed
 
     def _compute_collection_size(self, query_result, field):
 
@@ -698,7 +710,7 @@ class PublicationStats(clients.PublicationStats):
             return None
 
     @cache_region.cache_on_arguments()
-    def collection_size(self, code, collection, field):
+    def collection_size(self, code, collection, field, raw=False):
 
         if not field in ['issue', 'issn', 'citations', 'documents']:
             raise ValueError('Expected values for field: [issue, issn, citations, documents]')
@@ -744,7 +756,9 @@ class PublicationStats(clients.PublicationStats):
 
         query_result = json.loads(self.client.search('article', json.dumps(body), query_parameters))
 
-        return self._compute_collection_size(query_result, field)
+        computed = self._compute_collection_size(query_result, field)
+
+        return query_result if raw else computed
 
     def _compute_citable_documents(self, query_result):
         series = [
@@ -768,7 +782,7 @@ class PublicationStats(clients.PublicationStats):
         return {"series": series, "categories": categories}
 
     @cache_region.cache_on_arguments()
-    def citable_documents(self, code, collection):
+    def citable_documents(self, code, collection, raw=False):
 
         body = {
             "query": {
@@ -848,7 +862,9 @@ class PublicationStats(clients.PublicationStats):
 
         query_result = json.loads(self.client.search('article', json.dumps(body), query_parameters))
 
-        return self._compute_citable_documents(query_result)
+        computed = self._compute_citable_documents(query_result)
+
+        return query_result if raw else computed
 
 class ArticleMeta(clients.ArticleMeta):
 
@@ -914,7 +930,7 @@ class AccessStats(clients.AccessStats):
         return data
 
     @cache_region.cache_on_arguments()
-    def list_journals(self, code, collection, date_range_start=None, date_range_end=None):
+    def list_journals(self, code, collection, date_range_start=None, date_range_end=None, raw=False):
 
         end = datetime.now()
         start = end - timedelta(365*3)
@@ -1015,7 +1031,9 @@ class AccessStats(clients.AccessStats):
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
 
-        return self._compute_list_journals(query_result)
+        computed = self._compute_list_journals(query_result)
+
+        return query_result if raw else computed
 
     def _compute_list_issues(self, query_result):
         data = []
@@ -1035,7 +1053,7 @@ class AccessStats(clients.AccessStats):
         return data
 
     @cache_region.cache_on_arguments()
-    def list_issues(self, code, collection, date_range_start=None, date_range_end=None):
+    def list_issues(self, code, collection, date_range_start=None, date_range_end=None, raw=False):
 
         end = datetime.now()
         start = end - timedelta(365*3)
@@ -1136,7 +1154,9 @@ class AccessStats(clients.AccessStats):
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
 
-        return self._compute_list_issues(query_result)
+        computed = self._compute_list_issues(query_result)
+
+        return query_result if raw else computed
 
     def _compute_list_articles(self, query_result):
         data = []
@@ -1156,7 +1176,7 @@ class AccessStats(clients.AccessStats):
         return data
 
     @cache_region.cache_on_arguments()
-    def list_articles(self, code, collection, date_range_start=None, date_range_end=None):
+    def list_articles(self, code, collection, date_range_start=None, date_range_end=None, raw=False):
 
         end = datetime.now()
         start = end - timedelta(365*3)
@@ -1267,7 +1287,9 @@ class AccessStats(clients.AccessStats):
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
 
-        return self._compute_list_articles(query_result)
+        computed = self._compute_list_articles(query_result)
+
+        return query_result if raw else computed
 
 
     def _compute_access_by_document_type(self, query_result):
@@ -1289,7 +1311,7 @@ class AccessStats(clients.AccessStats):
         return {"series": series}
 
     @cache_region.cache_on_arguments()
-    def access_by_document_type(self, code, collection, date_range_start=None, date_range_end=None):
+    def access_by_document_type(self, code, collection, date_range_start=None, date_range_end=None, raw=False):
 
         end = datetime.now()
         start = end - timedelta(365*3)
@@ -1350,7 +1372,9 @@ class AccessStats(clients.AccessStats):
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
 
-        return self._compute_access_by_document_type(query_result)
+        computed = self._compute_access_by_document_type(query_result)
+
+        return query_result if raw else computed
 
 
     def _compute_access_lifetime(self, query_result):
@@ -1371,7 +1395,7 @@ class AccessStats(clients.AccessStats):
         return charts
 
     @cache_region.cache_on_arguments()
-    def access_lifetime(self, code, collection, date_range_start=None, date_range_end=None):
+    def access_lifetime(self, code, collection, date_range_start=None, date_range_end=None, raw=False):
 
         end = datetime.now()
         start = end - timedelta(365*3)
@@ -1450,7 +1474,9 @@ class AccessStats(clients.AccessStats):
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
         
-        return self._compute_access_lifetime(query_result)
+        computed = self._compute_access_lifetime(query_result)
+
+        return query_result if raw else computed
 
     def _compute_access_by_month_and_year(self, query_result):
         categories = []
@@ -1474,7 +1500,7 @@ class AccessStats(clients.AccessStats):
         return {'categories': categories, 'series': series}
 
     @cache_region.cache_on_arguments()
-    def access_by_month_and_year(self, code, collection, date_range_start=None, date_range_end=None):
+    def access_by_month_and_year(self, code, collection, date_range_start=None, date_range_end=None, raw=False):
 
         end = datetime.now()
         start = end - timedelta(365*3)
@@ -1553,4 +1579,6 @@ class AccessStats(clients.AccessStats):
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
 
-        return self._compute_access_by_month_and_year(query_result)
+        computed = self._compute_access_by_month_and_year(query_result)
+
+        return query_result if raw else computed

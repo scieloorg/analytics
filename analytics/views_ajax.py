@@ -34,7 +34,7 @@ class ViewsAjax(object):
 
         code = self.request.GET.get('code', None)
 
-        data = self.request.publicationstats.general('article', 'citations', code, self.collection, 40, 'asc')
+        data = self.request.stats.publication.general('article', 'citations', code, self.collection, 40, 'asc')
 
         return self.request.chartsconfig.publication_article_references(data)
 
@@ -43,7 +43,7 @@ class ViewsAjax(object):
 
         code = self.request.GET.get('code', None)
 
-        data = self.request.publicationstats.general('article', 'authors', code, self.collection, 0, 'asc')
+        data = self.request.stats.publication.general('article', 'authors', code, self.collection, 0, 'asc')
 
         return self.request.chartsconfig.publication_article_authors(data)
 
@@ -52,7 +52,7 @@ class ViewsAjax(object):
 
         code = self.request.GET.get('code', None)
 
-        data = self.request.publicationstats.general('article', 'aff_countries', code, self.collection, 20)
+        data = self.request.stats.publication.general('article', 'aff_countries', code, self.collection, 20)
 
         return self.request.chartsconfig.publication_article_affiliations(data)
 
@@ -62,7 +62,7 @@ class ViewsAjax(object):
 
         code = self.request.GET.get('code', None)
 
-        data = self.request.publicationstats.general('article', 'publication_year', code, self.collection, 0, 'desc' )
+        data = self.request.stats.publication.general('article', 'publication_year', code, self.collection, 0, 'desc' )
 
         return self.request.chartsconfig.publication_article_year(data)
 
@@ -72,7 +72,7 @@ class ViewsAjax(object):
 
         code = self.request.GET.get('code', None)
 
-        data = self.request.publicationstats.general('article', 'languages', code, self.collection)
+        data = self.request.stats.publication.general('article', 'languages', code, self.collection)
 
         return self.request.chartsconfig.publication_article_languages(data)
 
@@ -82,7 +82,7 @@ class ViewsAjax(object):
 
         code = self.request.GET.get('code', None)
 
-        data = self.request.publicationstats.general('journal', 'status', code, self.collection)
+        data = self.request.stats.publication.general('journal', 'status', code, self.collection)
 
         return self.request.chartsconfig.publication_journal_status(data)
 
@@ -92,7 +92,7 @@ class ViewsAjax(object):
 
         code = self.request.GET.get('code', None)
 
-        data = self.request.publicationstats.general('journal', 'included_at_year', code, self.collection, 0, 'asc')
+        data = self.request.stats.publication.general('journal', 'included_at_year', code, self.collection, 0, 'asc')
 
         return self.request.chartsconfig.publication_journal_year(data)
 
@@ -102,7 +102,7 @@ class ViewsAjax(object):
 
         code = self.request.GET.get('code', None)
 
-        data = self.request.publicationstats.citable_documents(code, self.collection)
+        data = self.request.stats.publication.citable_documents(code, self.collection)
 
         return self.request.chartsconfig.publication_article_citable_documents(data)
 
@@ -111,7 +111,7 @@ class ViewsAjax(object):
 
         code = self.request.GET.get('code', None)
 
-        data = self.request.publicationstats.general('article', 'subject_areas', code, self.collection)
+        data = self.request.stats.publication.general('article', 'subject_areas', code, self.collection)
 
         return self.request.chartsconfig.publication_article_subject_areas(data)
 
@@ -121,7 +121,7 @@ class ViewsAjax(object):
 
         code = self.request.GET.get('code', None)
 
-        data = self.request.publicationstats.general('article', 'document_type', code, self.collection)
+        data = self.request.stats.publication.general('article', 'document_type', code, self.collection)
 
         return self.request.chartsconfig.publication_article_document_type(data)
 
@@ -130,7 +130,7 @@ class ViewsAjax(object):
 
         code = self.request.GET.get('code', None)
 
-        data = self.request.publicationstats.general('article', 'license', code, self.collection)
+        data = self.request.stats.publication.general('article', 'license', code, self.collection)
 
         return self.request.chartsconfig.publication_article_licenses(data)
 
@@ -140,7 +140,7 @@ class ViewsAjax(object):
 
         code = self.request.GET.get('code', None)
 
-        data = self.request.publicationstats.general('journal', 'subject_areas', code, self.collection)
+        data = self.request.stats.publication.general('journal', 'subject_areas', code, self.collection)
 
         return self.request.chartsconfig.publication_journal_subject_areas(data)
 
@@ -150,7 +150,7 @@ class ViewsAjax(object):
 
         code = self.request.GET.get('code', None)
 
-        data = self.request.publicationstats.general('journal', 'license', code, self.collection)
+        data = self.request.stats.publication.general('journal', 'license', code, self.collection)
 
         return self.request.chartsconfig.publication_journal_licenses(data)
 
@@ -160,7 +160,7 @@ class ViewsAjax(object):
         code = self.request.GET.get('code', None)
         field = self.request.GET.get('field', None)
 
-        data = self.request.publicationstats.collection_size(code, self.collection, field)
+        data = self.request.stats.publication.collection_size(code, self.collection, field)
 
         return data
 
@@ -171,7 +171,7 @@ class ViewsAjax(object):
         range_start = self.request.GET.get('range_start', None)
         range_end = self.request.GET.get('range_end', None)
 
-        data = self.request.accessstats.access_by_month_and_year(code, self.collection, range_start, range_end)
+        data = self.request.stats.access.access_by_month_and_year(code, self.collection, range_start, range_end)
         
         return self.request.chartsconfig.bymonthandyear(data)
 
@@ -183,7 +183,7 @@ class ViewsAjax(object):
         range_start = self.request.GET.get('range_start', None)
         range_end = self.request.GET.get('range_end', None)
 
-        data = self.request.accessstats.access_by_document_type(code, self.collection, range_start, range_end)
+        data = self.request.stats.access.access_by_document_type(code, self.collection, range_start, range_end)
 
         return self.request.chartsconfig.documenttype(data)
 
@@ -195,6 +195,6 @@ class ViewsAjax(object):
         range_start = self.request.GET.get('range_start', None)
         range_end = self.request.GET.get('range_end', None)
 
-        data = self.request.accessstats.access_lifetime(code, self.collection, range_start, range_end)
+        data = self.request.stats.access.access_lifetime(code, self.collection, range_start, range_end)
 
         return self.request.chartsconfig.lifetime(data)

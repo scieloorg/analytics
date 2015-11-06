@@ -12,10 +12,7 @@ class ControllerTest(unittest.TestCase):
 
     def setUp(self):
 
-        self._as = controller.AccessStats('localhost', '11600')
-        self._pu = controller.PublicationStats('localhost', '11600')
-        self._cb = controller.CitedbyStats('localhost', '11600')
-        self._stats = controller.Stats()
+        self._stats = controller.Stats('localhost:11600', 'localhost:11600', 'localhost:11600', 'localhost:11600')
 
     def test_compute_impact_factor(self):
 
@@ -3275,7 +3272,7 @@ class ControllerTest(unittest.TestCase):
             }
         ]
 
-        result = self._cb._compute_citing_forms(query_result)
+        result = self._stats.bibliometrics._compute_citing_forms(query_result)
 
         self.assertEqual(expected, result)
 
@@ -3331,7 +3328,7 @@ class ControllerTest(unittest.TestCase):
             }
         ]
 
-        result = self._cb._compute_received_citations(query_result)
+        result = self._stats.bibliometrics._compute_received_citations(query_result)
 
         self.assertEqual(expected, result)
 
@@ -3387,7 +3384,7 @@ class ControllerTest(unittest.TestCase):
             }
         ]
 
-        result = self._cb._compute_granted_citations(query_result)
+        result = self._stats.bibliometrics._compute_granted_citations(query_result)
 
         self.assertEqual(expected, result)
 
@@ -3445,7 +3442,7 @@ class ControllerTest(unittest.TestCase):
             ]
         }
 
-        result = self._cb._compute_self_citations(query_result)
+        result = self._stats.bibliometrics._compute_self_citations(query_result)
 
         self.assertEqual(expected, result)
 
@@ -3549,7 +3546,7 @@ class ControllerTest(unittest.TestCase):
             "total": 297733
         }
 
-        result = self._pu._compute_collection_size(query_result, 'documents')
+        result = self._stats.publication._compute_collection_size(query_result, 'documents')
 
         self.assertEqual(expected, result)
 
@@ -3578,7 +3575,7 @@ class ControllerTest(unittest.TestCase):
             "total": 344
         }
 
-        result = self._pu._compute_collection_size(query_result, 'issn')
+        result = self._stats.publication._compute_collection_size(query_result, 'issn')
 
         self.assertEqual(expected, result)
 
@@ -3607,7 +3604,7 @@ class ControllerTest(unittest.TestCase):
             "total": 3440
         }
 
-        result = self._pu._compute_collection_size(query_result, 'issue')
+        result = self._stats.publication._compute_collection_size(query_result, 'issue')
 
         self.assertEqual(expected, result)
 
@@ -3627,7 +3624,7 @@ class ControllerTest(unittest.TestCase):
             }
         }
 
-        result = self._pu._compute_collection_size(query_result, 'issn')
+        result = self._stats.publication._compute_collection_size(query_result, 'issn')
 
         self.assertEqual(None, result)
 
@@ -3711,7 +3708,7 @@ class ControllerTest(unittest.TestCase):
             ]
         }
 
-        result = self._pu._compute_citable_documents(query_result)\
+        result = self._stats.publication._compute_citable_documents(query_result)\
 
         self.assertEqual(expected, result)
 
@@ -3769,7 +3766,7 @@ class ControllerTest(unittest.TestCase):
             ]
         }
 
-        result = self._pu._compute_general(query_result, 'subject_areas')
+        result = self._stats.publication._compute_general(query_result, 'subject_areas')
 
         self.assertEqual(expected, result)
 
@@ -3882,7 +3879,7 @@ class ControllerTest(unittest.TestCase):
             }
         ]
 
-        result = self._as._compute_list_journals(query_result)
+        result = self._stats.access._compute_list_journals(query_result)
 
         self.assertEqual(expected, result)
 
@@ -3995,7 +3992,7 @@ class ControllerTest(unittest.TestCase):
             }
         ]
 
-        result = self._as._compute_list_issues(query_result)
+        result = self._stats.access._compute_list_issues(query_result)
 
         self.assertEqual(expected, result)
 
@@ -4108,7 +4105,7 @@ class ControllerTest(unittest.TestCase):
             }
         ]
 
-        result = self._as._compute_list_articles(query_result)
+        result = self._stats.access._compute_list_articles(query_result)
 
         self.assertEqual(expected, result)
 
@@ -4207,7 +4204,7 @@ class ControllerTest(unittest.TestCase):
             ]
         }
 
-        result = self._as._compute_access_by_month_and_year(query_result)
+        result = self._stats.access._compute_access_by_month_and_year(query_result)
 
         self.assertEqual(expected, result)
 
@@ -4323,7 +4320,7 @@ class ControllerTest(unittest.TestCase):
             }
         ]
 
-        result = self._as._compute_access_lifetime(query_result)
+        result = self._stats.access._compute_access_lifetime(query_result)
 
         self.assertEqual(expected, result)
 
@@ -4395,6 +4392,6 @@ class ControllerTest(unittest.TestCase):
             ]
         }
 
-        result = self._as._compute_access_by_document_type(query_result)
+        result = self._stats.access._compute_access_by_document_type(query_result)
 
         self.assertEqual(expected, result)

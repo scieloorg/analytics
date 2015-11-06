@@ -16,20 +16,13 @@ def main(global_config, **settings):
     config = Configurator(settings=settings)
     config.add_renderer('jsonp', JSONP(param_name='callback', indent=4))
 
-    def add_accessstats(request):
-        return controller.accessstats(settings['accessstats'])
-
-    def add_publicationstats(request):
-        return controller.publicationstats(settings['publicationstats'])
-
-    def add_articlemeta(request):
-        return controller.articlemeta(settings['articlemeta'])
-
-    def add_bibliometrics(request):
-        return controller.bibliometrics(settings['citedby'])
-
     def add_stats(request):
-        return controller.Stats()
+        return controller.Stats(
+            settings['articlemeta'],
+            settings['publicationstats'],
+            settings['accessstats'],
+            settings['citedby']
+        )
 
     def add_chartsconfig(request):
         return charts_config.chartsconfig(request)
@@ -68,10 +61,6 @@ def main(global_config, **settings):
     config.add_route('bibliometrics_list_citing_forms_web', '/bibliometrics/list/citing_forms')   
     config.add_route('bibliometrics_list_impact_factor_web', '/bibliometrics/list/impact_factor')   
     config.add_route('bibliometrics_journal_self_citation', '/ajx/bibliometrics/journal/self_citation') 
-    config.add_request_method(add_accessstats, 'accessstats', reify=True)
-    config.add_request_method(add_articlemeta, 'articlemeta', reify=True)
-    config.add_request_method(add_publicationstats, 'publicationstats', reify=True)
-    config.add_request_method(add_bibliometrics, 'bibliometrics', reify=True)
     config.add_request_method(add_stats, 'stats', reify=True)
     config.add_request_method(add_chartsconfig, 'chartsconfig', reify=True)
 

@@ -32,9 +32,9 @@
           citable_docs1234 = int(data['citable_docs1']+data['citable_docs2']+data['citable_docs3']+data['citable_docs4'])
         %>
         <tr>
-          <th class="table-impact-factor-header" colspan="5" style="text-align: center;">${_(u'citações em')} ${base_year} ${_(u'para publicações de')}</th>
-          <th class="table-impact-factor-header" colspan="5" style="text-align: center;">${_(u'documentos publicados em')}</th>
-          <th class="table-impact-factor-header" colspan="4" style="text-align: center;">${_(u'fator de impacto')}</th>
+          <th class="table-impact-factor-header" colspan="5">${_(u'citações em')} ${base_year} ${_(u'para publicações de')}</th>
+          <th class="table-impact-factor-header" colspan="5">${_(u'documentos publicados em')}</th>
+          <th class="table-impact-factor-header" colspan="4">${_(u'fator de impacto')}</th>
         </tr>
         <tr>
           <th class="success">${base_year-1}</th>

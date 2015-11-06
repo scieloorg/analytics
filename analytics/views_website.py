@@ -84,12 +84,12 @@ def base_data_manager(wrapped):
             code = document or journal or collection
             data = {}
             if document:
-                data['selected_document'] = request.articlemeta.document(document, collection)
+                data['selected_document'] = request.stats.articlemeta.document(document, collection)
                 data['selected_document_code'] = document
                 journal = document[1:10]
 
-            collections = request.articlemeta.certified_collections()
-            journals = request.articlemeta.collections_journals(collection)
+            collections = request.stats.articlemeta.certified_collections()
+            journals = request.stats.articlemeta.collections_journals(collection)
             selected_journal = journals.get(journal, None)
             selected_journal_code = journal if journal in journals else None
 
@@ -145,7 +145,7 @@ def bibliometrics_journal(request):
     titles = titles.split(',') if titles else []
 
     if data['selected_journal_code']:
-        journal = request.articlemeta.journal(code=data['selected_journal_code'])
+        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
         titles.append(journal.title)
         titles.append(journal.abbreviated_title)
     
@@ -166,7 +166,7 @@ def bibliometrics_list_impact_factor(request):
     titles = titles.split(',') if titles else []
 
     if data['selected_journal_code']:
-        journal = request.articlemeta.journal(code=data['selected_journal_code'])
+        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
         titles.append(journal.title)
         titles.append(journal.abbreviated_title)
 
@@ -189,7 +189,7 @@ def bibliometrics_list_citing_forms(request):
     titles = titles.split(',') if titles else []
 
     if data['selected_journal_code']:
-        journal = request.articlemeta.journal(code=data['selected_journal_code'])
+        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
         titles.append(journal.title)
         titles.append(journal.abbreviated_title)
 
@@ -197,7 +197,7 @@ def bibliometrics_list_citing_forms(request):
     data['titles'] = []
     if titles and not len(titles) == 0:
         forms = set([i.strip() for i in titles if i])
-        data['blist'] = request.bibliometrics.citing_forms(forms)
+        data['blist'] = request.stats.bibliometrics.citing_forms(forms)
         data['titles'] = u','.join(forms)
 
     return data
@@ -212,7 +212,7 @@ def bibliometrics_list_received(request):
     titles = titles.split(',') if titles else []
 
     if data['selected_journal_code']:
-        journal = request.articlemeta.journal(code=data['selected_journal_code'])
+        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
         titles.append(journal.title)
         titles.append(journal.abbreviated_title)
 
@@ -220,7 +220,7 @@ def bibliometrics_list_received(request):
     data['titles'] = []
     if titles and not len(titles) == 0:
         forms = set([i.strip() for i in titles if i])
-        data['blist'] = request.bibliometrics.received_citations(forms)
+        data['blist'] = request.stats.bibliometrics.received_citations(forms)
         data['titles'] = u','.join(forms)
 
     return data
@@ -233,7 +233,7 @@ def bibliometrics_list_granted(request):
 
     data ['blist'] = []
     if data['selected_journal_code']:
-        data['blist'] = request.bibliometrics.granted_citations(
+        data['blist'] = request.stats.bibliometrics.granted_citations(
             data['selected_journal_code'])
 
     return data
@@ -264,7 +264,7 @@ def accesses_list_journals(request):
     data = request.data_manager
     data['page'] = 'accesses'
 
-    data['aclist'] = request.accessstats.list_journals(
+    data['aclist'] = request.stats.access.list_journals(
         data['selected_code'],
         data['selected_collection_code'],
         data['range_start'],
@@ -281,7 +281,7 @@ def accesses_list_issues(request):
     data = request.data_manager
     data['page'] = 'accesses'
 
-    data['aclist'] = request.accessstats.list_issues(
+    data['aclist'] = request.stats.access.list_issues(
         data['selected_code'],
         data['selected_collection_code'],
         data['range_start'],
@@ -298,7 +298,7 @@ def accesses_list_articles(request):
     data = request.data_manager
     data['page'] = 'accesses'
 
-    data['aclist'] = request.accessstats.list_articles(
+    data['aclist'] = request.stats.access.list_articles(
         data['selected_code'],
         data['selected_collection_code'],
         data['range_start'],
