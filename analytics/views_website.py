@@ -1,5 +1,6 @@
 from pyramid.view import view_config
 from pyramid.response import Response
+from pyramid.settings import aslist
 import pyramid.httpexceptions as exc
 import datetime
 
@@ -84,12 +85,12 @@ def base_data_manager(wrapped):
             code = document or journal or collection
             data = {}
             if document:
-                data['selected_document'] = request.articlemeta.document(document, collection)
+                data['selected_document'] = request.stats.articlemeta.document(document, collection)
                 data['selected_document_code'] = document
                 journal = document[1:10]
 
-            collections = request.articlemeta.certified_collections()
-            journals = request.articlemeta.collections_journals(collection)
+            collections = request.stats.articlemeta.certified_collections()
+            journals = request.stats.articlemeta.collections_journals(collection)
             selected_journal = journals.get(journal, None)
             selected_journal_code = journal if journal in journals else None
 
@@ -126,6 +127,7 @@ def base_data_manager(wrapped):
 
         data = get_data_manager(collection_code, journal_code, document_code, range_start, range_end)
         data['locale'] = request.session.get('_LOCALE_', request.locale_name)
+        data['under_development'] = aslist(request.registry.settings.get('under_development', ''))
         setattr(request, 'data_manager', data)
 
         return wrapped(request, *arg, **kwargs)
@@ -133,6 +135,110 @@ def base_data_manager(wrapped):
     wrapper.__doc__ = wrapped.__doc__
 
     return wrapper
+
+@view_config(route_name='bibliometrics_journal_web', renderer='templates/website/bibliometrics_journal.mako')
+@base_data_manager
+def bibliometrics_journal(request):
+
+    data = request.data_manager
+    data['page'] = 'bibliometrics'
+    titles = request.GET.get('titles', None)
+
+    titles = titles.split(',') if titles else []
+
+    if data['selected_journal_code']:
+        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
+        titles.append(journal.title)
+        titles.append(journal.abbreviated_title)
+    
+    data['titles'] = []
+    if titles and not len(titles) == 0:
+        forms = set([i.strip() for i in titles if i])
+        data['titles'] = u','.join(forms)
+
+    return data
+
+@view_config(route_name='bibliometrics_list_impact_factor_web', request_method='GET', renderer='templates/website/bibliometrics_list_impact_factor.mako')
+@base_data_manager
+def bibliometrics_list_impact_factor(request):
+    data = request.data_manager
+    data['page'] = 'bibliometrics'
+    titles = request.GET.get('titles', None)
+
+    titles = titles.split(',') if titles else []
+
+    if data['selected_journal_code']:
+        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
+        titles.append(journal.title)
+        titles.append(journal.abbreviated_title)
+
+    data['blist'] = {}
+    data['titles'] = []
+    if titles and not len(titles) == 0:
+        forms = set([i.strip() for i in titles if i])
+        data['blist'] = request.stats.impact_factor(data['selected_journal_code'], journal.collection_acronym, titles)
+        data['titles'] = u','.join(forms)
+
+    return data
+
+@view_config(route_name='bibliometrics_list_citing_forms_web', request_method='GET', renderer='templates/website/bibliometrics_list_citing_forms.mako')
+@base_data_manager
+def bibliometrics_list_citing_forms(request):
+    data = request.data_manager
+    data['page'] = 'bibliometrics'
+    titles = request.GET.get('titles', None)
+
+    titles = titles.split(',') if titles else []
+
+    if data['selected_journal_code']:
+        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
+        titles.append(journal.title)
+        titles.append(journal.abbreviated_title)
+
+    data['blist'] = []
+    data['titles'] = []
+    if titles and not len(titles) == 0:
+        forms = set([i.strip() for i in titles if i])
+        data['blist'] = request.stats.bibliometrics.citing_forms(forms)
+        data['titles'] = u','.join(forms)
+
+    return data
+
+@view_config(route_name='bibliometrics_list_received_web', request_method='GET', renderer='templates/website/bibliometrics_list_received.mako')
+@base_data_manager
+def bibliometrics_list_received(request):
+    data = request.data_manager
+    data['page'] = 'bibliometrics'
+    titles = request.GET.get('titles', None)
+
+    titles = titles.split(',') if titles else []
+
+    if data['selected_journal_code']:
+        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
+        titles.append(journal.title)
+        titles.append(journal.abbreviated_title)
+
+    data['blist'] = []
+    data['titles'] = []
+    if titles and not len(titles) == 0:
+        forms = set([i.strip() for i in titles if i])
+        data['blist'] = request.stats.bibliometrics.received_citations(forms)
+        data['titles'] = u','.join(forms)
+
+    return data
+
+@view_config(route_name='bibliometrics_list_granted_web', request_method='GET', renderer='templates/website/bibliometrics_list_granted.mako')
+@base_data_manager
+def bibliometrics_list_granted(request):
+    data = request.data_manager
+    data['page'] = 'bibliometrics'
+
+    data ['blist'] = []
+    if data['selected_journal_code']:
+        data['blist'] = request.stats.bibliometrics.granted_citations(
+            data['selected_journal_code'])
+
+    return data
 
 @view_config(route_name='index_web', renderer='templates/website/home.mako')
 @base_data_manager
@@ -160,7 +266,7 @@ def accesses_list_journals(request):
     data = request.data_manager
     data['page'] = 'accesses'
 
-    data['aclist'] = request.accessstats.list_journals(
+    data['aclist'] = request.stats.access.list_journals(
         data['selected_code'],
         data['selected_collection_code'],
         data['range_start'],
@@ -177,7 +283,7 @@ def accesses_list_issues(request):
     data = request.data_manager
     data['page'] = 'accesses'
 
-    data['aclist'] = request.accessstats.list_issues(
+    data['aclist'] = request.stats.access.list_issues(
         data['selected_code'],
         data['selected_collection_code'],
         data['range_start'],
@@ -194,7 +300,7 @@ def accesses_list_articles(request):
     data = request.data_manager
     data['page'] = 'accesses'
 
-    data['aclist'] = request.accessstats.list_articles(
+    data['aclist'] = request.stats.access.list_articles(
         data['selected_code'],
         data['selected_collection_code'],
         data['range_start'],

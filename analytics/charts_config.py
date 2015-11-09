@@ -23,15 +23,66 @@ class ChartsConfig(object):
 
         return _higchart
 
+    def bibliometrics_impact_factor(self, data):
+
+        name = {
+            'impact_factor_0': self._(u'imediatez'),
+            'impact_factor_1': self._(u'1 ano'),
+            'impact_factor_2': self._(u'2 anos'),
+            'impact_factor_3': self._(u'3 anos'),
+            'impact_factor_4': self._(u'4 anos'),
+            'impact_factor_5': self._(u'5 anos')
+        }
+
+        for i, serie in enumerate(data['series']):
+            data['series'][i]['name'] = name[serie['name']]
+
+        chart = self.highchart
+        chart['title'] = {'text': self._(u'Fator de impacto em 1, 2, 3, 4, 5 anos e indice de imediatez')}
+        chart['xAxis'] = {'categories': data['categories']}
+        chart['series'] = data['series']
+        chart['yAxis']['title'] = {'text': self._(u'Fator de Impacto') }
+        chart['tooltip'] = {
+            'headerFormat': self._(u'Fator de impacto'),
+            'pointFormat': u'<br/><strong>'+self._(u'Ano base')+u'</strong>: {point.category}<br/><strong>{series.name}</strong>: {point.y}',
+            'followPointer': True
+        }
+
+        return {'options': chart}
+
+    def bibliometrics_journal_received_self_and_granted_citation_chart(self, data):
+
+        name = {'self_citation': self._(u'Auto citação'), 'granted_citation': self._(u'Citações concedidas'), 'received_citation': self._(u'Citações recebidas')}
+
+        for i, serie in enumerate(data['series']):
+            data['series'][i]['name'] = name[serie['name']]
+
+        chart = self.highchart
+        chart['chart']['type'] = 'area'
+        chart['title'] = {'text': self._(u'Distribuição de citações concedidas, recebidas e auto citações')}
+        chart['xAxis'] = {
+            'categories': data['categories'],
+            'title': {'text': None}
+            }
+        chart['legend'] = {'enabled': True}
+        chart['series'] = data['series']
+        chart['yAxis']['title'] = {'text': self._(u'Número de citações') }
+        chart['tooltip'] = {
+            'headerFormat': self._(u'Ano de publicação') + ' <strong>{point.key}</strong><br/>',
+            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> {series.name}: <strong>{point.y}</strong> ({point.percentage:.0f}%)<br/>'
+        }
+
+        return {'options': chart}
+
     def publication_article_citable_documents(self, data):
 
         name = {'citable_documents': self._(u'Documentos citáveis'), 'not_citable_documents': self._(u'Documentos não citáveis')}
 
         for i, serie in enumerate(data['series']):
-            data['series'][i]['name'] = name[serie['id']]
+            data['series'][i]['name'] = name[serie['name']]
 
         chart = self.highchart
-        chart['chart']['type'] = 'column'
+        chart['chart']['type'] = 'area'
         chart['title'] = {'text': self._(u'Distribuição de documentos citáveis e não citáveis')}
         chart['xAxis'] = {
             'categories': data['categories'],
@@ -46,11 +97,6 @@ class ChartsConfig(object):
             'headerFormat': self._(u'Ano de publicação') + ' <strong>{point.key}</strong><table>',
             'pointFormat': u'<tr><td><span style="color:{point.color}">\u25CF</span> {series.name}: </td><td style="text-align: right"><strong>{point.y}</strong></td><td style="text-align: right">&nbsp;({point.percentage:.0f}%)</td></tr>',
             'footerFormat': '</table>'
-        }
-        chart['plotOptions'] = {
-            'column': {
-                'stacking': 'normal'
-            }
         }
 
         return {'options': chart}

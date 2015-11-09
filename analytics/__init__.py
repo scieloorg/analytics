@@ -16,14 +16,13 @@ def main(global_config, **settings):
     config = Configurator(settings=settings)
     config.add_renderer('jsonp', JSONP(param_name='callback', indent=4))
 
-    def add_accessstats(request):
-        return controller.accessstats(settings['accessstats'])
-
-    def add_publicationstats(request):
-        return controller.publicationstats(settings['publicationstats'])
-
-    def add_articlemeta(request):
-        return controller.articlemeta(settings['articlemeta'])
+    def add_stats(request):
+        return controller.Stats(
+            settings['articlemeta'],
+            settings['publicationstats'],
+            settings['accessstats'],
+            settings['citedby']
+        )
 
     def add_chartsconfig(request):
         return charts_config.chartsconfig(request)
@@ -56,11 +55,15 @@ def main(global_config, **settings):
     config.add_route('publication_article_affiliations', '/ajx/publication/article/affiliations')
     config.add_route('publication_article_year', '/ajx/publication/article/year')
     config.add_route('publication_article_subject_areas', '/ajx/publication/article/subject_areas')
-    config.add_request_method(add_accessstats, 'accessstats', reify=True)
-    config.add_request_method(add_articlemeta, 'articlemeta', reify=True)
-    config.add_request_method(add_publicationstats, 'publicationstats', reify=True)
+    config.add_route('bibliometrics_journal_web', '/w/bibliometrics/journal')
+    config.add_route('bibliometrics_list_granted_web', '/bibliometrics/list/granted')
+    config.add_route('bibliometrics_list_received_web', '/bibliometrics/list/received')
+    config.add_route('bibliometrics_list_citing_forms_web', '/bibliometrics/list/citing_forms')   
+    config.add_route('bibliometrics_list_impact_factor_web', '/bibliometrics/list/impact_factor')   
+    config.add_route('bibliometrics_journal_received_self_and_granted_citation_chart', '/ajx/bibliometrics/journal/received_self_and_granted_citation_chart')
+    config.add_route('bibliometrics_journal_impact_factor_chart', '/ajx/bibliometrics/journal/impact_factor_chart')
+    config.add_request_method(add_stats, 'stats', reify=True)
     config.add_request_method(add_chartsconfig, 'chartsconfig', reify=True)
-
 
     config.add_subscriber('analytics.subscribers.add_renderer_globals',
                           'pyramid.events.BeforeRender')

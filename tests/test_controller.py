@@ -12,8 +12,2210 @@ class ControllerTest(unittest.TestCase):
 
     def setUp(self):
 
-        self._as = controller.AccessStats('localhost', '11600')
-        self._pu = controller.PublicationStats('localhost', '11600')
+        self._stats = controller.Stats('localhost:11600', 'localhost:11600', 'localhost:11600', 'localhost:11600')
+
+    def test_compute_impact_factor(self):
+
+        pub_citing_years = {
+            "hits": {
+                "hits": [],
+                "total": 1825,
+                "max_score": 0.0
+            },
+            "timed_out": False,
+            "took": 9059,
+            "aggregations": {
+                "publication_year": {
+                    "buckets": [
+                        {
+                            "reference_publication_year": {
+                                "buckets": [
+                                    {
+                                        "key": "2008",
+                                        "doc_count": 22
+                                    },
+                                    {
+                                        "key": "2010",
+                                        "doc_count": 19
+                                    },
+                                    {
+                                        "key": "2004",
+                                        "doc_count": 18
+                                    },
+                                    {
+                                        "key": "2001",
+                                        "doc_count": 17
+                                    },
+                                    {
+                                        "key": "2007",
+                                        "doc_count": 17
+                                    },
+                                    {
+                                        "key": "2003",
+                                        "doc_count": 16
+                                    },
+                                    {
+                                        "key": "2005",
+                                        "doc_count": 15
+                                    },
+                                    {
+                                        "key": "2006",
+                                        "doc_count": 15
+                                    },
+                                    {
+                                        "key": "2011",
+                                        "doc_count": 13
+                                    },
+                                    {
+                                        "key": "2012",
+                                        "doc_count": 11
+                                    },
+                                    {
+                                        "key": "2009",
+                                        "doc_count": 10
+                                    },
+                                    {
+                                        "key": "1990",
+                                        "doc_count": 9
+                                    },
+                                    {
+                                        "key": "1998",
+                                        "doc_count": 9
+                                    },
+                                    {
+                                        "key": "1999",
+                                        "doc_count": 9
+                                    },
+                                    {
+                                        "key": "2013",
+                                        "doc_count": 9
+                                    },
+                                    {
+                                        "key": "1996",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "2000",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "2002",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "2014",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "1993",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1978",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1981",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1994",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1995",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1997",
+                                        "doc_count": 1
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 0
+                            },
+                            "key": "2014",
+                            "doc_count": 237
+                        },
+                        {
+                            "reference_publication_year": {
+                                "buckets": [
+                                    {
+                                        "key": "2006",
+                                        "doc_count": 30
+                                    },
+                                    {
+                                        "key": "2010",
+                                        "doc_count": 24
+                                    },
+                                    {
+                                        "key": "2009",
+                                        "doc_count": 22
+                                    },
+                                    {
+                                        "key": "2005",
+                                        "doc_count": 18
+                                    },
+                                    {
+                                        "key": "2007",
+                                        "doc_count": 16
+                                    },
+                                    {
+                                        "key": "2008",
+                                        "doc_count": 16
+                                    },
+                                    {
+                                        "key": "2004",
+                                        "doc_count": 14
+                                    },
+                                    {
+                                        "key": "2001",
+                                        "doc_count": 13
+                                    },
+                                    {
+                                        "key": "1996",
+                                        "doc_count": 11
+                                    },
+                                    {
+                                        "key": "1999",
+                                        "doc_count": 7
+                                    },
+                                    {
+                                        "key": "2011",
+                                        "doc_count": 7
+                                    },
+                                    {
+                                        "key": "1990",
+                                        "doc_count": 6
+                                    },
+                                    {
+                                        "key": "2002",
+                                        "doc_count": 6
+                                    },
+                                    {
+                                        "key": "2003",
+                                        "doc_count": 6
+                                    },
+                                    {
+                                        "key": "1988",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "1998",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "2000",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "1995",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "1997",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "2012",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "1994",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1993",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1976",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1978",
+                                        "doc_count": 1
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 0
+                            },
+                            "key": "2013",
+                            "doc_count": 230
+                        },
+                        {
+                            "reference_publication_year": {
+                                "buckets": [
+                                    {
+                                        "key": "2006",
+                                        "doc_count": 19
+                                    },
+                                    {
+                                        "key": "2000",
+                                        "doc_count": 16
+                                    },
+                                    {
+                                        "key": "2008",
+                                        "doc_count": 16
+                                    },
+                                    {
+                                        "key": "1998",
+                                        "doc_count": 13
+                                    },
+                                    {
+                                        "key": "2007",
+                                        "doc_count": 13
+                                    },
+                                    {
+                                        "key": "2005",
+                                        "doc_count": 11
+                                    },
+                                    {
+                                        "key": "1996",
+                                        "doc_count": 10
+                                    },
+                                    {
+                                        "key": "2004",
+                                        "doc_count": 10
+                                    },
+                                    {
+                                        "key": "2009",
+                                        "doc_count": 10
+                                    },
+                                    {
+                                        "key": "2002",
+                                        "doc_count": 9
+                                    },
+                                    {
+                                      "key": "2001",
+                                      "doc_count": 8
+                                    },
+                                    {
+                                        "key": "1992",
+                                        "doc_count": 7
+                                    },
+                                    {
+                                        "key": "1997",
+                                        "doc_count": 7
+                                    },
+                                    {
+                                        "key": "1999",
+                                        "doc_count": 7
+                                    },
+                                    {
+                                        "key": "2010",
+                                        "doc_count": 6
+                                    },
+                                    {
+                                        "key": "1990",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "1995",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "2003",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "1976",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1986",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1988",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1993",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1994",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1963",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1978",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1991",
+                                        "doc_count": 1
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 0
+                            },
+                            "key": "2011",
+                            "doc_count": 210
+                        },
+                        {
+                            "reference_publication_year": {
+                                "buckets": [
+                                    {
+                                        "key": "2006",
+                                        "doc_count": 17
+                                    },
+                                    {
+                                        "key": "2002",
+                                        "doc_count": 15
+                                    },
+                                    {
+                                        "key": "2007",
+                                        "doc_count": 14
+                                    },
+                                    {
+                                        "key": "2001",
+                                        "doc_count": 12
+                                    },
+                                    {
+                                      "key": "2004",
+                                      "doc_count": 11
+                                    },
+                                    {
+                                        "key": "1998",
+                                        "doc_count": 10
+                                    },
+                                    {
+                                        "key": "1997",
+                                        "doc_count": 8
+                                    },
+                                    {
+                                        "key": "2005",
+                                        "doc_count": 8
+                                    },
+                                    {
+                                        "key": "2008",
+                                        "doc_count": 8
+                                    },
+                                    {
+                                        "key": "1996",
+                                        "doc_count": 7
+                                    },
+                                    {
+                                        "key": "2003",
+                                        "doc_count": 7
+                                    },
+                                    {
+                                        "key": "1988",
+                                        "doc_count": 6
+                                    },
+                                    {
+                                        "key": "2000",
+                                        "doc_count": 6
+                                    },
+                                    {
+                                        "key": "1993",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "1995",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "2009",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "1990",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "1999",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "1983",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1986",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1992",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1981",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1982",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1948",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1954",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1979",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1984",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1991",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1994",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "2010",
+                                        "doc_count": 1
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 0
+                            },
+                            "key": "2010",
+                            "doc_count": 193
+                        },
+                        {
+                            "reference_publication_year": {
+                                "buckets": [
+                                    {
+                                        "key": "2007",
+                                        "doc_count": 22
+                                    },
+                                    {
+                                        "key": "2006",
+                                        "doc_count": 19
+                                    },
+                                    {
+                                        "key": "2005",
+                                        "doc_count": 16
+                                    },
+                                    {
+                                        "key": "2008",
+                                        "doc_count": 16
+                                    },
+                                    {
+                                        "key": "2009",
+                                        "doc_count": 16
+                                    },
+                                    {
+                                        "key": "2010",
+                                        "doc_count": 14
+                                    },
+                                    {
+                                        "key": "2002",
+                                        "doc_count": 12
+                                    },
+                                    {
+                                        "key": "2004",
+                                        "doc_count": 12
+                                    },
+                                    {
+                                        "key": "1990",
+                                        "doc_count": 11
+                                    },
+                                    {
+                                        "key": "2003",
+                                        "doc_count": 8
+                                    },
+                                    {
+                                        "key": "2000",
+                                        "doc_count": 7
+                                    },
+                                    {
+                                        "key": "2001",
+                                        "doc_count": 7
+                                    },
+                                    {
+                                        "key": "1993",
+                                        "doc_count": 6
+                                    },
+                                    {
+                                        "key": "1998",
+                                        "doc_count": 6
+                                    },
+                                    {
+                                        "key": "1988",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1995",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1996",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1992",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "2011",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "2012",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1983",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1984",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1986",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1994",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1997",
+                                        "doc_count": 1
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 0
+                            },
+                            "key": "2012",
+                            "doc_count": 193
+                        },
+                        {
+                            "reference_publication_year": {
+                                "buckets": [
+                                    {
+                                        "key": "2007",
+                                        "doc_count": 16
+                                    },
+                                    {
+                                        "key": "1990",
+                                        "doc_count": 12
+                                    },
+                                    {
+                                        "key": "1996",
+                                        "doc_count": 11
+                                    },
+                                    {
+                                        "key": "2006",
+                                        "doc_count": 10
+                                    },
+                                    {
+                                        "key": "1995",
+                                        "doc_count": 9
+                                    },
+                                    {
+                                        "key": "1997",
+                                        "doc_count": 9
+                                    },
+                                    {
+                                        "key": "2005",
+                                        "doc_count": 9
+                                    },
+                                    {
+                                        "key": "2001",
+                                        "doc_count": 8
+                                    },
+                                    {
+                                        "key": "1988",
+                                        "doc_count": 7
+                                    },
+                                    {
+                                        "key": "2004",
+                                        "doc_count": 7
+                                    },
+                                    {
+                                        "key": "1993",
+                                        "doc_count": 6
+                                    },
+                                    {
+                                        "key": "2002",
+                                        "doc_count": 6
+                                    },
+                                    {
+                                        "key": "1999",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "1998",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "2000",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "1986",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "2003",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "2008",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1992",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1994",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1955",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1968",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1978",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1987",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "2009",
+                                        "doc_count": 1
+                                    }
+                                ],
+                               "doc_count_error_upper_bound": 0,
+                               "sum_other_doc_count": 0
+                           },
+                           "key": "2009",
+                           "doc_count": 143
+                       },
+                       {
+                           "reference_publication_year": {
+                               "buckets": [
+                                    {
+                                        "key": "2007",
+                                        "doc_count": 16
+                                    },
+                                    {
+                                        "key": "2010",
+                                        "doc_count": 11
+                                    },
+                                    {
+                                        "key": "2001",
+                                        "doc_count": 10
+                                    },
+                                    {
+                                        "key": "2006",
+                                        "doc_count": 9
+                                    },
+                                    {
+                                        "key": "2009",
+                                        "doc_count": 9
+                                    },
+                                    {
+                                        "key": "2011",
+                                        "doc_count": 9
+                                    },
+                                    {
+                                        "key": "2012",
+                                        "doc_count": 7
+                                    },
+                                    {
+                                        "key": "2013",
+                                        "doc_count": 6
+                                    },
+                                    {
+                                        "key": "2002",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "2008",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "1996",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "2004",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "2005",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "1986",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1988",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1990",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1995",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1998",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "2014",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1992",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1997",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "2000",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "2003",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1999",
+                                        "doc_count": 1
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 0
+                            },
+                            "key": "2015",
+                            "doc_count": 126
+                        },
+                        {
+                            "reference_publication_year": {
+                                "buckets": [
+                                    {
+                                        "key": "2001",
+                                        "doc_count": 8
+                                    },
+                                    {
+                                        "key": "2004",
+                                        "doc_count": 8
+                                    },
+                                    {
+                                        "key": "1999",
+                                        "doc_count": 7
+                                    },
+                                    {
+                                        "key": "1990",
+                                        "doc_count": 6
+                                    },
+                                    {
+                                       "key": "2002",
+                                       "doc_count": 6
+                                    },
+                                    {
+                                        "key": "2005",
+                                        "doc_count": 6
+                                    },
+                                    {
+                                        "key": "1995",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "1996",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "1988",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "2000",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "2003",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "1993",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1994",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1997",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1986",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1989",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1992",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1998",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "2006",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1979",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "2007",
+                                        "doc_count": 1
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 0
+                            },
+                            "key": "2008",
+                            "doc_count": 84
+                        },
+                        {
+                            "reference_publication_year": {
+                                "buckets": [
+                                    {
+                                        "key": "1999",
+                                        "doc_count": 8
+                                    },
+                                    {
+                                        "key": "1997",
+                                        "doc_count": 7
+                                    },
+                                    {
+                                        "key": "1994",
+                                        "doc_count": 6
+                                    },
+                                    {
+                                        "key": "1998",
+                                        "doc_count": 6
+                                    },
+                                    {
+                                        "key": "1993",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "2001",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "1990",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "1996",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "2002",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "2003",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "2005",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "1995",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "2004",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1986",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1988",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1991",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "2000",
+                                        "doc_count": 1
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 0
+                            },
+                            "key": "2006",
+                            "doc_count": 69
+                        },
+                        {
+                            "reference_publication_year": {
+                                "buckets": [
+                                    {
+                                        "key": "1990",
+                                        "doc_count": 6
+                                    },
+                                    {
+                                        "key": "1997",
+                                        "doc_count": 6
+                                    },
+                                    {
+                                        "key": "1994",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "1996",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "2000",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "2001",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "2004",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "1988",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "1998",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "2003",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "2005",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "1995",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1999",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "2002",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1992",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1983",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1986",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1993",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "2006",
+                                        "doc_count": 1
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 0
+                            },
+                            "key": "2007",
+                            "doc_count": 68
+                        },
+                        {
+                            "reference_publication_year": {
+                                "buckets": [
+                                    {
+                                        "key": "1990",
+                                        "doc_count": 9
+                                    },
+                                    {
+                                        "key": "2002",
+                                        "doc_count": 9
+                                    },
+                                    {
+                                        "key": "1998",
+                                        "doc_count": 6
+                                    },
+                                    {
+                                        "key": "2001",
+                                        "doc_count": 6
+                                    },
+                                    {
+                                        "key": "1988",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "2000",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "2003",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "1986",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1993",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1999",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "2004",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1997",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1995",
+                                        "doc_count": 1
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 0
+                            },
+                            "key": "2005",
+                            "doc_count": 57
+                        },
+                        {
+                            "reference_publication_year": {
+                                "buckets": [
+                                    {
+                                        "key": "1988",
+                                        "doc_count": 7
+                                    },
+                                    {
+                                        "key": "1997",
+                                        "doc_count": 6
+                                    },
+                                    {
+                                        "key": "2001",
+                                        "doc_count": 6
+                                    },
+                                    {
+                                        "key": "1990",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "2002",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "1993",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "1996",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "1998",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "1986",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1995",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1999",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "2004",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1978",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1981",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1992",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "2003",
+                                        "doc_count": 1
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 0
+                            },
+                            "key": "2004",
+                            "doc_count": 55
+                        },
+                        {
+                            "reference_publication_year": {
+                                "buckets": [
+                                    {
+                                        "key": "1990",
+                                        "doc_count": 7
+                                    },
+                                    {
+                                        "key": "1996",
+                                        "doc_count": 7
+                                    },
+                                    {
+                                        "key": "1995",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "1997",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "1998",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "2000",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "1999",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "2002",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1988",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1992",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1994",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1986",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1993",
+                                        "doc_count": 1
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 0
+                            },
+                            "key": "2003",
+                            "doc_count": 44
+                        },
+                        {
+                            "reference_publication_year": {
+                                "buckets": [
+                                    {
+                                        "key": "1995",
+                                        "doc_count": 9
+                                    },
+                                    {
+                                        "key": "1993",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "1996",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "1997",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "1990",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1986",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1988",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1992",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1989",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1994",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1998",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "2001",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "2002",
+                                        "doc_count": 1
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 0
+                            },
+                            "key": "2002",
+                            "doc_count": 35
+                        },
+                        {
+                            "reference_publication_year": {
+                                "buckets": [
+                                    {
+                                        "key": "1990",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "1995",
+                                        "doc_count": 5
+                                    },
+                                    {
+                                        "key": "1993",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "1988",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1996",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1997",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1992",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1994",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1998",
+                                        "doc_count": 1
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 0
+                            },
+                            "key": "2000",
+                            "doc_count": 24
+                        },
+                        {
+                            "reference_publication_year": {
+                                "buckets": [
+                                    {
+                                        "key": "1990",
+                                        "doc_count": 6
+                                    },
+                                    {
+                                        "key": "1996",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1993",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1997",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1999",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "2001",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1986",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1988",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1992",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1998",
+                                        "doc_count": 1
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 0
+                            },
+                            "key": "2001",
+                            "doc_count": 21
+                        },
+                        {
+                            "reference_publication_year": {
+                                "buckets": [
+                                    {
+                                        "key": "1996",
+                                        "doc_count": 4
+                                    },
+                                    {
+                                        "key": "1988",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1992",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1995",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1989",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1991",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1994",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1997",
+                                        "doc_count": 1
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 0
+                            },
+                            "key": "1999",
+                            "doc_count": 15
+                        },
+                        {
+                            "reference_publication_year": {
+                                "buckets": [
+                                    {
+                                        "key": "1990",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1996",
+                                        "doc_count": 3
+                                    },
+                                    {
+                                        "key": "1988",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1997",
+                                        "doc_count": 2
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 0
+                            },
+                            "key": "1998",
+                            "doc_count": 10
+                        },
+                        {
+                            "reference_publication_year": {
+                                "buckets": [
+                                    {
+                                        "key": "1988",
+                                        "doc_count": 2
+                                    },
+                                    {
+                                        "key": "1991",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1993",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1995",
+                                        "doc_count": 1
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 0
+                            },
+                            "key": "1996",
+                            "doc_count": 5
+                        },
+                        {
+                            "reference_publication_year": {
+                                "buckets": [
+                                    {
+                                        "key": "1984",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1988",
+                                        "doc_count": 1
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 0
+                            },
+                            "key": "1989",
+                            "doc_count": 2
+                        },
+                        {
+                            "reference_publication_year": {
+                                "buckets": [
+                                    {
+                                        "key": "1986",
+                                        "doc_count": 1
+                                    },
+                                    {
+                                        "key": "1993",
+                                        "doc_count": 1
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 0
+                            },
+                            "key": "1997",
+                            "doc_count": 2
+                        },
+                        {
+                            "reference_publication_year": {
+                                "buckets": [
+                                    {
+                                        "key": "1987",
+                                        "doc_count": 1
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 0
+                            },
+                            "key": "1987",
+                            "doc_count": 1
+                        },
+                        {
+                            "reference_publication_year": {
+                                "buckets": [
+                                    {
+                                        "key": "1986",
+                                        "doc_count": 1
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 0
+                            },
+                            "key": "1992",
+                            "doc_count": 1
+                        }
+                    ],
+                    "doc_count_error_upper_bound": 0,
+                    "sum_other_doc_count": 0
+                }
+            },
+            "_shards": {
+                "successful": 5,
+                "failed": 0,
+                "total": 5
+            }
+        }
+
+        citable_docs = {
+            "hits": {
+                "hits": [],
+                "total": 220,
+                "max_score": 0.0
+            },
+            "timed_out": False,
+            "took": 276,
+            "aggregations": {
+                "publication_year": {
+                    "buckets": [
+                        {
+                            "citable_documents": {
+                                "doc_count": 21
+                            },
+                            "not_citable_documents": {
+                                "doc_count": 2
+                            },
+                            "key": "2015",
+                            "doc_count": 23
+                        },
+                        {
+                            "citable_documents": {
+                                "doc_count": 39
+                            },
+                            "not_citable_documents": {
+                                "doc_count": 5
+                            },
+                            "key": "2014",
+                            "doc_count": 44
+                        },
+                        {
+                            "citable_documents": {
+                                "doc_count": 24
+                            },
+                            "not_citable_documents": {
+                                "doc_count": 9
+                            },
+                            "key": "2013",
+                            "doc_count": 33
+                        },
+                        {
+                            "citable_documents": {
+                                "doc_count": 40
+                            },
+                            "not_citable_documents": {
+                                "doc_count": 2
+                            },
+                            "key": "2012",
+                            "doc_count": 42
+                        },
+                        {
+                            "citable_documents": {
+                                "doc_count": 41
+                            },
+                            "not_citable_documents": {
+                                "doc_count": 1
+                          },
+                          "key": "2011",
+                          "doc_count": 42
+                        },
+                        {
+                            "citable_documents": {
+                                "doc_count": 36
+                            },
+                            "not_citable_documents": {
+                                "doc_count": 0
+                            },
+                            "key": "2010",
+                            "doc_count": 36
+                        }
+                    ],
+                    "doc_count_error_upper_bound": 0,
+                    "sum_other_doc_count": 0
+                }
+            },
+            "_shards": {
+                "successful": 5,
+                "failed": 0,
+                "total": 5
+            }
+        }
+
+
+        result = self._stats._compute_impact_factor(pub_citing_years, citable_docs)
+
+        expected = {
+            "2015": {
+                "fi2": 0.14285714285714285,
+                "fi3": 0.1553398058252427,
+                "fi0": 0.0,
+                "fi1": 0.07692307692307693,
+                "citable_docs5": 36.0,
+                "fi4": 0.1736111111111111,
+                "fi5": 0.2,
+                "citable_docs3": 40.0,
+                "citable_docs2": 24.0,
+                "citable_docs1": 39.0,
+                "citable_docs0": 21,
+                "citable_docs": 21,
+                "citable_docs4": 41.0,
+                "citing_count5": 11.0,
+                "citing_count4": 9.0,
+                "citing_count1": 3.0,
+                "citing_count0": 0.0,
+                "citing_count3": 7.0,
+                "citing_count2": 6.0
+            },
+            "2014": {
+                "fi2": 0.3125,
+                "fi3": 0.3142857142857143,
+                "fi0": 0.10256410256410256,
+                "fi1": 0.375,
+                "citable_docs5": 0.0,
+                "fi4": 0.36879432624113473,
+                "fi5": 0.4397163120567376,
+                "citable_docs3": 41.0,
+                "citable_docs2": 40.0,
+                "citable_docs1": 24.0,
+                "citable_docs0": 39,
+                "citable_docs": 39,
+                "citable_docs4": 36.0,
+                "citing_count5": 10.0,
+                "citing_count4": 19.0,
+                "citing_count1": 9.0,
+                "citing_count0": 4.0,
+                "citing_count3": 13.0,
+                "citing_count2": 11.0
+            },
+            "2011": {
+                "fi2": 0.4444444444444444,
+                "fi3": 0.8888888888888888,
+                "fi0": 0.0,
+                "fi1": 0.16666666666666666,
+                "citable_docs5": 0.0,
+                "fi4": 1.25,
+                "fi5": 1.7777777777777777,
+                "citable_docs3": 0.0,
+                "citable_docs2": 0.0,
+                "citable_docs1": 36.0,
+                "citable_docs0": 41,
+                "citable_docs": 41,
+                "citable_docs4": 0.0,
+                "citing_count5": 19.0,
+                "citing_count4": 13.0,
+                "citing_count1": 6.0,
+                "citing_count0": 0.0,
+                "citing_count3": 16.0,
+                "citing_count2": 10.0
+            },
+            "2010": {
+                "fi2": 0,
+                "fi3": 0,
+                "fi0": 0.027777777777777776,
+                "fi1": 0,
+                "citable_docs5": 0.0,
+                "fi4": 0,
+                "fi5": 0,
+                "citable_docs3": 0.0,
+                "citable_docs2": 0.0,
+                "citable_docs1": 0.0,
+                "citable_docs0": 36,
+                "citable_docs": 36,
+                "citable_docs4": 0.0,
+                "citing_count5": 8.0,
+                "citing_count4": 17.0,
+                "citing_count1": 5.0,
+                "citing_count0": 1.0,
+                "citing_count3": 14.0,
+                "citing_count2": 8.0
+            },
+            "2013": {
+                "fi2": 0.13580246913580246,
+                "fi3": 0.29914529914529914,
+                "fi0": 0.0,
+                "fi1": 0.1,
+                "citable_docs5": 0.0,
+                "fi4": 0.48717948717948717,
+                "fi5": 0.6239316239316239,
+                "citable_docs3": 36.0,
+                "citable_docs2": 41.0,
+                "citable_docs1": 40.0,
+                "citable_docs0": 24,
+                "citable_docs": 24,
+                "citable_docs4": 0.0,
+                "citing_count5": 16.0,
+                "citing_count4": 22.0,
+                "citing_count1": 4.0,
+                "citing_count0": 0.0,
+                "citing_count3": 24.0,
+                "citing_count2": 7.0
+            },
+            "2012": {
+                "fi2": 0.2077922077922078,
+                "fi3": 0.4155844155844156,
+                "fi0": 0.05,
+                "fi1": 0.04878048780487805,
+                "citable_docs5": 0.0,
+                "fi4": 0.6233766233766234,
+                "fi5": 0.9090909090909091,
+                "citable_docs3": 0.0,
+                "citable_docs2": 36.0,
+                "citable_docs1": 41.0,
+                "citable_docs0": 40,
+                "citable_docs": 40,
+                "citable_docs4": 0.0,
+                "citing_count5": 22.0,
+                "citing_count4": 16.0,
+                "citing_count1": 2.0,
+                "citing_count0": 2.0,
+                "citing_count3": 16.0,
+                "citing_count2": 14.0
+            }  
+        }
+
+        self.assertEqual(expected, result)
+
+    def test_compute_citing_forms(self):
+
+        query_result = {
+            "hits": {
+                "hits": [],
+                "total": 14561,
+                "max_score": 0.0
+            },
+            "timed_out": False,
+            "took": 38818,
+            "aggregations": {
+                "reference_source": {
+                    "buckets": [
+                        {
+                            "key": u"Rev Saúde Pública",
+                            "doc_count": 8217
+                        },
+                        {
+                            "key": u"Revista de Saúde Pública",
+                            "doc_count": 3120
+                        },
+                        {
+                            "key": u"Rev. Saúde Pública",
+                            "doc_count": 1639
+                        }
+                    ],
+                    "doc_count_error_upper_bound": 0,
+                    "sum_other_doc_count": 0
+                }
+            },
+            "_shards": {
+                "successful": 5,
+                "failed": 0,
+                "total": 5
+            }
+        }
+
+        expected = [
+            {
+                "source": u"Rev Saúde Pública",
+                "count": 8217
+            },
+            {
+                "source": u"Revista de Saúde Pública",
+                "count": 3120
+            },
+            {
+                "source": u"Rev. Saúde Pública",
+                "count": 1639
+            }
+        ]
+
+        result = self._stats.bibliometrics._compute_citing_forms(query_result)
+
+        self.assertEqual(expected, result)
+
+    def test_compute_received_citations(self):
+
+        query_result = {
+            "hits": {
+                "hits": [],
+                "total": 14549,
+                "max_score": 0.0
+            },
+            "timed_out": False,
+            "took": 29198,
+            "aggregations": {
+                "source": {
+                    "buckets": [
+                        {
+                            "key": u"Cadernos de Saúde Pública",
+                            "doc_count": 3607
+                        },
+                        {
+                            "key": u"Revista de Saúde Pública",
+                            "doc_count": 1714
+                        },
+                        {
+                            "key": u"Ciência & Saúde Coletiva",
+                            "doc_count": 935
+                        }
+                    ],
+                    "doc_count_error_upper_bound": 0,
+                    "sum_other_doc_count": 0
+                }
+            },
+            "_shards": {
+                "successful": 5,
+                "failed": 0,
+                "total": 5
+            }
+        }
+
+        expected = [
+            {
+                "source": u"Cadernos de Saúde Pública",
+                "count": 3607
+            },
+            {
+                "source": u"Revista de Saúde Pública",
+                "count": 1714
+            },
+            {
+                "source": u"Ciência & Saúde Coletiva",
+                "count": 935
+            }
+        ]
+
+        result = self._stats.bibliometrics._compute_received_citations(query_result)
+
+        self.assertEqual(expected, result)
+
+    def test_compute_granted_citations(self):
+
+        query_result = {
+            "hits": {
+                "hits": [],
+                "total": 67602,
+                "max_score": 0.0
+            },
+            "timed_out": False,
+            "took": 4715,
+            "aggregations": {
+                "reference_source": {
+                    "buckets": [
+                        {
+                            "key": u"Rev. Saúde públ.",
+                            "doc_count": 1371
+                        },
+                        {
+                            "key": u"Rev Saúde Pública",
+                            "doc_count": 898
+                        },
+                        {
+                            "key": u"Lancet",
+                            "doc_count": 823
+                        }
+                    ],
+                    "doc_count_error_upper_bound": 0,
+                    "sum_other_doc_count": 0
+                }
+            },
+            "_shards": {
+                "successful": 5,
+                "failed": 0,
+                "total": 5
+            }
+        }
+
+        expected = [
+            {
+                "source": u"Rev. Saúde públ.",
+                "count": 1371
+            },
+            {
+                "source": u"Rev Saúde Pública",
+                "count": 898
+            },
+            {
+                "source": u"Lancet",
+                "count": 823
+            }
+        ]
+
+        result = self._stats.bibliometrics._compute_granted_citations(query_result)
+
+        self.assertEqual(expected, result)
+
+    def test_compute_self_citations(self):
+        query_result = {
+            "hits": {
+                "hits": [],
+                "total": 1714,
+                "max_score": 0.0
+            },
+            "timed_out": False,
+            "took": 13686,
+            "aggregations": {
+                "publication_year": {
+                    "buckets": [
+                        {
+                            "key": "1993",
+                            "doc_count": 119
+                        },
+                        {
+                            "key": "1994",
+                            "doc_count": 83
+                        },
+                        {
+                            "key": "1995",
+                            "doc_count": 111
+                        }
+                    ],
+                    "doc_count_error_upper_bound": 0,
+                    "sum_other_doc_count": 0
+                }
+            },
+            "_shards": {
+                "successful": 5,
+                "failed": 0,
+                "total": 5
+            }
+        }        
+
+        expected = {
+            "series": [
+                {
+                    "data": [
+                        119,
+                        83,
+                        111
+                    ],
+                    "name": "self_citations"
+                }
+            ],
+            "categories": [
+                "1993",
+                "1994",
+                "1995"
+            ]
+        }
+
+        result = self._stats.bibliometrics._compute_self_citations(query_result)
+
+        self.assertEqual(expected, result)
+
+    def test_compute_received_self_and_granted_citation_chart(self):
+
+        self_citations = {
+            "hits": {
+                "hits": [],
+                "total": 8676,
+                "max_score": 0.0
+            },
+            "timed_out": False,
+            "took": 98,
+            "aggregations": {
+                "publication_year": {
+                    "buckets": [
+                        {
+                            "key": "2012",
+                            "doc_count": 616
+                        },
+                        {
+                            "key": "2013",
+                            "doc_count": 594
+                        },
+                        {
+                            "key": "2014",
+                            "doc_count": 1102
+                        },
+                        {
+                            "key": "2015",
+                            "doc_count": 584
+                        }
+                    ],
+                    "doc_count_error_upper_bound": 0,
+                    "sum_other_doc_count": 0
+                }
+            },
+            "_shards": {
+                "successful": 5,
+                "failed": 0,
+                "total": 5
+            }
+        }
+
+        granted_citations = {
+            "hits": {
+                "hits": [],
+                "total": 5912,
+                "max_score": 0.0
+            },
+            "timed_out": False,
+            "took": 6,
+            "aggregations": {
+                "publication_year": {
+                    "buckets": [
+                        {
+                            "citations": {
+                                "value": 8696.0
+                            },
+                            "key": "2014",
+                            "doc_count": 316
+                        },
+                        {
+                            "citations": {
+                                "value": 8614.0
+                            },
+                            "key": "2013",
+                            "doc_count": 306
+                        },
+                        {
+                            "citations": {
+                                "value": 7423.0
+                            },
+                            "key": "2012",
+                            "doc_count": 273
+                        },
+                        {
+                            "citations": {
+                                "value": 5574.0
+                            },
+                            "key": "2015",
+                            "doc_count": 188
+                        }
+                    ],
+                    "doc_count_error_upper_bound": 0,
+                    "sum_other_doc_count": 0
+                }
+            },
+            "_shards": {
+                "successful": 5,
+                "failed": 0,
+                "total": 5
+            }
+        }
+
+        received_citations = {
+            "hits": {
+                "hits": [],
+                "total": 44045,
+                "max_score": 0.0
+            },
+            "timed_out": False,
+            "took": 2018,
+            "aggregations": {
+                "publication_year": {
+                    "buckets": [
+                        {
+                            "key": "2014",
+                            "doc_count": 6645
+                        },
+                        {
+                            "key": "2013",
+                            "doc_count": 5030
+                        },
+                        {
+                            "key": "2012",
+                            "doc_count": 4684
+                        },
+                        {
+                            "key": "2015",
+                            "doc_count": 3984
+                        }
+                    ],
+                    "doc_count_error_upper_bound": 0,
+                    "sum_other_doc_count": 0
+                }
+            },
+            "_shards": {
+                "successful": 5,
+                "failed": 0,
+                "total": 5
+            }
+        }
+
+        expected = {
+            "series": [
+                {
+                    "data": [
+                        7423.0,
+                        8614.0,
+                        8696.0,
+                        5574.0
+                    ],
+                    "name": "granted_citation"
+                },
+                {
+                    "data": [
+                        4684,
+                        5030,
+                        6645,
+                        3984
+                    ],
+                    "name": "received_citation"
+                },
+                {
+                    "data": [
+                        616,
+                        594,
+                        1102,
+                        584
+                    ],
+                    "name": "self_citation"
+                }
+            ],
+            "categories": [
+                "2012",
+                "2013",
+                "2014",
+                "2015"
+            ]
+        }
+
+        self.assertEqual(expected,
+            self._stats._compute_received_self_and_granted_citation_chart(
+                self_citations,
+                granted_citations,
+                received_citations
+            )
+        )
 
     def test_collection_size_documents(self):
         query_result = {
@@ -35,7 +2237,7 @@ class ControllerTest(unittest.TestCase):
             "total": 297733
         }
 
-        result = self._pu._compute_collection_size(query_result, 'documents')
+        result = self._stats.publication._compute_collection_size(query_result, 'documents')
 
         self.assertEqual(expected, result)
 
@@ -64,7 +2266,7 @@ class ControllerTest(unittest.TestCase):
             "total": 344
         }
 
-        result = self._pu._compute_collection_size(query_result, 'issn')
+        result = self._stats.publication._compute_collection_size(query_result, 'issn')
 
         self.assertEqual(expected, result)
 
@@ -93,7 +2295,7 @@ class ControllerTest(unittest.TestCase):
             "total": 3440
         }
 
-        result = self._pu._compute_collection_size(query_result, 'issue')
+        result = self._stats.publication._compute_collection_size(query_result, 'issue')
 
         self.assertEqual(expected, result)
 
@@ -113,7 +2315,7 @@ class ControllerTest(unittest.TestCase):
             }
         }
 
-        result = self._pu._compute_collection_size(query_result, 'issn')
+        result = self._stats.publication._compute_collection_size(query_result, 'issn')
 
         self.assertEqual(None, result)
 
@@ -129,76 +2331,6 @@ class ControllerTest(unittest.TestCase):
             "aggregations": {
                 "publication_year": {
                     "buckets": [
-                        {
-                            "citable_documents": {
-                                "doc_count": 11940
-                            },
-                            "not_citable_documents": {
-                                "doc_count": 1779
-                            },
-                            "key": "2015",
-                            "doc_count": 13719
-                        },
-                        {
-                            "citable_documents": {
-                                "doc_count": 19237
-                            },
-                            "not_citable_documents": {
-                                "doc_count": 2719
-                            },
-                            "key": "2014",
-                            "doc_count": 21956
-                        },
-                        {
-                            "citable_documents": {
-                                "doc_count": 19686
-                            },
-                            "not_citable_documents": {
-                                "doc_count": 2304
-                            },
-                            "key": "2013",
-                            "doc_count": 21990
-                        },
-                        {
-                            "citable_documents": {
-                                "doc_count": 20248
-                            },
-                            "not_citable_documents": {
-                                "doc_count": 2191
-                            },
-                            "key": "2012",
-                            "doc_count": 22439
-                        },
-                        {
-                            "citable_documents": {
-                                "doc_count": 20300
-                            },
-                            "not_citable_documents": {
-                                "doc_count": 1962
-                            },
-                            "key": "2011",
-                            "doc_count": 22262
-                        },
-                        {
-                            "citable_documents": {
-                                "doc_count": 18829
-                            },
-                            "not_citable_documents": {
-                                "doc_count": 2251
-                            },
-                            "key": "2010",
-                            "doc_count": 21080
-                        },
-                        {
-                            "citable_documents": {
-                                "doc_count": 17644
-                            },
-                            "not_citable_documents": {
-                                "doc_count": 1881
-                            },
-                            "key": "2009",
-                            "doc_count": 19525
-                        },
                         {
                             "citable_documents": {
                                 "doc_count": 16341
@@ -247,48 +2379,27 @@ class ControllerTest(unittest.TestCase):
                     "data": [
                         13410,
                         15096,
-                        16341,
-                        17644,
-                        18829,
-                        20300,
-                        20248,
-                        19686,
-                        19237,
-                        11940
+                        16341
                     ],
-                    "id": "citable_documents"
+                    "name": "citable_documents"
                 },
                 {
                     "data": [
                         1925,
                         2189,
-                        1957,
-                        1881,
-                        2251,
-                        1962,
-                        2191,
-                        2304,
-                        2719,
-                        1779
+                        1957
                     ],
-                    "id": "not_citable_documents"
+                    "name": "not_citable_documents"
                 }
             ],
             "categories": [
                 "2006",
                 "2007",
-                "2008",
-                "2009",
-                "2010",
-                "2011",
-                "2012",
-                "2013",
-                "2014",
-                "2015"
+                "2008"
             ]
         }
 
-        result = self._pu._compute_citable_documents(query_result)\
+        result = self._stats.publication._compute_citable_documents(query_result)\
 
         self.assertEqual(expected, result)
 
@@ -315,26 +2426,6 @@ class ControllerTest(unittest.TestCase):
                         {
                             "key": "Agricultural Sciences",
                             "doc_count": 46
-                        },
-                        {
-                            "key": "Biological Sciences",
-                            "doc_count": 43
-                        },
-                        {
-                            "key": "Applied Social Sciences",
-                            "doc_count": 41
-                        },
-                        {
-                            "key": "Engineering",
-                            "doc_count": 23
-                        },
-                        {
-                            "key": "Exact and Earth Sciences",
-                            "doc_count": 22
-                        },
-                        {
-                            "key": "Linguistics, Letters and Arts",
-                            "doc_count": 13
                         }
                     ],
                     "doc_count_error_upper_bound": 0,
@@ -354,12 +2445,7 @@ class ControllerTest(unittest.TestCase):
                     "data": [
                         113,
                         95,
-                        46,
-                        43,
-                        41,
-                        23,
-                        22,
-                        13
+                        46
                     ],
                     "name": "documents"
                 }
@@ -367,16 +2453,11 @@ class ControllerTest(unittest.TestCase):
             "categories": [
                 "Health Sciences",
                 "Human Sciences",
-                "Agricultural Sciences",
-                "Biological Sciences",
-                "Applied Social Sciences",
-                "Engineering",
-                "Exact and Earth Sciences",
-                "Linguistics, Letters and Arts"
+                "Agricultural Sciences"
             ]
         }
 
-        result = self._pu._compute_general(query_result, 'subject_areas')
+        result = self._stats.publication._compute_general(query_result, 'subject_areas')
 
         self.assertEqual(expected, result)
 
@@ -489,7 +2570,7 @@ class ControllerTest(unittest.TestCase):
             }
         ]
 
-        result = self._as._compute_list_journals(query_result)
+        result = self._stats.access._compute_list_journals(query_result)
 
         self.assertEqual(expected, result)
 
@@ -602,7 +2683,7 @@ class ControllerTest(unittest.TestCase):
             }
         ]
 
-        result = self._as._compute_list_issues(query_result)
+        result = self._stats.access._compute_list_issues(query_result)
 
         self.assertEqual(expected, result)
 
@@ -715,7 +2796,7 @@ class ControllerTest(unittest.TestCase):
             }
         ]
 
-        result = self._as._compute_list_articles(query_result)
+        result = self._stats.access._compute_list_articles(query_result)
 
         self.assertEqual(expected, result)
 
@@ -814,7 +2895,7 @@ class ControllerTest(unittest.TestCase):
             ]
         }
 
-        result = self._as._compute_access_by_month_and_year(query_result)
+        result = self._stats.access._compute_access_by_month_and_year(query_result)
 
         self.assertEqual(expected, result)
 
@@ -930,7 +3011,7 @@ class ControllerTest(unittest.TestCase):
             }
         ]
 
-        result = self._as._compute_access_lifetime(query_result)
+        result = self._stats.access._compute_access_lifetime(query_result)
 
         self.assertEqual(expected, result)
 
@@ -1002,6 +3083,6 @@ class ControllerTest(unittest.TestCase):
             ]
         }
 
-        result = self._as._compute_access_by_document_type(query_result)
+        result = self._stats.access._compute_access_by_document_type(query_result)
 
         self.assertEqual(expected, result)

@@ -6,6 +6,8 @@
     <title>${_(u'SciELO Estatísticas')} (Beta)</title>
     <link rel="stylesheet" href="/static/bootstrap-3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/bootstrap-3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/static/bootstrap-3.2.0/css/bootstrap-tokenfield.min.css">
+    <link rel="stylesheet" href="/static/bootstrap-3.2.0/css/tokenfield-typeahead.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/daterangepicker/daterangepicker.css" />
     <script src="/static/jquery-1.11.1/jquery-1.11.1.min.js"></script>
@@ -84,6 +86,18 @@
                 <li><a href="${request.route_url('publication_journal_web')}">${_(u'Gráficos de periódicos')}</a></li>
               </ul>
             </li>
+            % if not 'bibliometrics' in under_development:
+              <li class="${'active' if page == 'bibliometrics' else ''}">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${_(u'Bibliometria')} <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="${request.route_url('bibliometrics_journal_web')}">${_(u'Gráficos')}</a></li>
+                  <li><a href="${request.route_url('bibliometrics_list_impact_factor_web')}">${_(u'Fator de Impacto 1, 2, 3, 4 e 5 anos')}</a></li>
+                  <li><a href="${request.route_url('bibliometrics_list_granted_web')}">${_(u'Citações concedidas por periódicos')}</a></li>
+                  <li><a href="${request.route_url('bibliometrics_list_received_web')}">${_(u'Citações recebidas por periódicos')}</a></li>
+                  <li><a href="${request.route_url('bibliometrics_list_citing_forms_web')}">${_(u'Formas de citação do periódico')}</a></li>
+                </ul>
+              </li>
+            % endif
             <li class="${'active' if page == 'faq' else ''}">
               <a href="${request.route_url('faq_web')}">FAQ</a>
             </li>
@@ -169,6 +183,7 @@
     <script src="/static/highcharts/plugins/export-csv-master/export-csv.js"></script>
     <script src="/static/daterangepicker/daterangepicker.js"></script>
     <script src="/static/jquery-1.11.1/plugins/jquery.number.min.js"></script>
+    <script src="/static/bootstrap-3.2.0/js/bootstrap-tokenfield.min.js"></script>
     <script>$('.collapse').collapse()</script>
     <script type="text/javascript">
       Highcharts.setOptions({

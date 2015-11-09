@@ -2,6 +2,7 @@
 import os
 import weakref
 import re
+import unicodedata
 
 try:
     from ConfigParser import SafeConfigParser
@@ -12,6 +13,28 @@ REGEX_ISSN = re.compile("^[0-9]{4}-[0-9]{3}[0-9xX]$")
 REGEX_ISSUE = re.compile("^[0-9]{4}-[0-9]{3}[0-9xX][0-2][0-9]{3}[0-9]{4}$")
 REGEX_ARTICLE = re.compile("^S[0-9]{4}-[0-9]{3}[0-9xX][0-2][0-9]{3}[0-9]{4}[0-9]{5}$")
 
+def dogpile_controller_key_generator(namespace, fn, *kwargs):
+
+    fname = fn.__name__
+
+    def generate_key(*the_args, **the_kwargs):
+
+        key = [
+            str(namespace),
+            str(fname)
+        ]
+        key += [str(i) for i in the_args[1:]]
+
+        return "_".join(key)
+
+    return generate_key
+
+
+def clean_string(data):
+    nfkd_form = unicodedata.normalize('NFKD', data.strip())
+    source = u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
+
+    return source.strip().lower()
 
 class SingletonMixin(object):
     """
@@ -46,9 +69,9 @@ class Configuration(SingletonMixin):
     @classmethod
     def from_env(cls):
         try:
-            filepath = os.environ['ACCESSSTATS_SETTINGS_FILE']
+            filepath = os.environ['ANALYTICS_SETTINGS_FILE']
         except KeyError:
-            raise ValueError('missing env variable ACCESSSTATS_SETTINGS_FILE')
+            raise ValueError('missing env variable ANALYTICS_SETTINGS_FILE')
 
         return cls.from_file(filepath)
 
