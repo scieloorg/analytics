@@ -1,5 +1,6 @@
 from pyramid.view import view_config
 from pyramid.response import Response
+from pyramid.settings import aslist
 import pyramid.httpexceptions as exc
 import datetime
 
@@ -126,6 +127,7 @@ def base_data_manager(wrapped):
 
         data = get_data_manager(collection_code, journal_code, document_code, range_start, range_end)
         data['locale'] = request.session.get('_LOCALE_', request.locale_name)
+        data['under_development'] = aslist(request.registry.settings.get('under_development', ''))
         setattr(request, 'data_manager', data)
 
         return wrapped(request, *arg, **kwargs)

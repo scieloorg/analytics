@@ -11,8 +11,7 @@ pyramid.debug_authorization = false
 pyramid.debug_notfound = false
 pyramid.debug_routematch = false
 pyramid.default_locale_name = en
-pyramid.includes =
-    pyramid_debugtoolbar
+pyramid.includes = pyramid_debugtoolbar
 
 # By default, the toolbar only appears for clients from IP addresses
 # '127.0.0.1' and '::1'.
@@ -24,9 +23,13 @@ publicationstats = 127.0.0.1:11620
 articlemeta = 127.0.0.1:11720
 citedby = 127.0.0.1:11610
 
-
 #memcached_host = 127.0.0.1
 memcached_expiration_time =3600
+
+
+###
+# Tags list of under develoment functionalities
+under_development =
 
 ###
 # wsgi server configuration

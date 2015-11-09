@@ -86,16 +86,18 @@
                 <li><a href="${request.route_url('publication_journal_web')}">${_(u'Gráficos de periódicos')}</a></li>
               </ul>
             </li>
-            <li class="${'active' if page == 'bibliometrics' else ''}">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${_(u'Bibliometria')} <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="${request.route_url('bibliometrics_journal_web')}">${_(u'Gráficos')}</a></li>
-                <li><a href="${request.route_url('bibliometrics_list_impact_factor_web')}">${_(u'Fator de Impacto 1, 2, 3, 4 e 5 anos')}</a></li>
-                <li><a href="${request.route_url('bibliometrics_list_granted_web')}">${_(u'Citações concedidas por periódicos')}</a></li>
-                <li><a href="${request.route_url('bibliometrics_list_received_web')}">${_(u'Citações recebidas por periódicos')}</a></li>
-                <li><a href="${request.route_url('bibliometrics_list_citing_forms_web')}">${_(u'Formas de citação do periódico')}</a></li>
-              </ul>
-            </li>
+            % if not 'bibliometrics' in under_development:
+              <li class="${'active' if page == 'bibliometrics' else ''}">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${_(u'Bibliometria')} <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="${request.route_url('bibliometrics_journal_web')}">${_(u'Gráficos')}</a></li>
+                  <li><a href="${request.route_url('bibliometrics_list_impact_factor_web')}">${_(u'Fator de Impacto 1, 2, 3, 4 e 5 anos')}</a></li>
+                  <li><a href="${request.route_url('bibliometrics_list_granted_web')}">${_(u'Citações concedidas por periódicos')}</a></li>
+                  <li><a href="${request.route_url('bibliometrics_list_received_web')}">${_(u'Citações recebidas por periódicos')}</a></li>
+                  <li><a href="${request.route_url('bibliometrics_list_citing_forms_web')}">${_(u'Formas de citação do periódico')}</a></li>
+                </ul>
+              </li>
+            % endif
             <li class="${'active' if page == 'faq' else ''}">
               <a href="${request.route_url('faq_web')}">FAQ</a>
             </li>
