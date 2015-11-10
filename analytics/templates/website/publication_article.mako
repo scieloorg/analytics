@@ -2,35 +2,33 @@
 <%inherit file="base.mako"/>
 
 <%block name="central_container">
-  <center>
-    <div class="chart">
-      <%include file="publication_article_licenses.mako"/>
-    </div>
-    <div class="chart">
-      <%include file="publication_article_subject_areas.mako"/>
-    </div>
-    <div class="chart">
-      <%include file="publication_article_document_type.mako"/>
-    </div>
-    <div class="chart">
-      <%include file="publication_article_languages.mako"/>
-    </div>
-    <div class="chart">
-      <%include file="publication_article_year.mako"/>
-    </div>
-    <div class="chart">
-      <%include file="publication_article_affiliations.mako"/>
-    </div>
-    <div class="chart">
-      <%include file="publication_article_authors.mako"/>
-    </div>
-    <div class="chart">
-      <%include file="publication_article_references.mako"/>
-    </div>
-    <div class="chart">
-      <%include file="publication_article_citable_documents.mako"/>
-    </div>
-  </center>
+  <div class="chart">
+    <%include file="publication_article_licenses.mako"/>
+  </div>
+  <div class="chart">
+    <%include file="publication_article_subject_areas.mako"/>
+  </div>
+  <div class="chart">
+    <%include file="publication_article_document_type.mako"/>
+  </div>
+  <div class="chart">
+    <%include file="publication_article_languages.mako"/>
+  </div>
+  <div class="chart">
+    <%include file="publication_article_year.mako"/>
+  </div>
+  <div class="chart">
+    <%include file="publication_article_affiliations.mako"/>
+  </div>
+  <div class="chart">
+    <%include file="publication_article_authors.mako"/>
+  </div>
+  <div class="chart">
+    <%include file="publication_article_references.mako"/>
+  </div>
+  <div class="chart">
+    <%include file="publication_article_citable_documents.mako"/>
+  </div>
 </%block>
 
 <%block name="extra_js">
