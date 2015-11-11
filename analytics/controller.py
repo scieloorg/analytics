@@ -183,68 +183,28 @@ class Stats(object):
 
 
         for year, content in cit_docs.items():
-            year0 = year
-            year1 = str(int(year)-1)
-            year2 = str(int(year)-2)
-            year3 = str(int(year)-3)
-            year4 = str(int(year)-4)
-            year5 = str(int(year)-5)
-            cit_docs[year]['citing_count0'] = float(pcy.get(year, {}).get(year, 0))
-            cit_docs[year]['citing_count1'] = float(pcy.get(year, {}).get(year1, 0))
-            cit_docs[year]['citing_count2'] = float(pcy.get(year, {}).get(year2, 0))
-            cit_docs[year]['citing_count3'] = float(pcy.get(year, {}).get(year3, 0))
-            cit_docs[year]['citing_count4'] = float(pcy.get(year, {}).get(year4, 0))
-            cit_docs[year]['citing_count5'] = float(pcy.get(year, {}).get(year5, 0))
-            cit_docs[year]['citable_docs0'] = content.get('citable_docs', 0)
-            cit_docs[year]['citable_docs1'] = float(cit_docs.get(year1, {'citable_docs': 0})['citable_docs'])
-            cit_docs[year]['citable_docs2'] = float(cit_docs.get(year2, {'citable_docs': 0})['citable_docs'])
-            cit_docs[year]['citable_docs3'] = float(cit_docs.get(year3, {'citable_docs': 0})['citable_docs'])
-            cit_docs[year]['citable_docs4'] = float(cit_docs.get(year4, {'citable_docs': 0})['citable_docs'])
-            cit_docs[year]['citable_docs5'] = float(cit_docs.get(year5, {'citable_docs': 0})['citable_docs'])
+            cit_docs[year]['fi'] = []
+            cit_docs[year]['fi_citations'] = []
+            cit_docs[year]['fi_documents'] = []
 
-            try:
-                fi0 = (cit_docs[year]['citing_count0'])/(cit_docs[year]['citable_docs0'])
-            except:
-                fi0 = 0
+            for i in range(int(year), int(year)-6, -1):
+                cit_docs[year]['fi_citations'].append( float(pcy.get(year, {}).get(str(i), 0)) )
+                cit_docs[year]['fi_documents'].append( float(cit_docs.get(str(i), {'citable_docs': 0})['citable_docs']) )
 
-            try:
-                fi1 = (cit_docs[year]['citing_count1'])/(cit_docs[year]['citable_docs1'])
-            except:
-                fi1 = 0
-
-            try:
-                fi2 = (cit_docs[year]['citing_count1']+cit_docs[year]['citing_count2'])/(cit_docs[year]['citable_docs1']+cit_docs[year]['citable_docs2'])
-            except:
-                fi2 = 0
-
-            try:
-                fi3 = (cit_docs[year]['citing_count1']+cit_docs[year]['citing_count2']+cit_docs[year]['citing_count3'])/(cit_docs[year]['citable_docs1']+cit_docs[year]['citable_docs2']+cit_docs[year]['citable_docs3'])
-            except:
-                fi3 = 0
-
-            try:
-                fi4 = (cit_docs[year]['citing_count1']+cit_docs[year]['citing_count2']+cit_docs[year]['citing_count3']+cit_docs[year]['citing_count4'])/(cit_docs[year]['citable_docs1']+cit_docs[year]['citable_docs2']+cit_docs[year]['citable_docs3']+cit_docs[year]['citable_docs4'])
-            except:
-                fi4 = 0
-
-            try:
-                fi5 = (cit_docs[year]['citing_count1']+cit_docs[year]['citing_count2']+cit_docs[year]['citing_count3']+cit_docs[year]['citing_count4']+cit_docs[year]['citing_count5'])/(cit_docs[year]['citable_docs1']+cit_docs[year]['citable_docs2']+cit_docs[year]['citable_docs3']+cit_docs[year]['citable_docs4']+cit_docs[year]['citable_docs5'])
-            except:
-                fi5 = 0
-
-            cit_docs[year]['fi0'] = fi0
-            cit_docs[year]['fi1'] = fi1
-            cit_docs[year]['fi2'] = fi2
-            cit_docs[year]['fi3'] = fi3
-            cit_docs[year]['fi4'] = fi4
-            cit_docs[year]['fi5'] = fi5
+            for i in range(0, 6):
+                first = 1 if i > 0 else 0
+                last = i+1
+                try:
+                    cit_docs[year]['fi'].append(sum(cit_docs[year]['fi_citations'][first:last])/sum(cit_docs[year]['fi_documents'][first:last]))
+                except:
+                    cit_docs[year]['fi'].append(0)
 
         return cit_docs
 
     @cache_region.cache_on_arguments()
     def impact_factor(self, issn, collection, titles):
 
-        pub_citing_years = self.bibliometrics.publication_and_citing_years(titles, raw=True)
+        pub_citing_years = self.bibliometrics.publication_and_citing_years(titles, citation_size=6, raw=True)
 
         citable_docs = self.publication.citable_documents(issn, collection, raw=True)
 
@@ -266,7 +226,7 @@ class Stats(object):
         for base_year, data in sorted(query_result.items()):
             categories.append(base_year)
             for i in range(6):
-                series[i]["data"].append(data['fi%d' % i])
+                series[i]["data"].append(data['fi'][i])
 
         return {"series": series, "categories": categories}
 
@@ -289,7 +249,7 @@ class CitedbyStats(clients.Citedby):
         return query_result
 
     @cache_region.cache_on_arguments()
-    def publication_and_citing_years(self, titles, size=0, raw=False):
+    def publication_and_citing_years(self, titles, size=0, citation_size=0, raw=False):
 
         body = {
             "query": {
@@ -307,7 +267,10 @@ class CitedbyStats(clients.Citedby):
                         "reference_publication_year": {
                             "terms": {
                                 "field": "reference_publication_year",
-                                "size": size
+                                "size": citation_size,
+                                "order": {
+                                    "_term": "desc"                                
+                                }
                             }
                         }
                     }
