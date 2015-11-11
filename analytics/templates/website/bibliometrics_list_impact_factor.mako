@@ -62,11 +62,11 @@
           <td>${int(data['fi_documents'][4])}</td>
           <td>${int(data['fi_documents'][5])}</td>
           <td>${int(sum(data['fi_documents'][1:6]))}</td>
-          <td>${data['fi'][1]}</td>
-          <td class="success">${data['fi'][2]}</td>
-          <td>${data['fi'][3]}</td>
-          <td>${data['fi'][4]}</td>
-          <td>${data['fi'][5]}</td>
+          <td>${'%.4f' % data['fi'][1]}</td>
+          <td class="success">${'%.4f' % data['fi'][2]}</td>
+          <td>${'%.4f' % data['fi'][3]}</td>
+          <td>${'%.4f' % data['fi'][4]}</td>
+          <td>${'%.4f' % data['fi'][5]}</td>
         </tr>
       % endfor
       </table>
