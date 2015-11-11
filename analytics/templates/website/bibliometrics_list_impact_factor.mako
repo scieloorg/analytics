@@ -24,14 +24,6 @@
       % for base_year, data in sorted(blist.items(), reverse=True):
         <% 
           base_year = int(base_year) 
-          citing_count12 = int(data['citing_count1']+data['citing_count2'])
-          citing_count123 = int(data['citing_count1']+data['citing_count2']+data['citing_count3'])
-          citing_count1234 = int(data['citing_count1']+data['citing_count2']+data['citing_count3']+data['citing_count4'])
-          citing_count12345 = int(data['citing_count1']+data['citing_count2']+data['citing_count3']+data['citing_count4']+data['citing_count5'])
-          citable_docs12 = int(data['citable_docs1']+data['citable_docs2'])
-          citable_docs123 = int(data['citable_docs1']+data['citable_docs2']+data['citable_docs3'])
-          citable_docs1234 = int(data['citable_docs1']+data['citable_docs2']+data['citable_docs3']+data['citable_docs4'])
-          citable_docs12345 = int(data['citable_docs1']+data['citable_docs2']+data['citable_docs3']+data['citable_docs4']+data['citable_docs5'])
         %>
         <tr>
           <th class="table-impact-factor-header" colspan="6">${_(u'citações em')} ${base_year} ${_(u'para publicações de')}</th>
@@ -58,23 +50,23 @@
           <th>${_(u'5 ano')}</th>
         </tr>
         <tr>
-          <td class="success">${int(data['citing_count1'])}</td>
-          <td class="success">${int(data['citing_count2'])}</td>
-          <td>${int(data['citing_count3'])}</td>
-          <td>${int(data['citing_count4'])}</td>
-          <td>${int(data['citing_count5'])}</td>
-          <td>${citing_count12345}</td>
-          <td class="success">${int(data['citable_docs1'])}</td>
-          <td class="success">${int(data['citable_docs2'])}</td>
-          <td>${int(data['citable_docs3'])}</td>
-          <td>${int(data['citable_docs4'])}</td>
-          <td>${int(data['citable_docs5'])}</td>
-          <td>${citable_docs12345}</td>
-          <td>${data['fi1']}</td>
-          <td class="success">${data['fi2']}</td>
-          <td>${data['fi3']}</td>
-          <td>${data['fi4']}</td>
-          <td>${data['fi5']}</td>
+          <td class="success">${int(data['fi_citations'][1])}</td>
+          <td class="success">${int(data['fi_citations'][2])}</td>
+          <td>${int(data['fi_citations'][3])}</td>
+          <td>${int(data['fi_citations'][4])}</td>
+          <td>${int(data['fi_citations'][5])}</td>
+          <td>${int(sum(data['fi_citations'][1:6]))}</td>
+          <td class="success">${int(data['fi_documents'][1])}</td>
+          <td class="success">${int(data['fi_documents'][2])}</td>
+          <td>${int(data['fi_documents'][3])}</td>
+          <td>${int(data['fi_documents'][4])}</td>
+          <td>${int(data['fi_documents'][5])}</td>
+          <td>${int(sum(data['fi_documents'][1:6]))}</td>
+          <td>${data['fi'][1]}</td>
+          <td class="success">${data['fi'][2]}</td>
+          <td>${data['fi'][3]}</td>
+          <td>${data['fi'][4]}</td>
+          <td>${data['fi'][5]}</td>
         </tr>
       % endfor
       </table>
