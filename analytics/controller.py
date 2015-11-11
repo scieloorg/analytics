@@ -204,7 +204,7 @@ class Stats(object):
     @cache_region.cache_on_arguments()
     def impact_factor(self, issn, collection, titles):
 
-        pub_citing_years = self.bibliometrics.publication_and_citing_years(titles, raw=True)
+        pub_citing_years = self.bibliometrics.publication_and_citing_years(titles, citation_size=6, raw=True)
 
         citable_docs = self.publication.citable_documents(issn, collection, raw=True)
 
@@ -249,7 +249,7 @@ class CitedbyStats(clients.Citedby):
         return query_result
 
     @cache_region.cache_on_arguments()
-    def publication_and_citing_years(self, titles, size=0, raw=False):
+    def publication_and_citing_years(self, titles, size=0, citation_size=0, raw=False):
 
         body = {
             "query": {
@@ -267,7 +267,7 @@ class CitedbyStats(clients.Citedby):
                         "reference_publication_year": {
                             "terms": {
                                 "field": "reference_publication_year",
-                                "size": 6,
+                                "size": citation_size,
                                 "order": {
                                     "_term": "desc"                                
                                 }
