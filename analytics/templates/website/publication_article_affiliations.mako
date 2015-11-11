@@ -14,7 +14,7 @@
         <h3 class="panel-title">${_(u'Sobre o gráfico')}</h3>
       </div>
       <div class="panel-body">
-          ${_(u'Este gráfico apresenta o total de documentos por país de afiliação dos autores. recebidas e auto citações do periódico selecionado, os dados estão distribuidos por ano de publicação. Os valores totais de documentos deste gráfico não podem ser considerados como totais da coleção uma vez que um documento pode ter mais um país de afiliação.')}
+          ${_(u'Este gráfico apresenta o total de documentos por país de afiliação dos autores. Os valores totais de documentos deste gráfico não podem ser considerados como totais da coleção uma vez que um documento pode ter mais um país de afiliação.')}
       </div>
     </div>
   </div>
