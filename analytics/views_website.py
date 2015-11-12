@@ -20,6 +20,7 @@ def check_session(wrapped):
         journal = request.GET.get('journal', None)
         document = request.GET.get('document', None)
         range_start = request.GET.get('range_start', None)
+        under_development = request.GET.get('under_development', None)
         range_end = request.GET.get('range_end', None)
         locale = request.GET.get('_LOCALE_', request.locale_name)
 
@@ -35,6 +36,7 @@ def check_session(wrapped):
             document = None
 
 
+        session_under_development = request.session.get('under_development', None)
         session_collection = request.session.get('collection', None)
         session_journal = request.session.get('journal', None)
         session_document = request.session.get('document', None)
@@ -48,6 +50,9 @@ def check_session(wrapped):
                 del(request.session['journal'])
         elif not session_collection:
             request.session['collection'] = 'scl'
+
+        if under_development and under_development != session_under_development:
+            request.session['under_development'] = under_development
 
         if journal and journal != session_journal:
             request.session['journal'] = journal
@@ -119,6 +124,7 @@ def base_data_manager(wrapped):
 
         collection_code = request.session.get('collection', None)
         journal_code = request.session.get('journal', None)
+        under_development = request.session.get('under_development', '')
         range_end = request.session.get('range_end', datetime.datetime.now().isoformat()[0:10])
         range_start = request.session.get('range_start', (datetime.datetime.now() - datetime.timedelta(365*3)).isoformat()[0:10])
         document_code = utils.REGEX_ARTICLE.match(request.session.get('document', ''))
@@ -127,7 +133,7 @@ def base_data_manager(wrapped):
 
         data = get_data_manager(collection_code, journal_code, document_code, range_start, range_end)
         data['locale'] = request.session.get('_LOCALE_', request.locale_name)
-        data['under_development'] = aslist(request.registry.settings.get('under_development', ''))
+        data['under_development'] = [i for i in aslist(request.registry.settings.get('under_development', '')) if i != under_development]
         setattr(request, 'data_manager', data)
 
         return wrapped(request, *arg, **kwargs)
