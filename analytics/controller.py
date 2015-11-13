@@ -202,7 +202,7 @@ class Stats(object):
         return cit_docs
 
     @cache_region.cache_on_arguments()
-    def impact_factor(self, issn, collection, titles, citation_size=6):
+    def impact_factor(self, issn, collection, titles, citation_size=0):
 
         pub_citing_years = self.bibliometrics.publication_and_citing_years(titles, citation_size=citation_size, raw=True)
 
@@ -232,7 +232,7 @@ class Stats(object):
 
     def impact_factor_chart(self, issn, collection, titles):
 
-        query_result = self.impact_factor(issn, collection, titles, citation_size=0)
+        query_result = self.impact_factor(issn, collection, titles, citation_size=8)
 
         return self._compute_impact_factor_chart(query_result)
 
