@@ -24,6 +24,7 @@ def dogpile_controller_key_generator(namespace, fn, *kwargs):
             str(fname)
         ]
         key += [str(i) for i in the_args[1:]]
+        key.append(str(the_kwargs))
 
         return "_".join(key)
 
