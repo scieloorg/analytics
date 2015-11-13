@@ -37,11 +37,17 @@ def dogpile_controller_key_generator(namespace, fn, *kwargs):
     return generate_key
 
 
-def clean_string(data):
-    nfkd_form = unicodedata.normalize('NFKD', data.strip())
-    source = u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
+def clean_string(text):
+    
+    try:
+        nfd_form = unicodedata.normalize('NFD', text.strip().lower())
+    except:
+        return text
 
-    return source.strip().lower()
+    cleaned_str = u''.join(x for x in nfd_form if unicodedata.category(x)[0] == 'L' or x == ' ')
+
+    return cleaned_str
+
 
 class SingletonMixin(object):
     """
