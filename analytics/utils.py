@@ -3,6 +3,7 @@ import os
 import weakref
 import re
 import unicodedata
+import hashlib
 
 try:
     from ConfigParser import SafeConfigParser
@@ -26,7 +27,12 @@ def dogpile_controller_key_generator(namespace, fn, *kwargs):
         key += [str(i) for i in the_args[1:]]
         key.append(str(the_kwargs))
 
-        return "_".join(key)
+        finalkey = "_".join(key)
+
+        if len(finalkey) > 249:
+            return hashlib.md5(finalkey).hexdigest()
+
+        return finalkey
 
     return generate_key
 
