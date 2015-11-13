@@ -232,7 +232,7 @@ class Stats(object):
 
     def impact_factor_chart(self, issn, collection, titles):
 
-        query_result = self.impact_factor(issn, collection, titles, citation_size=8)
+        query_result = self.impact_factor(issn, collection, titles, citation_size=0)
 
         return self._compute_impact_factor_chart(query_result)
 
