@@ -34,7 +34,8 @@
 <%block name="extra_js">
   <script>
     $('#tokenfield').tokenfield({
-      'limit': 5
+      'limit': 5,
+      'delimiter': '||'
     })
   </script>
 </%block>

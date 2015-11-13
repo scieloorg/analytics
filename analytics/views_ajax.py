@@ -21,7 +21,7 @@ class ViewsAjax(object):
         code = self.request.GET.get('code', None)
         collection = self.request.GET.get('collection', None)
         if 'titles' in self.request.GET:
-            titles = self.request.GET['titles'].split(',')
+            titles = self.request.GET['titles'].split('||')
         else:
             titles = []
 
@@ -35,7 +35,7 @@ class ViewsAjax(object):
         code = self.request.GET.get('code', None)
         collection = self.request.GET.get('collection', None)
         if 'titles' in self.request.GET:
-            titles = self.request.GET['titles'].split(',')
+            titles = self.request.GET['titles'].split('||')
         else:
             titles = []
 
