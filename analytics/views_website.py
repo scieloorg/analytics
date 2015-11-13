@@ -150,7 +150,7 @@ def bibliometrics_journal(request):
     data['page'] = 'bibliometrics'
     titles = request.GET.get('titles', None)
 
-    titles = titles.split(',') if titles else []
+    titles = titles.split('||') if titles else []
 
     if data['selected_journal_code']:
         journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
@@ -160,7 +160,7 @@ def bibliometrics_journal(request):
     data['titles'] = []
     if titles and not len(titles) == 0:
         forms = set([i.strip() for i in titles if i])
-        data['titles'] = u','.join(forms)
+        data['titles'] = u'||'.join(forms)
 
     return data
 
@@ -171,7 +171,7 @@ def bibliometrics_list_impact_factor(request):
     data['page'] = 'bibliometrics'
     titles = request.GET.get('titles', None)
 
-    titles = titles.split(',') if titles else []
+    titles = titles.split('||') if titles else []
 
     if data['selected_journal_code']:
         journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
@@ -183,7 +183,7 @@ def bibliometrics_list_impact_factor(request):
     if titles and not len(titles) == 0:
         forms = set([i.strip() for i in titles if i])
         data['blist'] = request.stats.impact_factor(data['selected_journal_code'], journal.collection_acronym, titles)
-        data['titles'] = u','.join(forms)
+        data['titles'] = u'||'.join(forms)
 
     return data
 
@@ -194,7 +194,7 @@ def bibliometrics_list_citing_forms(request):
     data['page'] = 'bibliometrics'
     titles = request.GET.get('titles', None)
 
-    titles = titles.split(',') if titles else []
+    titles = titles.split('||') if titles else []
 
     if data['selected_journal_code']:
         journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
@@ -206,7 +206,7 @@ def bibliometrics_list_citing_forms(request):
     if titles and not len(titles) == 0:
         forms = set([i.strip() for i in titles if i])
         data['blist'] = request.stats.bibliometrics.citing_forms(forms)
-        data['titles'] = u','.join(forms)
+        data['titles'] = u'||'.join(forms)
 
     return data
 
@@ -217,7 +217,7 @@ def bibliometrics_list_received(request):
     data['page'] = 'bibliometrics'
     titles = request.GET.get('titles', None)
 
-    titles = titles.split(',') if titles else []
+    titles = titles.split('||') if titles else []
 
     if data['selected_journal_code']:
         journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
@@ -229,7 +229,7 @@ def bibliometrics_list_received(request):
     if titles and not len(titles) == 0:
         forms = set([i.strip() for i in titles if i])
         data['blist'] = request.stats.bibliometrics.received_citations(forms)
-        data['titles'] = u','.join(forms)
+        data['titles'] = u'||'.join(forms)
 
     return data
 
