@@ -3,6 +3,7 @@ import os
 import weakref
 import re
 import unicodedata
+import hashlib
 
 try:
     from ConfigParser import SafeConfigParser
@@ -19,23 +20,29 @@ def dogpile_controller_key_generator(namespace, fn, *kwargs):
 
     def generate_key(*the_args, **the_kwargs):
 
-        key = [
+        tp = tuple([
             str(namespace),
-            str(fname)
-        ]
-        key += [str(i) for i in the_args[1:]]
-        key.append(str(the_kwargs))
+            str(fname),
+            str(the_args[1:]),
+            tuple(the_kwargs.items())
+        ])
 
-        return "_".join(key)
+        return str(hash(tp))
 
     return generate_key
 
 
-def clean_string(data):
-    nfkd_form = unicodedata.normalize('NFKD', data.strip())
-    source = u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
+def clean_string(text):
+    
+    try:
+        nfd_form = unicodedata.normalize('NFD', text.strip().lower())
+    except:
+        return text
 
-    return source.strip().lower()
+    cleaned_str = u''.join(x for x in nfd_form if unicodedata.category(x)[0] == 'L' or x == ' ')
+
+    return cleaned_str
+
 
 class SingletonMixin(object):
     """
