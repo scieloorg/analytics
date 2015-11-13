@@ -20,19 +20,14 @@ def dogpile_controller_key_generator(namespace, fn, *kwargs):
 
     def generate_key(*the_args, **the_kwargs):
 
-        key = [
+        tp = tuple([
             str(namespace),
-            str(fname)
-        ]
-        key += [str(i) for i in the_args[1:]]
-        key.append(str(the_kwargs))
+            str(fname),
+            str(the_args[1:]),
+            tuple(the_kwargs.items())
+        ])
 
-        finalkey = "_".join(key)
-
-        if len(finalkey) > 249:
-            return hashlib.md5(finalkey).hexdigest()
-
-        return finalkey
+        return str(hash(tp))
 
     return generate_key
 
