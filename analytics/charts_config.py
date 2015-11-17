@@ -68,8 +68,11 @@ class ChartsConfig(object):
         chart['series'] = data['series']
         chart['yAxis']['title'] = {'text': self._(u'Número de citações') }
         chart['tooltip'] = {
-            'headerFormat': self._(u'Ano de publicação') + ' <strong>{point.key}</strong><br/>',
-            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> {series.name}: <strong>{point.y}</strong> ({point.percentage:.0f}%)<br/>'
+            'shared': True,
+            'useHTML': True,
+            'headerFormat': self._(u'Ano de publicação') + ' <strong>{point.key}</strong><table>',
+            'pointFormat': u'<tr><td><span style="color:{point.color}">\u25CF</span> {series.name}: </td><td style="text-align: right"><strong>{point.y}</strong></td></tr>',
+            'footerFormat': '</table>',
         }
 
         return {'options': chart}
@@ -95,8 +98,8 @@ class ChartsConfig(object):
             'shared': True,
             'useHTML': True,
             'headerFormat': self._(u'Ano de publicação') + ' <strong>{point.key}</strong><table>',
-            'pointFormat': u'<tr><td><span style="color:{point.color}">\u25CF</span> {series.name}: </td><td style="text-align: right"><strong>{point.y}</strong></td><td style="text-align: right">&nbsp;({point.percentage:.0f}%)</td></tr>',
-            'footerFormat': '</table>'
+            'pointFormat': u'<tr><td><span style="color:{point.color}">\u25CF</span> {series.name}: </td><td style="text-align: right"><strong>{point.y}</strong></td><td style="text-align: right">&nbsp;({point.percentage:.2f}%)</td></tr>',
+            'footerFormat': '</table>',
         }
 
         return {'options': chart}

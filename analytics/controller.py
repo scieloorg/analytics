@@ -844,8 +844,15 @@ class PublicationStats(clients.PublicationStats):
 
         for bucket in query_result['aggregations']['publication_year']['buckets'][::-1]:
             categories.append(bucket['key'])
-            series[0]["data"].append(bucket['citable_documents']['doc_count'])
-            series[1]["data"].append(bucket['not_citable_documents']['doc_count'])
+            amount = float(bucket['citable_documents']['doc_count']) + float(bucket['not_citable_documents']['doc_count'])
+            series[0]["data"].append({
+                'y': bucket['citable_documents']['doc_count'],
+                'percentage': (bucket['citable_documents']['doc_count']/amount) * 100
+                })
+            series[1]["data"].append({
+                'y': bucket['not_citable_documents']['doc_count'],
+                'percentage': (bucket['not_citable_documents']['doc_count']/amount) * 100
+                })
 
         return {"series": series, "categories": categories}
 
