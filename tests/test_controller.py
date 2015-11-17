@@ -2413,17 +2413,17 @@ class ControllerTest(unittest.TestCase):
             "series": [
                 {
                     "data": [
-                        13410,
-                        15096,
-                        16341
+                        {"y": 13410, "percentage": 87.44701662862732},
+                        {"y": 15096, "percentage": 87.33584032398034},
+                        {"y": 16341, "percentage": 89.30484205924145}
                     ],
                     "name": "citable_documents"
                 },
                 {
                     "data": [
-                        1925,
-                        2189,
-                        1957
+                        {"y": 1925, "percentage": 12.552983371372678},
+                        {"y": 2189, "percentage": 12.66415967601967},
+                        {"y": 1957, "percentage": 10.695157940758552}
                     ],
                     "name": "not_citable_documents"
                 }
