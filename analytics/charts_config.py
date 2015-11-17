@@ -72,7 +72,7 @@ class ChartsConfig(object):
             'useHTML': True,
             'headerFormat': self._(u'Ano de publicação') + ' <strong>{point.key}</strong><table>',
             'pointFormat': u'<tr><td><span style="color:{point.color}">\u25CF</span> {series.name}: </td><td style="text-align: right"><strong>{point.y}</strong></td></tr>',
-            'footerFormat': '</table>',
+            'footerFormat': '</table>'
         }
 
         return {'options': chart}
@@ -99,7 +99,7 @@ class ChartsConfig(object):
             'useHTML': True,
             'headerFormat': self._(u'Ano de publicação') + ' <strong>{point.key}</strong><table>',
             'pointFormat': u'<tr><td><span style="color:{point.color}">\u25CF</span> {series.name}: </td><td style="text-align: right"><strong>{point.y}</strong></td><td style="text-align: right">&nbsp;({point.percentage:.2f}%)</td></tr>',
-            'footerFormat': '</table>',
+            'footerFormat': '</table>'
         }
 
         return {'options': chart}
@@ -345,14 +345,41 @@ class ChartsConfig(object):
 
     def bymonthandyear(self, data):
 
+        months = [
+            self._(u'janeiro'),
+            self._(u'fevereiro'),
+            self._(u'março'),
+            self._(u'abril'),
+            self._(u'maio'),
+            self._(u'junho'),
+            self._(u'julho'),
+            self._(u'agosto'),
+            self._(u'setembro'),
+            self._(u'outubro'),
+            self._(u'novembro'),
+            self._(u'dezembro')
+        ]
+
+        for i, category in enumerate(data['categories']):
+            year, month = category.split('-')
+            data['categories'][i] = {
+                'label': category,
+                'name': months[int(month) - 1] + ' ' + year
+            }
         chart = self.highchart
         chart['title'] = {'text': self._(u'Total de acessos por ano e mês')}
-        chart['xAxis'] = {'categories': data['categories']}
+        chart['xAxis'] = {
+            'categories': data['categories'],
+            'labels': {'format': '{value.label}'}
+        }
         chart['series'] = data['series']
         chart['yAxis']['title'] = {'text': self._(u'Acessos') }
         chart['tooltip'] = {
-            'headerFormat': '',
-            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> {point.category}<br>' + self._(u'Acessos a') + ' <strong>{series.name}</strong>: {point.y}'
+            'shared': True,
+            'useHTML': True,
+            'headerFormat': self._(u'Acessos em') + ' <strong>{point.key.name}</strong><table style="width: 100%; border-top: 1px solid #CCC;">',
+            'pointFormat': u'<tr><td><span style="color:{point.color}">\u25CF</span> {series.name}: </td><td style="text-align: right"><strong>{point.y}</strong></td></tr>',
+            'footerFormat': '</table>'
         }
 
         return {'options': chart}
