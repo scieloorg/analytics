@@ -89,8 +89,11 @@ def base_data_manager(wrapped):
         def get_data_manager(collection, journal, document, range_start, range_end):
             code = document or journal or collection
             data = {}
-            if document:
-                data['selected_document'] = request.stats.articlemeta.document(document, collection)
+
+            xylose_doc = request.stats.articlemeta.document(document, collection)
+
+            if xylose_doc and xylose_doc.publisher_id:
+                data['selected_document'] = xylose_doc
                 data['selected_document_code'] = document
                 journal = document[1:10]
 
