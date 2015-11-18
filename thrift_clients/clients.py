@@ -167,8 +167,12 @@ class ArticleMeta(object):
             msg = 'Error retrieving document: %s_%s' % (collection, code)
             raise ServerError(msg)
 
+        jarticle = json.loads(article)
+
+        if not jarticle:
+            return None
+
         if fmt == 'xylose':
-            jarticle = json.loads(article)
             xarticle = Article(jarticle)
             return xarticle
         else:
