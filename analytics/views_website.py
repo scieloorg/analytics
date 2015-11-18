@@ -90,7 +90,7 @@ def base_data_manager(wrapped):
             code = document or journal or collection
             data = {}
 
-            xylose_doc = request.stats.articlemeta.document(document, collection)
+            xylose_doc = request.stats.articlemeta.document(document, collection) if document else None
 
             if xylose_doc and xylose_doc.publisher_id:
                 data['selected_document'] = xylose_doc
