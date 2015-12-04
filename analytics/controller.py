@@ -9,7 +9,7 @@ from thrift_clients import clients
 from dogpile.cache import make_region
 from xylose.scielodocument import Article, Journal
 
-from analytics import utils
+from analytics import utils, custom_query
 
 PAGE_SIZE = 20
 
@@ -162,7 +162,7 @@ class Stats(object):
 
         self_citations = self.bibliometrics.self_citations(issn, titles, raw=True)
         granted_citations = self.publication.granted_citations_by_year(issn, collection, raw=True)
-        received_citations = self.bibliometrics.received_citations_by_year(titles, raw=True)
+        received_citations = self.bibliometrics.received_citations_by_year(issn, titles, raw=True)
 
         return self._compute_received_self_and_granted_citation_chart(self_citations, granted_citations, received_citations)
 
@@ -204,7 +204,7 @@ class Stats(object):
     @cache_region.cache_on_arguments()
     def impact_factor(self, issn, collection, titles, citation_size=0):
 
-        pub_citing_years = self.bibliometrics.publication_and_citing_years(titles, citation_size=citation_size, raw=True)
+        pub_citing_years = self.bibliometrics.publication_and_citing_years(issn, titles, citation_size=citation_size, raw=True)
 
         citable_docs = self.publication.citable_documents(issn, collection, raw=True)
 
@@ -249,7 +249,7 @@ class CitedbyStats(clients.Citedby):
         return query_result
 
     @cache_region.cache_on_arguments()
-    def publication_and_citing_years(self, titles, size=0, citation_size=0, raw=False):
+    def publication_and_citing_years(self, issn, titles, size=0, citation_size=0, raw=False):
 
         body = {
             "query": {
@@ -278,21 +278,7 @@ class CitedbyStats(clients.Citedby):
             }
         }
 
-        for title in titles:
-
-            if len(title.strip()) == 0:
-                continue
-
-            item = {
-                "fuzzy": {
-                    "reference_source_cleaned": {
-                        "value": utils.clean_string(title),
-                        "fuzziness" : 3,
-                        "max_expansions": 50
-                    }
-                }
-            }
-
+        for item in self.fuzzy_title_query(issn, titles):
             body['query']['bool']['should'].append(item)
 
         query_parameters = [
@@ -354,21 +340,7 @@ class CitedbyStats(clients.Citedby):
             }
         }
 
-        for title in titles:
-
-            if len(title) == 0:
-                continue
-
-            item = {
-                "fuzzy": {
-                    "reference_source_cleaned": {
-                        "value": utils.clean_string(title),
-                        "fuzziness" : 3,
-                        "max_expansions": 50
-                    }
-                }
-            }
-
+        for item in self.fuzzy_title_query(issn, titles):
             body['query']['filtered']['query']['bool']['should'].append(item)
 
         query_parameters = [
@@ -437,7 +409,7 @@ class CitedbyStats(clients.Citedby):
         return itens
 
     @cache_region.cache_on_arguments()
-    def received_citations_by_year(self, titles, size=0, raw=False):
+    def received_citations_by_year(self, issn, titles, size=0, raw=False):
 
         body = {
             "query": {
@@ -455,21 +427,7 @@ class CitedbyStats(clients.Citedby):
             }
         }
 
-        for title in titles:
-
-            if len(title.strip()) == 0:
-                continue
-
-            item = {
-                "fuzzy": {
-                    "reference_source_cleaned": {
-                        "value": utils.clean_string(title),
-                        "fuzziness" : 3,
-                        "max_expansions": 50
-                    }
-                }
-            }
-
+        for item in self.fuzzy_title_query(issn, titles):
             body['query']['bool']['should'].append(item)
 
         query_parameters = [
@@ -496,7 +454,7 @@ class CitedbyStats(clients.Citedby):
         return itens
 
     @cache_region.cache_on_arguments()
-    def received_citations(self, titles, size=0, raw=False):
+    def received_citations(self, issn, titles, size=0, raw=False):
 
         body = {
             "query": {
@@ -514,21 +472,7 @@ class CitedbyStats(clients.Citedby):
             }
         }
 
-        for title in titles:
-
-            if len(title.strip()) == 0:
-                continue
-
-            item = {
-                "fuzzy": {
-                    "reference_source_cleaned": {
-                        "value": utils.clean_string(title),
-                        "fuzziness" : 3,
-                        "max_expansions": 50
-                    }
-                }
-            }
-
+        for item in self.fuzzy_title_query(issn, titles):
             body['query']['bool']['should'].append(item)
 
         query_parameters = [
@@ -556,7 +500,7 @@ class CitedbyStats(clients.Citedby):
         return itens
 
     @cache_region.cache_on_arguments()
-    def citing_forms(self, titles, size=0, raw=False):
+    def citing_forms(self, issn, titles, size=0, raw=False):
 
         body = {
             "query": {
@@ -574,21 +518,7 @@ class CitedbyStats(clients.Citedby):
             }
         }
 
-        for title in titles:
-
-            if len(title.strip()) == 0:
-                continue
-
-            item = {
-                "fuzzy": {
-                    "reference_source_cleaned": {
-                        "value": utils.clean_string(title),
-                        "fuzziness" : 3,
-                        "max_expansions": 50
-                    }
-                }
-            }
-
+        for item in self.fuzzy_title_query(issn, titles):
             body['query']['bool']['should'].append(item)
 
         query_parameters = [
@@ -601,6 +531,30 @@ class CitedbyStats(clients.Citedby):
         computed = self._compute_citing_forms(query_result)
 
         return query_result if raw else computed
+
+
+    def fuzzy_title_query(self, issn, titles):
+
+        custom_query_titles = custom_query.journals.get(issn, [])
+        titles = [{'title': i} for i in titles if i not in [x['title'] for x in custom_query_titles]]
+        titles.extend(custom_query_titles)
+
+        for item in titles:
+
+            if len(item['title'].strip()) == 0:
+                continue
+
+            title = {
+                "fuzzy": {
+                    "reference_source_cleaned": {
+                        "value": utils.clean_string(item['title']),
+                        "fuzziness" : item.get('fuzziness', 3),
+                        "max_expansions": 50
+                    }
+                }
+            }
+
+            yield title
 
 class PublicationStats(clients.PublicationStats):
 
