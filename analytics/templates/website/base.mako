@@ -166,9 +166,10 @@
                 ${_(u'selecionar um periódico')}:
                 <select name="journal">
                   % for issn, title in sorted(journals.items(), key=lambda x: x[1]):
-                    <option value="${issn}">${title}</option>
+                    <option value="${issn}" ${'selected' if issn == selected_journal_code else ''}>${title}</option>
                   % endfor
                 </select>
+                <input type="hidden" name="collection" value="${selected_collection_code}"/>
             </div>
             <div class="modal-footer">
               <button type="submit" class="btn btn-primary">${_(u'selecionar')}</button>
