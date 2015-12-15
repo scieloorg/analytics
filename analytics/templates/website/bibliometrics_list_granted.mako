@@ -40,5 +40,9 @@
 </%block>
 
 <%block name="extra_js">
-
+% if not selected_journal_code:
+  <script>
+    $('#journal_selector_modal').modal();
+  </script>
+% endif
 </%block>

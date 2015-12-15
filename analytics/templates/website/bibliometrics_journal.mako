@@ -36,6 +36,9 @@
     $('#tokenfield').tokenfield({
       'limit': 5,
       'delimiter': '||'
-    })
+    });
+    % if not selected_journal_code:
+    $('#journal_selector_modal').modal();
+    % endif
   </script>
 </%block>
