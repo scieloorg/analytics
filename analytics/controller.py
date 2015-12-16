@@ -9,8 +9,8 @@ from thrift_clients import clients
 from dogpile.cache import make_region
 from xylose.scielodocument import Article, Journal
 
-from analytics import utils, custom_query
-
+from analytics import utils
+from analytics.custom_queries import custom_query
 PAGE_SIZE = 20
 
 ALLOWED_DOC_TYPES_N_FACETS = {
@@ -535,7 +535,7 @@ class CitedbyStats(clients.Citedby):
 
     def fuzzy_title_query(self, issn, titles):
 
-        custom_query_titles = custom_query.journals.get(issn, [])
+        custom_query_titles = custom_query.load(issn).get('should', [])
         titles = [{'title': i} for i in titles if i not in [x['title'] for x in custom_query_titles]]
         titles.extend(custom_query_titles)
 
