@@ -6,7 +6,7 @@ import datetime
 
 from dogpile.cache import make_region
 
-from analytics import utils
+from analytics import utils, custom_query
 
 cache_region = make_region(name='views_website_cache')
 
@@ -159,6 +159,7 @@ def bibliometrics_journal(request):
         journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
         titles.append(journal.title)
         titles.append(journal.abbreviated_title)
+        titles.extend(x['title'] for x in custom_query.journals.get(data['selected_journal_code'], []) if x['title'] not in titles)
     
     data['titles'] = []
     if titles and not len(titles) == 0:
@@ -180,6 +181,7 @@ def bibliometrics_list_impact_factor(request):
         journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
         titles.append(journal.title)
         titles.append(journal.abbreviated_title)
+        titles.extend(x['title'] for x in custom_query.journals.get(data['selected_journal_code'], []) if x['title'] not in titles)
 
     data['blist'] = {}
     data['titles'] = []
@@ -203,12 +205,13 @@ def bibliometrics_list_citing_forms(request):
         journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
         titles.append(journal.title)
         titles.append(journal.abbreviated_title)
+        titles.extend(x['title'] for x in custom_query.journals.get(data['selected_journal_code'], []) if x['title'] not in titles)
 
     data['blist'] = []
     data['titles'] = []
     if titles and not len(titles) == 0:
         forms = set([i.strip() for i in titles if i])
-        data['blist'] = request.stats.bibliometrics.citing_forms(forms)
+        data['blist'] = request.stats.bibliometrics.citing_forms(data['selected_journal_code'], forms)
         data['titles'] = u'||'.join(forms)
 
     return data
@@ -226,12 +229,13 @@ def bibliometrics_list_received(request):
         journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
         titles.append(journal.title)
         titles.append(journal.abbreviated_title)
+        titles.extend(x['title'] for x in custom_query.journals.get(data['selected_journal_code'], []) if x['title'] not in titles)
 
     data['blist'] = []
     data['titles'] = []
     if titles and not len(titles) == 0:
         forms = set([i.strip() for i in titles if i])
-        data['blist'] = request.stats.bibliometrics.received_citations(forms)
+        data['blist'] = request.stats.bibliometrics.received_citations(data['selected_journal_code'], forms)
         data['titles'] = u'||'.join(forms)
 
     return data
