@@ -1,0 +1,24 @@
+{
+    "should": [
+        {
+            "title": "ABCD. Arquivos Brasileiros de Cirurgia Digestiva (São Paulo)",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arquivos Brasileiros de Cirurgia Digestiva",
+            "fuzziness": 3
+        },
+        {
+            "title": "ABCD Arquivos Brasileiros de Cirurgia Digestiva",
+            "fuzziness": 3
+        },
+        {
+            "title": "ABCD, arq. bras. cir. dig.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq Bras Cir Dig",
+            "fuzziness": 3
+        }
+    ]
+}
