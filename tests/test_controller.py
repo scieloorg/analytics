@@ -49,8 +49,8 @@ class ControllerTest(unittest.TestCase):
             sorted_fuzzy.append(
                 u'_'.join([
                     item['fuzzy']['reference_source_cleaned']['value'],
-                    unicode(item['fuzzy']['reference_source_cleaned']['max_expansions']),
-                    unicode(item['fuzzy']['reference_source_cleaned']['fuzziness'])
+                    str(item['fuzzy']['reference_source_cleaned']['max_expansions']),
+                    str(item['fuzzy']['reference_source_cleaned']['fuzziness'])
                 ])
             )
 
