@@ -24,6 +24,7 @@
       <tr>
         <th>${_(u'título')}</th>
         <th>${_(u'total')}</th>
+        <th>${_(u'ações')}</th>
       </tr>
       <%total=0%>
       % for item in blist:
@@ -31,6 +32,11 @@
         <tr>
           <td>${item['source']}</td>
           <td>${item['count']}</td>
+          <td>
+            <a href="https://github.com/scieloorg/analytics/issues/new?labels=bug&amp;title=Título de periódico invalido em ${selected_journal} (${selected_journal_code}): ${item['source']}" target="_blank">
+              <button type="button" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-envelope"></span> ${_(u'reportar erro')}</button>
+            </a>
+          </td>
         </tr>
       % endfor
         <tr>
@@ -49,7 +55,7 @@
 <%block name="extra_js">
   <script>
     $('#tokenfield').tokenfield({
-      'limit': 5,
+      'limit': 10,
       'delimiter': '||'
     });
     % if not selected_journal_code:

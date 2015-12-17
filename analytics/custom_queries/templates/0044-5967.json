@@ -1,0 +1,46 @@
+{
+    "should": [
+        {
+            "title": "Acta Amazônica",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Amaz.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Amazonica Manaus",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Amazon",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Amaz Manaus",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Amazon Manaus",
+            "fuzziness": 3
+        }
+    ],
+    "must_not": [ 
+        "Acta Anat.",
+        "Acta Anat",
+        "Acta anat.",
+        "Acta. Anat.",
+        "Acta Anal",
+        "Acta Mat.",
+        "Acta anat",
+        "Acta Agr.",
+        "Acta Acad.",
+        "Acta Mat",
+        "Acta anal",
+        "Acta. Anat",
+        "Bacia Amazônica",
+        "Acta Anat.",
+        "Atacama",
+        "Acta MD"
+   ]
+}

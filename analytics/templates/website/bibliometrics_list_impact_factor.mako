@@ -76,7 +76,7 @@
 <%block name="extra_js">
   <script>
     $('#tokenfield').tokenfield({
-      'limit': 5,
+      'limit': 10,
       'delimiter': '||'
     });
     % if not selected_journal_code:

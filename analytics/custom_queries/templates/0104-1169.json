@@ -1,0 +1,28 @@
+{
+    "should": [
+        {
+            "title": "Rev. Latino-Am. Enfermagem",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista Latino-Americana de Enfermagem",
+            "fuzziness": 3
+        },
+        {
+            "title": "Rev Lat Am Enferm",
+            "fuzziness": 3
+        },
+        {
+            "title": "Rev Latino am Enfermagem",
+            "fuzziness": 3
+        },
+        {
+            "title": "Rev. Latino-Am Enferm",
+            "fuzziness": 3
+        },
+        {
+            "title": "Rev Lat Am Enfermagem",
+            "fuzziness": 3
+        }
+    ]
+}

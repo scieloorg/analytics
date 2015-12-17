@@ -1,0 +1,17 @@
+{
+    "should": [
+        {
+            "title": "ARS (São Paulo)",
+            "fuzziness": 3
+        },
+        {
+            "title": "ARS",
+            "fuzziness": 0
+        }
+    ],
+    "must_not": [ 
+        "Agr São Paulo",
+        "Agri. São Paulo",
+        "Nurs, São Paulo,"
+   ]
+}
