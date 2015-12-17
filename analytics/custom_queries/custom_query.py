@@ -1,6 +1,9 @@
 # coding: utf-8
 import os
 import json
+import logging
+
+logger = logging.getLogger(__name__)
 
 _CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
 JOURNALS = {}
@@ -10,6 +13,7 @@ def load_query_from_file(file_name):
         try:
             query = json.load(f)
         except ValueError:
+            logger.warning(' Fail to load custom query for: %s' % file_name)
             return None
 
     return query
