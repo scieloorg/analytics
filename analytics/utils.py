@@ -38,7 +38,7 @@ def clean_string(text):
         try:
             text = text.decode('utf-8')
         except:
-            return text
+            pass
 
     try:    
         nfd_form = unicodedata.normalize('NFD', text.strip().lower())
@@ -47,7 +47,7 @@ def clean_string(text):
 
     cleaned_str = u''.join(x for x in nfd_form if unicodedata.category(x)[0] == 'L' or x == ' ')
 
-    return cleaned_str.strip()
+    return cleaned_str.lower().strip()
 
 
 class SingletonMixin(object):
