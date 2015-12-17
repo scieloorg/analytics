@@ -14,6 +14,55 @@ class ControllerTest(unittest.TestCase):
 
         self._stats = controller.Stats('localhost:11600', 'localhost:11600', 'localhost:11600', 'localhost:11600')
 
+    def test_must_not_custom_query(self):
+        result = [i for i in self._stats.bibliometrics.must_not_custom_query('0000-0000')]
+
+        sorted_must_not = sorted([i['match']['reference_source_cleaned'] for i in result])
+
+        expected = [
+            u'ecol api',
+            u'ecol apl',
+            u'ecol apli',
+            u'ecol aplic',
+            u'ecol app',
+            u'ecol appl',
+            u'ecol applic',
+            u'ecolapl',
+            u'ecolappl',
+            u'ecologia aplicada',
+            u'econ adm',
+            u'econ bol'
+        ]
+
+        self.assertEqual(sorted_must_not, expected)
+
+    def test_fuzzy_custom_query(self):
+        result = [i for i in self._stats.bibliometrics.fuzzy_custom_query(
+            '0000-0000',
+            ['teste1', 'teste2']
+        )]
+
+
+        sorted_fuzzy = []
+
+        for item in result:
+            sorted_fuzzy.append(
+                u'_'.join([
+                    item['fuzzy']['reference_source_cleaned']['value'],
+                    unicode(item['fuzzy']['reference_source_cleaned']['max_expansions']),
+                    unicode(item['fuzzy']['reference_source_cleaned']['fuzziness'])
+                ])
+            )
+
+        expected = [
+            u'econ aplic_50_3',
+            u'economia aplicada_50_3',
+            u'teste1_50_3',
+            u'teste2_50_3'
+        ]
+
+        self.assertEqual(sorted(sorted_fuzzy), expected)
+
     def test_compute_impact_factor(self):
 
         pub_citing_years = {
