@@ -57,8 +57,8 @@ class ControllerTest(unittest.TestCase):
         expected = [
             u'econ aplic_50_3',
             u'economia aplicada_50_3',
-            u'teste1_50_3',
-            u'teste2_50_3'
+            u'teste_50_3',
+            u'teste_50_3'
         ]
 
         self.assertEqual(sorted(sorted_fuzzy), expected)
