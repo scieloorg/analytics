@@ -1,0 +1,12 @@
+{
+    "should": [
+        {
+            "fuzziness": 1, 
+            "title": "Revista mexicana de micología"
+        }, 
+        {
+            "fuzziness": 1, 
+            "title": "Rev. Mex. Mic"
+        }
+    ]
+}

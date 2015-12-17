@@ -254,7 +254,8 @@ class CitedbyStats(clients.Citedby):
         body = {
             "query": {
                 "bool": {
-                    "should": []
+                    "should": [],
+                    "must_not": []
                 }
             },
             "aggs": {
@@ -278,8 +279,11 @@ class CitedbyStats(clients.Citedby):
             }
         }
 
-        for item in self.fuzzy_title_query(issn, titles):
+        for item in self.fuzzy_custom_query(issn, titles):
             body['query']['bool']['should'].append(item)
+
+        for item in self.must_not_custom_query(issn):
+            body['query']['bool']['must_not'].append(item)
 
         query_parameters = [
             clients.citedby_thrift.kwargs('size', '0'),
@@ -317,7 +321,8 @@ class CitedbyStats(clients.Citedby):
                 "filtered" : {
                     "query": {
                         "bool": {
-                            "should": []
+                            "should": [],
+                            "must_not": []
                         }
                     },
                     "filter": {
@@ -340,8 +345,11 @@ class CitedbyStats(clients.Citedby):
             }
         }
 
-        for item in self.fuzzy_title_query(issn, titles):
+        for item in self.fuzzy_custom_query(issn, titles):
             body['query']['filtered']['query']['bool']['should'].append(item)
+
+        for item in self.must_not_custom_query(issn):
+            body['query']['filtered']['query']['bool']['must_not'].append(item)
 
         query_parameters = [
             clients.citedby_thrift.kwargs('size', '0'),
@@ -414,7 +422,8 @@ class CitedbyStats(clients.Citedby):
         body = {
             "query": {
                 "bool": {
-                    "should": []
+                    "should": [],
+                    "must_not": []
                 }
             },
             "aggs": {
@@ -427,8 +436,11 @@ class CitedbyStats(clients.Citedby):
             }
         }
 
-        for item in self.fuzzy_title_query(issn, titles):
+        for item in self.fuzzy_custom_query(issn, titles):
             body['query']['bool']['should'].append(item)
+
+        for item in self.must_not_custom_query(issn):
+            body['query']['bool']['must_not'].append(item)
 
         query_parameters = [
             clients.citedby_thrift.kwargs('size', '0'),
@@ -459,7 +471,8 @@ class CitedbyStats(clients.Citedby):
         body = {
             "query": {
                 "bool": {
-                    "should": []
+                    "should": [],
+                    "must_not": []
                 }
             },
             "aggs": {
@@ -472,8 +485,11 @@ class CitedbyStats(clients.Citedby):
             }
         }
 
-        for item in self.fuzzy_title_query(issn, titles):
+        for item in self.fuzzy_custom_query(issn, titles):
             body['query']['bool']['should'].append(item)
+
+        for item in self.must_not_custom_query(issn):
+            body['query']['bool']['must_not'].append(item)
 
         query_parameters = [
             clients.citedby_thrift.kwargs('size', '0'),
@@ -505,7 +521,8 @@ class CitedbyStats(clients.Citedby):
         body = {
             "query": {
                 "bool": {
-                    "should": []
+                    "should": [],
+                    "must_not": []
                 }
             },
             "aggs": {
@@ -518,8 +535,11 @@ class CitedbyStats(clients.Citedby):
             }
         }
 
-        for item in self.fuzzy_title_query(issn, titles):
+        for item in self.fuzzy_custom_query(issn, titles):
             body['query']['bool']['should'].append(item)
+
+        for item in self.must_not_custom_query(issn):
+            body['query']['bool']['must_not'].append(item)
 
         query_parameters = [
             clients.citedby_thrift.kwargs('size', '0'),
@@ -533,18 +553,44 @@ class CitedbyStats(clients.Citedby):
         return query_result if raw else computed
 
 
-    def fuzzy_title_query(self, issn, titles):
+    def must_not_custom_query(self, issn):
+        """
+            Este metodo constroi a lista de filtros por título de periódico que
+            será aplicada na pesquisa boleana como restrição "must_not".
+            A lista de filtros é coletada do template de pesquisa customizada
+            do periódico, quanto este template existir.
+        """
 
-        custom_query_titles = custom_query.load(issn).get('should', [])
-        titles = [{'title': i} for i in titles if i not in [x['title'] for x in custom_query_titles]]
-        titles.extend(custom_query_titles)
+        custom_queries = set([utils.clean_string(i) for i in custom_query.load(issn).get('must_not', [])])
+
+        for item in custom_queries:
+
+            query = {
+                "match": {
+                    "reference_source_cleaned": item
+                }
+            }
+
+            yield query
+
+    def fuzzy_custom_query(self, issn, titles):
+        """
+            Este metodo constroi a lista de filtros por título de periódico que
+            será aplicada na pesquisa boleana como match por similaridade "should".
+            A lista de filtros é coletada do template de pesquisa customizada
+            do periódico, quanto este template existir.
+        """
+
+        custom_queries = custom_query.load(issn).get('should', [])
+        titles = [{'title': i} for i in titles if i not in [x['title'] for x in custom_queries]]
+        titles.extend(custom_queries)
 
         for item in titles:
 
             if len(item['title'].strip()) == 0:
                 continue
 
-            title = {
+            query = {
                 "fuzzy": {
                     "reference_source_cleaned": {
                         "value": utils.clean_string(item['title']),
@@ -554,7 +600,7 @@ class CitedbyStats(clients.Citedby):
                 }
             }
 
-            yield title
+            yield query
 
 class PublicationStats(clients.PublicationStats):
 
