@@ -42,10 +42,11 @@
         <tr>
           <th>${_(u'total')}</th>
           <th>${total}</th>
+          <th></th>
         </tr>        
       % if len(blist) == 0:
         <tr>
-          <td colspan="2">${_(u'sem resultados')}</td>
+          <td colspan="3">${_(u'sem resultados')}</td>
         </tr>    
       % endif
     </table>  

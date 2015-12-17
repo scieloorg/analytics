@@ -1,0 +1,32 @@
+{
+    "should": [
+        {
+            "title": "Acta Paulista de Enfermagem",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Paul Enfermagem",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Paulista Enferm",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Paul Enf",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta paul. enferm.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Paulista Enfermagem",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Paulista Enf",
+            "fuzziness": 3
+        }
+    ]
+}

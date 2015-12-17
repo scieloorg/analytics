@@ -1,0 +1,20 @@
+{
+    "should": [
+        {
+            "title": "Acta Sci., Agron.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Scientiarum. Agronomy",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Sci Agr",
+            "fuzziness": 3
+        },
+        {
+            "title": " Acta Scient Agronomy",
+            "fuzziness": 3
+        }
+    ]
+}

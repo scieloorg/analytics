@@ -1,0 +1,20 @@
+{
+    "should": [
+        {
+            "title": "Acta Ortopédica Brasileira",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta ortop. bras.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Ortopédica Bras",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Ort Bras",
+            "fuzziness": 1
+        }
+    ]
+}

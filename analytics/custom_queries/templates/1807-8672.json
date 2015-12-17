@@ -1,0 +1,28 @@
+{
+    "should": [
+        {
+            "title": "Acta Sci., Anim. Sci.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Scient Animal Sciences",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Scientiarum. Animal Sciences",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Sci Animal Sciences",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Scientiarum Anim Sci",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Scient Anim Sci",
+            "fuzziness": 3
+        }
+    ]
+}

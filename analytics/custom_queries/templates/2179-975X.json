@@ -1,0 +1,16 @@
+{
+    "should": [
+        {
+            "title": "Acta Limnologica Brasiliensia",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Limnol. Bras.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Limnol Brasiliensia",
+            "fuzziness": 3
+        }
+    ]
+}

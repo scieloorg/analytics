@@ -1,0 +1,16 @@
+{
+    "should": [
+        {
+            "title": "Ambient. soc.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Ambiente & sociedade",
+            "fuzziness": 3
+        },
+        {
+            "title": "Amb soc",
+            "fuzziness": 1
+        }
+    ]
+}

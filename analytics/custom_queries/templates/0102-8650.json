@@ -1,0 +1,25 @@
+{
+    "should": [
+        {
+            "title": "Acta Cirurgica Bras",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Cir. Bras.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Act Cir Brasileira",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Cirurgica Brasileira",
+            "fuzziness": 3
+        }
+    ],
+    "must_not": [
+        "Acta For. Bras.",
+        "Acta For Bras",
+        "Acta Lim. Bras"
+    ]
+}
