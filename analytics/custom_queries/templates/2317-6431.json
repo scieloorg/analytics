@@ -1,17 +1,16 @@
 {
     "should": [
         {
-            "title": "Alea",
+            "title": "Audiology",
             "fuzziness": 0
         },
         {
-            "title": "Alea: Estudos Neolatinos",
+            "title": "Audiol., Commun. Res.",
             "fuzziness": 3
         },
         {
-            "title": "Alea: Est Neolat",
+            "title": "Audiology - Communication Research",
             "fuzziness": 3
         }
-
     ]
 }

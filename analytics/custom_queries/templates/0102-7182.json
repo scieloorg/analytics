@@ -1,0 +1,16 @@
+{
+    "should": [
+        {
+            "title": "Psicologia & Sociedade",
+            "fuzziness": 3
+        },
+        {
+            "title": "Psicol. Soc.",
+            "fuzziness": 3
+        }
+    ],
+    "must_not": [
+        "Psicol Sal",
+        "Psicol Foco"
+    ]
+}

@@ -1,0 +1,36 @@
+{
+    "should": [
+        {
+            "title": "Anais da Escola Superior de Agricultura Luiz de Queiroz",
+            "fuzziness": 3
+        },
+        {
+            "title": "Anais da Escola Superior de Agricultura",
+            "fuzziness": 3
+        },
+        {
+            "title": "Anais Escola Superior de Agricultura",
+            "fuzziness": 3
+        },
+        {
+            "title": "An. Esc. Super. Agric. Luiz de Queiroz",
+            "fuzziness": 3
+        },
+        {
+            "title": "Anais da E.S.A. \"Luiz de Queiroz\"",
+            "fuzziness": 3
+        },
+        {
+            "title": "Anais da E.S.A.L.Q.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Anais da E. S. A. L. Q.",
+            "fuzziness": 3
+        },
+        {
+            "title": "E.S.A. \"Luiz de Queiroz\"",
+            "fuzziness": 3
+        }
+    ]
+}

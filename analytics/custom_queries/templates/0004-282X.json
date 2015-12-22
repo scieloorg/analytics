@@ -1,0 +1,32 @@
+{
+    "should": [
+        {
+            "title": "Arq Neuro Psi",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq. Neuro-Psiquiatr.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arquivos Neuropsiquiatria",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq Neuropsiq",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arquivos de Neuro-Psiquiatria",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq Neuropsiquiatr.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arquivo de Neuropsiquiatria",
+            "fuzziness": 3
+        }
+    ]
+}

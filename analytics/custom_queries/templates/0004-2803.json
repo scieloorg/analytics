@@ -1,0 +1,24 @@
+{
+    "should": [
+        {
+            "title": "Arq. Gastroenterol.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arquivos de Gastroenterologia",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq Gastroenterologia",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arquivos Gastroenterologia",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq Gastr",
+            "fuzziness": 3
+        }
+    ]
+}

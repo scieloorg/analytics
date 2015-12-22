@@ -1,0 +1,32 @@
+{
+    "should": [
+        {
+            "title": "Avaliação (Campinas)",
+            "fuzziness": 0
+        },
+        {
+            "title": "Avaliação",
+            "fuzziness": 3
+        },
+        {
+            "title": "Rev. Aval. Educ Sup",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista da Avaliação da Educação Superior",
+            "fuzziness": 3
+        },
+        {
+            "title": "Avaliação: Revista da Avaliação da Educação Superior (Campinas)",
+            "fuzziness": 3
+        },
+        {
+            "title": "Aval: Rev. Aval. Educ Sup",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista Avaliação",
+            "fuzziness": 3
+        }
+    ]
+}

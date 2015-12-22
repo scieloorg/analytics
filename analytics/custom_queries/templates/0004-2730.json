@@ -1,0 +1,40 @@
+{
+    "should": [
+        {
+            "title": "Bras Endocrinol Metab",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arquivos Brasileiros de Endocrinologia & Metabologia",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq Bras Endocr Metab",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq Braz metab",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq Bras Endocrinol Metab",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq Bras End metab",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arquivos Brasileiros de Endocrionologia",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arquivos Brasileiros Endocrinologia Metabologia",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq Bras Endocrinol Metabol",
+            "fuzziness": 3
+        }
+    ]
+}

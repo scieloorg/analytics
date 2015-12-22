@@ -1,0 +1,21 @@
+{
+    "should": [
+        {
+            "title": "Educação & Sociedade",
+            "fuzziness": 3
+        },
+        {
+            "title": "Educ. Soc.",
+            "fuzziness": 3
+        }
+    ],
+    "must_not": [
+        "Educ Psyc.",
+        "Eur Soc",
+        "Doc Soc",
+        "Educ Foco",
+        "Educ Sci",
+        "Educ. Hoy",
+        "Educ. Soe"
+    ]
+}

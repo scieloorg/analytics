@@ -1,0 +1,16 @@
+{
+    "should": [
+        {
+            "title": "Anais do Museu Paulista: História e Cultura Material",
+            "fuzziness": 3
+        },
+        {
+            "title": "An. mus. paul.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Anais do Museu Paulista",
+            "fuzziness": 3
+        }
+    ]
+}
