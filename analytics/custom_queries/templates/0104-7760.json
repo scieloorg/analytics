@@ -1,0 +1,12 @@
+{
+    "should": [
+        {
+            "title": "CERNE",
+            "fuzziness": 1
+        }
+    ],
+    "must_not": [
+        "Carne",
+        "Berne"
+    ]
+}
