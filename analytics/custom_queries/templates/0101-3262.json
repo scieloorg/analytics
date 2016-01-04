@@ -1,0 +1,18 @@
+{
+    "must_not": [
+        "Cadernos ANDES",
+        "CADERNOS CEDES",
+        "Cuadernos CENDES",
+        "Cad CEAS",
+        "Cad CERIS",
+        "Cad. CEAS",
+        "Cadernos Andes",
+        "Cadernos Ceris",
+        "CAB codes.",
+        "Cadernos CEAS",
+        "Cadernos CEDAE",
+        "Cadernos CERIS",
+        "Cadernos Cevec",
+        "Cuadernos Cepes"
+    ]
+}
