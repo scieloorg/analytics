@@ -1,0 +1,17 @@
+{
+    "should": [
+        {
+            "title": "Ciênc. saúde coletiva",
+            "fuzziness": 3
+        },
+        {
+            "title": "Cien Saude Colet",
+            "fuzziness": 3
+        },
+        {
+            "title": "Ciência & Saúde Coletiva",
+            "fuzziness": 3
+        }
+    ],
+    "must_not": []
+}
