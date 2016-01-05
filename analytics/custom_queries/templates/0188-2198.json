@@ -1,0 +1,10 @@
+{
+    "must_not": [
+        "Rev Per Cardiol",
+        "Rev Mex Radiol",
+        "Rev Es Cardiol",
+        "Rev Med Cardiol",
+        "Rev. Mex. Radiol.",
+        "Rev. mex. radiol"
+    ]
+}
