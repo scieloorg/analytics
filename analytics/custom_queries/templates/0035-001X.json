@@ -2,11 +2,13 @@
     "should": [
         {
             "fuzziness": 1, 
-            "title": "Revista mexicana de física"
-        }, 
-        {
-            "fuzziness": 1, 
             "title": "Rev. mex. fis."
         }
+    ],
+    "must_not": [
+        "Rev. Mex. Fís.-S",
+        "Revista Mexicana de Física E",
+        "Revista Mexicana de Física S",
+        "Revista Americana de Física"
     ]
 }

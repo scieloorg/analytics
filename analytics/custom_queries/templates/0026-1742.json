@@ -1,0 +1,8 @@
+{
+    "must_not": [
+        "Rev. Fac. Med. Vet.",
+        "Rev Fac Med Vet",
+        "Rev. Fac. Med. Vet",
+        "Rev. Fac. Med. vet."
+    ]
+}

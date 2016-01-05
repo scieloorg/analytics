@@ -1,7 +1,7 @@
 {
     "should": [
         {
-            "fuzziness": 1, 
+            "fuzziness": 0,
             "title": "Secuencia"
         }
     ]
