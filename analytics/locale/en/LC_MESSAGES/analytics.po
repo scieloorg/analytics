@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Anaytics\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2016-01-06 14:06-0200\n"
-"PO-Revision-Date: 2016-01-06 17:34+0000\n"
+"PO-Revision-Date: 2016-01-06 18:09+0000\n"
 "Last-Translator: fabiobatalha <fabiobatalha@gmail.com>\n"
 "Language-Team: English (http://www.transifex.com/scielo/anaytics/language/en/)\n"
 "MIME-Version: 1.0\n"
@@ -509,7 +509,7 @@ msgstr "Warning"
 #: analytics/templates/website/bibliometrics_list_impact_factor.mako:11
 #: analytics/templates/website/bibliometrics_list_received.mako:11
 msgid "É necessário selecionar um periódico para dados bibliométricos."
-msgstr ""
+msgstr "It is necessary to choose one journal for bibliometrics indicators"
 
 #: analytics/templates/website/bibliometrics_journal.mako:19
 #: analytics/templates/website/bibliometrics_list_citing_forms.mako:19
@@ -542,18 +542,18 @@ msgid ""
 "considerando os períodos de imediatez, além de períodos de 1 a 5 anos. A "
 "linha de 2 anos equivale ao fator de impacto de periódicos da Thomson "
 "Reuters"
-msgstr ""
+msgstr "This chart show the impact fator of the selected journal considering the immediacy period, including the impact factor for 1 to 5 years. The 2 years line refers to the Thomson Reuters impact factor."
 
 #: analytics/templates/website/bibliometrics_journal_received_self_and_granted_citation_chart.mako:17
 msgid ""
 "Este gráfico apresenta o número de citações concedidas, recebidas e auto "
 "citações do periódico selecionado, os dados estão distribuidos por ano de "
 "publicação."
-msgstr ""
+msgstr "This chart show the number of granted, received and auto citations of the selected journal, the data is distributed by publication year."
 
 #: analytics/templates/website/bibliometrics_list_citing_forms.mako:22
 msgid "Formas de citação encontrada para o periódico selecionado"
-msgstr ""
+msgstr "Matching citing forms for the selected journal"
 
 #: analytics/templates/website/bibliometrics_list_citing_forms.mako:25
 #: analytics/templates/website/bibliometrics_list_granted.mako:18
@@ -621,7 +621,7 @@ msgstr "Frequent Questions (Accesses)"
 
 #: analytics/templates/website/faq.mako:7
 msgid "Por que algumas coleções não possuem estatísticas de acesso?"
-msgstr ""
+msgstr "Why some collections do not have site usage indicators?"
 
 #: analytics/templates/website/faq.mako:8
 msgid ""
@@ -633,7 +633,7 @@ msgstr ""
 #: analytics/templates/website/faq.mako:11
 msgid ""
 "Por que algumas coleções possuem acessos computados para um período maior?"
-msgstr ""
+msgstr "Why the available periods of the usage indicators differs from one collection to another?"
 
 #: analytics/templates/website/faq.mako:12
 msgid ""
@@ -646,19 +646,19 @@ msgstr ""
 #: analytics/templates/website/faq.mako:15
 #: analytics/templates/website/faq.mako:36
 msgid "O que esta sendo contabilizado?"
-msgstr ""
+msgstr "What is being computed?"
 
 #: analytics/templates/website/faq.mako:16
 msgid ""
 "Estão sendo contabilizados e classificados os acessos ao texto completo em "
 "HTML, PDF e EPDF (ReadCube), além dos acessos a páginas de resumo do artigo."
-msgstr ""
+msgstr "Are being computed and classified the accesses to the full text in HTML, PDF, EPDF (ReadCube), besides the accesses to the abstract pages in the website."
 
 #: analytics/templates/website/faq.mako:19
 msgid ""
 "Porque os indicadores desta ferramenta são diferentes dos fornecidos em "
 "outras ferramentas SciELO?"
-msgstr ""
+msgstr "Why the indicators of this tool differs from the indicators delivered by other SciELO sites?"
 
 #: analytics/templates/website/faq.mako:21
 msgid ""
@@ -681,7 +681,7 @@ msgstr ""
 #: analytics/templates/website/faq.mako:27
 #: analytics/templates/website/faq.mako:40
 msgid "Qual a periodicidade de atualização dos indicadores?"
-msgstr ""
+msgstr "What is the updating frequency of the indicators?"
 
 #: analytics/templates/website/faq.mako:28
 msgid "Mensal"
@@ -693,7 +693,7 @@ msgstr "FAQ (Publishing)"
 
 #: analytics/templates/website/faq.mako:32
 msgid "Porque algumas coleções possuem dados desatualizados?"
-msgstr ""
+msgstr "Why some collections have out of date indicators?"
 
 #: analytics/templates/website/faq.mako:33
 msgid ""
@@ -740,7 +740,7 @@ msgid ""
 "Este gráfico apresenta a distribuição de documentos por número de autores. "
 "Os números são relacionados a coleção ou ao periódico quando um periódico é "
 "selecionado."
-msgstr ""
+msgstr "This chart show the documents distribution by the number of authors. The numbers are related to one collection or to one journal when it is selected."
 
 #: analytics/templates/website/publication_article_citable_documents.mako:17
 msgid ""
@@ -782,7 +782,7 @@ msgid ""
 "Este gráfico apresenta a distribuição de documentos por número de "
 "referências bibliográficas. Os números são relacionados a coleção ou ao "
 "periódico quando um periódico é selecionado."
-msgstr ""
+msgstr "This chart show the documents distribution by the number of bibliographic references. The numbers are related to one collection or to one journal when it is selected."
 
 #: analytics/templates/website/publication_article_subject_areas.mako:17
 msgid ""
@@ -801,7 +801,7 @@ msgid ""
 "Este gráfico apresenta o total de documentos publicados por ano de "
 "publicação. Os números são relacionados a coleção ou ao periódico quando um "
 "periódico é selecionado."
-msgstr ""
+msgstr "This chart show the total of published documents by publication year. The numbers are related to one collection or to one journal when it is selected."
 
 #: analytics/templates/website/publication_journal_licenses.mako:17
 msgid ""
@@ -837,7 +837,7 @@ msgstr ""
 msgid ""
 "Este gráfico apresenta o número periódicos por ano de inclusão no SciELO. "
 "Este gráfico é recomendado para extração de indicadores de Coleção."
-msgstr ""
+msgstr "This chart show the number of journals by the inclusion year at SciELO. This chart is recommended for collection indicators."
 
 #: analytics/templates/website/publication_size.mako:10
 #: analytics/templates/website/publication_size.mako:21
@@ -851,7 +851,7 @@ msgid ""
 "Os números acima correspondem aos periódicos com pelo menos 1 fascículo e "
 "artigo publicados. Os números são definidos de acordo com os filtros "
 "aplicados através da interface."
-msgstr ""
+msgstr "The numbers above represents the number of journals with at least one issue and published articles. The numbers are defined according to the applied filters (selected through the interface)."
 
 #: analytics/templates/website/publication_size.mako:24
 msgid ""
