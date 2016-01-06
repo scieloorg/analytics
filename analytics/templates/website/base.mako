@@ -150,6 +150,7 @@
             <option value="pt" ${'selected=""' if locale == 'pt' else ''}>Português</option>
             <option value="en" ${'selected=""' if locale == 'en' else ''}>English</option>
             <option value="es" ${'selected=""' if locale == 'es' else ''}>Español</option>
+            <option value="es_MX" ${'selected=""' if locale == 'es_MX' else ''}>Español (México)</option>
           </select>
         </form>
       </div>

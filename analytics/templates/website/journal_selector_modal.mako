@@ -1,3 +1,4 @@
+## coding: utf-8
 <div class="modal fade" id="journal_selector_modal" tabindex="-1" role="dialog" aria-labelledby="journal_selector_modal" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
