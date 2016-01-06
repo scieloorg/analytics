@@ -1,0 +1,30 @@
+{
+    "should": [
+        {
+            "title": "Ciência da Informação",
+            "fuzziness": 3
+        },       
+        {
+            "title": "Ci. Inf.",
+            "fuzziness": 3
+        },        
+        {
+            "title": "revista ciencia da informacao",
+            "fuzziness": 3
+        }
+    ],
+    "must_not": [
+        "ACI Int",
+        "B. Inf.",
+        "J Inf",
+        "J Inf.",
+        "Sci Int",
+        "ACI Int.",
+        "Ag Inf",
+        "Bioinf",
+        "Bioinf.",
+        "Sci Int.",
+        "Sci. Int",
+        "Sci. Int."
+    ]
+}
