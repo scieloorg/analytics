@@ -1,0 +1,83 @@
+{
+    "should": [
+        {
+            "title": "Ciência Rural",
+            "fuzziness": 3
+        },
+        {
+            "title": "Cienc. Rural",
+            "fuzziness": 3
+        },
+        {
+            "title": "rev cien rur",
+            "fuzziness": 3
+        },
+        {
+            "title": "rev cienc rur",
+            "fuzziness": 3
+        },
+        {
+            "title": "rev cienc rural",
+            "fuzziness": 3
+        },
+        {
+            "title": "cienc rur",
+            "fuzziness": 3
+        },
+        {
+            "title": "ci rural",
+            "fuzziness": 3
+        },
+        {
+            "title": "cien rur",
+            "fuzziness": 3
+        },
+        {
+            "title": "cien rural",
+            "fuzziness": 3
+        },
+        {
+            "title": "revista ciência rural",
+            "fuzziness": 3
+        }
+    ],
+    "must_not": [
+        "Cienc. Mar",
+        "Cienc. Mar.",
+        "Cien. Mar",
+        "Cien. Mar.",
+        "Ciênc. Cul",
+        "Rev Cienc Hum",
+        "Rev Ciênc Hum",
+        "Rev. Cienc. Agr.",
+        "Rev. Ciênc. Agr.",
+        "Cien. Cul",
+        "Cienc Mar.",
+        "Cienc. Agr.",
+        "Cienc. Cul",
+        "Cienc. For.",
+        "Ciencia UNAL",
+        "Ciên Agr.",
+        "Ciênc Cul",
+        "Rev Cienc Agr",
+        "Rev. Cienc. Hum.",
+        "Rev. Cienc. Mar",
+        "Cien. For.",
+        "Cienc Agr",
+        "Cienc For",
+        "Cienc. Agr",
+        "Cienc. Cul.",
+        "Cienc. Mar..",
+        "Ciênc. Agr.",
+        "Ciênc. Hum.",
+        "Ciênc. Mar.",
+        "Rev Ciên Hum",
+        "Rev Ciênc Agr",
+        "Rev ciênc hum",
+        "Rev. Cien. Agr.",
+        "Rev. Cien. For.",
+        "Rev. Cien. LUZ",
+        "Rev. Cien. Mar",
+        "Rev. Ciên. Agr."
+    ]
+}
