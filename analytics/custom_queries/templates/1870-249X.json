@@ -3,6 +3,10 @@
         {
             "fuzziness": 0, 
             "title": "J. Mex. Chem. Soc"
+        },
+        {
+            "title": "Journal of the Mexican Chemical Society",
+            "fuzziness": 1
         }
     ]
 }

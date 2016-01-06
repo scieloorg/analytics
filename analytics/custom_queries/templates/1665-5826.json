@@ -4,5 +4,10 @@
             "fuzziness": 1, 
             "title": "Educ. mat"
         }
+    ],
+    "must_not": [
+        "Educação Matemática",
+        "Educação matemática",
+        "Educação & Matemática"
     ]
 }
