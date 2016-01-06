@@ -259,7 +259,6 @@ msgstr ""
 
 #: analytics/charts_config.py:353
 #, fuzzy
-#| msgid "artigo"
 msgid "maio"
 msgstr "artículo"
 
@@ -302,7 +301,6 @@ msgstr "Accesos"
 
 #: analytics/charts_config.py:380
 #, fuzzy
-#| msgid "Acessos a"
 msgid "Acessos em"
 msgstr "Accesos a"
 
@@ -573,13 +571,11 @@ msgstr ""
 
 #: analytics/templates/website/bibliometrics_list_citing_forms.mako:27
 #, fuzzy
-#| msgid "Coleções"
 msgid "ações"
 msgstr "Colecciones"
 
 #: analytics/templates/website/bibliometrics_list_citing_forms.mako:37
 #, fuzzy
-#| msgid "Reportar error"
 msgid "reportar erro"
 msgstr "Reportar error"
 
