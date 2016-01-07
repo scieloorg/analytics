@@ -1,0 +1,13 @@
+{
+    "should": [
+        {
+            "title": "CoDAS",
+            "fuzziness": 1
+        }
+    ],
+    "must_not": [ 
+        "COPAS",
+        "Odas",
+        "Rodas"
+   ]
+}
