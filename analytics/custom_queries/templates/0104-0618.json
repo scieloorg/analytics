@@ -1,0 +1,12 @@
+{
+    "should": [
+        {
+            "title": "Economia e Sociedade",
+            "fuzziness": 3
+        },       
+        {
+            "title": "Econ. soc.",
+            "fuzziness": 1
+        }
+    ]
+}

@@ -7,6 +7,10 @@
         {
             "title": "Econ. Aplic.",
             "fuzziness": 3
+        },
+        {
+            "title": "Econ. Apl.",
+            "fuzziness": 3
         }
     ],
     "must_not": [ 
@@ -40,6 +44,7 @@
         "Ecol. Aplic",
         "Ecol. Aplic.",
         "Ecol Applic.",
-        "Ecol.apl"
+        "Ecol.apl",
+        "Ergonomía Aplicada"
     ]
 }

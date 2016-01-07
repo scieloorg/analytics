@@ -1,0 +1,21 @@
+{
+    "should": [
+        {
+            "title": "DELTA: Documentação de Estudos em Lingüística Teórica e Aplicada",
+            "fuzziness": 3
+        },       
+        {
+            "title": "DELTA",
+            "fuzziness": 1
+        },
+        {
+            "title": "revista delta",
+            "fuzziness": 1
+        }
+    ],
+    "must_not": [
+    "CELTA",
+    "Dela",
+    "NELTA."
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "should": [
+        {
+            "title": "Educação & Realidade",
+            "fuzziness": 3
+        },
+        {
+            "title": "Educ. Real.",
+            "fuzziness": 3
+        }
+    ],
+    "must_not": [
+        "Educ Res",
+        "Educ Rev",
+        "Educrea"
+    ]
+}
