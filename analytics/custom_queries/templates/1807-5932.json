@@ -1,0 +1,20 @@
+{
+    "should": [
+        {
+            "title": "Clinics",
+            "fuzziness": 3
+        }
+    ],
+    "must_not": [
+        "Plinius",
+        "Clínico",
+        "Clínica.",
+        "Clínica",
+        "Clinical",
+        "ClinSci",
+        "Clin.Sci",
+        "Cynics",
+        "Clin.Sci.",
+        "CliniCAPS"
+    ]
+}
