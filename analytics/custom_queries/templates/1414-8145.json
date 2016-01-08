@@ -1,0 +1,24 @@
+{
+    "should": [
+        {
+            "title": "Escola Anna Nery",
+            "fuzziness": 3
+        },
+        {
+            "title": "Esc. Anna Nery",
+            "fuzziness": 3
+        },
+        {
+            "title": "Anna Nery",
+            "fuzziness": 3
+        },
+        {
+            "title": "Esc Anna Nery Rev Enferm",
+            "fuzziness": 3
+        },
+        {
+            "title": "Esc Anna Nery [online]",
+            "fuzziness": 3
+        }
+    ]
+}

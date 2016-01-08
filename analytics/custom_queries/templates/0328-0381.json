@@ -1,0 +1,20 @@
+{
+    "should": [
+        {
+            "title": "Entomología y Vectores",
+            "fuzziness": 3
+        },
+        {
+            "title": "Entomol. vectores",
+            "fuzziness": 3
+        },
+        {
+            "title": "Entomol. Vect.",
+            "fuzziness": 3
+        },
+        {
+            "title": "revista entomologia y vectores",
+            "fuzziness": 3
+        }
+    ]
+}
