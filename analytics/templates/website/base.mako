@@ -167,7 +167,12 @@
     <script type="text/javascript">
       Highcharts.setOptions({
         colors: ['#3366CC', '#DC3912', '#FF9900', '#109618', '#990099', '#0099C6', '#DD4477', '#66AA00', '#B82E2E', '#316395', '#22AA99', '#AAAA11', '#6633CC', '#E67300', '#8B0707', '#651067'],
-        lang: {decimalPoint: '.', thousandsSep: ','}
+        lang: {
+          decimalPoint: '.', 
+          thousandsSep: ',',
+          months: ['${_(u'Janeiro')}', '${_(u'Fevereiro')}', '${_(u'Março')}', '${_(u'Abril')}', '${_(u'Maio')}', '${_(u'Junho')}', '${_(u'Julho')}', '${_(u'Agosto')}', '${_(u'Setembro')}', '${_(u'Outubro')}', '${_(u'Novembro')}', '${_(u'Dezembro')}'],
+          shortMonths: ['${_(u'Jan')}','${_(u'Fev')}','${_(u'Mar')}','${_(u'Abr')}','${_(u'Mai')}','${_(u'Jun')}','${_(u'Jul')}','${_(u'Ago')}','${_(u'Set')}','${_(u'Out')}','${_(u'Nov')}','${_(u'Dez')}']
+        }
       });
     </script>
     <script>

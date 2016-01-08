@@ -25,7 +25,7 @@
         var url =  "${request.route_url('publication_journal_year')}?code=${selected_code}&collection=${selected_collection_code}&callback=?";
 
         $.getJSON(url,  function(data) {
-            $('#journal_year').highcharts(data['options']);
+            $('#journal_year').highcharts('StockChart', data['options']);
             $("#loading_journal_year").hide();
         });
     });

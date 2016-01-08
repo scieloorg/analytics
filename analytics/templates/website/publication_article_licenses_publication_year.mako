@@ -24,7 +24,7 @@
     $(document).ready(function() {
         var url =  "${request.route_url('publication_article_licenses_publication_year')}?code=${selected_code}&collection=${selected_collection_code}&callback=?";
         $.getJSON(url,  function(data) {
-            $('#article_licenses_publication_year').highcharts(data['options']);
+            $('#article_licenses_publication_year').highcharts('StockChart', data['options']);
             $("#loading_licenses_publication_year").hide();
         });
     });
