@@ -1,0 +1,16 @@
+{
+    "should": [
+        {
+            "title": "Epidemiologia e Serviços de Saúde",
+            "fuzziness": 3
+        },
+        {
+            "title": "Epidemiol. Serv. Saúde",
+            "fuzziness": 3
+        },
+        {
+            "title": "revista de Epidemiologia e Serviços de Saúde",
+            "fuzziness": 3
+        }
+    ]
+}

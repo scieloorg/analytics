@@ -1,0 +1,16 @@
+{
+    "should": [
+        {
+            "title": "Estudos Afro-Asiáticos",
+            "fuzziness": 3
+        },
+        {
+            "title": "Estud. afro-asiát.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista Estudos Afro-Asiáticos",
+            "fuzziness": 3
+        }
+    ]
+}
