@@ -6,6 +6,9 @@
     <%include file="publication_article_licenses.mako"/>
   </div>
   <div class="chart">
+    <%include file="publication_article_licenses_publication_year.mako"/>
+  </div>
+  <div class="chart">
     <%include file="publication_article_subject_areas.mako"/>
   </div>
   <div class="chart">

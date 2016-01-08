@@ -941,6 +941,96 @@ class PublicationStats(clients.PublicationStats):
 
         return query_result if raw else computed
 
+
+    def _compute_licenses_by_publication_year(self, query_result):
+
+        available_licences = set()
+
+        for year in query_result['aggregations']['publication_year']['buckets']:
+            for license in year['license']['buckets']:
+                available_licences.add(license['key'])
+
+        data = {}
+        for year in query_result['aggregations']['publication_year']['buckets']:
+            x = data.setdefault(year['key'], {k:0 for k in available_licences})
+            for license in year['license']['buckets']:
+                x[license['key']] = license['doc_count']
+
+        series = []
+        for lic in sorted(available_licences):
+            series.append({
+                'name': lic,
+                'data': []
+            })
+
+        categories = []
+        for year, licenses in sorted(data.items()):
+            categories.append(year)
+            amount = float(sum([count for liv, count in licenses.items()]))
+            for serie in series:
+                serie["data"].append({
+                    'y': licenses[serie['name']],
+                    'percentage': (licenses[serie['name']]/amount) * 100
+                })
+
+        return {"series": series, "categories": categories}
+
+    @cache_region.cache_on_arguments()
+    def lincenses_by_publication_year(self, code, collection, raw=False):
+
+        body = {
+            "query": {
+                "bool": {
+                    "must": [{
+                            "match": {
+                                "collection": collection
+                            }
+                        }
+                    ]
+                }
+            },
+            "size": 0,
+            "aggs": {
+                "publication_year": {
+                    "terms": {
+                        "field": "publication_year",
+                        "size": 20,
+                        "order": {
+                            "_term": "desc"
+                        }
+                    },
+                    "aggs": {
+                        "license": {
+                            "terms": {
+                                "field": "license",
+                                "size": 0,
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        code_type = self._code_type(code)
+
+        if code_type:
+            body["query"]["bool"]["must"].append({
+                    "match": {
+                        code_type: code
+                    }
+                }
+            )
+
+        query_parameters = [
+            clients.accessstats_thrift.kwargs('size', '0')
+        ]
+
+        query_result = json.loads(self.client.search('article', json.dumps(body), query_parameters))
+
+        computed = self._compute_licenses_by_publication_year(query_result)
+
+        return query_result if raw else computed
+
 class ArticleMeta(clients.ArticleMeta):
 
     @cache_region.cache_on_arguments()

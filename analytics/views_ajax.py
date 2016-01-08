@@ -139,6 +139,15 @@ class ViewsAjax(object):
 
         return self.request.chartsconfig.publication_article_document_type(data)
 
+    @view_config(route_name='publication_article_licenses_publication_year', request_method='GET', renderer='jsonp')
+    def publication_article_licenses_publication_year(self):
+
+        code = self.request.GET.get('code', None)
+
+        data = self.request.stats.publication.lincenses_by_publication_year(code, self.collection)
+
+        return self.request.chartsconfig.publication_article_licenses_by_publication_year(data)
+
     @view_config(route_name='publication_article_licenses', request_method='GET', renderer='jsonp')
     def publication_article_licenses(self):
 

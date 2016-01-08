@@ -3100,6 +3100,179 @@ class ControllerTest(unittest.TestCase):
 
         self.assertEqual(expected, result)
 
+    def test_licenses_by_publication_year(self):
+
+        query_result = {
+            "hits": {
+                "hits": [],
+                "total": 302575,
+                "max_score": 0.0
+            },
+            "timed_out": False,
+            "took": 182,
+            "aggregations": {
+                "publication_year": {
+                    "buckets": [
+                        {
+                            "key": "2012",
+                            "license": {
+                                "buckets": [
+                                    {
+                                        "key": "by-nc/4.0",
+                                        "doc_count": 18354
+                                    },
+                                    {
+                                        "key": "by/4.0",
+                                        "doc_count": 2843
+                                    },
+                                    {
+                                        "key": "by-nc-nd/4.0",
+                                        "doc_count": 1069
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 173
+                            },
+                            "doc_count": 22439
+                        },
+                        {
+                            "key": "2011",
+                            "license": {
+                                "buckets": [
+                                    {
+                                        "key": "by-nc/4.0",
+                                        "doc_count": 18624
+                                    },
+                                    {
+                                        "key": "by/4.0",
+                                        "doc_count": 2469
+                                    },
+                                    {
+                                        "key": "by-nc-nd/4.0",
+                                        "doc_count": 1025
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 164
+                            },
+                            "doc_count": 22282
+                        },
+                        {
+                            "key": "2013",
+                            "license": {
+                                "buckets": [
+                                    {
+                                        "key": "by-nc/4.0",
+                                        "doc_count": 14759
+                                    },
+                                    {
+                                        "key": "by/4.0",
+                                        "doc_count": 3303
+                                    },
+                                    {
+                                        "key": "by-nc/3.0",
+                                        "doc_count": 2946
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 963
+                            },
+                            "doc_count": 21971
+                        }
+                    ],
+                    "doc_count_error_upper_bound": 8199,
+                    "sum_other_doc_count": 235883
+                }
+            },
+            "_shards": {
+                "successful": 5,
+                "failed": 0,
+                "total": 5
+            }
+        }
+
+        expected = {
+            "series": [
+                {
+                    "data": [
+                        {
+                            "y": 1025,
+                            "percentage": 4.634234560086807
+                        },
+                        {
+                            "y": 1069,
+                            "percentage": 4.801041947363693
+                        },
+                        {
+                            "y": 0,
+                            "percentage": 0.0
+                        }
+                    ],
+                    "name": "by-nc-nd/4.0"
+                },
+                {
+                    "data": [
+                        {
+                            "y": 0,
+                            "percentage": 0.0
+                        },
+                        {
+                            "y": 0,
+                            "percentage": 0.0
+                        },
+                        {
+                            "y": 2946,
+                            "percentage": 14.023229246001524
+                        }
+                    ],
+                    "name": "by-nc/3.0"
+                },
+                {
+                    "data": [
+                        {
+                            "y": 18624,
+                            "percentage": 84.20291165566508
+                        },
+                        {
+                            "y": 18354,
+                            "percentage": 82.43061169496093
+                        },
+                        {
+                            "y": 14759,
+                            "percentage": 70.25418888042651
+                        }
+                    ],
+                    "name": "by-nc/4.0"
+                },
+                {
+                    "data": [
+                        {
+                            "y": 2469,
+                            "percentage": 11.162853784248124
+                        },
+                        {
+                            "y": 2843,
+                            "percentage": 12.76834635767538
+                        },
+                        {
+                            "y": 3303,
+                            "percentage": 15.722581873571972
+                        }
+                    ],
+                    "name": "by/4.0"
+                }
+            ],
+            "categories": [
+                "2011",
+                "2012",
+                "2013"
+            ]
+        }
+
+        result = self._stats.publication._compute_licenses_by_publication_year(query_result)
+
+        self.assertEqual(expected, result)
+
     def test_access_by_document_type(self):
 
         query_result = {
