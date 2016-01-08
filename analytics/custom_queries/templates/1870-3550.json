@@ -1,0 +1,6 @@
+{
+    "must_not": [
+        "North America",
+        "North América,"
+    ]
+}

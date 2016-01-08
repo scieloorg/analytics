@@ -1,0 +1,87 @@
+{
+    "should": [
+        {
+            "title": "Rev de Saúde Públ",
+            "fuzziness": 3
+        },
+        {
+            "title": "Rev Saude Publica SP",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista de Saúde Publica São Paulo",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista Saude Publica",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista de Saúde Pública SP",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista de Saúde Pública",
+            "fuzziness": 3
+        },
+        {
+            "title": "Rev. Saúde Pública",
+            "fuzziness": 3
+        },
+        {
+            "title": "Rev Saúde Públ",
+            "fuzziness": 3
+        },
+        {
+            "title": "Rev S Publ",
+            "fuzziness": 3
+        }
+    ],
+    "must_not": [
+        "Revista Salud Pública",
+        "Revista Salud Pública.",
+        "Revista Salud Publica",
+        "Revista salud pública",
+        "Rev. dr. publ.",
+        "Revista Salud Publica.",
+        "Revista Salud pública",
+        "Revista salud Publica",
+        "Revista Salude Pública",
+        "Revista de salud Pública",
+        "Revista de Salud Pública;",
+        "Rev. Salud. Pública",
+        "Rev. Salud Publica.",
+        "Revista de Salud Pública,",
+        "Rev salud Pública",
+        "Rev Salud pública.",
+        "Rev Salud Publica,",
+        "Rev salud pública.",
+        "Rev Salud Pública,",
+        "Revista de Salud Pública.",
+        "Rev. salud pública.",
+        "Rev. Salud pública.",
+        "Rev. Salud Publica",
+        "Rev salud publica",
+        "Revista de Salud pública",
+        "Revista de salud pública",
+        "Revista de Salud Publica",
+        "Rev Salud pública",
+        "Rev Salud Publica.",
+        "Rev. Salud Pública.",
+        "Rev. Salud pública",
+        "Rev Salud Pública.",
+        "Rev salud pública",
+        "Rev. salud pública",
+        "Rev. Salud Pública",
+        "Rev Salud Publica",
+        "Revista de Salud Pública",
+        "Rev Salud Pública",
+        "Rev Salud Publ",
+        "Rev Salud Públ",
+        "Rev. Salud públ.",
+        "Rev. Salud Publ",
+        "Rev. Salud Públ",
+        "Rev. Santé publ.",
+        "Revista de Salude Pública"
+    ]
+}

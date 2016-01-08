@@ -1,0 +1,20 @@
+{
+    "should": [
+        {
+            "title": "Cadernos EBAPE.BR",
+            "fuzziness": 3
+        },
+        {
+            "title": "Cad. EBAPE.BR",
+            "fuzziness": 3
+        },
+        {
+            "title": "Cadernos da EBAPE.BR",
+            "fuzziness": 3
+        },
+        {
+            "title": "Cad. EBAPE.BR [online]",
+            "fuzziness": 3
+        }
+    ]
+}

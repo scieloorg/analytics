@@ -1,0 +1,20 @@
+{
+    "should": [
+        {
+            "title": "Estudos Históricos",
+            "fuzziness": 3
+        },
+        {
+            "title": "Estud. Hist.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Estudos Históricos (Rio de Janeiro)",
+            "fuzziness": 3
+        },
+        {
+            "title": "Estud. hist. (Rio J.)",
+            "fuzziness": 3
+        }
+    ]
+}

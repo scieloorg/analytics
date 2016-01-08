@@ -1,0 +1,12 @@
+{
+    "should": [
+        {
+            "fuzziness": 0, 
+            "title": "Rev. IUS"
+        }, 
+        {
+            "fuzziness": 0, 
+            "title": "Revista IUS"
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+{
+    "should": [
+        {
+            "title": "Acta Bot Brasilica",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Bot. Bras.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Botanica Bras",
+            "fuzziness": 3
+        },
+        {
+            "title": "Acta Botanica Brasilica",
+            "fuzziness": 3
+        }
+    ],
+    "must_not": [
+        "Acta Vet. Bras.",
+        "Acta Vet Bras",
+        "Acta For. Bras.",
+        "Acta For Bras",
+        "Acta Ort Bras",
+        "Acta Vet. Bras",
+        "Acta Vet Brasilica",
+        "Acta Vet. Brasilica"
+    ]
+}

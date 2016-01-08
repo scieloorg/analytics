@@ -1,0 +1,32 @@
+{
+    "should": [
+        {
+            "title": "Arq Bras Med Vet Zoo",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq. Bras. Med. Vet. Zoot.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arquivo Brasileiro de Medicina Veterinária e Zootecnia",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq. Bras. Med. Vet. Zootec.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq. Bras. Med. Vet.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arquivo Brasileiro de Medicina Veterinária",
+            "fuzziness": 3
+        },
+        {
+            "title": "Bras. Med. Vet. Zootec.",
+            "fuzziness": 3
+        }
+    ]
+}

@@ -1,0 +1,33 @@
+
+{
+    "should": [
+        {
+            "title": "Revista de Linguistica",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista Linguistica",
+            "fuzziness": 3
+        },
+        {
+            "title": "Rev Linguist",
+            "fuzziness": 3
+        },
+        {
+            "title": "Alfa, rev. linguíst. (São José do Rio Preto)",
+            "fuzziness": 3
+        },
+        {
+            "title": "Alfa Rev Linguist",
+            "fuzziness": 3
+        },
+        {
+            "title": "Alfa: Revista de Linguística (São José do Rio Preto)",
+            "fuzziness": 3
+        },
+        {
+            "title": "Alfa",
+            "fuzziness": 0
+        }
+    ]
+}

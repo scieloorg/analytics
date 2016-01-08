@@ -1,0 +1,50 @@
+{
+    "should": [
+        {
+            "title": "Economia Aplicada",
+            "fuzziness": 3
+        },
+        {
+            "title": "Econ. Aplic.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Econ. Apl.",
+            "fuzziness": 3
+        }
+    ],
+    "must_not": [ 
+        "Ecol. Appl.",
+        "Ecol. Appl",
+        "Ecología Aplicada",
+        "Ecol Appl",
+        "Ecol Appl.",
+        "Ecol Apl.",
+        "Ecologia aplicada",
+        "Ecol. Apl",
+        "Ecol. App.",
+        "Ecol Apl",
+        "Ecol. App",
+        "Ecologia Aplicada",
+        "Ecologia Aplicada,",
+        "Ecol App",
+        "Ecol. App",
+        "Ecol appl",
+        "Ecol Api",
+        "Ecol. apli.",
+        "Ecologia Aplicada,",
+        "Ecologia Aplicada.",
+        "Ecologia aplicada.",
+        "Econ Adm",
+        "Econ. Bol",
+        "ecol.appl.",
+        "Ecol. Applic.",
+        "Ecol. Applic",
+        "Ecol Applic",
+        "Ecol. Aplic",
+        "Ecol. Aplic.",
+        "Ecol Applic.",
+        "Ecol.apl",
+        "Ergonomía Aplicada"
+    ]
+}

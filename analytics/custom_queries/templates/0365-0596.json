@@ -1,0 +1,32 @@
+{
+    "should": [
+        {
+            "title": "Anais brasileiros de dermatologia, Rio de Janeiro",
+            "fuzziness": 3
+        },
+        {
+            "title": " Anais Brasileiros de Dermatologia",
+            "fuzziness": 3
+        },
+        {
+            "title": "Anais Bras Dermatol",
+            "fuzziness": 3
+        },
+        {
+            "title": "Anais Brasileiros Dermatologia",
+            "fuzziness": 3
+        },
+        {
+            "title": "An Bras Dermatol Rio de Janeiro",
+            "fuzziness": 3
+        },
+        {
+            "title": "An Bras Derm",
+            "fuzziness": 3
+        },
+        {
+            "title": "Anais Bras Derm",
+            "fuzziness": 3
+        }
+    ]
+}

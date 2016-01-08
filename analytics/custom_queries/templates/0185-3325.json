@@ -1,0 +1,10 @@
+{
+    "must_not": [
+        "Salud Dental",
+        "Salud. Mex",
+        "Saúde Mental",
+        "Saúde mental",
+        "Saúde Ment",
+        "Sau Mental."
+    ]
+}

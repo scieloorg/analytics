@@ -1,0 +1,32 @@
+{
+    "should": [
+        {
+            "title": "Arch Bras Oftalmol",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq Bras Oftal",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arquivos Brasileiros de Oftalmologia",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq. Bras. Oftalmol.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq Bras Oftalm",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq Bras Oftalmologia",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arquivos Brasileiros Oftalmologia",
+            "fuzziness": 3
+        }
+    ]
+}

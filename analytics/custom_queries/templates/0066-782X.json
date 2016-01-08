@@ -1,0 +1,35 @@
+{
+    "should": [
+        {
+            "title": "Arch Bras Cardiol",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arquivos Brasileiros Cardiologia",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq Bras Card",
+            "fuzziness": 3
+        },
+        {
+            "title": "Braz Arch Cardiol",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arquivos Brasileiros de Cardiologia",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq. Bras. Cardiol.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq. Bras. Cardiologia",
+            "fuzziness": 3
+        }
+    ],
+    "must_not": [
+        "Arq Bras Cir."
+    ]
+}

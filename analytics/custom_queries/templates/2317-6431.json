@@ -1,0 +1,16 @@
+{
+    "should": [
+        {
+            "title": "Audiology",
+            "fuzziness": 0
+        },
+        {
+            "title": "Audiol., Commun. Res.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Audiology - Communication Research",
+            "fuzziness": 3
+        }
+    ]
+}

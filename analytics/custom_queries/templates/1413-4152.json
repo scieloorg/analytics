@@ -1,0 +1,20 @@
+{
+    "should": [
+        {
+            "title": "Engenharia Sanitaria e Ambiental",
+            "fuzziness": 3
+        },
+        {
+            "title": "Eng. Sanit. Ambient.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista de Engenharia Sanitaria e Ambiental",
+            "fuzziness": 3
+        },
+        {
+            "title": "Rev Eng Sanit Ambient",
+            "fuzziness": 3
+        }
+    ]
+}

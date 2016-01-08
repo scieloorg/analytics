@@ -1,0 +1,11 @@
+{
+    "should": [
+        {
+            "title": "Educação em Revista",
+            "fuzziness": 3
+        }
+    ],
+    "must_not": [
+        "Educ Res"
+    ]
+}

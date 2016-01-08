@@ -1,0 +1,17 @@
+{
+    "should": [
+        {
+            "title": "Alea",
+            "fuzziness": 0
+        },
+        {
+            "title": "Alea: Estudos Neolatinos",
+            "fuzziness": 3
+        },
+        {
+            "title": "Alea: Est Neolat",
+            "fuzziness": 3
+        }
+
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "should": [
+        {
+            "title": "Latin American Journal of Solids and Structures",
+            "fuzziness": 3
+        },
+        {
+            "title": "Latin American Journal of Solids Structures",
+            "fuzziness": 3
+        },
+        {
+            "title": "Lat. Am. j. solids struct.",
+            "fuzziness": 3
+        }
+    ]
+}

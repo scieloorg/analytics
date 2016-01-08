@@ -1,0 +1,24 @@
+{
+    "should": [
+        {
+            "title": "Arquivos Internacionais de Otorrinolaringologia",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq Int Otorrinol",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq Int Otorrinolaringol",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arquivos Int Otorrinolaringologia",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arquivos Int. Otorrinolaringol.",
+            "fuzziness": 3
+        }
+    ]
+}

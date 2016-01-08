@@ -283,6 +283,34 @@ class ChartsConfig(object):
 
         return {'options': chart}
 
+    def publication_article_licenses_by_publication_year(self, data):
+
+        # name = {'citable_documents': self._(u'Documentos citáveis'), 'not_citable_documents': self._(u'Documentos não citáveis')}
+
+        # for i, serie in enumerate(data['series']):
+        #     data['series'][i]['name'] = name[serie['name']]
+
+        chart = self.highchart
+        chart['chart']['type'] = 'line'
+        chart['title'] = {'text': self._(u'Distribuição de licenças de uso por ano de publicação')}
+        chart['xAxis'] = {
+            'categories': data['categories'],
+            'title': {'text': None}
+            }
+        chart['rangeSelector'] = {'enabled': False}
+        chart['legend'] = {'enabled': True}
+        chart['series'] = data['series']
+        chart['yAxis']['title'] = {'text': self._(u'Número de documentos') }
+        chart['tooltip'] = {
+            'shared': True,
+            'useHTML': True,
+            'headerFormat': self._(u'Ano de publicação') + ' <strong>{point.x:%Y}</strong><table>',
+            'pointFormat': u'<tr><td><span style="color:{point.color}">\u25CF</span> {series.name}: </td><td style="text-align: right"><strong>{point.y}</strong></td><td style="text-align: right">&nbsp;({point.percentage:.2f}%)</td></tr>',
+            'footerFormat': '</table>'
+        }
+
+        return {'options': chart}
+
     def publication_article_licenses(self, data):
 
         chart = self.highchart
@@ -372,12 +400,13 @@ class ChartsConfig(object):
             'categories': data['categories'],
             'labels': {'format': '{value.label}'}
         }
+        chart['rangeSelector'] = {'enabled': False}
         chart['series'] = data['series']
         chart['yAxis']['title'] = {'text': self._(u'Acessos') }
         chart['tooltip'] = {
             'shared': True,
             'useHTML': True,
-            'headerFormat': self._(u'Acessos em') + ' <strong>{point.key.name}</strong><table style="width: 100%; border-top: 1px solid #CCC;">',
+            'headerFormat': self._(u'Acessos em') + ' <strong>{point.x:%m %Y}</strong><table style="width: 100%; border-top: 1px solid #CCC;">',
             'pointFormat': u'<tr><td><span style="color:{point.color}">\u25CF</span> {series.name}: </td><td style="text-align: right"><strong>{point.y}</strong></td></tr>',
             'footerFormat': '</table>'
         }

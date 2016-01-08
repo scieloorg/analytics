@@ -1,0 +1,39 @@
+{
+    "should": [
+        {
+            "title": "Cad. Saúde Pública",
+            "fuzziness": 3
+        },
+        {
+            "title": "Cadernos de Saúde Pública",
+            "fuzziness": 3
+        },
+        {
+            "title": "Cad Saude Publ",
+            "fuzziness": 3
+        },
+        {
+            "title": "Caderno Saúde Pública",
+            "fuzziness": 3
+        },
+        {
+            "title": "Reports in Public Health",
+            "fuzziness": 3
+        },
+        {
+            "title": "Cader. Saúde Públ.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Cad S Pub",
+            "fuzziness": 3
+        },
+        {
+            "title": "Rep Pub Health",
+            "fuzziness": 3
+        }
+    ],
+    "must_not": [
+        "Cad. IPUB"
+    ]
+}

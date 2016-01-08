@@ -1,0 +1,76 @@
+{
+    "should": [
+        {
+            "title": "An acad bras ci",
+            "fuzziness": 3
+        },
+        {
+            "title": "Anais da acad braz cienc",
+            "fuzziness": 3
+        },
+        {
+            "title": "An acad bras Sci",
+            "fuzziness": 3
+        },
+        {
+            "title": "anais acad bras ci",
+            "fuzziness": 3
+        },
+        {
+            "title": "Anais Acad Bras Cienc",
+            "fuzziness": 3
+        },
+        {
+            "title": "Anais da Academia Brasileira de Ciências",
+            "fuzziness": 3
+        },
+        {
+            "title": "Anais da Academia Brasileira de Ciências Rio de Janeiro",
+            "fuzziness": 3
+        },
+        {
+            "title": "An. Acad. Bras. Ciênc.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Anais Academia Brasileira de Ciências",
+            "fuzziness": 3
+        },
+        {
+            "title": "anais acad bras sci",
+            "fuzziness": 3
+        },
+        {
+            "title": "An Acad Bras Cienc RJ",
+            "fuzziness": 3
+        },
+        {
+            "title": "Anais Acad Bras Cienc RJ",
+            "fuzziness": 3
+        },
+        {
+            "title": "Anais Acad Bras Ci RJ",
+            "fuzziness": 3
+        },
+        {
+            "title": "Anales da Academia Brasileira de Ciencias",
+            "fuzziness": 3
+        },
+        {
+            "title": "Annals da Academia Brasileira de Ciencias",
+            "fuzziness": 3
+        },
+        {
+            "title": "Annals of the Brazilian Academy of Sciences",
+            "fuzziness": 3
+        },
+        {
+            "title": "Ann Braz Acad Sci",
+            "fuzziness": 3
+        },
+        {
+            "title": "Annaes da Academia Brasileira de Sciencias",
+            "fuzziness": 3
+        }
+    ]
+}

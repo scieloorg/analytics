@@ -1,0 +1,40 @@
+{
+    "should": [
+        {
+            "title": "Revista Psiquiatria Clínica",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista de Psiquiatria Clínica",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arch Clin Psy",
+            "fuzziness": 3
+        },
+        {
+            "title": "Archives of Clinical Psychiatry",
+            "fuzziness": 3
+        },
+        {
+            "title": "Archives of Clinical Psychiatry (São Paulo)",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arch Clin Psychiatry",
+            "fuzziness": 3
+        },
+        {
+            "title": "Rev. Psiquiatr Clin",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arch. Clin. Psychiatry (São Paulo)",
+            "fuzziness": 3
+        },
+        {
+            "title": "Rev. Psiq Clin",
+            "fuzziness": 3
+        }
+    ]
+}

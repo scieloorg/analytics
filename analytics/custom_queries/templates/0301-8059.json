@@ -1,0 +1,36 @@
+{
+    "should": [
+        {
+            "title": "An soc ent bras",
+            "fuzziness": 3
+        },
+        {
+            "title": "Anais da Sociedade Entomológica do Brasil",
+            "fuzziness": 3
+        },
+        {
+            "title": "An. Soc. Entomol. Bras.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Sociedade Entomológica do Brasil",
+            "fuzziness": 3
+        },
+        {
+            "title": "Soc Entomol Bras",
+            "fuzziness": 3
+        },
+        {
+            "title": "An. Soc. Entomol. Brasil.",
+            "fuzziness": 3
+        },
+        {
+            "title": "An. Soc. Entomol",
+            "fuzziness": 3
+        },
+        {
+            "title": "Anais da Sociedade Entomológica",
+            "fuzziness": 3
+        }
+    ]
+}

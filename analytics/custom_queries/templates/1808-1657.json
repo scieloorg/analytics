@@ -1,0 +1,36 @@
+{
+    "should": [
+        {
+            "title": "Arquivos do Instituto Biológico",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq Instituto Biol",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arch. Inst. Biol",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq Inst Biológico",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arquivos Instituto Biológico",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq Inst Biol",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq. Inst. Biol.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Arq Instituto Biológico",
+            "fuzziness": 3
+        }
+    ]
+}
