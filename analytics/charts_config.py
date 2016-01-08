@@ -297,13 +297,14 @@ class ChartsConfig(object):
             'categories': data['categories'],
             'title': {'text': None}
             }
+        chart['rangeSelector'] = {'enabled': False}
         chart['legend'] = {'enabled': True}
         chart['series'] = data['series']
         chart['yAxis']['title'] = {'text': self._(u'Número de documentos') }
         chart['tooltip'] = {
             'shared': True,
             'useHTML': True,
-            'headerFormat': self._(u'Ano de publicação') + ' <strong>{point.key}</strong><table>',
+            'headerFormat': self._(u'Ano de publicação') + ' <strong>{point.x:%Y}</strong><table>',
             'pointFormat': u'<tr><td><span style="color:{point.color}">\u25CF</span> {series.name}: </td><td style="text-align: right"><strong>{point.y}</strong></td><td style="text-align: right">&nbsp;({point.percentage:.2f}%)</td></tr>',
             'footerFormat': '</table>'
         }
@@ -399,12 +400,13 @@ class ChartsConfig(object):
             'categories': data['categories'],
             'labels': {'format': '{value.label}'}
         }
+        chart['rangeSelector'] = {'enabled': False}
         chart['series'] = data['series']
         chart['yAxis']['title'] = {'text': self._(u'Acessos') }
         chart['tooltip'] = {
             'shared': True,
             'useHTML': True,
-            'headerFormat': self._(u'Acessos em') + ' <strong>{point.key.name}</strong><table style="width: 100%; border-top: 1px solid #CCC;">',
+            'headerFormat': self._(u'Acessos em') + ' <strong>{point.x:%m %Y}</strong><table style="width: 100%; border-top: 1px solid #CCC;">',
             'pointFormat': u'<tr><td><span style="color:{point.color}">\u25CF</span> {series.name}: </td><td style="text-align: right"><strong>{point.y}</strong></td></tr>',
             'footerFormat': '</table>'
         }

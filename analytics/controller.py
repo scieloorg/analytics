@@ -3,6 +3,7 @@ import logging
 import sys
 import json
 from datetime import datetime, timedelta
+from time import mktime
 
 from pyramid.settings import aslist
 from thrift_clients import clients
@@ -965,10 +966,10 @@ class PublicationStats(clients.PublicationStats):
 
         categories = []
         for year, licenses in sorted(data.items()):
-            categories.append(year)
             amount = float(sum([count for liv, count in licenses.items()]))
             for serie in series:
                 serie["data"].append({
+                    'x': mktime(datetime(int(year) , 1, 1).utctimetuple()) * 1000,
                     'y': licenses[serie['name']],
                     'percentage': (licenses[serie['name']]/amount) * 100
                 })
@@ -1651,11 +1652,11 @@ class AccessStats(clients.AccessStats):
         abstract = {'name': 'abstract', 'data': []}
         epdf = {'name': 'epdf', 'data': []}
         for bucket in query_result['aggregations']['access_date']['buckets']:
-            categories.append(bucket['key_as_string'][0:7])
-            html['data'].append(int(bucket['access_html']['value']))
-            pdf['data'].append(int(bucket['access_pdf']['value']))
-            abstract['data'].append(int(bucket['access_abstract']['value']))
-            epdf['data'].append(int(bucket['access_epdf']['value']))
+            month_year = mktime(datetime(int(bucket['key_as_string'][0:4]) , int(bucket['key_as_string'][5:7]), 1).utctimetuple()) * 1000
+            html['data'].append({'x': month_year, 'y':int(bucket['access_html']['value'])})
+            pdf['data'].append({'x': month_year, 'y':int(bucket['access_pdf']['value'])})
+            abstract['data'].append({'x': month_year, 'y':int(bucket['access_abstract']['value'])})
+            epdf['data'].append({'x': month_year, 'y':int(bucket['access_epdf']['value'])})
 
         series.append(html)
         series.append(pdf)
