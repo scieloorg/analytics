@@ -31,6 +31,7 @@ def main(global_config, **settings):
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('index_web', '/')
     config.add_route('faq_web', '/w/faq')
+    config.add_route('downloads', '/w/downloads')
     config.add_route('accesses_web', '/w/accesses')
     config.add_route('accesses_list_journals_web', '/w/accesses/list/journals')
     config.add_route('accesses_list_issues_web', '/w/accesses/list/issues')

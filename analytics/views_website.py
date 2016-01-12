@@ -1,3 +1,5 @@
+import requests
+
 from pyramid.view import view_config
 from pyramid.response import Response
 from pyramid.settings import aslist
@@ -272,6 +274,34 @@ def faq(request):
 
     return data
 
+@view_config(route_name='downloads', renderer='templates/website/downloads.mako')
+@base_data_manager
+def downloads(request):
+    from decimal import Decimal
+
+    data = request.data_manager
+    data['page'] = 'downloads'
+
+    data['tabs'] = []
+
+    for collection in data['collections']:
+        coll_code = 'bra' if collection == 'scl' else collection
+        tabsfilename = 'tabs_%s.zip' % coll_code
+        tabsurl = 'http://static.scielo.org/tabs/%s' % tabsfilename
+        rd = requests.head(tabsurl)
+        rd = rd.headers
+        contentlength = Decimal(rd.get('content-length', 0))/Decimal(1024000)
+        lastmodified = rd.get('last-modified', 'undefined')
+        data['tabs'].append({
+            'collection': data['collections'][collection],
+            'tabsurl': tabsurl,
+            'tabsfilename': tabsfilename,
+            'contentlength': contentlength,
+            'lastmodified': lastmodified,
+            'is_available': True if contentlength > Decimal(0.001) else False
+        })
+
+    return data
 
 @view_config(route_name='accesses_list_journals_web', renderer='templates/website/access_list_journals.mako')
 @base_data_manager

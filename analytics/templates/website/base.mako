@@ -98,6 +98,9 @@
                 </ul>
               </li>
             % endif
+            <li class="${'active' if page == 'downloads' else ''}">
+              <a href="${request.route_url('downloads')}">${_(u'Downloads')}</a>
+            </li>
             <li class="${'active' if page == 'faq' else ''}">
               <a href="${request.route_url('faq_web')}">FAQ</a>
             </li>
