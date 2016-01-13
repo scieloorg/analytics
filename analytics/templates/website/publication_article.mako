@@ -12,6 +12,10 @@
     <%include file="publication_article_subject_areas.mako"/>
   </div>
   <div class="chart">
+    <%include file="publication_article_subject_areas_publication_year.mako"/>
+  </div>
+
+  <div class="chart">
     <%include file="publication_article_document_type.mako"/>
   </div>
   <div class="chart">
