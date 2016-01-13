@@ -963,15 +963,15 @@ class PublicationStats(clients.PublicationStats):
                 x[subject_area['key']] = subject_area['doc_count']
 
         series = []
-        for lic in sorted(available_subject_areas):
+        for item in sorted(available_subject_areas):
             series.append({
-                'name': lic,
+                'name': item,
                 'data': []
             })
 
         navigator_series = []
         for year, subject_areas in sorted(data.items()):
-            amount = float(sum([count for lic, count in subject_areas.items()]))
+            amount = float(sum([count for item, count in subject_areas.items()]))
             navigator_series.append([utils.mktime(int(year)), amount])
             for serie in series:
                 serie["data"].append({
@@ -1053,15 +1053,15 @@ class PublicationStats(clients.PublicationStats):
                 x[language['key']] = language['doc_count']
 
         series = []
-        for lic in sorted(available_languages):
+        for item in sorted(available_languages):
             series.append({
-                'name': lic,
+                'name': item,
                 'data': []
             })
 
         navigator_series = []
         for year, languages in sorted(data.items()):
-            amount = float(sum([count for lic, count in languages.items()]))
+            amount = float(sum([count for item, count in languages.items()]))
             navigator_series.append([utils.mktime(int(year)), amount])
             for serie in series:
                 serie["data"].append({
@@ -1143,15 +1143,15 @@ class PublicationStats(clients.PublicationStats):
                 x[license['key']] = license['doc_count']
 
         series = []
-        for lic in sorted(available_licenses):
+        for item in sorted(available_licenses):
             series.append({
-                'name': lic,
+                'name': item,
                 'data': []
             })
 
         navigator_series = []
         for year, licenses in sorted(data.items()):
-            amount = float(sum([count for lic, count in licenses.items()]))
+            amount = float(sum([count for item, count in licenses.items()]))
             navigator_series.append([utils.mktime(int(year)), amount])
             for serie in series:
                 serie["data"].append({
