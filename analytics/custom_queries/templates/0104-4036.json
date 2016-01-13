@@ -1,0 +1,28 @@
+{
+    "should": [
+        {
+            "title": "Ensaio: Avaliação e Políticas Públicas em Educação",
+            "fuzziness": 3
+        },
+        {
+            "title": "Ensaio: aval.pol.públ.Educ.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Ensaio aval pol public educ",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista Ensaio: Avaliação e Políticas Públicas em Educação",
+            "fuzziness": 3
+        },
+        {
+            "title": "Ensaio: avaliação e políticas públicas em educação: revista da Fundação Cesgranrio",
+            "fuzziness": 3
+        },
+        {
+            "title": "Ensaio",
+            "fuzziness": 0
+        }
+    ]
+}

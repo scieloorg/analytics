@@ -1,0 +1,16 @@
+{
+    "should": [
+        {
+            "title": "Estudos Econômicos (São Paulo)",
+            "fuzziness": 3
+        },
+        {
+            "title": "Estud. Econ.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Estudos Econômicos",
+            "fuzziness": 3
+        }
+    ]
+}

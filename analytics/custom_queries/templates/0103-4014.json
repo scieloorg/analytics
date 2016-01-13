@@ -1,0 +1,16 @@
+{
+    "should": [
+        {
+            "title": "Estudos Avançados",
+            "fuzziness": 3
+        },
+        {
+            "title": "Estud. av.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista Estudos Avançados",
+            "fuzziness": 3
+        }
+    ]
+}

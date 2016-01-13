@@ -1,0 +1,16 @@
+{
+    "should": [
+        {
+            "title": "Fisioterapia em Movimento",
+            "fuzziness": 3
+        },
+        {
+            "title": "Fisioter. mov.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista Fisioterapia em Movimento",
+            "fuzziness": 3
+        }
+    ]
+}

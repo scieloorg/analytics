@@ -1,0 +1,16 @@
+{
+    "should": [
+        {
+            "title": "Fisioterapia e Pesquisa",
+            "fuzziness": 3
+        },
+        {
+            "title": "Fisioter. Pesqui.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista Fisioterapia e Pesquisa",
+            "fuzziness": 3
+        }
+    ]
+}
