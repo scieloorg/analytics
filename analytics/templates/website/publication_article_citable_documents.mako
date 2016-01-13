@@ -25,7 +25,7 @@
         var url =  "${request.route_url('publication_article_citable_documents')}?code=${selected_code}&collection=${selected_collection_code}&callback=?";
 
         $.getJSON(url,  function(data) {
-            $('#citabledocuments').highcharts(data['options']);
+            $('#citabledocuments').highcharts('StockChart', data['options']);
             $("#loading_citabledocuments").hide();
         });
     });

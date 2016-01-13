@@ -4,6 +4,7 @@ import weakref
 import re
 import unicodedata
 import hashlib
+from datetime import datetime
 
 try:
     from ConfigParser import SafeConfigParser
@@ -48,6 +49,13 @@ def clean_string(text):
     cleaned_str = u''.join(x for x in nfd_form if unicodedata.category(x)[0] == 'L' or x == ' ')
 
     return cleaned_str.lower().strip()
+
+def mktime(year=1970, month=1, day=1):
+
+    epoch = datetime(1970, 1, 1)
+    diff = datetime(year, month, day) - epoch
+
+    return diff.total_seconds() * 1000
 
 
 class SingletonMixin(object):

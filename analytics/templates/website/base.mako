@@ -161,7 +161,7 @@
     <%include file="journal_selector_modal.mako"/>
     <script src="/static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
     <script src="/static/moment/moment.min.js"></script>
-    <script src="/static/highcharts/highcharts.min.js"></script>
+    <script src="/static/highcharts/highstock.js"></script>
     <script src="/static/highcharts/plugins/export-csv-master/export-csv.js"></script>
     <script src="/static/daterangepicker/daterangepicker.js"></script>
     <script src="/static/jquery-1.11.1/plugins/jquery.number.min.js"></script>
@@ -170,7 +170,12 @@
     <script type="text/javascript">
       Highcharts.setOptions({
         colors: ['#3366CC', '#DC3912', '#FF9900', '#109618', '#990099', '#0099C6', '#DD4477', '#66AA00', '#B82E2E', '#316395', '#22AA99', '#AAAA11', '#6633CC', '#E67300', '#8B0707', '#651067'],
-        lang: {decimalPoint: '.', thousandsSep: ','}
+        lang: {
+          decimalPoint: '.', 
+          thousandsSep: ',',
+          months: ['${_(u'Janeiro')}', '${_(u'Fevereiro')}', '${_(u'Março')}', '${_(u'Abril')}', '${_(u'Maio')}', '${_(u'Junho')}', '${_(u'Julho')}', '${_(u'Agosto')}', '${_(u'Setembro')}', '${_(u'Outubro')}', '${_(u'Novembro')}', '${_(u'Dezembro')}'],
+          shortMonths: ['${_(u'Jan')}','${_(u'Fev')}','${_(u'Mar')}','${_(u'Abr')}','${_(u'Mai')}','${_(u'Jun')}','${_(u'Jul')}','${_(u'Ago')}','${_(u'Set')}','${_(u'Out')}','${_(u'Nov')}','${_(u'Dez')}']
+        }
       });
     </script>
     <script>
