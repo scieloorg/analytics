@@ -14,7 +14,7 @@
         <h3 class="panel-title">${_(u'Sobre o gráfico')}</h3>
       </div>
       <div class="panel-body">
-        ${_(u'Este gráfico apresenta o total de documentos por idioma de publicação. Os números são relacionados a coleção ou ao periódico quando um periódico é selecionado. Os valores totais de documentos deste gráfico não podem ser considerados como totais da coleção uma vez que um documento pode ser publicado em mais de um idioma.')}
+        ${_(u'Este gráfico apresenta o total de documentos por idioma de publicação. Os números são relacionados a coleção ou ao periódico quando um periódico é selecionado. Os valores totais de documentos deste gráfico não podem ser considerados como totais de publicações da coleção uma vez que um documento pode ser publicado em mais de um idioma.')}
       </div>
     </div>
   </div>

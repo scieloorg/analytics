@@ -18,6 +18,9 @@
     <%include file="publication_article_languages.mako"/>
   </div>
   <div class="chart">
+    <%include file="publication_article_languages_publication_year.mako"/>
+  </div>
+  <div class="chart">
     <%include file="publication_article_year.mako"/>
   </div>
   <div class="chart">
