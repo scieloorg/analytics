@@ -67,6 +67,7 @@ class ChartsConfig(object):
         chart['legend'] = {'enabled': True}
         chart['series'] = data['series']
         chart['yAxis']['title'] = {'text': self._(u'Número de citações') }
+        chart['yAxis']['opposite'] = False
         chart['tooltip'] = {
             'shared': True,
             'useHTML': True,
@@ -87,10 +88,7 @@ class ChartsConfig(object):
         chart = self.highchart
         chart['chart']['type'] = 'area'
         chart['title'] = {'text': self._(u'Distribuição de documentos citáveis e não citáveis')}
-        chart['xAxis'] = {
-                'min': 0 if len(data['navigator_series']) < 10 else data['navigator_series'][-10][0],
-                'title': {'text': None}
-            }
+        chart['xAxis'] = {'title': {'text': self._(u'Ano de publicação')}}
         chart['legend'] = {'enabled': True}
         chart['series'] = data['series']
         chart['navigator'] = {
@@ -99,6 +97,7 @@ class ChartsConfig(object):
                 }
             }
         chart['yAxis']['title'] = {'text': self._(u'Número de documentos') }
+        chart['yAxis']['opposite'] = False
         chart['rangeSelector'] = {'enabled': False}
         chart['tooltip'] = {
             'shared': True,
@@ -176,13 +175,11 @@ class ChartsConfig(object):
         chart = self.highchart
         chart['chart']['type'] = 'column'
         chart['title'] = {'text': self._(u'Distribuição de ano de publicação dos documentos')}
-        chart['xAxis'] = {
-            'min': 0 if len(data['series'][0]['data']) < 10 else data['series'][0]['data'][-10][0],
-            'title': {'text': self._(u'Ano de publicação')}
-            }
+        chart['xAxis'] = {'title': {'text': self._(u'Ano de publicação')}}
         chart['legend'] = {'enabled': False}
         chart['series'] = data['series']
         chart['yAxis']['title'] = {'text': self._(u'Número de documentos') }
+        chart['yAxis']['opposite'] = False
         chart['rangeSelector'] = {'enabled': False}
         chart['tooltip'] = {
             'headerFormat': '',
@@ -236,13 +233,11 @@ class ChartsConfig(object):
         chart = self.highchart
         chart['chart']['type'] = 'column'
         chart['title'] = {'text': self._(u'Distribuição de periódicos por ano de inclusão no SciELO')}
-        chart['xAxis'] = {
-            'min': 0 if len(data['series'][0]['data']) < 10 else data['series'][0]['data'][-10][0],
-            'title': {'text': self._(u'Ano de inclusão')}
-            }
+        chart['xAxis'] = {'title': {'text': self._(u'Ano de inclusão')}}
         chart['legend'] = {'enabled': False}
         chart['series'] = data['series']
         chart['yAxis']['title'] = {'text': self._(u'Número de periódicos') }
+        chart['yAxis']['opposite'] = False
         chart['rangeSelector'] = {'enabled': False}
         chart['tooltip'] = {
             'headerFormat': '',
@@ -304,10 +299,8 @@ class ChartsConfig(object):
                 }
             }
         chart['yAxis']['title'] = {'text': self._(u'Número de documentos') }
-        chart['xAxis'] = {
-            'title': {'text': None},
-            'min': 0 if len(data['navigator_series']) < 10 else data['navigator_series'][-10][0]
-        }
+        chart['yAxis']['opposite'] = False
+        chart['xAxis'] = {'title': {'text': self._(u'Ano de publicação')}}
         chart['plotOptions'] = {
             'column': {'stacking': 'normal'}
         }
@@ -392,10 +385,9 @@ class ChartsConfig(object):
                     'data': data['navigator_series']
                 }
             }
+        chart['legend'] = {'enabled': True}
         chart['yAxis']['title'] = {'text': self._(u'Acessos') }
-        chart['xAxis'] = { 
-                'min': 0 if len(data['navigator_series']) < 12 else data['navigator_series'][-12][0]
-            }
+        chart['yAxis']['opposite'] = False
         chart['rangeSelector'] = {'enabled': False}
         chart['tooltip'] = {
             'shared': True,
@@ -427,13 +419,12 @@ class ChartsConfig(object):
             chart = self.highchart
             chart['chart']['type'] = 'column'
             chart['legend'] = {'enabled': False}
-            chart['title'] = {'text': self._(u'Vida útil de artigos por número de acessos em ') + item['series'][0]['name']}
+            chart['title'] = {'text': self._(u'Vida útil de artigos por número de acessos em')+ ' ' + item['series'][0]['name']}
             chart['series'] = item['series']
-            chart['yAxis']['title'] = {'text': self._(u'Acessos') + item['series'][0]['name'] }
+            chart['yAxis']['title'] = {'text': self._(u'Acessos') + u' ' + item['series'][0]['name'] }
+            chart['yAxis']['opposite'] = False
             chart['rangeSelector'] = {'enabled': False}
-            chart['xAxis'] = { 
-                'min': 0 if len(item['series'][0]['data']) < 10 else item['series'][0]['data'][-10][0]
-            }
+            chart['xAxis'] = {'title': {'text': self._(u'Ano de publicação')}}
             chart['tooltip'] = {
                 'shared': True,
                 'headerFormat': '',
