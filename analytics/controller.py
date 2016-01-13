@@ -3,7 +3,6 @@ import logging
 import sys
 import json
 from datetime import datetime, timedelta
-from time import mktime
 
 from pyramid.settings import aslist
 from thrift_clients import clients
@@ -707,7 +706,10 @@ class PublicationStats(clients.PublicationStats):
         documents = {'name': 'documents', 'data': []}
         for bucket in query_result['aggregations'][field]['buckets']:
             categories.append(bucket['key'])
-            documents['data'].append(int(bucket['doc_count']))
+            if field in ['publication_year', 'included_at_year']:
+                documents['data'].append([utils.mktime(int(bucket['key'])), int(bucket['doc_count'])])
+            else:
+                documents['data'].append(int(bucket['doc_count']))
 
         series.append(documents)
 
@@ -830,6 +832,7 @@ class PublicationStats(clients.PublicationStats):
         return query_result if raw else computed
 
     def _compute_citable_documents(self, query_result):
+
         series = [
             {
                 'name': 'citable_documents',
@@ -841,21 +844,24 @@ class PublicationStats(clients.PublicationStats):
             }
         ]
 
-        categories = []
+        navigator_series = []
 
         for bucket in query_result['aggregations']['publication_year']['buckets'][::-1]:
-            categories.append(bucket['key'])
             amount = float(bucket['citable_documents']['doc_count']) + float(bucket['not_citable_documents']['doc_count'])
+            year = utils.mktime(int(bucket['key']))
+            navigator_series.append([year, amount])
             series[0]["data"].append({
+                'x': year,
                 'y': bucket['citable_documents']['doc_count'],
                 'percentage': (bucket['citable_documents']['doc_count']/amount) * 100
                 })
             series[1]["data"].append({
+                'x': year,
                 'y': bucket['not_citable_documents']['doc_count'],
                 'percentage': (bucket['not_citable_documents']['doc_count']/amount) * 100
                 })
 
-        return {"series": series, "categories": categories}
+        return {"series": series, "navigator_series": navigator_series}
 
     @cache_region.cache_on_arguments()
     def citable_documents(self, code, collection, raw=False):
@@ -964,17 +970,18 @@ class PublicationStats(clients.PublicationStats):
                 'data': []
             })
 
-        categories = []
+        navigator_series = []
         for year, licenses in sorted(data.items()):
-            amount = float(sum([count for liv, count in licenses.items()]))
+            amount = float(sum([count for lic, count in licenses.items()]))
+            navigator_series.append([utils.mktime(int(year)), amount])
             for serie in series:
                 serie["data"].append({
-                    'x': mktime(datetime(int(year) , 1, 1).utctimetuple()) * 1000,
+                    'x': utils.mktime(int(year)),
                     'y': licenses[serie['name']],
                     'percentage': (licenses[serie['name']]/amount) * 100
                 })
 
-        return {"series": series, "categories": categories}
+        return {"series": series, "navigator_series": navigator_series}
 
     @cache_region.cache_on_arguments()
     def lincenses_by_publication_year(self, code, collection, raw=False):
@@ -995,7 +1002,7 @@ class PublicationStats(clients.PublicationStats):
                 "publication_year": {
                     "terms": {
                         "field": "publication_year",
-                        "size": 20,
+                        "size": 0,
                         "order": {
                             "_term": "desc"
                         }
@@ -1548,13 +1555,10 @@ class AccessStats(clients.AccessStats):
 
         for bucket_access_year in query_result['aggregations']['access_year']['buckets']:
             access_total = {'name': bucket_access_year['key'], 'data': []}
-            categories = []
             for bucket_access_total in bucket_access_year['publication_year']['buckets']:
-                access_total['data'].append(int(bucket_access_total['access_total']['value']))
-                categories.append(bucket_access_total['key'])
+                access_total['data'].append([utils.mktime(int(bucket_access_total['key'])), int(bucket_access_total['access_total']['value'])])
             
             charts.append({
-                'categories': categories,
                 'series': [access_total]
             })
 
@@ -1606,9 +1610,9 @@ class AccessStats(clients.AccessStats):
                         "publication_year": {
                             "terms": {
                                 "field": "publication_year",
-                                "size": 30,
+                                "size": 0,
                                 "order": {
-                                    "_term": "desc"
+                                    "_term": "asc"
                                 }
                             },
                             "aggs": {
@@ -1645,25 +1649,26 @@ class AccessStats(clients.AccessStats):
         return query_result if raw else computed
 
     def _compute_access_by_month_and_year(self, query_result):
-        categories = []
         series = []
+        navigator_series = []
         html = {'name': 'html', 'data': []}
         pdf = {'name': 'pdf', 'data': []}
         abstract = {'name': 'abstract', 'data': []}
         epdf = {'name': 'epdf', 'data': []}
         for bucket in query_result['aggregations']['access_date']['buckets']:
-            month_year = mktime(datetime(int(bucket['key_as_string'][0:4]) , int(bucket['key_as_string'][5:7]), 1).utctimetuple()) * 1000
-            html['data'].append({'x': month_year, 'y':int(bucket['access_html']['value'])})
-            pdf['data'].append({'x': month_year, 'y':int(bucket['access_pdf']['value'])})
-            abstract['data'].append({'x': month_year, 'y':int(bucket['access_abstract']['value'])})
-            epdf['data'].append({'x': month_year, 'y':int(bucket['access_epdf']['value'])})
+            amount = int(bucket['access_html']['value']) + int(bucket['access_pdf']['value']) + int(bucket['access_abstract']['value']) + int(bucket['access_epdf']['value'])
+            navigator_series.append([bucket['key'], amount])
+            html['data'].append([bucket['key'], int(bucket['access_html']['value'])])
+            pdf['data'].append([bucket['key'], int(bucket['access_pdf']['value'])])
+            abstract['data'].append([bucket['key'], int(bucket['access_abstract']['value'])])
+            epdf['data'].append([bucket['key'], int(bucket['access_epdf']['value'])])
 
         series.append(html)
         series.append(pdf)
         series.append(abstract)
         series.append(epdf)
 
-        return {'categories': categories, 'series': series}
+        return {'series': series, 'navigator_series': navigator_series}
 
     @cache_region.cache_on_arguments()
     def access_by_month_and_year(self, code, collection, date_range_start=None, date_range_end=None, raw=False):

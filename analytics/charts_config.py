@@ -88,12 +88,18 @@ class ChartsConfig(object):
         chart['chart']['type'] = 'area'
         chart['title'] = {'text': self._(u'Distribuição de documentos citáveis e não citáveis')}
         chart['xAxis'] = {
-            'categories': data['categories'],
-            'title': {'text': None}
+                'min': 0 if len(data['navigator_series']) < 10 else data['navigator_series'][-10][0],
+                'title': {'text': None}
             }
         chart['legend'] = {'enabled': True}
         chart['series'] = data['series']
+        chart['navigator'] = {
+                'series': {
+                    'data': data['navigator_series']
+                }
+            }
         chart['yAxis']['title'] = {'text': self._(u'Número de documentos') }
+        chart['rangeSelector'] = {'enabled': False}
         chart['tooltip'] = {
             'shared': True,
             'useHTML': True,
@@ -171,15 +177,16 @@ class ChartsConfig(object):
         chart['chart']['type'] = 'column'
         chart['title'] = {'text': self._(u'Distribuição de ano de publicação dos documentos')}
         chart['xAxis'] = {
-            'categories': data['categories'],
+            'min': 0 if len(data['series'][0]['data']) < 10 else data['series'][0]['data'][-10][0],
             'title': {'text': self._(u'Ano de publicação')}
             }
         chart['legend'] = {'enabled': False}
         chart['series'] = data['series']
         chart['yAxis']['title'] = {'text': self._(u'Número de documentos') }
+        chart['rangeSelector'] = {'enabled': False}
         chart['tooltip'] = {
             'headerFormat': '',
-            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'Ano de publicação') + ' <strong>{point.category}</strong><br>' + self._(u'Documentos') + ': <strong>{point.y}</strong>'
+            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'Ano de publicação') + ' <strong>{point.category:%Y}</strong><br>' + self._(u'Documentos') + ': <strong>{point.y}</strong>'
         }
 
         return {'options': chart}
@@ -230,15 +237,16 @@ class ChartsConfig(object):
         chart['chart']['type'] = 'column'
         chart['title'] = {'text': self._(u'Distribuição de periódicos por ano de inclusão no SciELO')}
         chart['xAxis'] = {
-            'categories': data['categories'],
+            'min': 0 if len(data['series'][0]['data']) < 10 else data['series'][0]['data'][-10][0],
             'title': {'text': self._(u'Ano de inclusão')}
             }
         chart['legend'] = {'enabled': False}
         chart['series'] = data['series']
         chart['yAxis']['title'] = {'text': self._(u'Número de periódicos') }
+        chart['rangeSelector'] = {'enabled': False}
         chart['tooltip'] = {
             'headerFormat': '',
-            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'Ano de inclusão') + ' <strong>{point.category}</strong><br>' + self._(u'Periódicos') + ': <strong>{point.y}</strong>'
+            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'Ano de inclusão') + ' <strong>{point.category:%Y}</strong><br>' + self._(u'Periódicos') + ': <strong>{point.y}</strong>'
         }
 
         return {'options': chart}
@@ -285,22 +293,25 @@ class ChartsConfig(object):
 
     def publication_article_licenses_by_publication_year(self, data):
 
-        # name = {'citable_documents': self._(u'Documentos citáveis'), 'not_citable_documents': self._(u'Documentos não citáveis')}
-
-        # for i, serie in enumerate(data['series']):
-        #     data['series'][i]['name'] = name[serie['name']]
-
         chart = self.highchart
-        chart['chart']['type'] = 'line'
+        chart['chart']['type'] = 'column'
         chart['title'] = {'text': self._(u'Distribuição de licenças de uso por ano de publicação')}
-        chart['xAxis'] = {
-            'categories': data['categories'],
-            'title': {'text': None}
-            }
-        chart['rangeSelector'] = {'enabled': False}
         chart['legend'] = {'enabled': True}
         chart['series'] = data['series']
+        chart['navigator'] = {
+                'series': {
+                    'data': data['navigator_series']
+                }
+            }
         chart['yAxis']['title'] = {'text': self._(u'Número de documentos') }
+        chart['xAxis'] = {
+            'title': {'text': None},
+            'min': 0 if len(data['navigator_series']) < 10 else data['navigator_series'][-10][0]
+        }
+        chart['plotOptions'] = {
+            'column': {'stacking': 'normal'}
+        }
+        chart['rangeSelector'] = {'enabled': False}
         chart['tooltip'] = {
             'shared': True,
             'useHTML': True,
@@ -373,40 +384,23 @@ class ChartsConfig(object):
 
     def bymonthandyear(self, data):
 
-        months = [
-            self._(u'janeiro'),
-            self._(u'fevereiro'),
-            self._(u'março'),
-            self._(u'abril'),
-            self._(u'maio'),
-            self._(u'junho'),
-            self._(u'julho'),
-            self._(u'agosto'),
-            self._(u'setembro'),
-            self._(u'outubro'),
-            self._(u'novembro'),
-            self._(u'dezembro')
-        ]
-
-        for i, category in enumerate(data['categories']):
-            year, month = category.split('-')
-            data['categories'][i] = {
-                'label': category,
-                'name': months[int(month) - 1] + ' ' + year
-            }
         chart = self.highchart
         chart['title'] = {'text': self._(u'Total de acessos por ano e mês')}
-        chart['xAxis'] = {
-            'categories': data['categories'],
-            'labels': {'format': '{value.label}'}
-        }
-        chart['rangeSelector'] = {'enabled': False}
         chart['series'] = data['series']
+        chart['navigator'] = {
+                'series': {
+                    'data': data['navigator_series']
+                }
+            }
         chart['yAxis']['title'] = {'text': self._(u'Acessos') }
+        chart['xAxis'] = { 
+                'min': 0 if len(data['navigator_series']) < 12 else data['navigator_series'][-12][0]
+            }
+        chart['rangeSelector'] = {'enabled': False}
         chart['tooltip'] = {
             'shared': True,
             'useHTML': True,
-            'headerFormat': self._(u'Acessos em') + ' <strong>{point.x:%m %Y}</strong><table style="width: 100%; border-top: 1px solid #CCC;">',
+            'headerFormat': self._(u'Acessos em') + ' <strong>{point.x:%B %Y}</strong><table style="width: 100%; border-top: 1px solid #CCC;">',
             'pointFormat': u'<tr><td><span style="color:{point.color}">\u25CF</span> {series.name}: </td><td style="text-align: right"><strong>{point.y}</strong></td></tr>',
             'footerFormat': '</table>'
         }
@@ -434,13 +428,16 @@ class ChartsConfig(object):
             chart['chart']['type'] = 'column'
             chart['legend'] = {'enabled': False}
             chart['title'] = {'text': self._(u'Vida útil de artigos por número de acessos em ') + item['series'][0]['name']}
-            chart['xAxis'] = {'categories': item['categories']}
             chart['series'] = item['series']
             chart['yAxis']['title'] = {'text': self._(u'Acessos') + item['series'][0]['name'] }
+            chart['rangeSelector'] = {'enabled': False}
+            chart['xAxis'] = { 
+                'min': 0 if len(item['series'][0]['data']) < 10 else item['series'][0]['data'][-10][0]
+            }
             chart['tooltip'] = {
                 'shared': True,
                 'headerFormat': '',
-                'pointFormat': u'<span style="color:{point.color}">\u25CF</span> '+ self._(u'Ano de referência') +' <strong>{series.name}</strong><br>' + self._(u'%s acessos aos documentos do ano %s' % ('<strong>{point.y}</strong>', '<strong>{point.category}</strong>'))
+                'pointFormat': u'<span style="color:{point.color}">\u25CF</span> '+ self._(u'Ano de referência') +' <strong>{series.name}</strong><br>' + self._(u'%s acessos aos documentos do ano %s' % ('<strong>{point.y}</strong>', '<strong>{point.category:%Y}</strong>'))
             }
             charts.append(chart)
 
