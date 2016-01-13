@@ -1,0 +1,20 @@
+{
+    "should": [
+        {
+            "title": "História, Ciências, Saúde-Manguinhos",
+            "fuzziness": 3
+        },
+        {
+            "title": "Hist. cienc. saude-Manguinhos",
+            "fuzziness": 3
+        },
+        {
+            "title": "História, Ciências, Saúde – Manguinhos",
+            "fuzziness": 3
+        },
+        {
+            "title": "manguinhos",
+            "fuzziness": 3
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "should": [
+        {
+            "title": "Food Science and Technology (Campinas)",
+            "fuzziness": 3
+        },
+        {
+            "title": "Food Sci. Technol (Campinas)",
+            "fuzziness": 3
+        },
+        {
+            "title": "Food Science and Technology",
+            "fuzziness": 0
+        },
+        {
+            "title": "Ciencia e Tecnologia dos Alimentos",
+            "fuzziness": 0
+        }
+    ]
+}
