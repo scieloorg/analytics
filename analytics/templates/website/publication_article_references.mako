@@ -1,7 +1,7 @@
 ## coding: utf-8
 <div class="row container-fluid">
   <div class="col-md-8">
-    <div id="article_references" style="width: 100%; height:400px;">
+    <div id="article_references" style="width:100%; height:400px;">
         <span id="loading_article_references">
             <img src="/static/images/loading.gif" />
             <h5>${_(u'loading')}</h5>

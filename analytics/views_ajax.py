@@ -70,6 +70,14 @@ class ViewsAjax(object):
 
         return self.request.chartsconfig.publication_article_affiliations(data)
 
+    @view_config(route_name='publication_article_affiliations_publication_year', request_method='GET', renderer='jsonp')
+    def publication_article_affiliations_publication_year(self):
+
+        code = self.request.GET.get('code', None)
+
+        data = self.request.stats.publication.affiliations_by_publication_year(code, self.collection)
+
+        return self.request.chartsconfig.publication_article_affiliations_by_publication_year(data)
 
     @view_config(route_name='publication_article_year', request_method='GET', renderer='jsonp')
     def publication_article_year(self):
