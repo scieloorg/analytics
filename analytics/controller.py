@@ -948,6 +948,96 @@ class PublicationStats(clients.PublicationStats):
 
         return query_result if raw else computed
 
+    def _compute_affiliations_by_publication_year(self, query_result):
+
+        available_affiliations = set()
+
+        for year in query_result['aggregations']['publication_year']['buckets']:
+            for affiliation in year['aff_countries']['buckets']:
+                available_affiliations.add(affiliation['key'])
+
+        data = {}
+        for year in query_result['aggregations']['publication_year']['buckets']:
+            x = data.setdefault(year['key'], {k:0 for k in available_affiliations})
+            for affiliation in year['aff_countries']['buckets']:
+                x[affiliation['key']] = affiliation['doc_count']
+
+        series = []
+        for item in sorted(available_affiliations):
+            series.append({
+                'name': item,
+                'data': []
+            })
+
+        navigator_series = []
+        for year, affiliations in sorted(data.items()):
+            amount = float(sum([count for item, count in affiliations.items()]))
+            navigator_series.append([utils.mktime(int(year)), amount])
+            for serie in series:
+                serie["data"].append({
+                    'x': utils.mktime(int(year)),
+                    'y': affiliations[serie['name']],
+                    'percentage': (affiliations[serie['name']]/amount) * 100
+                })
+
+        return {"series": series, "navigator_series": navigator_series}
+
+    @cache_region.cache_on_arguments()
+    def affiliations_by_publication_year(self, code, collection, raw=False):
+
+        body = {
+            "query": {
+                "bool": {
+                    "must": [{
+                            "match": {
+                                "collection": collection
+                            }
+                        }
+                    ]
+                }
+            },
+            "size": 0,
+            "aggs": {
+                "publication_year": {
+                    "terms": {
+                        "field": "publication_year",
+                        "size": 0,
+                        "order": {
+                            "_term": "desc"
+                        }
+                    },
+                    "aggs": {
+                        "aff_countries": {
+                            "terms": {
+                                "field": "aff_countries",
+                                "size": 0,
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        code_type = self._code_type(code)
+
+        if code_type:
+            body["query"]["bool"]["must"].append({
+                    "match": {
+                        code_type: code
+                    }
+                }
+            )
+
+        query_parameters = [
+            clients.accessstats_thrift.kwargs('size', '0')
+        ]
+
+        query_result = json.loads(self.client.search('article', json.dumps(body), query_parameters))
+
+        computed = self._compute_affiliations_by_publication_year(query_result)
+
+        return query_result if raw else computed
+
     def _compute_subject_areas_by_publication_year(self, query_result):
 
         available_subject_areas = set()
