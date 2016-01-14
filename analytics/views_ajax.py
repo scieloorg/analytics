@@ -91,6 +91,15 @@ class ViewsAjax(object):
         return self.request.chartsconfig.publication_article_languages(data)
 
 
+    @view_config(route_name='publication_article_languages_publication_year', request_method='GET', renderer='jsonp')
+    def publication_article_languages_publication_year(self):
+
+        code = self.request.GET.get('code', None)
+
+        data = self.request.stats.publication.languages_by_publication_year(code, self.collection)
+
+        return self.request.chartsconfig.publication_article_languages_by_publication_year(data)
+
     @view_config(route_name='publication_journal_status', request_method='GET', renderer='jsonp')
     def publication_journal_status(self):
 
@@ -128,6 +137,15 @@ class ViewsAjax(object):
         data = self.request.stats.publication.general('article', 'subject_areas', code, self.collection)
 
         return self.request.chartsconfig.publication_article_subject_areas(data)
+
+
+    @view_config(route_name='publication_article_subject_areas_publication_year', request_method='GET', renderer='jsonp')
+    def publication_article_subject_areas_publication_year(self):
+        code = self.request.GET.get('code', None)
+
+        data = self.request.stats.publication.subject_areas_by_publication_year(code, self.collection)
+
+        return self.request.chartsconfig.publication_article_subject_areas_by_publication_year(data)
 
 
     @view_config(route_name='publication_article_document_type', request_method='GET', renderer='jsonp')

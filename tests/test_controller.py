@@ -3277,6 +3277,354 @@ class ControllerTest(unittest.TestCase):
 
         self.assertEqual(expected, result)
 
+    def test_subject_areas_by_publication_year(self):
+
+        query_result = {
+            "hits": {
+                "hits": [],
+                "total": 302575,
+                "max_score": 0.0
+            },
+            "timed_out": False,
+            "took": 67,
+            "aggregations": {
+                "publication_year": {
+                    "buckets": [
+                        {
+                            "subject_areas": {
+                                "buckets": [
+                                    {
+                                        "key": "Agricultural Sciences",
+                                        "doc_count": 126
+                                    },
+                                    {
+                                        "key": "Health Sciences",
+                                        "doc_count": 72
+                                    },
+                                    {
+                                        "key": "Human Sciences",
+                                        "doc_count": 56
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 89
+                            },
+                            "key": "2016",
+                            "doc_count": 260
+                        },
+                        {
+                            "subject_areas": {
+                                "buckets": [
+                                    {
+                                        "key": "Health Sciences",
+                                        "doc_count": 8825
+                                    },
+                                    {
+                                        "key": "Human Sciences",
+                                        "doc_count": 4066
+                                    },
+                                    {
+                                        "key": "Agricultural Sciences",
+                                        "doc_count": 3666
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 6908
+                            },
+                            "key": "2015",
+                            "doc_count": 19808
+                        },
+                        {
+                            "subject_areas": {
+                                "buckets": [
+                                    {
+                                        "key": "Health Sciences",
+                                        "doc_count": 9731
+                                    },
+                                    {
+                                        "key": "Human Sciences",
+                                        "doc_count": 4619
+                                    },
+                                    {
+                                        "key": "Agricultural Sciences",
+                                        "doc_count": 4125
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 7141
+                            },
+                            "key": "2014",
+                            "doc_count": 21921
+                        }
+                    ],
+                    "doc_count_error_upper_bound": 0,
+                    "sum_other_doc_count": 260586
+                }
+            },
+            "_shards": {
+                "successful": 5,
+                "failed": 0,
+                "total": 5
+            }
+        }
+
+        result = self._stats.publication._compute_subject_areas_by_publication_year(query_result)
+
+        expected = {
+            "series": [
+                {
+                    "data": [
+                        {
+                            "y": 4125,
+                            "x": 1388534400000.0,
+                            "percentage": 22.32746955345061
+                        },
+                        {
+                            "y": 3666,
+                            "x": 1420070400000.0,
+                            "percentage": 22.141692335568038
+                        },
+                        {
+                            "y": 126,
+                            "x": 1451606400000.0,
+                            "percentage": 49.60629921259843
+                        }
+                    ],
+                    "name": "Agricultural Sciences"
+                },
+                {
+                    "data": [
+                        {
+                            "y": 9731,
+                            "x": 1388534400000.0,
+                            "percentage": 52.67117726657645
+                        },
+                        {
+                            "y": 8825,
+                            "x": 1420070400000.0,
+                            "percentage": 53.30071872923838
+                        },
+                        {
+                            "y": 72,
+                            "x": 1451606400000.0,
+                            "percentage": 28.346456692913385
+                        }
+                    ],
+                    "name": "Health Sciences"
+                },
+                {
+                    "data": [
+                        {
+                            "y": 4619,
+                            "x": 1388534400000.0,
+                            "percentage": 25.001353179972934
+                        },
+                        {
+                            "y": 4066,
+                            "x": 1420070400000.0,
+                            "percentage": 24.557588935193575
+                        },
+                        {
+                            "y": 56,
+                            "x": 1451606400000.0,
+                            "percentage": 22.04724409448819
+                        }
+                    ],
+                    "name": "Human Sciences"
+                }
+            ],
+            "navigator_series": [
+                [
+                    1388534400000.0,
+                    18475.0
+                ],
+                [
+                    1420070400000.0,
+                    16557.0
+                ],
+                [
+                    1451606400000.0,
+                    254.0
+                ]
+            ]
+        }
+
+        self.assertEqual(expected, result)
+
+    def test_languages_by_publication_year(self):
+
+        query_result = {
+            "hits": {
+                "hits": [],
+                "total": 302575,
+                "max_score": 0.0
+            },
+            "timed_out": False,
+            "took": 28,
+            "aggregations": {
+                "publication_year": {
+                    "buckets": [
+                        {
+                            "languages": {
+                                "buckets": [
+                                    {
+                                        "key": "en",
+                                        "doc_count": 148
+                                    },
+                                    {
+                                        "key": "pt",
+                                        "doc_count": 109
+                                    },
+                                    {
+                                        "key": "es",
+                                        "doc_count": 3
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 0
+                            },
+                            "key": "2016",
+                            "doc_count": 260
+                        },
+                        {
+                            "languages": {
+                                "buckets": [
+                                    {
+                                        "key": "en",
+                                        "doc_count": 11788
+                                    },
+                                    {
+                                        "key": "pt",
+                                        "doc_count": 10231
+                                    },
+                                    {
+                                        "key": "es",
+                                        "doc_count": 697
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 32
+                            },
+                            "key": "2015",
+                            "doc_count": 19808
+                        },
+                        {
+                            "languages": {
+                                "buckets": [
+                                    {
+                                        "key": "pt",
+                                        "doc_count": 12662
+                                    },
+                                    {
+                                        "key": "en",
+                                        "doc_count": 12442
+                                    },
+                                    {
+                                        "key": "es",
+                                        "doc_count": 802
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 69
+                            },
+                            "key": "2014",
+                            "doc_count": 21921
+                        }
+                    ],
+                    "doc_count_error_upper_bound": 0,
+                    "sum_other_doc_count": 260586
+                }
+            },
+            "_shards": {
+                "successful": 5,
+                "failed": 0,
+                "total": 5
+            }
+        }
+
+        result = self._stats.publication._compute_languages_by_publication_year(query_result)
+
+        expected = {
+            "series": [
+                {
+                    "data": [
+                        {
+                            "y": 12442,
+                            "x": 1388534400000.0,
+                            "percentage": 48.02748398054505
+                        },
+                        {
+                            "y": 11788,
+                            "x": 1420070400000.0,
+                            "percentage": 51.892938897693256
+                        },
+                        {
+                            "y": 148,
+                            "x": 1451606400000.0,
+                            "percentage": 56.92307692307692
+                        }
+                    ],
+                    "name": "en"
+                },
+                {
+                    "data": [
+                        {
+                            "y": 802,
+                            "x": 1388534400000.0,
+                            "percentage": 3.0958079209449547
+                        },
+                        {
+                            "y": 697,
+                            "x": 1420070400000.0,
+                            "percentage": 3.0683218876562774
+                        },
+                        {
+                            "y": 3,
+                            "x": 1451606400000.0,
+                            "percentage": 1.153846153846154
+                        }
+                    ],
+                    "name": "es"
+                },
+                {
+                    "data": [
+                        {
+                            "y": 12662,
+                            "x": 1388534400000.0,
+                            "percentage": 48.876708098509994
+                        },
+                        {
+                            "y": 10231,
+                            "x": 1420070400000.0,
+                            "percentage": 45.03873921465046
+                        },
+                        {
+                            "y": 109,
+                            "x": 1451606400000.0,
+                            "percentage": 41.92307692307693
+                        }
+                    ],
+                    "name": "pt"
+                }
+            ],
+            "navigator_series": [
+                [
+                    1388534400000.0,
+                    25906.0
+                ],
+                [
+                    1420070400000.0,
+                    22716.0
+                ],
+                [
+                    1451606400000.0,
+                    260.0
+                ]
+            ]
+        }
+
+        self.assertEqual(expected, result)
+
     def test_access_by_document_type(self):
 
         query_result = {

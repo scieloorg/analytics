@@ -948,31 +948,210 @@ class PublicationStats(clients.PublicationStats):
 
         return query_result if raw else computed
 
+    def _compute_subject_areas_by_publication_year(self, query_result):
 
-    def _compute_licenses_by_publication_year(self, query_result):
-
-        available_licences = set()
+        available_subject_areas = set()
 
         for year in query_result['aggregations']['publication_year']['buckets']:
-            for license in year['license']['buckets']:
-                available_licences.add(license['key'])
+            for subject_area in year['subject_areas']['buckets']:
+                available_subject_areas.add(subject_area['key'])
 
         data = {}
         for year in query_result['aggregations']['publication_year']['buckets']:
-            x = data.setdefault(year['key'], {k:0 for k in available_licences})
+            x = data.setdefault(year['key'], {k:0 for k in available_subject_areas})
+            for subject_area in year['subject_areas']['buckets']:
+                x[subject_area['key']] = subject_area['doc_count']
+
+        series = []
+        for item in sorted(available_subject_areas):
+            series.append({
+                'name': item,
+                'data': []
+            })
+
+        navigator_series = []
+        for year, subject_areas in sorted(data.items()):
+            amount = float(sum([count for item, count in subject_areas.items()]))
+            navigator_series.append([utils.mktime(int(year)), amount])
+            for serie in series:
+                serie["data"].append({
+                    'x': utils.mktime(int(year)),
+                    'y': subject_areas[serie['name']],
+                    'percentage': (subject_areas[serie['name']]/amount) * 100
+                })
+
+        return {"series": series, "navigator_series": navigator_series}
+
+    @cache_region.cache_on_arguments()
+    def subject_areas_by_publication_year(self, code, collection, raw=False):
+
+        body = {
+            "query": {
+                "bool": {
+                    "must": [{
+                            "match": {
+                                "collection": collection
+                            }
+                        }
+                    ]
+                }
+            },
+            "size": 0,
+            "aggs": {
+                "publication_year": {
+                    "terms": {
+                        "field": "publication_year",
+                        "size": 0,
+                        "order": {
+                            "_term": "desc"
+                        }
+                    },
+                    "aggs": {
+                        "subject_areas": {
+                            "terms": {
+                                "field": "subject_areas",
+                                "size": 0,
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        code_type = self._code_type(code)
+
+        if code_type:
+            body["query"]["bool"]["must"].append({
+                    "match": {
+                        code_type: code
+                    }
+                }
+            )
+
+        query_parameters = [
+            clients.accessstats_thrift.kwargs('size', '0')
+        ]
+
+        query_result = json.loads(self.client.search('article', json.dumps(body), query_parameters))
+
+        computed = self._compute_subject_areas_by_publication_year(query_result)
+
+        return query_result if raw else computed
+
+    def _compute_languages_by_publication_year(self, query_result):
+
+        available_languages = set()
+
+        for year in query_result['aggregations']['publication_year']['buckets']:
+            for language in year['languages']['buckets']:
+                available_languages.add(language['key'])
+
+        data = {}
+        for year in query_result['aggregations']['publication_year']['buckets']:
+            x = data.setdefault(year['key'], {k:0 for k in available_languages})
+            for language in year['languages']['buckets']:
+                x[language['key']] = language['doc_count']
+
+        series = []
+        for item in sorted(available_languages):
+            series.append({
+                'name': item,
+                'data': []
+            })
+
+        navigator_series = []
+        for year, languages in sorted(data.items()):
+            amount = float(sum([count for item, count in languages.items()]))
+            navigator_series.append([utils.mktime(int(year)), amount])
+            for serie in series:
+                serie["data"].append({
+                    'x': utils.mktime(int(year)),
+                    'y': languages[serie['name']],
+                    'percentage': (languages[serie['name']]/amount) * 100
+                })
+
+        return {"series": series, "navigator_series": navigator_series}
+
+    @cache_region.cache_on_arguments()
+    def languages_by_publication_year(self, code, collection, raw=False):
+
+        body = {
+            "query": {
+                "bool": {
+                    "must": [{
+                            "match": {
+                                "collection": collection
+                            }
+                        }
+                    ]
+                }
+            },
+            "size": 0,
+            "aggs": {
+                "publication_year": {
+                    "terms": {
+                        "field": "publication_year",
+                        "size": 0,
+                        "order": {
+                            "_term": "desc"
+                        }
+                    },
+                    "aggs": {
+                        "languages": {
+                            "terms": {
+                                "field": "languages",
+                                "size": 0,
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        code_type = self._code_type(code)
+
+        if code_type:
+            body["query"]["bool"]["must"].append({
+                    "match": {
+                        code_type: code
+                    }
+                }
+            )
+
+        query_parameters = [
+            clients.accessstats_thrift.kwargs('size', '0')
+        ]
+
+        query_result = json.loads(self.client.search('article', json.dumps(body), query_parameters))
+
+        computed = self._compute_languages_by_publication_year(query_result)
+
+        return query_result if raw else computed
+
+    def _compute_licenses_by_publication_year(self, query_result):
+
+        available_licenses = set()
+
+        for year in query_result['aggregations']['publication_year']['buckets']:
+            for license in year['license']['buckets']:
+                available_licenses.add(license['key'])
+
+        data = {}
+        for year in query_result['aggregations']['publication_year']['buckets']:
+            x = data.setdefault(year['key'], {k:0 for k in available_licenses})
             for license in year['license']['buckets']:
                 x[license['key']] = license['doc_count']
 
         series = []
-        for lic in sorted(available_licences):
+        for item in sorted(available_licenses):
             series.append({
-                'name': lic,
+                'name': item,
                 'data': []
             })
 
         navigator_series = []
         for year, licenses in sorted(data.items()):
-            amount = float(sum([count for lic, count in licenses.items()]))
+            amount = float(sum([count for item, count in licenses.items()]))
             navigator_series.append([utils.mktime(int(year)), amount])
             for serie in series:
                 serie["data"].append({
