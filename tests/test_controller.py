@@ -3451,6 +3451,200 @@ class ControllerTest(unittest.TestCase):
 
         self.assertEqual(expected, result)
 
+    def test_affiliations_by_publication_year(self):
+
+        query_result = {
+            "hits": {
+                "hits": [],
+                "total": 302575,
+                "max_score": 0.0
+            },
+            "timed_out": False,
+            "took": 51,
+            "aggregations": {
+                "publication_year": {
+                    "buckets": [
+                        {
+                            "doc_count": 260,
+                            "key": "2016",
+                            "aff_countries": {
+                                "buckets": [
+                                    {
+                                        "key": "BR",
+                                        "doc_count": 214
+                                    },
+                                    {
+                                        "key": "undefined",
+                                        "doc_count": 23
+                                    },
+                                    {
+                                        "key": "CN",
+                                        "doc_count": 9
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 50
+                            }
+                        },
+                        {
+                            "doc_count": 19808,
+                            "key": "2015",
+                            "aff_countries": {
+                                "buckets": [
+                                    {
+                                        "key": "BR",
+                                        "doc_count": 16101
+                                    },
+                                    {
+                                        "key": "undefined",
+                                        "doc_count": 1294
+                                    },
+                                    {
+                                        "key": "US",
+                                        "doc_count": 542
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 134,
+                                "sum_other_doc_count": 4243
+                            }
+                        },
+                        {
+                            "doc_count": 21921,
+                            "key": "2014",
+                            "aff_countries": {
+                                "buckets": [
+                                    {
+                                        "key": "BR",
+                                        "doc_count": 17800
+                                    },
+                                    {
+                                        "key": "undefined",
+                                        "doc_count": 2067
+                                    },
+                                    {
+                                        "key": "US",
+                                        "doc_count": 536
+                                    }
+                                ],
+                                "doc_count_error_upper_bound": 131,
+                                "sum_other_doc_count": 4030
+                            }
+                        }
+                    ],
+                    "doc_count_error_upper_bound": 0,
+                    "sum_other_doc_count": 260586
+                }
+            },
+            "_shards": {
+                "successful": 5,
+                "failed": 0,
+                "total": 5
+            }
+        }
+
+        result = self._stats.publication._compute_affiliations_by_publication_year(query_result)
+
+        expected = {
+            "series": [
+                {
+                    "data": [
+                        {
+                            "y": 17800,
+                            "x": 1388534400000.0,
+                            "percentage": 87.24207224427781
+                        },
+                        {
+                            "y": 16101,
+                            "x": 1420070400000.0,
+                            "percentage": 89.764174611139
+                        },
+                        {
+                            "y": 214,
+                            "x": 1451606400000.0,
+                            "percentage": 86.99186991869918
+                        }
+                    ],
+                    "name": "BR"
+                },
+                {
+                    "data": [
+                        {
+                            "y": 0,
+                            "x": 1388534400000.0,
+                            "percentage": 0.0
+                        },
+                        {
+                            "y": 0,
+                            "x": 1420070400000.0,
+                            "percentage": 0.0
+                        },
+                        {
+                            "y": 9,
+                            "x": 1451606400000.0,
+                            "percentage": 3.6585365853658534
+                        }
+                    ],
+                    "name": "CN"
+                },
+                {
+                    "data": [
+                        {
+                            "y": 536,
+                            "x": 1388534400000.0,
+                            "percentage": 2.627064647355781
+                        },
+                        {
+                            "y": 542,
+                            "x": 1420070400000.0,
+                            "percentage": 3.021687015665942
+                        },
+                        {
+                            "y": 0,
+                            "x": 1451606400000.0,
+                            "percentage": 0.0
+                        }
+                    ],
+                    "name": "US"
+                },
+                {
+                    "data": [
+                        {
+                            "y": 2067,
+                            "x": 1388534400000.0,
+                            "percentage": 10.130863108366416
+                        },
+                        {
+                            "y": 1294,
+                            "x": 1420070400000.0,
+                            "percentage": 7.2141383731950715
+                        },
+                        {
+                            "y": 23,
+                            "x": 1451606400000.0,
+                            "percentage": 9.34959349593496
+                        }
+                    ],
+                    "name": "undefined"
+                }
+            ],
+            "navigator_series": [
+                [
+                    1388534400000.0,
+                    20403.0
+                ],
+                [
+                    1420070400000.0,
+                    17937.0
+                ],
+                [
+                    1451606400000.0,
+                    246.0
+                ]
+            ]
+        }
+
+        self.assertEqual(expected, result)
+
     def test_languages_by_publication_year(self):
 
         query_result = {
