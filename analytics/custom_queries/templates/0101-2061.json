@@ -1,0 +1,32 @@
+{
+    "should": [
+        {
+            "title": "Food Science and Technology (Campinas)",
+            "fuzziness": 3
+        },
+        {
+            "title": "Food Sci. Technol (Campinas)",
+            "fuzziness": 3
+        },
+        {
+            "title": "Food Science and Technology",
+            "fuzziness": 3
+        },
+        {
+            "title": "Ciencia e Tecnologia dos Alimentos",
+            "fuzziness": 3
+        }
+    ],
+    "must_not": [
+        "Wood Science and Technology",
+        "Wood science and technology",
+        "Wood Science and Technology,",
+        "Wood Science and Technology.",
+        "Wood Science and technology",
+        "Wood science and Technology",
+        "Wood. Science and Technology",
+        "Wood Science and Tech nology",
+        "Wood Science and Techology",
+        "Wood Science and Tecnology"
+    ]
+}

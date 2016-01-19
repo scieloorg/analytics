@@ -1,0 +1,12 @@
+{
+    "should": [
+        {
+            "title": "Interações (Campo Grande)",
+            "fuzziness": 3
+        },
+        {
+            "title": "Interações",
+            "fuzziness": 0
+        }
+    ]
+}

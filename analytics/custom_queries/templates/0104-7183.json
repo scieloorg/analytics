@@ -1,0 +1,16 @@
+{
+    "should": [
+        {
+            "title": "Horizontes Antropológicos",
+            "fuzziness": 3
+        },
+        {
+            "title": "Horiz. antropol.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista Horizontes Antropológicos",
+            "fuzziness": 3
+        }
+    ]
+}

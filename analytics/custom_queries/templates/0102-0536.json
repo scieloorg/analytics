@@ -1,0 +1,16 @@
+{
+    "should": [
+        {
+            "title": "Horticultura Brasileira",
+            "fuzziness": 3
+        },
+        {
+            "title": "Hortic. Bras.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista Horticultura Brasileira",
+            "fuzziness": 3
+        }
+    ]
+}
