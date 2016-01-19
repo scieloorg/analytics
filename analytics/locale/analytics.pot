@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: analytics 0.0.5\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-01-19 12:07-0200\n"
+"POT-Creation-Date: 2016-01-19 12:15-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -328,8 +328,36 @@ msgstr ""
 msgid "Período"
 msgstr ""
 
+#: analytics/templates/website/access_datepicker.mako:9
+msgid "acessos nos últimos 36 meses"
+msgstr ""
+
+#: analytics/templates/website/access_datepicker.mako:10
+msgid "acessos nos últimos 24 meses"
+msgstr ""
+
+#: analytics/templates/website/access_datepicker.mako:11
+msgid "acessos nos últimos 12 meses"
+msgstr ""
+
+#: analytics/templates/website/access_datepicker.mako:12
+msgid "todos acessos disponíveis"
+msgstr ""
+
 #: analytics/templates/website/access_datepicker.mako:12
 msgid "tudo"
+msgstr ""
+
+#: analytics/templates/website/access_datepicker.mako:14
+msgid "Seletor de período de acessos"
+msgstr ""
+
+#: analytics/templates/website/access_datepicker.mako:14
+msgid ""
+"Utilize o campo com datas para selecionar um período customizado para "
+"recuperação dos dados de acesso. Você pode também selecionar o período de 1, "
+"2 e 3 anos, através dos links rápidos ou todos os acessos disponíveis "
+"selecionando tudo."
 msgstr ""
 
 #: analytics/templates/website/access_list_articles.mako:6
