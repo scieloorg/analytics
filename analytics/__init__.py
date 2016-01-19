@@ -48,6 +48,7 @@ def main(global_config, **settings):
     config.add_route('publication_journal_status', '/ajx/publication/journal/status')
     config.add_route('publication_article_citable_documents', '/ajx/publication/citabledocuments')
     config.add_route('publication_article_web', '/w/publication/article')
+    config.add_route('publication_article_web_by_publication_year', '/w/publication/article_by_publication_year')
     config.add_route('publication_article_licenses', '/ajx/publication/article/licenses')
     config.add_route('publication_article_licenses_publication_year', '/ajx/publication/article/licenses_publication_year')
     config.add_route('publication_article_document_type', '/ajx/publication/article/document_type')

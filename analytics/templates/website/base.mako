@@ -81,8 +81,9 @@
             <li class="${'active' if page == 'publication' else ''}">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${_(u'Publicação')} <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="${request.route_url('publication_size_web')}">${_(u'Dimensões da coleção')}</a></li>
+                <li><a href="${request.route_url('publication_size_web')}">${_(u'Composição da coleção')}</a></li>
                 <li><a href="${request.route_url('publication_article_web')}">${_(u'Gráficos de documentos')}</a></li>
+                <li><a href="${request.route_url('publication_article_web_by_publication_year')}">${_(u'Gráficos de documentos por ano de publicação')}</a></li>
                 <li><a href="${request.route_url('publication_journal_web')}">${_(u'Gráficos de periódicos')}</a></li>
               </ul>
             </li>
