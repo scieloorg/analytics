@@ -389,3 +389,12 @@ def publication_article(request):
     data['page'] = 'publication'
 
     return data
+
+@view_config(route_name='publication_article_web_by_publication_year', renderer='templates/website/publication_article_by_publication_year.mako')
+@base_data_manager
+def publication_article_by_publication_year(request):
+
+    data = request.data_manager
+    data['page'] = 'publication'
+
+    return data

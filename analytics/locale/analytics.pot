@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: analytics 0.0.5\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-01-14 11:14-0200\n"
+"POT-Creation-Date: 2016-01-19 12:00-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,6 +26,7 @@ msgid "imediatez"
 msgstr ""
 
 #: analytics/charts_config.py:30
+#: analytics/templates/website/access_datepicker.mako:11
 #: analytics/templates/website/bibliometrics_list_impact_factor.mako:46
 msgid "1 ano"
 msgstr ""
@@ -327,10 +328,6 @@ msgstr ""
 msgid "Período"
 msgstr ""
 
-#: analytics/templates/website/access_datepicker.mako:11
-msgid "1 anos"
-msgstr ""
-
 #: analytics/templates/website/access_datepicker.mako:12
 msgid "tudo"
 msgstr ""
@@ -390,7 +387,7 @@ msgid "selecionar periódico"
 msgstr ""
 
 #: analytics/templates/website/base.mako:75
-#: analytics/templates/website/base.mako:93
+#: analytics/templates/website/base.mako:94
 msgid "Gráficos"
 msgstr ""
 
@@ -407,7 +404,7 @@ msgid "Publicação"
 msgstr ""
 
 #: analytics/templates/website/base.mako:84
-msgid "Dimensões da coleção"
+msgid "Composição da coleção"
 msgstr ""
 
 #: analytics/templates/website/base.mako:85
@@ -415,39 +412,43 @@ msgid "Gráficos de documentos"
 msgstr ""
 
 #: analytics/templates/website/base.mako:86
+msgid "Gráficos de documentos por ano de publicação"
+msgstr ""
+
+#: analytics/templates/website/base.mako:87
 msgid "Gráficos de periódicos"
 msgstr ""
 
-#: analytics/templates/website/base.mako:91
+#: analytics/templates/website/base.mako:92
 msgid "Bibliometria"
 msgstr ""
 
-#: analytics/templates/website/base.mako:94
+#: analytics/templates/website/base.mako:95
 msgid "Fator de Impacto 1, 2, 3, 4 e 5 anos"
 msgstr ""
 
-#: analytics/templates/website/base.mako:95
+#: analytics/templates/website/base.mako:96
 msgid "Citações concedidas por periódicos"
 msgstr ""
 
-#: analytics/templates/website/base.mako:96
+#: analytics/templates/website/base.mako:97
 #: analytics/templates/website/bibliometrics_list_received.mako:22
 msgid "Citações recebidas por periódicos"
 msgstr ""
 
-#: analytics/templates/website/base.mako:97
+#: analytics/templates/website/base.mako:98
 msgid "Formas de citação do periódico"
 msgstr ""
 
-#: analytics/templates/website/base.mako:102
+#: analytics/templates/website/base.mako:103
 msgid "Downloads"
 msgstr ""
 
-#: analytics/templates/website/base.mako:113
+#: analytics/templates/website/base.mako:114
 msgid "Ferramenta em desenvolvimento disponível em versão Beta Test."
 msgstr ""
 
-#: analytics/templates/website/base.mako:115
+#: analytics/templates/website/base.mako:116
 msgid ""
 "Esta ferramenta esta em desenvolvimento e foi publicada com o objetivo de "
 "realizar testes de uso e performance. Todos os indicadores carregados são "
@@ -455,119 +456,119 @@ msgid ""
 "lentidão e indisponibilidade do serviços são esperados nesta fase."
 msgstr ""
 
-#: analytics/templates/website/base.mako:137
+#: analytics/templates/website/base.mako:138
 msgid "Ajuda"
 msgstr ""
 
-#: analytics/templates/website/base.mako:139
+#: analytics/templates/website/base.mako:140
 msgid "Reportar error"
 msgstr ""
 
-#: analytics/templates/website/base.mako:140
+#: analytics/templates/website/base.mako:141
 msgid "Lista de discussão"
 msgstr ""
 
-#: analytics/templates/website/base.mako:144
+#: analytics/templates/website/base.mako:145
 msgid "Desenvolvimento"
 msgstr ""
 
-#: analytics/templates/website/base.mako:147
+#: analytics/templates/website/base.mako:148
 msgid "Lista de desenvolvimento"
 msgstr ""
 
-#: analytics/templates/website/base.mako:176
+#: analytics/templates/website/base.mako:177
 msgid "Janeiro"
 msgstr ""
 
-#: analytics/templates/website/base.mako:176
+#: analytics/templates/website/base.mako:177
 msgid "Fevereiro"
 msgstr ""
 
-#: analytics/templates/website/base.mako:176
+#: analytics/templates/website/base.mako:177
 msgid "Março"
 msgstr ""
 
-#: analytics/templates/website/base.mako:176
+#: analytics/templates/website/base.mako:177
 msgid "Abril"
 msgstr ""
 
-#: analytics/templates/website/base.mako:176
+#: analytics/templates/website/base.mako:177
 msgid "Maio"
 msgstr ""
 
-#: analytics/templates/website/base.mako:176
+#: analytics/templates/website/base.mako:177
 msgid "Junho"
 msgstr ""
 
-#: analytics/templates/website/base.mako:176
+#: analytics/templates/website/base.mako:177
 msgid "Julho"
 msgstr ""
 
-#: analytics/templates/website/base.mako:176
+#: analytics/templates/website/base.mako:177
 msgid "Agosto"
 msgstr ""
 
-#: analytics/templates/website/base.mako:176
+#: analytics/templates/website/base.mako:177
 msgid "Setembro"
 msgstr ""
 
-#: analytics/templates/website/base.mako:176
+#: analytics/templates/website/base.mako:177
 msgid "Outubro"
 msgstr ""
 
-#: analytics/templates/website/base.mako:176
+#: analytics/templates/website/base.mako:177
 msgid "Novembro"
 msgstr ""
 
-#: analytics/templates/website/base.mako:176
+#: analytics/templates/website/base.mako:177
 msgid "Dezembro"
 msgstr ""
 
-#: analytics/templates/website/base.mako:177
+#: analytics/templates/website/base.mako:178
 msgid "Jan"
 msgstr ""
 
-#: analytics/templates/website/base.mako:177
+#: analytics/templates/website/base.mako:178
 msgid "Fev"
 msgstr ""
 
-#: analytics/templates/website/base.mako:177
+#: analytics/templates/website/base.mako:178
 msgid "Mar"
 msgstr ""
 
-#: analytics/templates/website/base.mako:177
+#: analytics/templates/website/base.mako:178
 msgid "Abr"
 msgstr ""
 
-#: analytics/templates/website/base.mako:177
+#: analytics/templates/website/base.mako:178
 msgid "Mai"
 msgstr ""
 
-#: analytics/templates/website/base.mako:177
+#: analytics/templates/website/base.mako:178
 msgid "Jun"
 msgstr ""
 
-#: analytics/templates/website/base.mako:177
+#: analytics/templates/website/base.mako:178
 msgid "Jul"
 msgstr ""
 
-#: analytics/templates/website/base.mako:177
+#: analytics/templates/website/base.mako:178
 msgid "Ago"
 msgstr ""
 
-#: analytics/templates/website/base.mako:177
+#: analytics/templates/website/base.mako:178
 msgid "Set"
 msgstr ""
 
-#: analytics/templates/website/base.mako:177
+#: analytics/templates/website/base.mako:178
 msgid "Out"
 msgstr ""
 
-#: analytics/templates/website/base.mako:177
+#: analytics/templates/website/base.mako:178
 msgid "Nov"
 msgstr ""
 
-#: analytics/templates/website/base.mako:177
+#: analytics/templates/website/base.mako:178
 msgid "Dez"
 msgstr ""
 
@@ -1008,28 +1009,29 @@ msgstr ""
 #: analytics/templates/website/publication_size.mako:13
 msgid ""
 "Os números acima correspondem aos periódicos com pelo menos 1 fascículo e "
-"artigo publicados. Os números são definidos de acordo com os filtros "
-"aplicados através da interface."
+"artigo publicados. Os números são relacionados a coleção ou ao periódico "
+"quando um periódico é selecionado na barra superior do site."
 msgstr ""
 
 #: analytics/templates/website/publication_size.mako:24
 msgid ""
 "Os números acima correspondem aos fascículos com pelo menos 1 artigo "
-"publicado. Os números são definidos de acordo com os filtros aplicados "
-"através da interface."
+"publicado. Os números são relacionados a coleção ou ao periódico quando um "
+"periódico é selecionado na barra superior do site."
 msgstr ""
 
 #: analytics/templates/website/publication_size.mako:35
 msgid ""
-"Os números acima correspondem ao número de documentos publicados. Os números "
-"são definidos de acordo com os filtros aplicados através da interface."
+"Os números a cima correspondem ao número de documentos publicados. Os números"
+" são relacionados a coleção ou ao periódico quando um periódico é selecionado"
+" na barra superior do site."
 msgstr ""
 
 #: analytics/templates/website/publication_size.mako:46
 msgid ""
-"Os números acima correspondem ao número referências bibliográficas dos "
-"documentos publicados. Os números são definidos de acordo com os filtros "
-"aplicados através da interface."
+"Os números acima correspondem ao número das referências bibliográficas "
+"citadas nos documentos publicados. Os números são relacionados a coleção ou "
+"ao periódico quando um periódico é selecionado na barra superior do site."
 msgstr ""
 
 #: analytics/templates/website/publication_size_citations.mako:9
