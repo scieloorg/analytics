@@ -86,7 +86,7 @@ def base_data_manager(wrapped):
 
         @cache_region.cache_on_arguments()
         def get_data_manager(collection, journal, document, range_start, range_end):
-            code = document or journal or collection
+            code = document or journal or collection or code
             data = {}
 
             xylose_doc = request.stats.articlemeta.document(document, collection) if document else None
