@@ -8,7 +8,9 @@ from analytics import charts_config
 from thrift_clients import clients
 
 from analytics.views_website import cache_region as views_website_cache_region
+from analytics.views_ajax import cache_region as views_ajax_cache_region
 from analytics.controller import cache_region as controller_cache_region
+from analytics.control_manager import cache_region as control_manager_cache_region
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
@@ -82,11 +84,15 @@ def main(global_config, **settings):
         cache_config = {}
         cache_config['expiration_time'] = int(settings.get('memcached_expiration_time', 2592000)) # a month cache
         cache_config['arguments'] = {'url': settings['memcached_host'], 'binary': True}
+        views_ajax_cache_region.configure('dogpile.cache.pylibmc', **cache_config)
         views_website_cache_region.configure('dogpile.cache.pylibmc', **cache_config)
         controller_cache_region.configure('dogpile.cache.pylibmc', **cache_config)
+        control_manager_cache_region.configure('dogpile.cache.pylibmc', **cache_config)
     else:
         views_website_cache_region.configure('dogpile.cache.null')
         controller_cache_region.configure('dogpile.cache.null')
+        control_manager_cache_region.configure('dogpile.cache.null')
+        views_ajax_cache_region.configure('dogpile.cache.null')
 
     ## Session config
     navegation_session_factory = SignedCookieSessionFactory('sses_navegation')

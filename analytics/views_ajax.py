@@ -1,7 +1,53 @@
-# -*- coding: utf-8 -*-
+#coding: utf-8
 from pyramid.view import view_config
 from pyramid.response import Response
 import pyramid.httpexceptions as exc
+
+from dogpile.cache import make_region
+
+from analytics.control_manager import base_data_manager, check_session
+from analytics.custom_queries import custom_query
+
+cache_region = make_region(name='views_ajax_cache')
+
+@view_config(route_name='bibliometrics_journal_impact_factor_chart', request_method='GET', renderer='jsonp')
+@base_data_manager
+def bibliometrics_journal_impact_factor_chart(request):
+
+    data = request.data_manager
+    titles = request.GET.get('titles', None)
+
+    titles = titles.split('||') if titles else []
+
+    if data['selected_journal_code']:
+        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
+        titles.append(journal.title)
+        titles.append(journal.abbreviated_title)
+        titles.extend(x['title'] for x in custom_query.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
+
+    data = request.stats.impact_factor_chart(data['selected_journal_code'], data['selected_collection_code'], titles)
+
+    return request.chartsconfig.bibliometrics_impact_factor(data)
+
+@view_config(route_name='bibliometrics_journal_received_self_and_granted_citation_chart', request_method='GET', renderer='jsonp')
+@base_data_manager
+def bibliometrics_journal_received_self_and_granted_citation_chart(request):
+
+    data = request.data_manager
+    titles = request.GET.get('titles', None)
+
+    titles = titles.split('||') if titles else []
+
+    if data['selected_journal_code']:
+        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
+        titles.append(journal.title)
+        titles.append(journal.abbreviated_title)
+        titles.extend(x['title'] for x in custom_query.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
+
+    data = request.stats.received_self_and_granted_citation_chart(data['selected_journal_code'], data['selected_collection_code'], titles)
+
+    return request.chartsconfig.bibliometrics_journal_received_self_and_granted_citation_chart(data)
+
 
 class ViewsAjax(object):
     def __init__(self, request):
@@ -14,34 +60,6 @@ class ViewsAjax(object):
     @property
     def collection(self):
         return self.request.GET.get('collection', None)
-
-    @view_config(route_name='bibliometrics_journal_impact_factor_chart', request_method='GET', renderer='jsonp')
-    def bibliometrics_journal_impact_factor_chart(self):
-
-        code = self.request.GET.get('code', None)
-        collection = self.request.GET.get('collection', None)
-        if 'titles' in self.request.GET:
-            titles = self.request.GET['titles'].split('||')
-        else:
-            titles = []
-
-        data = self.request.stats.impact_factor_chart(code, collection, titles)
-
-        return self.request.chartsconfig.bibliometrics_impact_factor(data)
-
-    @view_config(route_name='bibliometrics_journal_received_self_and_granted_citation_chart', request_method='GET', renderer='jsonp')
-    def bibliometrics_journal_received_self_and_granted_citation_chart(self):
-
-        code = self.request.GET.get('code', None)
-        collection = self.request.GET.get('collection', None)
-        if 'titles' in self.request.GET:
-            titles = self.request.GET['titles'].split('||')
-        else:
-            titles = []
-
-        data = self.request.stats.received_self_and_granted_citation_chart(code, collection, titles)
-
-        return self.request.chartsconfig.bibliometrics_journal_received_self_and_granted_citation_chart(data)
 
     @view_config(route_name='publication_article_references', request_method='GET', renderer='jsonp')
     def publication_article_references(self):
