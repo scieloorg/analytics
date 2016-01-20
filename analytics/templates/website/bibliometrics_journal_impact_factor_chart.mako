@@ -22,7 +22,7 @@
 <script language="javascript">
     $("#loading_selfcitation").show();
     $(document).ready(function() {
-        var url =  "${request.route_url('bibliometrics_journal_impact_factor_chart')}?code=${selected_code}&collection=${selected_collection_code}&titles=${titles}&callback=?";
+        var url =  "${request.route_url('bibliometrics_journal_impact_factor_chart')}?journal=${selected_code}&collection=${selected_collection_code}&titles=${titles}&callback=?";
 
         $.getJSON(url,  function(data) {
             $('#impact_factor_chart').highcharts(data['options']);

@@ -1,249 +1,295 @@
-# -*- coding: utf-8 -*-
+#coding: utf-8
 from pyramid.view import view_config
 from pyramid.response import Response
 import pyramid.httpexceptions as exc
 
-class ViewsAjax(object):
-    def __init__(self, request):
-        self.request = request
+from dogpile.cache import make_region
 
-    @property
-    def _(self):
-        return self.request.translate
+from analytics.control_manager import base_data_manager, check_session
+from analytics.custom_queries import custom_query
 
-    @property
-    def collection(self):
-        return self.request.GET.get('collection', None)
+cache_region = make_region(name='views_ajax_cache')
 
-    @view_config(route_name='bibliometrics_journal_impact_factor_chart', request_method='GET', renderer='jsonp')
-    def bibliometrics_journal_impact_factor_chart(self):
+@view_config(route_name='bibliometrics_journal_impact_factor_chart', request_method='GET', renderer='jsonp')
+@base_data_manager
+def bibliometrics_journal_impact_factor_chart(request):
 
-        code = self.request.GET.get('code', None)
-        collection = self.request.GET.get('collection', None)
-        if 'titles' in self.request.GET:
-            titles = self.request.GET['titles'].split('||')
-        else:
-            titles = []
+    data = request.data_manager
+    titles = request.GET.get('titles', None)
 
-        data = self.request.stats.impact_factor_chart(code, collection, titles)
+    titles = titles.split('||') if titles else []
 
-        return self.request.chartsconfig.bibliometrics_impact_factor(data)
+    if data['selected_journal_code']:
+        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
+        titles.append(journal.title)
+        titles.append(journal.abbreviated_title)
+        titles.extend(x['title'] for x in custom_query.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
 
-    @view_config(route_name='bibliometrics_journal_received_self_and_granted_citation_chart', request_method='GET', renderer='jsonp')
-    def bibliometrics_journal_received_self_and_granted_citation_chart(self):
+    data = request.stats.impact_factor_chart(data['selected_journal_code'], data['selected_collection_code'], titles)
 
-        code = self.request.GET.get('code', None)
-        collection = self.request.GET.get('collection', None)
-        if 'titles' in self.request.GET:
-            titles = self.request.GET['titles'].split('||')
-        else:
-            titles = []
+    return request.chartsconfig.bibliometrics_impact_factor(data)
 
-        data = self.request.stats.received_self_and_granted_citation_chart(code, collection, titles)
 
-        return self.request.chartsconfig.bibliometrics_journal_received_self_and_granted_citation_chart(data)
+@view_config(route_name='bibliometrics_journal_received_self_and_granted_citation_chart', request_method='GET', renderer='jsonp')
+@base_data_manager
+def bibliometrics_journal_received_self_and_granted_citation_chart(request):
 
-    @view_config(route_name='publication_article_references', request_method='GET', renderer='jsonp')
-    def publication_article_references(self):
+    data = request.data_manager
+    titles = request.GET.get('titles', None)
 
-        code = self.request.GET.get('code', None)
+    titles = titles.split('||') if titles else []
 
-        data = self.request.stats.publication.general('article', 'citations', code, self.collection, 40, 'asc')
+    if data['selected_journal_code']:
+        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
+        titles.append(journal.title)
+        titles.append(journal.abbreviated_title)
+        titles.extend(x['title'] for x in custom_query.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
 
-        return self.request.chartsconfig.publication_article_references(data)
+    data = request.stats.received_self_and_granted_citation_chart(data['selected_journal_code'], data['selected_collection_code'], titles)
 
-    @view_config(route_name='publication_article_authors', request_method='GET', renderer='jsonp')
-    def publication_article_authors(self):
+    return request.chartsconfig.bibliometrics_journal_received_self_and_granted_citation_chart(data)
 
-        code = self.request.GET.get('code', None)
 
-        data = self.request.stats.publication.general('article', 'authors', code, self.collection, 0, 'asc')
+@view_config(route_name='publication_article_references', request_method='GET', renderer='jsonp')
+@base_data_manager
+def publication_article_references(request):
 
-        return self.request.chartsconfig.publication_article_authors(data)
+    data = request.data_manager
 
-    @view_config(route_name='publication_article_affiliations', request_method='GET', renderer='jsonp')
-    def publication_article_affiliations(self):
+    chart_data = request.stats.publication.general('article', 'citations', data['selected_code'], data['selected_collection_code'], 40, 'asc')
 
-        code = self.request.GET.get('code', None)
+    return request.chartsconfig.publication_article_references(chart_data)
 
-        data = self.request.stats.publication.general('article', 'aff_countries', code, self.collection, 20)
 
-        return self.request.chartsconfig.publication_article_affiliations(data)
+@view_config(route_name='publication_article_authors', request_method='GET', renderer='jsonp')
+@base_data_manager
+def publication_article_authors(request):
 
-    @view_config(route_name='publication_article_affiliations_publication_year', request_method='GET', renderer='jsonp')
-    def publication_article_affiliations_publication_year(self):
+    data = request.data_manager
 
-        code = self.request.GET.get('code', None)
+    chart_data = request.stats.publication.general('article', 'authors', data['selected_code'], data['selected_collection_code'], 0, 'asc')
 
-        data = self.request.stats.publication.affiliations_by_publication_year(code, self.collection)
+    return request.chartsconfig.publication_article_authors(chart_data)
 
-        return self.request.chartsconfig.publication_article_affiliations_by_publication_year(data)
 
-    @view_config(route_name='publication_article_year', request_method='GET', renderer='jsonp')
-    def publication_article_year(self):
+@view_config(route_name='publication_article_affiliations', request_method='GET', renderer='jsonp')
+@base_data_manager
+def publication_article_affiliations(request):
 
-        code = self.request.GET.get('code', None)
+    data = request.data_manager
 
-        data = self.request.stats.publication.general('article', 'publication_year', code, self.collection, 0, 'desc' )
+    chart_data = request.stats.publication.general('article', 'aff_countries', data['selected_code'], data['selected_collection_code'], 20)
 
-        return self.request.chartsconfig.publication_article_year(data)
+    return request.chartsconfig.publication_article_affiliations(chart_data)
 
 
-    @view_config(route_name='publication_article_languages', request_method='GET', renderer='jsonp')
-    def publication_article_languages(self):
+@view_config(route_name='publication_article_affiliations_publication_year', request_method='GET', renderer='jsonp')
+@base_data_manager
+def publication_article_affiliations_publication_year(request):
 
-        code = self.request.GET.get('code', None)
+    data = request.data_manager
 
-        data = self.request.stats.publication.general('article', 'languages', code, self.collection)
+    chart_data = request.stats.publication.affiliations_by_publication_year(data['selected_code'], data['selected_collection_code'])
 
-        return self.request.chartsconfig.publication_article_languages(data)
+    return request.chartsconfig.publication_article_affiliations_by_publication_year(chart_data)
 
 
-    @view_config(route_name='publication_article_languages_publication_year', request_method='GET', renderer='jsonp')
-    def publication_article_languages_publication_year(self):
+@view_config(route_name='publication_article_year', request_method='GET', renderer='jsonp')
+@base_data_manager
+def publication_article_year(request):
 
-        code = self.request.GET.get('code', None)
+    data = request.data_manager
 
-        data = self.request.stats.publication.languages_by_publication_year(code, self.collection)
+    chart_data = request.stats.publication.general('article', 'publication_year', data['selected_code'], data['selected_collection_code'], 0, 'desc' )
 
-        return self.request.chartsconfig.publication_article_languages_by_publication_year(data)
+    return request.chartsconfig.publication_article_year(chart_data)
 
-    @view_config(route_name='publication_journal_status', request_method='GET', renderer='jsonp')
-    def publication_journal_status(self):
 
-        code = self.request.GET.get('code', None)
+@view_config(route_name='publication_article_year', request_method='GET', renderer='jsonp')
+@base_data_manager
+def publication_article_year(request):
 
-        data = self.request.stats.publication.general('journal', 'status', code, self.collection)
+    data = request.data_manager
 
-        return self.request.chartsconfig.publication_journal_status(data)
+    data_chart = request.stats.publication.general('article', 'publication_year', data['selected_code'], data['selected_collection_code'], 0, 'desc' )
 
+    return request.chartsconfig.publication_article_year(data_chart)
 
-    @view_config(route_name='publication_journal_year', request_method='GET', renderer='jsonp')
-    def publication_journal_year(self):
 
-        code = self.request.GET.get('code', None)
+@view_config(route_name='publication_article_languages', request_method='GET', renderer='jsonp')
+@base_data_manager
+def publication_article_languages(request):
 
-        data = self.request.stats.publication.general('journal', 'included_at_year', code, self.collection, 0, 'asc')
+    data = request.data_manager
 
-        return self.request.chartsconfig.publication_journal_year(data)
+    data_chart = request.stats.publication.general('article', 'languages', data['selected_code'], data['selected_collection_code'])
 
+    return request.chartsconfig.publication_article_languages(data_chart)
 
-    @view_config(route_name='publication_article_citable_documents', request_method='GET', renderer='jsonp')
-    def publication_article_citable_documents(self):
 
-        code = self.request.GET.get('code', None)
+@view_config(route_name='publication_article_languages_publication_year', request_method='GET', renderer='jsonp')
+@base_data_manager
+def publication_article_languages_publication_year(request):
 
-        data = self.request.stats.publication.citable_documents(code, self.collection)
+    data = request.data_manager
 
-        return self.request.chartsconfig.publication_article_citable_documents(data)
+    data_chart = request.stats.publication.languages_by_publication_year(data['selected_code'], data['selected_collection_code'])
 
-    @view_config(route_name='publication_article_subject_areas', request_method='GET', renderer='jsonp')
-    def publication_article_subject_areas(self):
+    return request.chartsconfig.publication_article_languages_by_publication_year(data_chart)
 
-        code = self.request.GET.get('code', None)
+@view_config(route_name='publication_journal_status', request_method='GET', renderer='jsonp')
+@base_data_manager
+def publication_journal_status(request):
 
-        data = self.request.stats.publication.general('article', 'subject_areas', code, self.collection)
+    data = request.data_manager
 
-        return self.request.chartsconfig.publication_article_subject_areas(data)
+    data_chart = request.stats.publication.general('journal', 'status', data['selected_code'], data['selected_collection_code'])
 
+    return request.chartsconfig.publication_journal_status(data_chart)
 
-    @view_config(route_name='publication_article_subject_areas_publication_year', request_method='GET', renderer='jsonp')
-    def publication_article_subject_areas_publication_year(self):
-        code = self.request.GET.get('code', None)
 
-        data = self.request.stats.publication.subject_areas_by_publication_year(code, self.collection)
+@view_config(route_name='publication_journal_year', request_method='GET', renderer='jsonp')
+@base_data_manager
+def publication_journal_year(request):
 
-        return self.request.chartsconfig.publication_article_subject_areas_by_publication_year(data)
+    data = request.data_manager
 
+    data_chart = request.stats.publication.general('journal', 'included_at_year', data['selected_code'], data['selected_collection_code'], 0, 'asc')
 
-    @view_config(route_name='publication_article_document_type', request_method='GET', renderer='jsonp')
-    def publication_article_document_type(self):
+    return request.chartsconfig.publication_journal_year(data_chart)
 
-        code = self.request.GET.get('code', None)
+@view_config(route_name='publication_article_citable_documents', request_method='GET', renderer='jsonp')
+@base_data_manager
+def publication_article_citable_documents(request):
 
-        data = self.request.stats.publication.general('article', 'document_type', code, self.collection)
+    data = request.data_manager
 
-        return self.request.chartsconfig.publication_article_document_type(data)
+    data_chart = request.stats.publication.citable_documents(data['selected_code'], data['selected_collection_code'])
 
-    @view_config(route_name='publication_article_licenses_publication_year', request_method='GET', renderer='jsonp')
-    def publication_article_licenses_publication_year(self):
+    return request.chartsconfig.publication_article_citable_documents(data_chart)
 
-        code = self.request.GET.get('code', None)
+@view_config(route_name='publication_article_subject_areas', request_method='GET', renderer='jsonp')
+@base_data_manager
+def publication_article_subject_areas(request):
 
-        data = self.request.stats.publication.lincenses_by_publication_year(code, self.collection)
+    data = request.data_manager
 
-        return self.request.chartsconfig.publication_article_licenses_by_publication_year(data)
+    data_chart = request.stats.publication.general('article', 'subject_areas', data['selected_code'], data['selected_collection_code'])
 
-    @view_config(route_name='publication_article_licenses', request_method='GET', renderer='jsonp')
-    def publication_article_licenses(self):
+    return request.chartsconfig.publication_article_subject_areas(data_chart)
 
-        code = self.request.GET.get('code', None)
+@view_config(route_name='publication_article_subject_areas_publication_year', request_method='GET', renderer='jsonp')
+@base_data_manager
+def publication_article_subject_areas_publication_year(request):
 
-        data = self.request.stats.publication.general('article', 'license', code, self.collection)
+    data = request.data_manager
 
-        return self.request.chartsconfig.publication_article_licenses(data)
+    data_chart = request.stats.publication.subject_areas_by_publication_year(data['selected_code'], data['selected_collection_code'])
 
+    return request.chartsconfig.publication_article_subject_areas_by_publication_year(data_chart)
 
-    @view_config(route_name='publication_journal_subject_areas', request_method='GET', renderer='jsonp')
-    def publication_journal_subject_areas(self):
 
-        code = self.request.GET.get('code', None)
+@view_config(route_name='publication_article_document_type', request_method='GET', renderer='jsonp')
+@base_data_manager
+def publication_article_document_type(request):
 
-        data = self.request.stats.publication.general('journal', 'subject_areas', code, self.collection)
+    data = request.data_manager
 
-        return self.request.chartsconfig.publication_journal_subject_areas(data)
+    data_chart = request.stats.publication.general('article', 'document_type', data['selected_code'], data['selected_collection_code'])
 
+    return request.chartsconfig.publication_article_document_type(data_chart)
 
-    @view_config(route_name='publication_journal_licenses', request_method='GET', renderer='jsonp')
-    def publication_journal_licenses(self):
+@view_config(route_name='publication_article_licenses_publication_year', request_method='GET', renderer='jsonp')
+@base_data_manager
+def publication_article_licenses_publication_year(request):
 
-        code = self.request.GET.get('code', None)
+    data = request.data_manager
 
-        data = self.request.stats.publication.general('journal', 'license', code, self.collection)
+    data_chart = request.stats.publication.lincenses_by_publication_year(data['selected_code'], data['selected_collection_code'])
 
-        return self.request.chartsconfig.publication_journal_licenses(data)
+    return request.chartsconfig.publication_article_licenses_by_publication_year(data_chart)
 
-    @view_config(route_name='publication_size', request_method='GET', renderer='jsonp')
-    def publication_size(self):
+@view_config(route_name='publication_article_licenses', request_method='GET', renderer='jsonp')
+@base_data_manager
+def publication_article_licenses(request):
 
-        code = self.request.GET.get('code', None)
-        field = self.request.GET.get('field', None)
+    data = request.data_manager
 
-        data = self.request.stats.publication.collection_size(code, self.collection, field)
+    data_chart = request.stats.publication.general('article', 'license', data['selected_code'], data['selected_collection_code'])
 
-        return data
+    return request.chartsconfig.publication_article_licenses(data_chart)
 
-    @view_config(route_name='accesses_bymonthandyear', request_method='GET', renderer='jsonp')
-    def bymonthandyear(self):
 
-        code = self.request.GET.get('code', None)
-        range_start = self.request.GET.get('range_start', None)
-        range_end = self.request.GET.get('range_end', None)
+@view_config(route_name='publication_journal_subject_areas', request_method='GET', renderer='jsonp')
+@base_data_manager
+def publication_journal_subject_areas(request):
 
-        data = self.request.stats.access.access_by_month_and_year(code, self.collection, range_start, range_end)
-        
-        return self.request.chartsconfig.bymonthandyear(data)
+    data = request.data_manager
 
+    data_chart = request.stats.publication.general('journal', 'subject_areas', data['selected_code'], data['selected_collection_code'])
 
-    @view_config(route_name='accesses_bydocumenttype', request_method='GET', renderer='jsonp')
-    def documenttype(self):
+    return request.chartsconfig.publication_journal_subject_areas(data_chart)
 
-        code = self.request.GET.get('code', None)
-        range_start = self.request.GET.get('range_start', None)
-        range_end = self.request.GET.get('range_end', None)
 
-        data = self.request.stats.access.access_by_document_type(code, self.collection, range_start, range_end)
+@view_config(route_name='publication_journal_licenses', request_method='GET', renderer='jsonp')
+@base_data_manager
+def publication_journal_licenses(request):
 
-        return self.request.chartsconfig.documenttype(data)
+    data = request.data_manager
 
+    data_chart = request.stats.publication.general('journal', 'license', data['selected_code'], data['selected_collection_code'])
 
-    @view_config(route_name='accesses_lifetime', request_method='GET', renderer='jsonp')
-    def lifetime(self):
+    return request.chartsconfig.publication_journal_licenses(data_chart)
 
-        code = self.request.GET.get('code', None)
-        range_start = self.request.GET.get('range_start', None)
-        range_end = self.request.GET.get('range_end', None)
+@view_config(route_name='publication_size', request_method='GET', renderer='jsonp')
+@base_data_manager
+def publication_size(request):
 
-        data = self.request.stats.access.access_lifetime(code, self.collection, range_start, range_end)
+    data = request.data_manager
 
-        return self.request.chartsconfig.lifetime(data)
+    field = request.GET.get('field', None)
+
+    data = request.stats.publication.collection_size(data['selected_code'], data['selected_collection_code'], field)
+
+    return data
+
+@view_config(route_name='accesses_bymonthandyear', request_method='GET', renderer='jsonp')
+@base_data_manager
+def bymonthandyear(request):
+
+    data = request.data_manager
+
+    range_start = request.GET.get('range_start', None)
+    range_end = request.GET.get('range_end', None)
+
+    data_chart = request.stats.access.access_by_month_and_year(data['selected_code'], data['selected_collection_code'], range_start, range_end)
+    
+    return request.chartsconfig.bymonthandyear(data_chart)
+
+
+@view_config(route_name='accesses_bydocumenttype', request_method='GET', renderer='jsonp')
+@base_data_manager
+def documenttype(request):
+
+    data = request.data_manager
+
+    range_start = request.GET.get('range_start', None)
+    range_end = request.GET.get('range_end', None)
+
+    data_chart = request.stats.access.access_by_document_type(data['selected_code'], data['selected_collection_code'], range_start, range_end)
+
+    return request.chartsconfig.documenttype(data_chart)
+
+
+@view_config(route_name='accesses_lifetime', request_method='GET', renderer='jsonp')
+@base_data_manager
+def lifetime(request):
+
+    data = request.data_manager
+
+    range_start = request.GET.get('range_start', None)
+    range_end = request.GET.get('range_end', None)
+
+    data_chart = request.stats.access.access_lifetime(data['selected_code'], data['selected_collection_code'], range_start, range_end)
+
+    return request.chartsconfig.lifetime(data_chart)
