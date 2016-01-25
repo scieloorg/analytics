@@ -1,0 +1,12 @@
+{
+    "should": [
+        {
+            "fuzziness": 3, 
+            "title": "Revista Estudios Fronterizos"
+        },
+        {
+            "fuzziness": 3, 
+            "title": "Rev. Estud. front"
+        }
+    ]
+}
