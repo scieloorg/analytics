@@ -1,8 +1,16 @@
 {
     "should": [
         {
-            "fuzziness": 1, 
+            "fuzziness": 1,
             "title": "Polít. gob"
+        },
+        {
+            "fuzziness": 3,
+            "title": "Revista Política y Gobierno"
+        },
+        {
+            "fuzziness": 3,
+            "title": "Rev. Polít. gob"
         }
     ]
 }

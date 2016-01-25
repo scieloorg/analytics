@@ -1,8 +1,16 @@
 {
     "should": [
         {
-            "fuzziness": 0, 
+            "fuzziness": 0,
             "title": "Vet. Méx"
+        },
+        {
+            "fuzziness": 3,
+            "title": "Revista Veterinaria México"
+        },
+        {
+            "fuzziness": 0,
+            "title": "Rev. Vet. Méx"
         }
     ]
 }

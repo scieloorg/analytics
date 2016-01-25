@@ -1,8 +1,12 @@
 {
     "should": [
         {
-            "fuzziness": 0, 
+            "fuzziness": 0,
             "title": "Lit. mex"
+        },
+        {
+            "fuzziness": 3,
+            "title": "Revista literatura mexicana"
         }
     ]
 }
