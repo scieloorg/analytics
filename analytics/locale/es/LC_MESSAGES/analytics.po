@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Analytics\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-01-19 12:15-0200\n"
-"PO-Revision-Date: 2016-01-19 15:03+0000\n"
+"POT-Creation-Date: 2016-01-26 14:21-0200\n"
+"PO-Revision-Date: 2016-01-26 17:02+0000\n"
 "Last-Translator: scielo <tecnologia@scielo.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/scielo/analytics/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -56,8 +56,8 @@ msgid "5 anos"
 msgstr "5 años"
 
 #: analytics/charts_config.py:41
-msgid "Fator de impacto em 1, 2, 3, 4, 5 anos e indice de imediatez"
-msgstr "Factor de impacto en 1, 2, 3, 4, 5 años e indice de inmediatez"
+msgid "Fator de impacto em 1, 2, 3, 4, 5 anos e Índice de Imediatez"
+msgstr "Fator de Impácto en 1, 2, 3, 4, 5 años y Indice de Imediatez"
 
 #: analytics/charts_config.py:44
 msgid "Fator de Impacto"
@@ -291,7 +291,7 @@ msgstr "%s accesos a documentos de tipo %s"
 
 #: analytics/charts_config.py:513
 msgid "Vida útil de artigos por número de acessos em"
-msgstr "Vida útil de los artículos por número de accesos en"
+msgstr "Vida útil de los articulos por número de accesos en"
 
 #: analytics/charts_config.py:522
 msgid "Ano de referência"
@@ -440,7 +440,7 @@ msgstr "Publicación"
 
 #: analytics/templates/website/base.mako:84
 msgid "Composição da coleção"
-msgstr "Composición de la coleccion"
+msgstr "Composición de la colección"
 
 #: analytics/templates/website/base.mako:85
 msgid "Gráficos de documentos"
@@ -549,7 +549,7 @@ msgstr "Septiembre"
 
 #: analytics/templates/website/base.mako:177
 msgid "Outubro"
-msgstr "Octobre"
+msgstr "Octubre"
 
 #: analytics/templates/website/base.mako:177
 msgid "Novembro"
@@ -964,7 +964,7 @@ msgid ""
 " um periódico é selecionado. A disponibilidade de indicadores de licença de "
 "uso dependem da adoção da coleção ou periódico selecionado de licenças de "
 "uso creative commons."
-msgstr "Esta gráfica muestra el total de documentos por licencia de uso y año de publicación. Los números estan  relacionados a la colección,  o a la revista cuando se ha seleccionado una revista. La disponibilidad de los indicadores de licencias de uso depende de la adopción de la colección o de la revista seleccionada por licencias creative commons. "
+msgstr "Esta gráfica muestra el total de documentos por licencia de uso y año de publicación. Los números estan  relacionados a la colección,  o a la revista cuando se ha seleccionado una revista. La disponibilidad de los indicadores de licencias de uso depende de la adopción de la colección o de la revista seleccionada por licencias creative commons."
 
 #: analytics/templates/website/publication_article_references.mako:17
 msgid ""

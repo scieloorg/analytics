@@ -38,7 +38,7 @@ class ChartsConfig(object):
             data['series'][i]['name'] = name[serie['name']]
 
         chart = self.highchart
-        chart['title'] = {'text': self._(u'Fator de impacto em 1, 2, 3, 4, 5 anos e Índice de Imediatez')}
+        chart['title'] = {'text': self._(u'Fator de Impacto em 1, 2, 3, 4, 5 anos e Índice de Imediatez')}
         chart['xAxis'] = {'categories': data['categories']}
         chart['series'] = data['series']
         chart['yAxis']['title'] = {'text': self._(u'Fator de Impacto') }

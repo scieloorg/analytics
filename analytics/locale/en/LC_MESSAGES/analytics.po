@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Analytics\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-01-19 12:15-0200\n"
-"PO-Revision-Date: 2016-01-19 16:19+0000\n"
+"POT-Creation-Date: 2016-01-26 14:21-0200\n"
+"PO-Revision-Date: 2016-01-26 16:49+0000\n"
 "Last-Translator: scielo <tecnologia@scielo.org>\n"
 "Language-Team: English (http://www.transifex.com/scielo/analytics/language/en/)\n"
 "MIME-Version: 1.0\n"
@@ -53,8 +53,8 @@ msgid "5 anos"
 msgstr "5 years"
 
 #: analytics/charts_config.py:41
-msgid "Fator de impacto em 1, 2, 3, 4, 5 anos e indice de imediatez"
-msgstr "Impact Factor for 1, 2, 3, 4, 5 years and immediacy index"
+msgid "Fator de impacto em 1, 2, 3, 4, 5 anos e Índice de Imediatez"
+msgstr "Impact Factor for 1, 2, 3, 4, 5 years and Immediacy Index"
 
 #: analytics/charts_config.py:44
 msgid "Fator de Impacto"
@@ -163,7 +163,7 @@ msgstr "Documents"
 #: analytics/charts_config.py:174
 msgid ""
 "Distribuição de países de afiliação dos documentos por ano de publicação"
-msgstr "Documents by affiliation country and publication year"
+msgstr "Documents distribution by affiliation country  and publishing year"
 
 #: analytics/charts_config.py:207
 msgid "Distribuição de ano de publicação dos documentos"
@@ -275,7 +275,7 @@ msgstr "Accesses"
 
 #: analytics/charts_config.py:486
 msgid "Acessos em"
-msgstr "Accesses on"
+msgstr "Accesses at"
 
 #: analytics/charts_config.py:497
 msgid "Total de accessos por tipo de documento"
@@ -288,7 +288,7 @@ msgstr "%s accesses for documents of the type %s"
 
 #: analytics/charts_config.py:513
 msgid "Vida útil de artigos por número de acessos em"
-msgstr "Articles lifetime by number of accesses on"
+msgstr "Articles lifetime by number of accesses at"
 
 #: analytics/charts_config.py:522
 msgid "Ano de referência"
@@ -437,7 +437,7 @@ msgstr "Publishing"
 
 #: analytics/templates/website/base.mako:84
 msgid "Composição da coleção"
-msgstr "Collection composing"
+msgstr "Collection composition"
 
 #: analytics/templates/website/base.mako:85
 msgid "Gráficos de documentos"
@@ -445,7 +445,7 @@ msgstr "Documents charts"
 
 #: analytics/templates/website/base.mako:86
 msgid "Gráficos de documentos por ano de publicação"
-msgstr "Documents by publication year"
+msgstr "Documents charts by publishing year"
 
 #: analytics/templates/website/base.mako:87
 msgid "Gráficos de periódicos"
@@ -676,7 +676,7 @@ msgstr "title"
 
 #: analytics/templates/website/bibliometrics_list_citing_forms.mako:27
 msgid "ações"
-msgstr "actions"
+msgstr "acctions"
 
 #: analytics/templates/website/bibliometrics_list_citing_forms.mako:37
 msgid "reportar erro"
@@ -786,7 +786,7 @@ msgid ""
 "Para que os dados de acessos sejam computados é necessário que os logs de "
 "acessos sejam enviados para processamento. A ausência de estatísticas de "
 "acessos deve ser verificada com a coordenação de cada coleção SciELO."
-msgstr ""
+msgstr "To compute the site usage data it is necessary that the log files must be send for processing. The absense of usage indicators must be notified for the coordinators of the specific SciELO collection."
 
 #: analytics/templates/website/faq.mako:11
 msgid ""
@@ -867,7 +867,7 @@ msgid ""
 "nos metadados fornecidos durante todo o processo de publicação de um "
 "documento no SciELO. A qualidade desses indicadores esta diretamente ligada "
 "a qualidade dos processos implementados por cada uma das coleções."
-msgstr ""
+msgstr "This chart show the total of documents by the affiliation country of the authors. The total of documents of this chart can not be considered as the total of publications of the collection once the documents may have more than one affiliation country."
 
 #: analytics/templates/website/faq.mako:41
 msgid "Semanal"
