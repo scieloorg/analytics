@@ -1,8 +1,12 @@
 {
     "should": [
         {
-            "fuzziness": 1, 
+            "fuzziness": 1,
             "title": "Sinéctica"
+        },
+        {
+            "fuzziness": 1,
+            "title": "Revista Sinéctica"
         }
     ]
 }

@@ -1,0 +1,12 @@
+{
+    "should": [
+        {
+            "fuzziness": 3,
+            "title": "Revista Agricultura Técnica en México"
+        },
+        {
+            "fuzziness": 3,
+            "title": "Rev. Agric. Téc. Méx"
+        }
+    ]
+}

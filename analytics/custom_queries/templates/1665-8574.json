@@ -1,0 +1,6 @@
+{
+    "must_not": [
+        "Latin Amerika",
+        "Latino-Americana"
+    ]
+}

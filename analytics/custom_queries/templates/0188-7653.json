@@ -1,0 +1,12 @@
+{
+    "should": [
+        {
+            "fuzziness": 3,
+            "title": "Revista Perfiles Latinoamericanos"
+        },
+        {
+            "fuzziness": 3,
+            "title": "Rev. Perf. latinoam."
+        }
+    ]
+}
