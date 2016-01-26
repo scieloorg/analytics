@@ -1,0 +1,16 @@
+{
+    "should": [
+        {
+            "title": "Floresta e Ambiente",
+            "fuzziness": 3
+        },
+        {
+            "title": "Floresta Ambient.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista Floresta e Ambiente",
+            "fuzziness": 3
+        }
+    ]
+}

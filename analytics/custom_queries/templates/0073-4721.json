@@ -1,0 +1,16 @@
+{
+    "should": [
+        {
+            "title": "Iheringia. Série Zoologia",
+            "fuzziness": 3
+        },
+        {
+            "title": "Iheringia, Sér. Zool.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Iheringia",
+            "fuzziness": 3
+        }
+    ]
+}
