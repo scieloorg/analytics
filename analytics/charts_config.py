@@ -43,7 +43,7 @@ class ChartsConfig(object):
         chart['series'] = data['series']
         chart['yAxis']['title'] = {'text': self._(u'Fator de Impacto') }
         chart['tooltip'] = {
-            'headerFormat': self._(u'Fator de impacto'),
+            'headerFormat': self._(u'Fator de Impacto'),
             'pointFormat': u'<br/><strong>'+self._(u'Ano base')+u'</strong>: {point.category}<br/><strong>{series.name}</strong>: {point.y:.4f}',
             'followPointer': True
         }
