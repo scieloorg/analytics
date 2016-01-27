@@ -3,6 +3,10 @@
         {
             "fuzziness": 0,
             "title": "Secuencia"
+        },
+        {
+            "fuzziness": 0,
+            "title": "Revista Secuencia"
         }
     ]
 }

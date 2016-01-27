@@ -1,12 +1,16 @@
 {
     "should": [
         {
-            "fuzziness": 0, 
+            "fuzziness": 0,
             "title": "Acta poética"
         }, 
         {
-            "fuzziness": 0, 
+            "fuzziness": 0,
             "title": "Acta poét"
+        },
+        {
+            "fuzziness": 0,
+            "title": "Revista Acta poética"
         }
     ]
 }

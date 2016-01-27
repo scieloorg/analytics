@@ -1,8 +1,12 @@
 {
     "should": [
         {
-            "fuzziness": 0, 
+            "fuzziness": 0,
             "title": "Inv. Econ"
+        },
+        {
+            "fuzziness": 3,
+            "title": "Revista Investigación Económica"
         }
     ]
 }

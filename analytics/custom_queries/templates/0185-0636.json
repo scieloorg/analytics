@@ -1,0 +1,12 @@
+{
+    "should": [
+        {
+            "fuzziness": 3,
+            "title": "Revista Nueva Antropología"
+        },
+        {
+            "fuzziness": 3,
+            "title": "Rev. Nueva antropol"
+        }
+    ]
+}

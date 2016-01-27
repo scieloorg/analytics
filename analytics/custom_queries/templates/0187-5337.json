@@ -1,0 +1,12 @@
+{
+    "should": [
+        {
+            "fuzziness": 3,
+            "title": "Revista Perinatología Reproducción Humana"
+        },
+        {
+            "fuzziness": 3,
+            "title": "Rev. Perinatol. Reprod. Hum."
+        }
+    ]
+}

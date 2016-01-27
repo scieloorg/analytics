@@ -1,8 +1,12 @@
 {
     "should": [
         {
-            "fuzziness": 1, 
+            "fuzziness": 1,
             "title": "Prob. Des"
+        },
+        {
+            "fuzziness": 3,
+            "title": "Revista Problemas del Desarrollo"
         }
     ]
 }

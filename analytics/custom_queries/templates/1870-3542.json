@@ -1,11 +1,11 @@
 {
     "should": [
         {
-            "fuzziness": 0, 
+            "fuzziness": 0,
             "title": "Rev. mex. fís. E"
         }, 
         {
-            "fuzziness": 0, 
+            "fuzziness": 0,
             "title": "Revista mexicana de física E"
         }
     ]
