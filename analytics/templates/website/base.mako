@@ -160,6 +160,11 @@
         </form>
       </div>
     </div>
+    <div class="row container-fluid">
+      <center>
+        <%include file="use_license.mako"/>  
+      </center>
+    </div>
     <%include file="journal_selector_modal.mako"/>
     <script src="/static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
     <script src="/static/moment/moment.min.js"></script>
