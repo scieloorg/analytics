@@ -13,6 +13,7 @@
     <script src="/static/jquery-1.11.1/jquery-1.11.1.min.js"></script>
   </header>
   <body>
+    <%include file="google_analytics.mako"/>
     <div class="row">
       <nav class="navbar navbar-inverse navbar-fixed-top logo_analytics" role="navigation">
         <div class="container-fluid">
