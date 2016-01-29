@@ -1,0 +1,20 @@
+{
+    "should": [
+        {
+            "title": "JISTEM - Journal of Information Systems and Technology Management",
+            "fuzziness": 3
+        },
+        {
+            "title": "JISTEM J.Inf.Syst. Technol. Manag.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Journal of Information Systems and Technology Management",
+            "fuzziness": 3
+        },
+        {
+            "title": "Journal of Information Systems and Technology Management - JISTEM",
+            "fuzziness": 3
+        }
+    ]
+}
