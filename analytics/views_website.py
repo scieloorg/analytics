@@ -36,7 +36,7 @@ def bibliometrics_journal(request):
 
     return data
 
-@view_config(route_name='bibliometrics_list_impact_factor_web', request_method='GET', renderer='templates/website/bibliometrics_list_impact_factor.mako')
+@view_config(route_name='bibliometrics_list_impact_factor_web', renderer='templates/website/bibliometrics_list_impact_factor.mako')
 @base_data_manager
 def bibliometrics_list_impact_factor(request):
     data = request.data_manager
@@ -60,7 +60,7 @@ def bibliometrics_list_impact_factor(request):
 
     return data
 
-@view_config(route_name='bibliometrics_list_citing_forms_web', request_method='GET', renderer='templates/website/bibliometrics_list_citing_forms.mako')
+@view_config(route_name='bibliometrics_list_citing_forms_web', renderer='templates/website/bibliometrics_list_citing_forms.mako')
 @base_data_manager
 def bibliometrics_list_citing_forms(request):
     data = request.data_manager
@@ -84,7 +84,7 @@ def bibliometrics_list_citing_forms(request):
 
     return data
 
-@view_config(route_name='bibliometrics_list_received_web', request_method='GET', renderer='templates/website/bibliometrics_list_received.mako')
+@view_config(route_name='bibliometrics_list_received_web', renderer='templates/website/bibliometrics_list_received.mako')
 @base_data_manager
 def bibliometrics_list_received(request):
     data = request.data_manager
@@ -108,7 +108,7 @@ def bibliometrics_list_received(request):
 
     return data
 
-@view_config(route_name='bibliometrics_list_granted_web', request_method='GET', renderer='templates/website/bibliometrics_list_granted.mako')
+@view_config(route_name='bibliometrics_list_granted_web', renderer='templates/website/bibliometrics_list_granted.mako')
 @base_data_manager
 def bibliometrics_list_granted(request):
     data = request.data_manager

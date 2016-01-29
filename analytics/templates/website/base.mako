@@ -13,6 +13,7 @@
     <script src="/static/jquery-1.11.1/jquery-1.11.1.min.js"></script>
   </header>
   <body>
+    <%include file="google_analytics.mako"/>
     <div class="row">
       <nav class="navbar navbar-inverse navbar-fixed-top logo_analytics" role="navigation">
         <div class="container-fluid">
@@ -158,6 +159,11 @@
           </select>
         </form>
       </div>
+    </div>
+    <div class="row container-fluid">
+      <center>
+        <%include file="use_license.mako"/>  
+      </center>
     </div>
     <%include file="journal_selector_modal.mako"/>
     <script src="/static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
