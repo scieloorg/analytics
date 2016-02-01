@@ -1,0 +1,24 @@
+{
+    "should": [
+        {
+            "title": "Intercom: Revista Brasileira de Ciências da Comunicação",
+            "fuzziness": 3
+        },
+        {
+            "title": "Intercom, Rev. Bras. Ciênc. Comun.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista Brasileira de Ciências da Comunicação",
+            "fuzziness": 3
+        },
+        {
+            "title": "Rev. Bras. Ciênc. Comun.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Intercom",
+            "fuzziness": 1
+        }
+    ]
+}

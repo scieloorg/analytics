@@ -1,0 +1,19 @@
+{
+    "should": [
+        {
+            "title": "Jornal Brasileiro de Nefrologia",
+            "fuzziness": 3
+        },
+        {
+            "title": "J. Bras. Nefrol.",
+            "fuzziness": 3
+        }
+    ],
+    "must_not": [
+        "J Bras Neurol",
+        "J. Bras. Neurol.",
+        "J. bras. Neurol.",
+        "J Bras Neuro",
+        "Jornal Brasileiro de Neurologia"
+    ]
+}
