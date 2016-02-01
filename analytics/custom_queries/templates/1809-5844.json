@@ -15,6 +15,10 @@
         {
             "title": "Rev. Bras. Ciênc. Comun.",
             "fuzziness": 3
+        },
+        {
+            "title": "Intercom",
+            "fuzziness": 1
         }
     ]
 }
