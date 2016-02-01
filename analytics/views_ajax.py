@@ -72,6 +72,17 @@ def publication_article_authors(request):
     return request.chartsconfig.publication_article_authors(chart_data)
 
 
+@view_config(route_name='publication_article_affiliations_map', request_method='GET', renderer='jsonp')
+@base_data_manager
+def publication_article_affiliations_map(request):
+
+    data = request.data_manager
+
+    chart_data = request.stats.publication.general('article', 'aff_countries', data['selected_code'], data['selected_collection_code'])
+
+    return request.chartsconfig.publication_article_affiliations_map(chart_data)
+
+
 @view_config(route_name='publication_article_affiliations', request_method='GET', renderer='jsonp')
 @base_data_manager
 def publication_article_affiliations(request):

@@ -21,6 +21,9 @@
     <%include file="publication_article_affiliations.mako"/>
   </div>
   <div class="chart">
+    <%include file="publication_article_affiliations_map.mako"/>
+  </div>
+  <div class="chart">
     <%include file="publication_article_authors.mako"/>
   </div>
   <div class="chart">

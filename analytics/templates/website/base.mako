@@ -169,6 +169,8 @@
     <script src="/static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
     <script src="/static/moment/moment.min.js"></script>
     <script src="/static/highcharts/highstock.js"></script>
+    <script src="/static/highcharts/maps/modules/map.js"></script>
+    <script src="/static/highcharts/mapdata/custom/world.js"></script>
     <script src="/static/highcharts/plugins/export-csv-master/export-csv.js"></script>
     <script src="/static/daterangepicker/daterangepicker.js"></script>
     <script src="/static/jquery-1.11.1/plugins/jquery.number.min.js"></script>
