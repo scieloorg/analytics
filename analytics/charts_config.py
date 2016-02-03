@@ -182,6 +182,11 @@ class ChartsConfig(object):
             }
         }]
 
+        chart['tooltip'] = {
+            'headerFormat': '',
+            'pointFormat': u'<span style="color:{point.color}">\u25CF</span>' + self._(u'País de afiliação') + ' <strong>{point.name}</strong><br/>{series.name}: <strong>{point.value}</strong>'
+        }
+
         return {'options': chart}
 
     def publication_article_affiliations(self, data):
