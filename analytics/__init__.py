@@ -59,6 +59,7 @@ def main(global_config, **settings):
     config.add_route('publication_article_languages_publication_year', '/ajx/publication/article/languages_publication_year')
     config.add_route('publication_article_authors', '/ajx/publication/article/authors')
     config.add_route('publication_article_affiliations', '/ajx/publication/article/affiliations')
+    config.add_route('publication_article_affiliations_map', '/ajx/publication/article/affiliations_map')
     config.add_route('publication_article_affiliations_publication_year', '/ajx/publication/article/affiliations_publication_year')
     config.add_route('publication_article_year', '/ajx/publication/article/year')
     config.add_route('publication_article_subject_areas', '/ajx/publication/article/subject_areas')

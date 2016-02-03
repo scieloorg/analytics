@@ -14,14 +14,14 @@ class ChartsConfig(object):
     @property
     def highchart(self):
 
-        _higchart = {
+        _highchart = {
             'chart': {'type': 'line', 'backgroundColor': 'transparent'},
             'yAxis' : {'min': 0, 'labels' :{'format': '{value}'}},
             'legend': {'align': 'center', 'highlightSeries': {'enabled': True}},
             'credits': {'href': 'http://www.scielo.org', 'text': self._(u'Fuente: SciELO.org')}
         }
 
-        return _higchart
+        return _highchart
 
     def bibliometrics_impact_factor(self, data):
 
@@ -143,6 +143,48 @@ class ChartsConfig(object):
         chart['tooltip'] = {
             'headerFormat': '',
             'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'%s documentos com %s autores' % ('<strong>{point.y}</strong>', '<strong>{point.category}</strong>'))
+        }
+
+        return {'options': chart}
+
+    def publication_article_affiliations_map(self, data):
+
+        chart = self.highchart
+        del(chart['chart'])
+        del(chart['legend'])
+        del(chart['yAxis'])
+        chart['title'] = {'text': self._(u'Distribuição de países de afiliação dos documentos')}
+        chart['legend'] = {
+            'title': {
+                'text': self._(u'Número de documentos')
+            }
+        }
+        chart['colorAxis'] = {
+            'min': 1,
+            'max': sorted(data['series'][0]['data'])[-1],
+            'type': 'logarithmic'
+        }
+
+        chart['mapNavigation'] = {
+            'enabled': True,
+            'buttonOptions': {
+                'verticalAlign': 'bottom'
+            }
+        }
+        chart['series'] = [{
+            'data': [{'value': v, 'code': k, 'name': k} for k, v in dict(zip(data['categories'], data['series'][0]['data'])).items()],
+            'joinBy': ['iso-a2', 'code'],
+            'name': self._(u'Documentos'),
+            'states': {
+                'hover': {
+                    'color': '#BADA55'
+                }
+            }
+        }]
+
+        chart['tooltip'] = {
+            'headerFormat': '',
+            'pointFormat': u'<span style="color:{point.color}">\u25CF</span>' + self._(u'País de afiliação') + ' <strong>{point.name}</strong><br/>{series.name}: <strong>{point.value}</strong>'
         }
 
         return {'options': chart}
