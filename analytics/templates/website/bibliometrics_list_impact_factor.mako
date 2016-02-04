@@ -27,8 +27,10 @@
         %>
         <tr>
           <th class="table-impact-factor-header" colspan="6">${_(u'citações em')} ${base_year} ${_(u'para publicações de')}</th>
-          <th class="table-impact-factor-header" colspan="6">${_(u'documentos publicados em')}</th>
-          <th class="table-impact-factor-header" colspan="5">${_(u'fator de impacto')}</th>
+          <th class="table-impact-factor-header" colspan="6">${_(u'documentos publicados em')}
+            <span class="glyphicon glyphicon-question-sign" data-toggle="popover" data-container="body" data-placement="bottom" data-content="${_(u'Aqui são considerados  apenas os documentos citáveis. Entendesse por documentos citáveis, todos os documentos elegíveis para o cálculo de Fator de Impacto, esses documentos devem ser do tipo Research Article ou Review Article.')}"></span>
+          </th>
+          <th class="table-impact-factor-header" colspan="5">${_(u'Fator de Impacto')}</th>
         </tr>
         <tr>
           <th class="success">${base_year-1}</th>
@@ -82,5 +84,6 @@
     % if not selected_journal_code:
     $('#journal_selector_modal').modal();
     % endif
+    $('[data-toggle="popover"]').popover();
   </script>
 </%block>
