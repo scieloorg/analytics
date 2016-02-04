@@ -1,0 +1,16 @@
+{
+    "should": [
+        {
+            "title": "Revista de Contabilidade e Finanças",
+            "fuzziness": 3
+        },
+        {
+            "title": "Rev. contab. finanç.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista Contabilidade & Finanças",
+            "fuzziness": 3
+        }
+    ]
+}
