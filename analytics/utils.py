@@ -1,4 +1,4 @@
-#coding: utf-8
+# coding: utf-8
 import os
 import weakref
 import re
@@ -14,6 +14,7 @@ except ImportError:
 REGEX_ISSN = re.compile("^[0-9]{4}-[0-9]{3}[0-9xX]$")
 REGEX_ISSUE = re.compile("^[0-9]{4}-[0-9]{3}[0-9xX][0-2][0-9]{3}[0-9]{4}$")
 REGEX_ARTICLE = re.compile("^S[0-9]{4}-[0-9]{3}[0-9xX][0-2][0-9]{3}[0-9]{4}[0-9]{5}$")
+
 
 def dogpile_controller_key_generator(namespace, fn, *kwargs):
 
@@ -41,7 +42,7 @@ def clean_string(text):
         except:
             pass
 
-    try:    
+    try:
         nfd_form = unicodedata.normalize('NFD', text.strip().lower())
     except:
         return text
@@ -49,6 +50,7 @@ def clean_string(text):
     cleaned_str = u''.join(x for x in nfd_form if unicodedata.category(x)[0] == 'L' or x == ' ')
 
     return cleaned_str.lower().strip()
+
 
 def mktime(year=1970, month=1, day=1):
 
@@ -113,5 +115,5 @@ class Configuration(SingletonMixin):
     def items(self):
         """Settings as key-value pair.
         """
-        return [(section, dict(self.conf.items(section, raw=True))) for \
-            section in [section for section in self.conf.sections()]]
+        return [(section, dict(self.conf.items(section, raw=True))) for
+                section in [section for section in self.conf.sections()]]

@@ -3,13 +3,14 @@ import os
 import unittest
 
 from analytics.custom_queries import custom_query
+
+
 class CustomQueriesTest(unittest.TestCase):
 
     def test_load_query_from_file(self):
 
-        result = custom_query.load_query_from_file('%s/custom_queries_templates/0000-0000.json' % (
-            os.path.abspath(os.path.dirname(__file__))
-            )
+        result = custom_query.load_query_from_file(
+            '%s/custom_queries_templates/0000-0000.json' % os.path.abspath(os.path.dirname(__file__))
         )
 
         must_not = [i for i in sorted(result['must_not'])]
@@ -52,9 +53,8 @@ class CustomQueriesTest(unittest.TestCase):
 
     def test_load_query_from_file_invalid_json(self):
 
-        result = custom_query.load_query_from_file('%s/custom_queries_templates/0000-0000_invalid.json' % (
-            os.path.abspath(os.path.dirname(__file__))
-            )
+        result = custom_query.load_query_from_file(
+            '%s/custom_queries_templates/0000-0000_invalid.json' % os.path.abspath(os.path.dirname(__file__))
         )
 
         self.assertEqual(result, None)

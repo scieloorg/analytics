@@ -27,7 +27,7 @@ citedby_thrift = thriftpy.load(
 class ServerError(Exception):
     def __init__(self, message=None):
         self.message = message or 'thirftclient: ServerError'
-    
+
     def __str__(self):
         return repr(self.message)
 
@@ -119,7 +119,6 @@ class ArticleMeta(object):
         )
         return client
 
-
     def journal(self, code, collection=None):
 
         kwargs = {
@@ -138,7 +137,6 @@ class ArticleMeta(object):
         xjournal = Journal(jjournal)
 
         return xjournal
-
 
     def journals(self, collection=None, issn=None):
         offset = 0
@@ -160,7 +158,7 @@ class ArticleMeta(object):
             article = self.client.get_article(
                 code=code,
                 collection=collection,
-                replace_journal_metadata=True, 
+                replace_journal_metadata=replace_journal_metadata,
                 fmt=fmt
             )
         except:
@@ -178,9 +176,8 @@ class ArticleMeta(object):
         else:
             return article
 
-
     def documents(self, collection=None, issn=None, from_date=None,
-        until_date=None, fmt='xylose'):
+                  until_date=None, fmt='xylose'):
         offset = 0
         while True:
             identifiers = self.client.get_article_identifiers(
@@ -195,7 +192,7 @@ class ArticleMeta(object):
                 document = self.document(
                     code=identifier.code,
                     collection=identifier.collection,
-                    replace_journal_metadata=True, 
+                    replace_journal_metadata=True,
                     fmt=fmt
                 )
 

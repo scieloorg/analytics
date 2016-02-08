@@ -1,12 +1,13 @@
 # coding: utf-8
-import os
 import unittest
 
 from analytics import controller
 
+
 def dummyclient(data):
 
     return data
+
 
 class ControllerTest(unittest.TestCase):
 
@@ -15,7 +16,7 @@ class ControllerTest(unittest.TestCase):
         self._stats = controller.Stats('localhost:11600', 'localhost:11600', 'localhost:11600', 'localhost:11600')
 
     def test_must_not_custom_query(self):
-        result = [i for i in self._stats.bibliometrics.must_not_custom_query('0000-0000')]
+        result = [i for i in self._stats.bibliometrics._must_not_custom_query('0000-0000')]
 
         sorted_must_not = sorted([i['match']['reference_source_cleaned'] for i in result])
 
@@ -37,11 +38,10 @@ class ControllerTest(unittest.TestCase):
         self.assertEqual(sorted_must_not, expected)
 
     def test_fuzzy_custom_query(self):
-        result = [i for i in self._stats.bibliometrics.fuzzy_custom_query(
+        result = [i for i in self._stats.bibliometrics._fuzzy_custom_query(
             '0000-0000',
             ['teste1', 'teste2']
         )]
-
 
         sorted_fuzzy = []
 
@@ -336,8 +336,8 @@ class ControllerTest(unittest.TestCase):
                                         "doc_count": 9
                                     },
                                     {
-                                      "key": "2001",
-                                      "doc_count": 8
+                                        "key": "2001",
+                                        "doc_count": 8
                                     },
                                     {
                                         "key": "1992",
@@ -426,8 +426,8 @@ class ControllerTest(unittest.TestCase):
                                         "doc_count": 12
                                     },
                                     {
-                                      "key": "2004",
-                                      "doc_count": 11
+                                        "key": "2004",
+                                        "doc_count": 11
                                     },
                                     {
                                         "key": "1998",
@@ -750,15 +750,15 @@ class ControllerTest(unittest.TestCase):
                                         "doc_count": 1
                                     }
                                 ],
-                               "doc_count_error_upper_bound": 0,
-                               "sum_other_doc_count": 0
-                           },
-                           "key": "2009",
-                           "doc_count": 143
-                       },
-                       {
-                           "reference_publication_year": {
-                               "buckets": [
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 0
+                            },
+                            "key": "2009",
+                            "doc_count": 143
+                        },
+                        {
+                            "reference_publication_year": {
+                                "buckets": [
                                     {
                                         "key": "2007",
                                         "doc_count": 16
@@ -882,8 +882,8 @@ class ControllerTest(unittest.TestCase):
                                         "doc_count": 6
                                     },
                                     {
-                                       "key": "2002",
-                                       "doc_count": 6
+                                        "key": "2002",
+                                        "doc_count": 6
                                     },
                                     {
                                         "key": "2005",
@@ -1703,9 +1703,9 @@ class ControllerTest(unittest.TestCase):
                             },
                             "not_citable_documents": {
                                 "doc_count": 1
-                          },
-                          "key": "2011",
-                          "doc_count": 42
+                            },
+                            "key": "2011",
+                            "doc_count": 42
                         },
                         {
                             "citable_documents": {
@@ -1728,7 +1728,6 @@ class ControllerTest(unittest.TestCase):
                 "total": 5
             }
         }
-
 
         result = self._stats._compute_impact_factor(pub_citing_years, citable_docs)
 
@@ -1894,7 +1893,7 @@ class ControllerTest(unittest.TestCase):
                     0.0
                 ],
                 "citable_docs": 40
-            }  
+            }
         }
 
         self.assertEqual(expected, result)
@@ -2101,7 +2100,7 @@ class ControllerTest(unittest.TestCase):
                 "failed": 0,
                 "total": 5
             }
-        }        
+        }
 
         expected = {
             "series": [
@@ -2294,7 +2293,8 @@ class ControllerTest(unittest.TestCase):
             ]
         }
 
-        self.assertEqual(expected,
+        self.assertEqual(
+            expected,
             self._stats._compute_received_self_and_granted_citation_chart(
                 self_citations,
                 granted_citations,
@@ -2619,7 +2619,7 @@ class ControllerTest(unittest.TestCase):
                                         "access_abstract": {
                                             "value": 751424.0
                                         },
-                                        "key": "Cadernos de Sa\u00fade P\u00fablica",
+                                        "key": u"Cadernos de Sa\u00fade P\u00fablica",
                                         "access_epdf": {
                                             "value": 10506.0
                                         }
@@ -2649,7 +2649,7 @@ class ControllerTest(unittest.TestCase):
                 "pdf": 5444060,
                 "epdf": 10506,
                 "issn": "0102-311X",
-                "title": "Cadernos de Sa\u00fade P\u00fablica",
+                "title": u"Cadernos de Sa\u00fade P\u00fablica",
                 "abstract": 751424,
                 "total": 13225925
             }
@@ -2718,7 +2718,7 @@ class ControllerTest(unittest.TestCase):
                                         "access_pdf": {
                                             "value": 139714.0
                                         },
-                                        "key": "S\u00e3o Paulo Perspec., n.14 v.2, 2000",
+                                        "key": u"S\u00e3o Paulo Perspec., n.14 v.2, 2000",
                                         "access_html": {
                                             "value": 462105.0
                                         }
@@ -2760,7 +2760,7 @@ class ControllerTest(unittest.TestCase):
             {
                 "total": 607590,
                 "abstract": 5323,
-                "title": "S\u00e3o Paulo Perspec., n.14 v.2, 2000",
+                "title": u"S\u00e3o Paulo Perspec., n.14 v.2, 2000",
                 "issue": "S0102-883920000002",
                 "pdf": 139714,
                 "epdf": 448,
@@ -2802,7 +2802,7 @@ class ControllerTest(unittest.TestCase):
                                         "access_pdf": {
                                             "value": 295969.0
                                         },
-                                        "key": "S\u00edfilis: diagn\u00f3stico, tratamento e controle",
+                                        "key": u"S\u00edfilis: diagn\u00f3stico, tratamento e controle",
                                         "access_abstract": {
                                             "value": 301.0
                                         }
@@ -2834,7 +2834,7 @@ class ControllerTest(unittest.TestCase):
                                         "access_pdf": {
                                             "value": 231820.0
                                         },
-                                        "key": "Educa\u00e7\u00e3o ambiental, cidadania e sustentabilidade",
+                                        "key": u"Educa\u00e7\u00e3o ambiental, cidadania e sustentabilidade",
                                         "access_abstract": {
                                             "value": 1426.0
                                         }
@@ -2868,7 +2868,7 @@ class ControllerTest(unittest.TestCase):
                 "pid": "S0365-05962006000200002",
                 "abstract": 301,
                 "html": 66582,
-                "title": "S\u00edfilis: diagn\u00f3stico, tratamento e controle"
+                "title": u"S\u00edfilis: diagn\u00f3stico, tratamento e controle"
             },
             {
                 "total": 280553,
@@ -2877,7 +2877,7 @@ class ControllerTest(unittest.TestCase):
                 "pid": "S0100-15742003000100008",
                 "abstract": 1426,
                 "html": 47265,
-                "title": "Educa\u00e7\u00e3o ambiental, cidadania e sustentabilidade"
+                "title": u"Educa\u00e7\u00e3o ambiental, cidadania e sustentabilidade"
             }
         ]
 
@@ -3285,7 +3285,6 @@ class ControllerTest(unittest.TestCase):
         }
 
         self.assertEqual(expected, result)
-
 
     def test_access_by_document_type(self):
 
