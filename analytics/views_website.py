@@ -2,13 +2,10 @@
 import requests
 
 from pyramid.view import view_config
-from pyramid.response import Response
-from pyramid.settings import aslist
-import pyramid.httpexceptions as exc
 
 from dogpile.cache import make_region
 
-from analytics.control_manager import base_data_manager, check_session
+from analytics.control_manager import base_data_manager
 from analytics.custom_queries import custom_query
 
 cache_region = make_region(name='views_website_cache')

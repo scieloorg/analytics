@@ -1,11 +1,9 @@
 from pyramid.session import SignedCookieSessionFactory
 from pyramid.renderers import JSONP
 from pyramid.config import Configurator
-from pyramid.settings import aslist, asbool
 
 from analytics import controller
 from analytics import charts_config
-from thrift_clients import clients
 
 from analytics.views_website import cache_region as views_website_cache_region
 from analytics.views_ajax import cache_region as views_ajax_cache_region

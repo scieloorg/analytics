@@ -1,13 +1,9 @@
 # coding: utf-8
-import logging
-import sys
 import json
 from datetime import datetime, timedelta
 
-from pyramid.settings import aslist
 from thrift_clients import clients
 from dogpile.cache import make_region
-from xylose.scielodocument import Article, Journal
 
 from analytics import utils
 from analytics.custom_queries import custom_query

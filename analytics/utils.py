@@ -3,7 +3,6 @@ import os
 import weakref
 import re
 import unicodedata
-import hashlib
 from datetime import datetime
 
 try:
