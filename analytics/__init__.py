@@ -1,16 +1,15 @@
 from pyramid.session import SignedCookieSessionFactory
 from pyramid.renderers import JSONP
 from pyramid.config import Configurator
-from pyramid.settings import aslist, asbool
 
 from analytics import controller
 from analytics import charts_config
-from thrift_clients import clients
 
 from analytics.views_website import cache_region as views_website_cache_region
 from analytics.views_ajax import cache_region as views_ajax_cache_region
 from analytics.controller import cache_region as controller_cache_region
 from analytics.control_manager import cache_region as control_manager_cache_region
+
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
@@ -67,8 +66,8 @@ def main(global_config, **settings):
     config.add_route('bibliometrics_journal_web', '/w/bibliometrics/journal')
     config.add_route('bibliometrics_list_granted_web', '/bibliometrics/list/granted')
     config.add_route('bibliometrics_list_received_web', '/bibliometrics/list/received')
-    config.add_route('bibliometrics_list_citing_forms_web', '/bibliometrics/list/citing_forms')   
-    config.add_route('bibliometrics_list_impact_factor_web', '/bibliometrics/list/impact_factor')   
+    config.add_route('bibliometrics_list_citing_forms_web', '/bibliometrics/list/citing_forms')
+    config.add_route('bibliometrics_list_impact_factor_web', '/bibliometrics/list/impact_factor')
     config.add_route('bibliometrics_journal_received_self_and_granted_citation_chart', '/ajx/bibliometrics/journal/received_self_and_granted_citation_chart')
     config.add_route('bibliometrics_journal_impact_factor_chart', '/ajx/bibliometrics/journal/impact_factor_chart')
     config.add_request_method(add_stats, 'stats', reify=True)
@@ -80,10 +79,10 @@ def main(global_config, **settings):
                           'pyramid.events.NewRequest')
     config.add_translation_dirs('analytics:locale')
 
-    ## Cache Settings Config
+    # Cache Settings Config
     if 'memcached_host' in settings:
         cache_config = {}
-        cache_config['expiration_time'] = int(settings.get('memcached_expiration_time', 2592000)) # a month cache
+        cache_config['expiration_time'] = int(settings.get('memcached_expiration_time', 2592000))  # a month cache
         cache_config['arguments'] = {'url': settings['memcached_host'], 'binary': True}
         views_ajax_cache_region.configure('dogpile.cache.pylibmc', **cache_config)
         views_website_cache_region.configure('dogpile.cache.pylibmc', **cache_config)
@@ -95,7 +94,7 @@ def main(global_config, **settings):
         control_manager_cache_region.configure('dogpile.cache.null')
         views_ajax_cache_region.configure('dogpile.cache.null')
 
-    ## Session config
+    # Session config
     navegation_session_factory = SignedCookieSessionFactory('sses_navegation')
     config.set_session_factory(navegation_session_factory)
 

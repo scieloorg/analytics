@@ -4,6 +4,7 @@ import unittest
 
 from analytics import utils
 
+
 class UtilsTest(unittest.TestCase):
 
     def test_clean_string_1(self):

@@ -1,4 +1,4 @@
-#coding: utf-8
+# coding: utf-8
 import datetime
 
 from pyramid.settings import aslist
@@ -8,6 +8,7 @@ from dogpile.cache import make_region
 from analytics import utils
 
 cache_region = make_region(name='control_manager')
+
 
 def check_session(wrapped):
     """
@@ -24,16 +25,15 @@ def check_session(wrapped):
         locale = request.GET.get('_LOCALE_', request.locale_name)
 
         if journal == 'clean' and 'journal' in request.session:
-            del(request.session['journal'])
+            del request.session['journal']
             journal = None
             if 'document' in request.session:
-                del(request.session['document'])
+                del request.session['document']
                 document = None
 
         if document == 'clean' and 'document' in request.session:
-            del(request.session['document'])
+            del request.session['document']
             document = None
-
 
         session_under_development = request.session.get('under_development', None)
         session_collection = request.session.get('collection', None)
@@ -46,7 +46,7 @@ def check_session(wrapped):
         if collection and collection != session_collection:
             request.session['collection'] = collection
             if 'journal' in request.session:
-                del(request.session['journal'])
+                del request.session['journal']
         elif not session_collection:
             request.session['collection'] = 'scl'
 

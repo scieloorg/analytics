@@ -1,14 +1,13 @@
-#coding: utf-8
+# coding: utf-8
 from pyramid.view import view_config
-from pyramid.response import Response
-import pyramid.httpexceptions as exc
 
 from dogpile.cache import make_region
 
-from analytics.control_manager import base_data_manager, check_session
+from analytics.control_manager import base_data_manager
 from analytics.custom_queries import custom_query
 
 cache_region = make_region(name='views_ajax_cache')
+
 
 @view_config(route_name='bibliometrics_journal_impact_factor_chart', request_method='GET', renderer='jsonp')
 @base_data_manager
@@ -111,18 +110,7 @@ def publication_article_year(request):
 
     data = request.data_manager
 
-    chart_data = request.stats.publication.general('article', 'publication_year', data['selected_code'], data['selected_collection_code'], 0, 'desc' )
-
-    return request.chartsconfig.publication_article_year(chart_data)
-
-
-@view_config(route_name='publication_article_year', request_method='GET', renderer='jsonp')
-@base_data_manager
-def publication_article_year(request):
-
-    data = request.data_manager
-
-    data_chart = request.stats.publication.general('article', 'publication_year', data['selected_code'], data['selected_collection_code'], 0, 'desc' )
+    data_chart = request.stats.publication.general('article', 'publication_year', data['selected_code'], data['selected_collection_code'], 0, 'desc')
 
     return request.chartsconfig.publication_article_year(data_chart)
 
@@ -148,6 +136,7 @@ def publication_article_languages_publication_year(request):
 
     return request.chartsconfig.publication_article_languages_by_publication_year(data_chart)
 
+
 @view_config(route_name='publication_journal_status', request_method='GET', renderer='jsonp')
 @base_data_manager
 def publication_journal_status(request):
@@ -169,6 +158,7 @@ def publication_journal_year(request):
 
     return request.chartsconfig.publication_journal_year(data_chart)
 
+
 @view_config(route_name='publication_article_citable_documents', request_method='GET', renderer='jsonp')
 @base_data_manager
 def publication_article_citable_documents(request):
@@ -179,6 +169,7 @@ def publication_article_citable_documents(request):
 
     return request.chartsconfig.publication_article_citable_documents(data_chart)
 
+
 @view_config(route_name='publication_article_subject_areas', request_method='GET', renderer='jsonp')
 @base_data_manager
 def publication_article_subject_areas(request):
@@ -188,6 +179,7 @@ def publication_article_subject_areas(request):
     data_chart = request.stats.publication.general('article', 'subject_areas', data['selected_code'], data['selected_collection_code'])
 
     return request.chartsconfig.publication_article_subject_areas(data_chart)
+
 
 @view_config(route_name='publication_article_subject_areas_publication_year', request_method='GET', renderer='jsonp')
 @base_data_manager
@@ -210,6 +202,7 @@ def publication_article_document_type(request):
 
     return request.chartsconfig.publication_article_document_type(data_chart)
 
+
 @view_config(route_name='publication_article_licenses_publication_year', request_method='GET', renderer='jsonp')
 @base_data_manager
 def publication_article_licenses_publication_year(request):
@@ -219,6 +212,7 @@ def publication_article_licenses_publication_year(request):
     data_chart = request.stats.publication.lincenses_by_publication_year(data['selected_code'], data['selected_collection_code'])
 
     return request.chartsconfig.publication_article_licenses_by_publication_year(data_chart)
+
 
 @view_config(route_name='publication_article_licenses', request_method='GET', renderer='jsonp')
 @base_data_manager
@@ -252,6 +246,7 @@ def publication_journal_licenses(request):
 
     return request.chartsconfig.publication_journal_licenses(data_chart)
 
+
 @view_config(route_name='publication_size', request_method='GET', renderer='jsonp')
 @base_data_manager
 def publication_size(request):
@@ -264,6 +259,7 @@ def publication_size(request):
 
     return data
 
+
 @view_config(route_name='accesses_bymonthandyear', request_method='GET', renderer='jsonp')
 @base_data_manager
 def bymonthandyear(request):
@@ -274,7 +270,7 @@ def bymonthandyear(request):
     range_end = request.GET.get('range_end', None)
 
     data_chart = request.stats.access.access_by_month_and_year(data['selected_code'], data['selected_collection_code'], range_start, range_end)
-    
+
     return request.chartsconfig.bymonthandyear(data_chart)
 
 

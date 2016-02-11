@@ -1,13 +1,9 @@
 # coding: utf-8
-import logging
-import sys
 import json
 from datetime import datetime, timedelta
 
-from pyramid.settings import aslist
 from thrift_clients import clients
 from dogpile.cache import make_region
-from xylose.scielodocument import Article, Journal
 
 from analytics import utils
 from analytics.custom_queries import custom_query
@@ -30,8 +26,9 @@ ALLOWED_DOC_TYPES_N_FACETS = {
 
 cache_region = make_region(
     name='controller_cache',
-    function_key_generator = utils.dogpile_controller_key_generator
+    function_key_generator=utils.dogpile_controller_key_generator
 )
+
 
 def construct_aggs(aggs, size=0):
     """
@@ -41,6 +38,7 @@ def construct_aggs(aggs, size=0):
 
     data = {}
     point = None
+
     def join(field, point=None):
         default = {
             field: {
@@ -93,11 +91,13 @@ def accessstats(host):
 
     return AccessStats(address, port)
 
+
 def publicationstats(host):
 
     address, port = host.split(':')
 
     return PublicationStats(address, port)
+
 
 def bibliometrics(host):
 
@@ -114,7 +114,8 @@ class Stats(object):
         self.access = accessstats(accessstats_host)
         self.bibliometrics = bibliometrics(bibliometrics_host)
 
-    def _compute_received_self_and_granted_citation_chart(self, self_citations, granted_citations, received_citations):
+    @staticmethod
+    def _compute_received_self_and_granted_citation_chart(self_citations, granted_citations, received_citations):
 
         joined_data = {}
 
@@ -125,12 +126,10 @@ class Stats(object):
         for item in granted_citations['aggregations']['publication_year']['buckets']:
             joined_data.setdefault(item['key'], {'self_citation': 0, 'granted_citation': 0, 'received_citation': 0})
             joined_data[item['key']]['granted_citation'] = item['citations']['value']
-        
 
         for item in received_citations['aggregations']['publication_year']['buckets']:
             joined_data.setdefault(item['key'], {'self_citation': 0, 'granted_citation': 0, 'received_citation': 0})
             joined_data[item['key']]['received_citation'] = item['doc_count']
-
 
         data = {
             'series': [
@@ -166,7 +165,8 @@ class Stats(object):
 
         return self._compute_received_self_and_granted_citation_chart(self_citations, granted_citations, received_citations)
 
-    def _compute_impact_factor(self, pub_citing_years, citable_docs):
+    @staticmethod
+    def _compute_impact_factor(pub_citing_years, citable_docs):
         """
         Computa o fator de impacto em 2, 3 e 4 anos.
         """
@@ -181,15 +181,14 @@ class Stats(object):
             for citing_year in publication_year['reference_publication_year']['buckets']:
                 pcy[publication_year['key']][citing_year['key']] = citing_year['doc_count']
 
-
         for year, content in cit_docs.items():
             cit_docs[year]['fi'] = []
             cit_docs[year]['fi_citations'] = []
             cit_docs[year]['fi_documents'] = []
 
             for i in range(int(year), int(year)-6, -1):
-                cit_docs[year]['fi_citations'].append( float(pcy.get(year, {}).get(str(i), 0)) )
-                cit_docs[year]['fi_documents'].append( float(cit_docs.get(str(i), {'citable_docs': 0})['citable_docs']) )
+                cit_docs[year]['fi_citations'].append(float(pcy.get(year, {}).get(str(i), 0)))
+                cit_docs[year]['fi_documents'].append(float(cit_docs.get(str(i), {'citable_docs': 0})['citable_docs']))
 
             for i in range(0, 6):
                 first = 1 if i > 0 else 0
@@ -210,16 +209,15 @@ class Stats(object):
 
         return self._compute_impact_factor(pub_citing_years, citable_docs)
 
-    def _compute_impact_factor_chart(self, query_result):
+    @staticmethod
+    def _compute_impact_factor_chart(query_result):
 
         series = []
         for i in range(6):
-            series.append(
-                {
-                    'name': 'impact_factor_%d' % i,
-                    'data': []
-                }
-            )
+            series.append({
+                'name': 'impact_factor_%d' % i,
+                'data': []
+            })
 
         categories = []
 
@@ -236,9 +234,11 @@ class Stats(object):
 
         return self._compute_impact_factor_chart(query_result)
 
+
 class CitedbyStats(clients.Citedby):
 
-    def _compute_publication_and_citing_years(self, query_result):
+    @staticmethod
+    def _compute_publication_and_citing_years(query_result):
         """
         Metodo mantido apenas por padronização. Nenhum gráfico é montado
         diretamente com esses dados. Ele é utilizado em composição com outros
@@ -270,7 +270,7 @@ class CitedbyStats(clients.Citedby):
                                 "field": "reference_publication_year",
                                 "size": citation_size,
                                 "order": {
-                                    "_term": "desc"                                
+                                    "_term": "desc"
                                 }
                             }
                         }
@@ -279,10 +279,10 @@ class CitedbyStats(clients.Citedby):
             }
         }
 
-        for item in self.fuzzy_custom_query(issn, titles):
+        for item in self._fuzzy_custom_query(issn, titles):
             body['query']['bool']['should'].append(item)
 
-        for item in self.must_not_custom_query(issn):
+        for item in self._must_not_custom_query(issn):
             body['query']['bool']['must_not'].append(item)
 
         query_parameters = [
@@ -296,7 +296,8 @@ class CitedbyStats(clients.Citedby):
 
         return query_result if raw else computed
 
-    def _compute_self_citations(self, query_result):
+    @staticmethod
+    def _compute_self_citations(query_result):
 
         series = [
             {
@@ -318,7 +319,7 @@ class CitedbyStats(clients.Citedby):
 
         body = {
             "query": {
-                "filtered" : {
+                "filtered": {
                     "query": {
                         "bool": {
                             "should": [],
@@ -345,10 +346,10 @@ class CitedbyStats(clients.Citedby):
             }
         }
 
-        for item in self.fuzzy_custom_query(issn, titles):
+        for item in self._fuzzy_custom_query(issn, titles):
             body['query']['filtered']['query']['bool']['should'].append(item)
 
-        for item in self.must_not_custom_query(issn):
+        for item in self._must_not_custom_query(issn):
             body['query']['filtered']['query']['bool']['must_not'].append(item)
 
         query_parameters = [
@@ -362,18 +363,18 @@ class CitedbyStats(clients.Citedby):
 
         return query_result if raw else computed
 
+    @staticmethod
+    def _compute_granted_citations(query_result):
 
-    def _compute_granted_citations(self, query_result):
-
-        itens = []
+        items = []
         for bucket in query_result['aggregations']['reference_source']['buckets']:
             item = {
                 "source": bucket['key'],
                 "count": bucket['doc_count']
             }
-            itens.append(item)
+            items.append(item)
 
-        return itens
+        return items
 
     @cache_region.cache_on_arguments()
     def granted_citations(self, issn, size=0, raw=False):
@@ -404,17 +405,18 @@ class CitedbyStats(clients.Citedby):
 
         return query_result if raw else computed
 
-    def _compute_received_citations_by_year(self, query_result):
+    @staticmethod
+    def _compute_received_citations_by_year(query_result):
 
-        itens = []
+        items = []
         for bucket in query_result['aggregations']['publication_year']['buckets']:
             item = {
                 "source": bucket['key'],
                 "count": bucket['doc_count']
             }
-            itens.append(item)
+            items.append(item)
 
-        return itens
+        return items
 
     @cache_region.cache_on_arguments()
     def received_citations_by_year(self, issn, titles, size=0, raw=False):
@@ -430,16 +432,16 @@ class CitedbyStats(clients.Citedby):
                 "publication_year": {
                     "terms": {
                         "field": "publication_year",
-                        "size":size
+                        "size": size
                     }
                 }
             }
         }
 
-        for item in self.fuzzy_custom_query(issn, titles):
+        for item in self._fuzzy_custom_query(issn, titles):
             body['query']['bool']['should'].append(item)
 
-        for item in self.must_not_custom_query(issn):
+        for item in self._must_not_custom_query(issn):
             body['query']['bool']['must_not'].append(item)
 
         query_parameters = [
@@ -448,22 +450,23 @@ class CitedbyStats(clients.Citedby):
         ]
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
-
+        # print json.dumps(body)
         computed = self._compute_received_citations_by_year(query_result)
 
         return query_result if raw else computed
 
-    def _compute_received_citations(self, query_result):
+    @staticmethod
+    def _compute_received_citations(query_result):
 
-        itens = []
+        items = []
         for bucket in query_result['aggregations']['source']['buckets']:
             item = {
                 "source": bucket['key'],
                 "count": bucket['doc_count']
             }
-            itens.append(item)
+            items.append(item)
 
-        return itens
+        return items
 
     @cache_region.cache_on_arguments()
     def received_citations(self, issn, titles, size=0, raw=False):
@@ -479,16 +482,16 @@ class CitedbyStats(clients.Citedby):
                 "source": {
                     "terms": {
                         "field": "source",
-                        "size":size
+                        "size": size
                     }
                 }
             }
         }
 
-        for item in self.fuzzy_custom_query(issn, titles):
+        for item in self._fuzzy_custom_query(issn, titles):
             body['query']['bool']['should'].append(item)
 
-        for item in self.must_not_custom_query(issn):
+        for item in self._must_not_custom_query(issn):
             body['query']['bool']['must_not'].append(item)
 
         query_parameters = [
@@ -502,18 +505,18 @@ class CitedbyStats(clients.Citedby):
 
         return query_result if raw else computed
 
+    @staticmethod
+    def _compute_citing_forms(query_result):
 
-    def _compute_citing_forms(self, query_result):
-
-        itens = []
+        items = []
         for bucket in query_result['aggregations']['reference_source']['buckets']:
             item = {
                 "source": bucket['key'],
                 "count": bucket['doc_count']
             }
-            itens.append(item)
+            items.append(item)
 
-        return itens
+        return items
 
     @cache_region.cache_on_arguments()
     def citing_forms(self, issn, titles, size=0, raw=False):
@@ -529,16 +532,16 @@ class CitedbyStats(clients.Citedby):
                 "reference_source": {
                     "terms": {
                         "field": "reference_source",
-                        "size":size
+                        "size": size
                     },
                 }
             }
         }
 
-        for item in self.fuzzy_custom_query(issn, titles):
+        for item in self._fuzzy_custom_query(issn, titles):
             body['query']['bool']['should'].append(item)
 
-        for item in self.must_not_custom_query(issn):
+        for item in self._must_not_custom_query(issn):
             body['query']['bool']['must_not'].append(item)
 
         query_parameters = [
@@ -552,8 +555,8 @@ class CitedbyStats(clients.Citedby):
 
         return query_result if raw else computed
 
-
-    def must_not_custom_query(self, issn):
+    @staticmethod
+    def _must_not_custom_query(issn):
         """
             Este metodo constroi a lista de filtros por título de periódico que
             será aplicada na pesquisa boleana como restrição "must_not".
@@ -573,7 +576,8 @@ class CitedbyStats(clients.Citedby):
 
             yield query
 
-    def fuzzy_custom_query(self, issn, titles):
+    @staticmethod
+    def _fuzzy_custom_query(issn, titles):
         """
             Este metodo constroi a lista de filtros por título de periódico que
             será aplicada na pesquisa boleana como match por similaridade "should".
@@ -594,7 +598,7 @@ class CitedbyStats(clients.Citedby):
                 "fuzzy": {
                     "reference_source_cleaned": {
                         "value": utils.clean_string(item['title']),
-                        "fuzziness" : item.get('fuzziness', 3),
+                        "fuzziness": item.get('fuzziness', 3),
                         "max_expansions": 50
                     }
                 }
@@ -602,13 +606,15 @@ class CitedbyStats(clients.Citedby):
 
             yield query
 
+
 class PublicationStats(clients.PublicationStats):
 
-    def _code_type(self, code):
+    @staticmethod
+    def _code_type(code):
 
         if not code:
             return None
-        
+
         if utils.REGEX_ISSN.match(code):
             return 'issn'
 
@@ -618,7 +624,8 @@ class PublicationStats(clients.PublicationStats):
         if utils.REGEX_ARTICLE.match(code):
             return 'pid'
 
-    def _compute_granted_citations_by_year(self, query_result):
+    @staticmethod
+    def _compute_granted_citations_by_year(query_result):
         series = [
             {
                 'name': 'citations',
@@ -640,7 +647,8 @@ class PublicationStats(clients.PublicationStats):
         body = {
             "query": {
                 "bool": {
-                    "must": [{
+                    "must": [
+                        {
                             "match": {
                                 "collection": collection
                             }
@@ -669,11 +677,10 @@ class PublicationStats(clients.PublicationStats):
 
         if code_type:
             body["query"]["bool"]["must"].append({
-                    "match": {
-                        code_type: code
-                    }
+                "match": {
+                    code_type: code
                 }
-            )
+            })
 
         query_parameters = [
             clients.publicationstats_thrift.kwargs('size', '0'),
@@ -685,8 +692,8 @@ class PublicationStats(clients.PublicationStats):
 
         return query_result if raw else computed
 
-
-    def _compute_general(self, query_result, field):
+    @staticmethod
+    def _compute_general(query_result, field):
         series = [
             {
                 "name": field,
@@ -713,7 +720,6 @@ class PublicationStats(clients.PublicationStats):
 
         series.append(documents)
 
-
         return {"series": series, "categories": categories}
 
     @cache_region.cache_on_arguments()
@@ -724,7 +730,8 @@ class PublicationStats(clients.PublicationStats):
         body = {
             "query": {
                 "bool": {
-                    "must": [{
+                    "must": [
+                        {
                             "match": {
                                 "collection": collection
                             }
@@ -749,11 +756,10 @@ class PublicationStats(clients.PublicationStats):
 
         if code_type:
             body["query"]["bool"]["must"].append({
-                    "match": {
-                        code_type: code
-                    }
+                "match": {
+                    code_type: code
                 }
-            )
+            })
 
         query_parameters = [
             clients.publicationstats_thrift.kwargs('size', '0'),
@@ -766,7 +772,8 @@ class PublicationStats(clients.PublicationStats):
 
         return query_result if raw else computed
 
-    def _compute_collection_size(self, query_result, field):
+    @staticmethod
+    def _compute_collection_size(query_result, field):
 
         if field == 'documents':
             try:
@@ -774,7 +781,6 @@ class PublicationStats(clients.PublicationStats):
             except:
                 return None
 
-        
         try:
             return {'total': query_result['aggregations'][field]['value']}
         except:
@@ -783,13 +789,14 @@ class PublicationStats(clients.PublicationStats):
     @cache_region.cache_on_arguments()
     def collection_size(self, code, collection, field, raw=False):
 
-        if not field in ['issue', 'issn', 'citations', 'documents']:
+        if field not in ['issue', 'issn', 'citations', 'documents']:
             raise ValueError('Expected values for field: [issue, issn, citations, documents]')
 
         body = {
             "query": {
                 "bool": {
-                    "must": [{
+                    "must": [
+                        {
                             "match": {
                                 "collection": collection
                             }
@@ -803,11 +810,10 @@ class PublicationStats(clients.PublicationStats):
 
         if code_type:
             body["query"]["bool"]["must"].append({
-                    "match": {
-                        code_type: code
-                    }
+                "match": {
+                    code_type: code
                 }
-            )
+            })
 
         query_parameters = [
             clients.publicationstats_thrift.kwargs('size', '0'),
@@ -817,7 +823,7 @@ class PublicationStats(clients.PublicationStats):
         aggs_type = 'sum' if field == 'citations' else 'cardinality'
 
         if field != 'documents':
-            body['aggs'] = { 
+            body['aggs'] = {
                 field: {
                     aggs_type: {
                         "field": field
@@ -831,7 +837,8 @@ class PublicationStats(clients.PublicationStats):
 
         return query_result if raw else computed
 
-    def _compute_citable_documents(self, query_result):
+    @staticmethod
+    def _compute_citable_documents(query_result):
 
         series = [
             {
@@ -854,12 +861,12 @@ class PublicationStats(clients.PublicationStats):
                 'x': year,
                 'y': bucket['citable_documents']['doc_count'],
                 'percentage': (bucket['citable_documents']['doc_count']/amount) * 100
-                })
+            })
             series[1]["data"].append({
                 'x': year,
                 'y': bucket['not_citable_documents']['doc_count'],
                 'percentage': (bucket['not_citable_documents']['doc_count']/amount) * 100
-                })
+            })
 
         return {"series": series, "navigator_series": navigator_series}
 
@@ -869,7 +876,8 @@ class PublicationStats(clients.PublicationStats):
         body = {
             "query": {
                 "bool": {
-                    "must": [{
+                    "must": [
+                        {
                             "match": {
                                 "collection": collection
                             }
@@ -932,11 +940,10 @@ class PublicationStats(clients.PublicationStats):
 
         if code_type:
             body["query"]["bool"]["must"].append({
-                    "match": {
-                        code_type: code
-                    }
+                "match": {
+                    code_type: code
                 }
-            )
+            })
 
         query_parameters = [
             clients.publicationstats_thrift.kwargs('size', '0'),
@@ -948,43 +955,43 @@ class PublicationStats(clients.PublicationStats):
 
         return query_result if raw else computed
 
-
     @cache_region.cache_on_arguments()
     def affiliations_by_publication_year(self, code, collection, raw=False):
 
-        return self.by_publication_year(code, collection, 'aff_countries')
+        return self.by_publication_year(code, collection, 'aff_countries', raw)
 
     @cache_region.cache_on_arguments()
     def subject_areas_by_publication_year(self, code, collection, raw=False):
 
-        return self.by_publication_year(code, collection, 'subject_areas')
+        return self.by_publication_year(code, collection, 'subject_areas', raw)
 
     @cache_region.cache_on_arguments()
     def languages_by_publication_year(self, code, collection, raw=False):
 
-        return self.by_publication_year(code, collection, 'languages')
+        return self.by_publication_year(code, collection, 'languages', raw)
 
     @cache_region.cache_on_arguments()
     def lincenses_by_publication_year(self, code, collection, raw=False):
 
-        return self.by_publication_year(code, collection, 'license')
+        return self.by_publication_year(code, collection, 'license', raw)
 
-    def _compute_by_publication_year(self, query_result, field):
+    @staticmethod
+    def _compute_by_publication_year(query_result, field):
 
-        available_licenses = set()
+        available_items = set()
 
         for year in query_result['aggregations']['publication_year']['buckets']:
             for bkt in year[field]['buckets']:
-                available_licenses.add(bkt['key'])
+                available_items.add(bkt['key'])
 
         data = {}
         for year in query_result['aggregations']['publication_year']['buckets']:
-            x = data.setdefault(year['key'], {k:0 for k in available_licenses})
+            x = data.setdefault(year['key'], {k: 0 for k in available_items})
             for bkt in year[field]['buckets']:
                 x[bkt['key']] = bkt['doc_count']
 
         series = []
-        for item in sorted(available_licenses):
+        for item in sorted(available_items):
             series.append({
                 'name': item,
                 'data': []
@@ -1015,7 +1022,8 @@ class PublicationStats(clients.PublicationStats):
         body = {
             "query": {
                 "bool": {
-                    "must": [{
+                    "must": [
+                        {
                             "match": {
                                 "collection": collection
                             }
@@ -1052,30 +1060,31 @@ class PublicationStats(clients.PublicationStats):
 
         if code_type:
             body["query"]["bool"]["must"].append({
-                    "match": {
-                        code_type: code
-                    }
+                "match": {
+                    code_type: code
                 }
-            )
+            })
 
         query_parameters = [
             clients.accessstats_thrift.kwargs('size', '0')
         ]
 
+        # print json.dumps(body)
         query_result = json.loads(self.client.search('article', json.dumps(body), query_parameters))
 
         computed = self._compute_by_publication_year(query_result, field)
 
         return query_result if raw else computed
 
+
 class ArticleMeta(clients.ArticleMeta):
 
     @cache_region.cache_on_arguments()
     def certified_collections(self):
-        try: 
+        try:
             return self._certified_collections
         except AttributeError:
-            self._certified_collections = {i.acronym:{'name': i.name, 'domain': i.domain} for i in self.collections() if i.has_analytics} 
+            self._certified_collections = {i.acronym: {'name': i.name, 'domain': i.domain} for i in self.collections() if i.has_analytics}
 
         return self._certified_collections
 
@@ -1087,7 +1096,7 @@ class ArticleMeta(clients.ArticleMeta):
         else:
             collections = [collection]
 
-        try: 
+        try:
             return self._journals[collection] if collection else self._journals
         except AttributeError:
             self._journals = {}
@@ -1098,13 +1107,15 @@ class ArticleMeta(clients.ArticleMeta):
 
         return self._journals.get(collection, {}) if collection else self._journals
 
+
 class AccessStats(clients.AccessStats):
 
-    def _code_type(self, code):
+    @staticmethod
+    def _code_type(code):
 
         if not code:
             return None
-        
+
         if utils.REGEX_ISSN.match(code):
             return 'issn'
 
@@ -1114,7 +1125,8 @@ class AccessStats(clients.AccessStats):
         if utils.REGEX_ARTICLE.match(code):
             return 'pid'
 
-    def _compute_list_journals(self, query_result):
+    @staticmethod
+    def _compute_list_journals(query_result):
         data = []
 
         for bucket in query_result['aggregations']['issn']['buckets']:
@@ -1126,7 +1138,7 @@ class AccessStats(clients.AccessStats):
             item['epdf'] = int(bucket['journal_title']['buckets'][0]['access_epdf']['value'])
             item['abstract'] = int(bucket['journal_title']['buckets'][0]['access_abstract']['value'])
             item['total'] = int(bucket['journal_title']['buckets'][0]['access_total']['value'])
-            
+
             data.append(item)
 
         return data
@@ -1137,14 +1149,14 @@ class AccessStats(clients.AccessStats):
         end = datetime.now()
         start = end - timedelta(365*3)
 
-
         date_range_start = date_range_start or start.isoformat()
         date_range_end = date_range_end or end.isoformat()
 
         body = {
             "query": {
                 "bool": {
-                    "must": [{
+                    "must": [
+                        {
                             "match": {
                                 "collection": collection
                             }
@@ -1169,8 +1181,8 @@ class AccessStats(clients.AccessStats):
                         "order": {
                             "1": "desc"
                         }
-                  },
-                  "aggs": {
+                    },
+                    "aggs": {
                         "1": {
                             "sum": {
                                 "field": "access_total"
@@ -1221,11 +1233,10 @@ class AccessStats(clients.AccessStats):
 
         if code_type:
             body["query"]["bool"]["must"].append({
-                    "match": {
-                        code_type: code
-                    }
+                "match": {
+                    code_type: code
                 }
-            )
+            })
 
         query_parameters = [
             clients.accessstats_thrift.kwargs('size', '0')
@@ -1237,7 +1248,8 @@ class AccessStats(clients.AccessStats):
 
         return query_result if raw else computed
 
-    def _compute_list_issues(self, query_result):
+    @staticmethod
+    def _compute_list_issues(query_result):
         data = []
 
         for bucket in query_result['aggregations']['issue']['buckets']:
@@ -1249,7 +1261,7 @@ class AccessStats(clients.AccessStats):
             item['epdf'] = int(bucket['issue_title']['buckets'][0]['access_epdf']['value'])
             item['abstract'] = int(bucket['issue_title']['buckets'][0]['access_abstract']['value'])
             item['total'] = int(bucket['issue_title']['buckets'][0]['access_total']['value'])
-            
+
             data.append(item)
 
         return data
@@ -1260,14 +1272,14 @@ class AccessStats(clients.AccessStats):
         end = datetime.now()
         start = end - timedelta(365*3)
 
-
         date_range_start = date_range_start or start.isoformat()
         date_range_end = date_range_end or end.isoformat()
 
         body = {
             "query": {
                 "bool": {
-                    "must": [{
+                    "must": [
+                        {
                             "match": {
                                 "collection": collection
                             }
@@ -1292,8 +1304,8 @@ class AccessStats(clients.AccessStats):
                         "order": {
                             "1": "desc"
                         }
-                  },
-                  "aggs": {
+                    },
+                    "aggs": {
                         "1": {
                             "sum": {
                                 "field": "access_total"
@@ -1344,11 +1356,10 @@ class AccessStats(clients.AccessStats):
 
         if code_type:
             body["query"]["bool"]["must"].append({
-                    "match": {
-                        code_type: code
-                    }
+                "match": {
+                    code_type: code
                 }
-            )
+            })
 
         query_parameters = [
             clients.accessstats_thrift.kwargs('size', '0')
@@ -1360,7 +1371,8 @@ class AccessStats(clients.AccessStats):
 
         return query_result if raw else computed
 
-    def _compute_list_articles(self, query_result):
+    @staticmethod
+    def _compute_list_articles(query_result):
         data = []
 
         for bucket in query_result['aggregations']['pid']['buckets']:
@@ -1372,7 +1384,7 @@ class AccessStats(clients.AccessStats):
             item['epdf'] = int(bucket['document_title']['buckets'][0]['access_epdf']['value'])
             item['abstract'] = int(bucket['document_title']['buckets'][0]['access_abstract']['value'])
             item['total'] = int(bucket['document_title']['buckets'][0]['access_total']['value'])
-            
+
             data.append(item)
 
         return data
@@ -1382,7 +1394,6 @@ class AccessStats(clients.AccessStats):
 
         end = datetime.now()
         start = end - timedelta(365*3)
-
 
         date_range_start = date_range_start or start.isoformat()
         date_range_end = date_range_end or end.isoformat()
@@ -1425,8 +1436,8 @@ class AccessStats(clients.AccessStats):
                         "order": {
                             "1": "desc"
                         }
-                  },
-                  "aggs": {
+                    },
+                    "aggs": {
                         "1": {
                             "sum": {
                                 "field": "access_total"
@@ -1477,11 +1488,10 @@ class AccessStats(clients.AccessStats):
 
         if code_type:
             body["query"]["filtered"]["query"]["bool"]["must"].append({
-                    "match": {
-                        code_type: code
-                    }
+                "match": {
+                    code_type: code
                 }
-            )
+            })
 
         query_parameters = [
             clients.accessstats_thrift.kwargs('size', '0')
@@ -1493,8 +1503,8 @@ class AccessStats(clients.AccessStats):
 
         return query_result if raw else computed
 
-
-    def _compute_access_by_document_type(self, query_result):
+    @staticmethod
+    def _compute_access_by_document_type(query_result):
         series = [
             {
                 "name": "Document Type",
@@ -1508,7 +1518,6 @@ class AccessStats(clients.AccessStats):
                 "y": bucket['access_total']['value']
             }
             series[0]["data"].append(item)
-
 
         return {"series": series}
 
@@ -1524,7 +1533,8 @@ class AccessStats(clients.AccessStats):
         body = {
             "query": {
                 "bool": {
-                    "must": [{
+                    "must": [
+                        {
                             "match": {
                                 "collection": collection
                             }
@@ -1562,11 +1572,10 @@ class AccessStats(clients.AccessStats):
 
         if code_type:
             body["query"]["bool"]["must"].append({
-                    "match": {
-                        code_type: code
-                    }
+                "match": {
+                    code_type: code
                 }
-            )
+            })
 
         query_parameters = [
             clients.accessstats_thrift.kwargs('size', '0')
@@ -1578,15 +1587,15 @@ class AccessStats(clients.AccessStats):
 
         return query_result if raw else computed
 
-
-    def _compute_access_lifetime(self, query_result):
+    @staticmethod
+    def _compute_access_lifetime(query_result):
         charts = []
 
         for bucket_access_year in query_result['aggregations']['access_year']['buckets']:
             access_total = {'name': bucket_access_year['key'], 'data': []}
             for bucket_access_total in bucket_access_year['publication_year']['buckets']:
                 access_total['data'].append([utils.mktime(int(bucket_access_total['key'])), int(bucket_access_total['access_total']['value'])])
-            
+
             charts.append({
                 'series': [access_total]
             })
@@ -1605,7 +1614,8 @@ class AccessStats(clients.AccessStats):
         body = {
             "query": {
                 "bool": {
-                    "must": [{
+                    "must": [
+                        {
                             "match": {
                                 "collection": collection
                             }
@@ -1620,7 +1630,8 @@ class AccessStats(clients.AccessStats):
                         }
                     ]
                 }
-            },            "size": 0,
+            },
+            "size": 0,
             "aggs": {
                 "access_year": {
                     "terms": {
@@ -1661,23 +1672,23 @@ class AccessStats(clients.AccessStats):
 
         if code_type:
             body["query"]["bool"]["must"].append({
-                    "match": {
-                        code_type: code
-                    }
+                "match": {
+                    code_type: code
                 }
-            )
+            })
 
         query_parameters = [
             clients.accessstats_thrift.kwargs('size', '0')
         ]
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
-        
+
         computed = self._compute_access_lifetime(query_result)
 
         return query_result if raw else computed
 
-    def _compute_access_by_month_and_year(self, query_result):
+    @staticmethod
+    def _compute_access_by_month_and_year(query_result):
         series = []
         navigator_series = []
         html = {'name': 'html', 'data': []}
@@ -1711,7 +1722,8 @@ class AccessStats(clients.AccessStats):
         body = {
             "query": {
                 "bool": {
-                    "must": [{
+                    "must": [
+                        {
                             "match": {
                                 "collection": collection
                             }
@@ -1767,11 +1779,10 @@ class AccessStats(clients.AccessStats):
 
         if code_type:
             body["query"]["bool"]["must"].append({
-                    "match": {
-                        code_type: code
-                    }
+                "match": {
+                    code_type: code
                 }
-            )
+            })
 
         query_parameters = [
             clients.accessstats_thrift.kwargs('size', '0')

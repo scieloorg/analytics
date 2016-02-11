@@ -2,16 +2,14 @@
 import requests
 
 from pyramid.view import view_config
-from pyramid.response import Response
-from pyramid.settings import aslist
-import pyramid.httpexceptions as exc
 
 from dogpile.cache import make_region
 
-from analytics.control_manager import base_data_manager, check_session
+from analytics.control_manager import base_data_manager
 from analytics.custom_queries import custom_query
 
 cache_region = make_region(name='views_website_cache')
+
 
 @view_config(route_name='bibliometrics_journal_web', renderer='templates/website/bibliometrics_journal.mako')
 @base_data_manager
@@ -28,13 +26,14 @@ def bibliometrics_journal(request):
         titles.append(journal.title)
         titles.append(journal.abbreviated_title)
         titles.extend(x['title'] for x in custom_query.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
-    
+
     data['titles'] = []
     if titles and not len(titles) == 0:
         forms = set([i.strip() for i in titles if i])
         data['titles'] = u'||'.join(forms)
 
     return data
+
 
 @view_config(route_name='bibliometrics_list_impact_factor_web', renderer='templates/website/bibliometrics_list_impact_factor.mako')
 @base_data_manager
@@ -60,6 +59,7 @@ def bibliometrics_list_impact_factor(request):
 
     return data
 
+
 @view_config(route_name='bibliometrics_list_citing_forms_web', renderer='templates/website/bibliometrics_list_citing_forms.mako')
 @base_data_manager
 def bibliometrics_list_citing_forms(request):
@@ -73,7 +73,7 @@ def bibliometrics_list_citing_forms(request):
         journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
         titles.append(journal.title)
         titles.append(journal.abbreviated_title)
-        titles.extend(x['title'] for x in custom_query.load(data['selected_journal_code']).get('should', [])  if x['title'] not in titles)
+        titles.extend(x['title'] for x in custom_query.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
 
     data['blist'] = []
     data['titles'] = []
@@ -83,6 +83,7 @@ def bibliometrics_list_citing_forms(request):
         data['titles'] = u'||'.join(forms)
 
     return data
+
 
 @view_config(route_name='bibliometrics_list_received_web', renderer='templates/website/bibliometrics_list_received.mako')
 @base_data_manager
@@ -108,18 +109,20 @@ def bibliometrics_list_received(request):
 
     return data
 
+
 @view_config(route_name='bibliometrics_list_granted_web', renderer='templates/website/bibliometrics_list_granted.mako')
 @base_data_manager
 def bibliometrics_list_granted(request):
     data = request.data_manager
     data['page'] = 'bibliometrics'
 
-    data ['blist'] = []
+    data['blist'] = []
     if data['selected_journal_code']:
         data['blist'] = request.stats.bibliometrics.granted_citations(
             data['selected_journal_code'])
 
     return data
+
 
 @view_config(route_name='index_web', renderer='templates/website/home.mako')
 @base_data_manager
@@ -138,6 +141,7 @@ def faq(request):
     data['page'] = 'faq'
 
     return data
+
 
 @view_config(route_name='downloads', renderer='templates/website/downloads.mako')
 @base_data_manager
@@ -167,6 +171,7 @@ def downloads(request):
         })
 
     return data
+
 
 @view_config(route_name='accesses_list_journals_web', renderer='templates/website/access_list_journals.mako')
 @base_data_manager
@@ -228,6 +233,7 @@ def accesses(request):
 
     return data
 
+
 @view_config(route_name='publication_size_web', renderer='templates/website/publication_size.mako')
 @base_data_manager
 def publication_size(request):
@@ -236,6 +242,7 @@ def publication_size(request):
     data['page'] = 'publication'
 
     return data
+
 
 @view_config(route_name='publication_journal_web', renderer='templates/website/publication_journal.mako')
 @base_data_manager
@@ -246,6 +253,7 @@ def publication_journal(request):
 
     return data
 
+
 @view_config(route_name='publication_article_web', renderer='templates/website/publication_article.mako')
 @base_data_manager
 def publication_article(request):
@@ -254,6 +262,7 @@ def publication_article(request):
     data['page'] = 'publication'
 
     return data
+
 
 @view_config(route_name='publication_article_web_by_publication_year', renderer='templates/website/publication_article_by_publication_year.mako')
 @base_data_manager
