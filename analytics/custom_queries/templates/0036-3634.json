@@ -1,0 +1,12 @@
+{
+    "should": [
+        {
+            "fuzziness": 3,
+            "title": "Revista Salud pública Méx"
+        },
+        {
+            "fuzziness": 3,
+            "title": "Revista Salud Pública de México"
+        }
+    ]
+}

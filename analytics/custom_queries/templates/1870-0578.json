@@ -1,0 +1,15 @@
+{
+    "should": [
+        {
+            "fuzziness": 1,
+            "title": "Mexican law review"
+        },
+        {
+            "fuzziness": 1,
+            "title": "Mex. law rev"
+        }
+    ],
+    "must_not": [
+        "Med Law Rev"
+    ]
+}
