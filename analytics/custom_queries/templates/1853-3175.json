@@ -1,0 +1,12 @@
+{
+    "should": [
+        {
+            "title": "Cuyo",
+            "fuzziness": 0
+        },
+        {
+            "title": "Cuyo-anu. filos. argent. am.",
+            "fuzziness": 3
+        }
+    ]
+}
