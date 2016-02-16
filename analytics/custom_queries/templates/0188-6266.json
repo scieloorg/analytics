@@ -1,0 +1,15 @@
+{
+    "should": [
+        {
+            "fuzziness": 3,
+            "title": "Revista Acta universitaria"
+        },
+        {
+            "fuzziness": 1,
+            "title": "Acta universitaria"
+        }
+    ],
+    "must_not": [
+        "Facta Univ."
+    ]
+}
