@@ -1,0 +1,11 @@
+{
+    "should": [
+        {
+            "title": "Boletín de Filología",
+            "fuzziness": 3
+        }
+    ],
+    "must_not": [
+        "Boletín de Micologia"
+    ]
+}

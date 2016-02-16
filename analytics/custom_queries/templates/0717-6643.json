@@ -1,0 +1,16 @@
+{
+    "should": [
+        {
+            "title": "Gayana. Botánica",
+            "fuzziness": 3
+        },
+        {
+            "title": "Gayana. Bot.",
+            "fuzziness": 3
+        }
+
+    ],
+    "must_not": [
+        "Gayana Zoo."
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "should": [
+        {
+            "title": "Idesia (Arica)",
+            "fuzziness": 3
+        },
+        {
+            "title": "Idesia",
+            "fuzziness": 1
+        }
+    ]
+}

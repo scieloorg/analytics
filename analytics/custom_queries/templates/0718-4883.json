@@ -1,0 +1,16 @@
+{
+    "should": [
+        {
+            "title": "RLA. Revista de lingüística teórica y aplicada",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista de lingüística teórica y aplicada",
+            "fuzziness": 3
+        },
+        {
+            "title": "RLA",
+            "fuzziness": 0
+        }
+    ]
+}
