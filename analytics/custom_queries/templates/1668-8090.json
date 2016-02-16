@@ -1,0 +1,12 @@
+{
+    "should": [
+        {
+            "title": "Andes",
+            "fuzziness": 1
+        }
+    ],
+    "must_not": [
+        "Anaes...",
+        "BNDES"
+    ]
+}
