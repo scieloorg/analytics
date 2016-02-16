@@ -1,0 +1,12 @@
+{
+    "should": [
+        {
+            "title": "Universum",
+            "fuzziness": 1
+        },
+        {
+            "title": "Universum (Talca)",
+            "fuzziness": 3
+        }
+    ]
+}

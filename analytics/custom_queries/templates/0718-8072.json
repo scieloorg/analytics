@@ -1,0 +1,12 @@
+{
+    "should": [
+        {
+            "title": "Revista chilena de derecho privado",
+            "fuzziness": 3
+        },
+        {
+            "title": "RChDP",
+            "fuzziness": 0
+        }
+    ]
+}

@@ -1,0 +1,27 @@
+{
+    "should": [
+        {
+            "title": "Revista chilena de cardiología",
+            "fuzziness": 3
+        },
+        {
+            "title": "Rev Chil Cardiol",
+            "fuzziness": 3
+        }
+    ],
+    "must_not": [
+        "Rev Chil Radiol",
+        "Revista Chilena de Radiología",
+        "Rev Chil Radiol.",
+        "Rev. chil. radiol",
+        "Rev chil radiol",
+        "Rev. Chil. Radiol.",
+        "Rev. Chil Radiol",
+        "Rev. Chil. Radiol",
+        "Revista Chilena de Radiología.",
+        "Rev chil Radiol",
+        "Rev chil Radiol.",
+        "Revista chilena de radiología",
+        "Revista chilena de radiología."
+    ]
+}
