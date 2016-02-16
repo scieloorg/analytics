@@ -1,0 +1,16 @@
+{
+    "should": [
+        {
+            "title": "Enfermería Nefrológica",
+            "fuzziness": 3
+        },
+        {
+            "title": "Enferm Nefrol",
+            "fuzziness": 3
+        }
+    ],
+    "must_not": [
+        "Enfermería Neurológica"
+
+    ]
+}

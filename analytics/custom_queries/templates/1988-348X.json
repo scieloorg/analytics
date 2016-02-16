@@ -1,0 +1,12 @@
+{
+    "should": [
+        {
+            "title": "Ene",
+            "fuzziness": 0
+        },
+        {
+            "title": "Ene.",
+            "fuzziness": 0
+        }
+    ]
+}
