@@ -1,0 +1,12 @@
+{
+    "should": [
+        {
+            "title": "Escenarios",
+            "fuzziness": 1
+        }
+    ],
+    "must_not": [
+        "Scenarios",
+        "Mercenarios"
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "should": [
+        {
+            "title": "Runa",
+            "fuzziness": 1
+        }
+    ],
+    "must_not": [
+        "RNA",
+        "Rna",
+        "RNA.",
+        "Rua",
+        "RUA",
+        "Reuna",
+        "RSNA",
+        "RUBA",
+        "Rna.",
+        "REUNA",
+        "Reuna,",
+        "Ruma",
+        "Ruta",
+        "Una"
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "should": [
+        {
+            "title": "InVet",
+            "fuzziness": 1
+        }
+    ],
+    "must_not": [
+        "Invest",
+        "INMET",
+        "Invest."
+    ]
+}
