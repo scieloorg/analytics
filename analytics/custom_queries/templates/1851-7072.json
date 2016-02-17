@@ -1,0 +1,23 @@
+{
+    "should": [
+        {
+            "title": "Redes",
+            "fuzziness": 1
+        }
+    ],
+    "must_not": [
+        "CEDES",
+        "Cedes",
+        "REDE",
+        "REDEC",
+        "RECES",
+        "Rede",
+        "Medes",
+        "REBES",
+        "REDEH",
+        "ReEs",
+        "Rede-A",
+        "Reds",
+        "SEDES"
+    ]
+}

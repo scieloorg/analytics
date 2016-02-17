@@ -1,0 +1,12 @@
+{
+    "should": [
+        {
+            "title": "Revista de análisis económico",
+            "fuzziness": 3
+        },
+        {
+            "title": "RAE",
+            "fuzziness": 0
+        }
+    ]
+}

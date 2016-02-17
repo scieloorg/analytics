@@ -1,0 +1,20 @@
+{
+    "should": [
+        {
+            "title": "Prohistoria",
+            "fuzziness": 3
+        }
+    ],
+    "must_not": [
+        "Prehistoria",
+        "Præhistoria",
+        "Proj. História",
+        "Pós. História",
+        "Pré-história",
+        "Prahistoria",
+        "Prehistoric",
+        "Proj História",
+        "Pós-história",
+        "Praehistoria"
+    ]
+}

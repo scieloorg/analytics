@@ -1,0 +1,22 @@
+{
+    "should": [
+        {
+            "title": "Anales de Psicología",
+            "fuzziness": 3
+        },
+        {
+            "title": "Anal. Psicol.",
+            "fuzziness": 3
+        }
+    ],
+    "must_not": [
+        "Aval Psicol",
+        "Aval Psicol.",
+        "Aval. psicol",
+        "Anu Psicol",
+        "Anu. Psicol.",
+        "Anu Psicol.",
+        "J Anal Psicol",
+        "J Anál Psicol"
+    ]
+}

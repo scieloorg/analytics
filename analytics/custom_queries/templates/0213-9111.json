@@ -1,0 +1,25 @@
+{
+    "should": [
+        {
+            "title": "Gac Sanit",
+            "fuzziness": 3
+        },
+        {
+            "title": "Gaceta Sanitaria",
+            "fuzziness": 3
+        }
+    ],
+    "must_not": [
+        "Gig Sanit",
+        "Acta Sanitaria",
+        "Gig. Sanit",
+        "Gig. Sanit.",
+        "Acta sanitária",
+        "Cac Sanit",
+        "Gae Sanit",
+        "Gar Sanit.",
+        "Gig sanit",
+        "Gig. sanit.",
+        "Gin Sanit"
+    ]
+}

@@ -1,0 +1,15 @@
+{
+    "should": [
+        {
+            "title": "Tópicos",
+            "fuzziness": 1
+        }
+    ],
+    "must_not": [
+        "Tropicos",
+        "TROPICOS",
+        "Topics",
+        "Trópicos"
+    ]
+
+}

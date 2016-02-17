@@ -1,0 +1,23 @@
+{
+    "should": [
+        {
+            "title": "Cienc Trab",
+            "fuzziness": 3
+        },
+        {
+            "title": "Ciencia & Trabajo",
+            "fuzziness": 3
+        }
+    ],
+    "must_not": [
+        "Ciênc. Prát.",
+        "Cienc. Prat.",
+        "Cienc. Prát.",
+        "Ciênc Prát",
+        "Ciênc Prat",
+        "Ciênc. Prát",
+        "Cienc Prat",
+        "Cienc. Prat",
+        "Ciênc. Prat"
+    ]
+}

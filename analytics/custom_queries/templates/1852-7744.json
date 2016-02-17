@@ -1,0 +1,17 @@
+{
+    "should": [
+        {
+            "title": "Geoacta",
+            "fuzziness": 2
+        }
+    ],
+    "must_not": [
+        "Geogaceta",
+        "Exacta",
+        "Geol Acta",
+        "Geol. Acta",
+        "Geo-Gaceta",
+        "Geol Acta.",
+        "e-Xacta"
+    ]
+}
