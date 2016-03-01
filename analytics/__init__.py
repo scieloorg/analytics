@@ -68,6 +68,7 @@ def main(global_config, **settings):
     config.add_route('bibliometrics_list_received_web', '/bibliometrics/list/received')
     config.add_route('bibliometrics_list_citing_forms_web', '/bibliometrics/list/citing_forms')
     config.add_route('bibliometrics_list_impact_factor_web', '/bibliometrics/list/impact_factor')
+    config.add_route('bibliometrics_list_citing_half_life_web', '/bibliometrics/list/citing_half_life')
     config.add_route('bibliometrics_journal_received_self_and_granted_citation_chart', '/ajx/bibliometrics/journal/received_self_and_granted_citation_chart')
     config.add_route('bibliometrics_journal_impact_factor_chart', '/ajx/bibliometrics/journal/impact_factor_chart')
     config.add_request_method(add_stats, 'stats', reify=True)

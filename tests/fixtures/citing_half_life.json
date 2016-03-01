@@ -1,0 +1,2944 @@
+{
+  "1987": {
+    "half_life": {
+      "value": 0.5,
+      "year": "1987"
+    },
+    "total": 1,
+    "data": {
+      "1987": {
+        "percentage": 100.0,
+        "citations": 1,
+        "accumulated_percentage": 100.0
+      }
+    }
+  },
+  "1989": {
+    "half_life": {
+      "value": 6.0,
+      "year": "1984"
+    },
+    "total": 2,
+    "data": {
+      "1986": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 100.0
+      },
+      "1987": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 100.0
+      },
+      "1984": {
+        "percentage": 50.0,
+        "citations": 1,
+        "accumulated_percentage": 50.0
+      },
+      "1985": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 100.0
+      },
+      "1988": {
+        "percentage": 50.0,
+        "citations": 1,
+        "accumulated_percentage": 100.0
+      },
+      "1989": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 0
+      }
+    }
+  },
+  "2015": {
+    "half_life": {
+      "value": 5.142857142857142,
+      "year": "2011"
+    },
+    "total": 126,
+    "data": {
+      "1986": {
+        "percentage": 2.380952380952381,
+        "citations": 3,
+        "accumulated_percentage": 80.95238095238095
+      },
+      "1987": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 83.33333333333334
+      },
+      "1988": {
+        "percentage": 2.380952380952381,
+        "citations": 3,
+        "accumulated_percentage": 83.33333333333334
+      },
+      "1989": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 85.71428571428571
+      },
+      "2015": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 0
+      },
+      "2014": {
+        "percentage": 2.380952380952381,
+        "citations": 3,
+        "accumulated_percentage": 92.85714285714286
+      },
+      "2011": {
+        "percentage": 7.142857142857142,
+        "citations": 9,
+        "accumulated_percentage": 50.79365079365079
+      },
+      "2010": {
+        "percentage": 8.73015873015873,
+        "citations": 11,
+        "accumulated_percentage": 21.428571428571427
+      },
+      "2013": {
+        "percentage": 4.761904761904762,
+        "citations": 6,
+        "accumulated_percentage": 61.111111111111114
+      },
+      "2012": {
+        "percentage": 5.555555555555555,
+        "citations": 7,
+        "accumulated_percentage": 56.34920634920635
+      },
+      "1991": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 94.44444444444444
+      },
+      "1990": {
+        "percentage": 2.380952380952381,
+        "citations": 3,
+        "accumulated_percentage": 85.71428571428571
+      },
+      "1993": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 88.09523809523809
+      },
+      "1992": {
+        "percentage": 1.5873015873015872,
+        "citations": 2,
+        "accumulated_percentage": 94.44444444444444
+      },
+      "1995": {
+        "percentage": 2.380952380952381,
+        "citations": 3,
+        "accumulated_percentage": 88.09523809523809
+      },
+      "1994": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 88.09523809523809
+      },
+      "1997": {
+        "percentage": 1.5873015873015872,
+        "citations": 2,
+        "accumulated_percentage": 96.03174603174604
+      },
+      "1996": {
+        "percentage": 3.1746031746031744,
+        "citations": 4,
+        "accumulated_percentage": 72.22222222222221
+      },
+      "1999": {
+        "percentage": 0.7936507936507936,
+        "citations": 1,
+        "accumulated_percentage": 100.0
+      },
+      "1998": {
+        "percentage": 2.380952380952381,
+        "citations": 3,
+        "accumulated_percentage": 90.47619047619048
+      },
+      "2002": {
+        "percentage": 3.968253968253968,
+        "citations": 5,
+        "accumulated_percentage": 65.07936507936508
+      },
+      "2003": {
+        "percentage": 1.5873015873015872,
+        "citations": 2,
+        "accumulated_percentage": 99.20634920634922
+      },
+      "2000": {
+        "percentage": 1.5873015873015872,
+        "citations": 2,
+        "accumulated_percentage": 97.61904761904762
+      },
+      "2001": {
+        "percentage": 7.936507936507936,
+        "citations": 10,
+        "accumulated_percentage": 29.365079365079367
+      },
+      "2006": {
+        "percentage": 7.142857142857142,
+        "citations": 9,
+        "accumulated_percentage": 36.507936507936506
+      },
+      "2007": {
+        "percentage": 12.698412698412698,
+        "citations": 16,
+        "accumulated_percentage": 12.698412698412698
+      },
+      "2004": {
+        "percentage": 3.1746031746031744,
+        "citations": 4,
+        "accumulated_percentage": 75.39682539682539
+      },
+      "2005": {
+        "percentage": 3.1746031746031744,
+        "citations": 4,
+        "accumulated_percentage": 78.57142857142857
+      },
+      "2008": {
+        "percentage": 3.968253968253968,
+        "citations": 5,
+        "accumulated_percentage": 69.04761904761905
+      },
+      "2009": {
+        "percentage": 7.142857142857142,
+        "citations": 9,
+        "accumulated_percentage": 43.65079365079365
+      }
+    }
+  },
+  "2014": {
+    "half_life": {
+      "value": 10.366666666666667,
+      "year": "2005"
+    },
+    "total": 237,
+    "data": {
+      "1986": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 76.79324894514767
+      },
+      "1987": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 76.79324894514767
+      },
+      "1984": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 76.79324894514767
+      },
+      "1985": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 76.79324894514767
+      },
+      "1982": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 76.79324894514767
+      },
+      "1983": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 76.79324894514767
+      },
+      "1980": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 97.8902953586498
+      },
+      "1981": {
+        "percentage": 0.42194092827004215,
+        "citations": 1,
+        "accumulated_percentage": 97.8902953586498
+      },
+      "1979": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 97.8902953586498
+      },
+      "1988": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 76.79324894514767
+      },
+      "1989": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 76.79324894514767
+      },
+      "2014": {
+        "percentage": 1.6877637130801686,
+        "citations": 4,
+        "accumulated_percentage": 96.20253164556962
+      },
+      "2011": {
+        "percentage": 5.485232067510549,
+        "citations": 13,
+        "accumulated_percentage": 64.13502109704642
+      },
+      "2010": {
+        "percentage": 8.016877637130802,
+        "citations": 19,
+        "accumulated_percentage": 17.29957805907173
+      },
+      "2013": {
+        "percentage": 3.79746835443038,
+        "citations": 9,
+        "accumulated_percentage": 88.18565400843882
+      },
+      "2012": {
+        "percentage": 4.641350210970464,
+        "citations": 11,
+        "accumulated_percentage": 68.77637130801688
+      },
+      "1991": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 97.0464135021097
+      },
+      "1990": {
+        "percentage": 3.79746835443038,
+        "citations": 9,
+        "accumulated_percentage": 76.79324894514767
+      },
+      "1993": {
+        "percentage": 0.8438818565400843,
+        "citations": 2,
+        "accumulated_percentage": 97.0464135021097
+      },
+      "1992": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 97.0464135021097
+      },
+      "1995": {
+        "percentage": 0.42194092827004215,
+        "citations": 1,
+        "accumulated_percentage": 98.73417721518987
+      },
+      "1994": {
+        "percentage": 0.42194092827004215,
+        "citations": 1,
+        "accumulated_percentage": 98.31223628691983
+      },
+      "1997": {
+        "percentage": 0.42194092827004215,
+        "citations": 1,
+        "accumulated_percentage": 99.15611814345992
+      },
+      "1996": {
+        "percentage": 2.109704641350211,
+        "citations": 5,
+        "accumulated_percentage": 90.29535864978902
+      },
+      "1999": {
+        "percentage": 3.79746835443038,
+        "citations": 9,
+        "accumulated_percentage": 84.38818565400844
+      },
+      "1998": {
+        "percentage": 3.79746835443038,
+        "citations": 9,
+        "accumulated_percentage": 80.59071729957806
+      },
+      "1978": {
+        "percentage": 0.42194092827004215,
+        "citations": 1,
+        "accumulated_percentage": 97.46835443037975
+      },
+      "2002": {
+        "percentage": 2.109704641350211,
+        "citations": 5,
+        "accumulated_percentage": 94.51476793248945
+      },
+      "2003": {
+        "percentage": 6.751054852320674,
+        "citations": 16,
+        "accumulated_percentage": 45.9915611814346
+      },
+      "2000": {
+        "percentage": 2.109704641350211,
+        "citations": 5,
+        "accumulated_percentage": 92.40506329113924
+      },
+      "2001": {
+        "percentage": 7.172995780590717,
+        "citations": 17,
+        "accumulated_percentage": 32.06751054852321
+      },
+      "2006": {
+        "percentage": 6.329113924050633,
+        "citations": 15,
+        "accumulated_percentage": 58.64978902953587
+      },
+      "2007": {
+        "percentage": 7.172995780590717,
+        "citations": 17,
+        "accumulated_percentage": 39.24050632911392
+      },
+      "2004": {
+        "percentage": 7.59493670886076,
+        "citations": 18,
+        "accumulated_percentage": 24.894514767932492
+      },
+      "2005": {
+        "percentage": 6.329113924050633,
+        "citations": 15,
+        "accumulated_percentage": 52.320675105485236
+      },
+      "2008": {
+        "percentage": 9.282700421940929,
+        "citations": 22,
+        "accumulated_percentage": 9.282700421940929
+      },
+      "2009": {
+        "percentage": 4.219409282700422,
+        "citations": 10,
+        "accumulated_percentage": 72.9957805907173
+      }
+    }
+  },
+  "2011": {
+    "half_life": {
+      "value": 7.8500000000000005,
+      "year": "2004"
+    },
+    "total": 210,
+    "data": {
+      "1976": {
+        "percentage": 0.9523809523809524,
+        "citations": 2,
+        "accumulated_percentage": 84.76190476190476
+      },
+      "1965": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 84.76190476190476
+      },
+      "1989": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 79.52380952380952
+      },
+      "1977": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 89.52380952380953
+      },
+      "1986": {
+        "percentage": 0.9523809523809524,
+        "citations": 2,
+        "accumulated_percentage": 85.71428571428571
+      },
+      "1987": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 86.66666666666667
+      },
+      "1984": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 85.71428571428571
+      },
+      "1985": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 85.71428571428571
+      },
+      "1982": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 85.71428571428571
+      },
+      "1983": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 85.71428571428571
+      },
+      "1980": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 85.71428571428571
+      },
+      "1981": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 85.71428571428571
+      },
+      "1964": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 84.76190476190476
+      },
+      "1979": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 85.71428571428571
+      },
+      "1966": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 84.76190476190476
+      },
+      "1967": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 84.76190476190476
+      },
+      "1988": {
+        "percentage": 0.9523809523809524,
+        "citations": 2,
+        "accumulated_percentage": 86.66666666666667
+      },
+      "1963": {
+        "percentage": 0.4761904761904762,
+        "citations": 1,
+        "accumulated_percentage": 89.04761904761904
+      },
+      "2011": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 0
+      },
+      "2010": {
+        "percentage": 2.857142857142857,
+        "citations": 6,
+        "accumulated_percentage": 77.14285714285715
+      },
+      "1974": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 84.76190476190476
+      },
+      "1968": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 84.76190476190476
+      },
+      "1969": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 84.76190476190476
+      },
+      "1991": {
+        "percentage": 0.4761904761904762,
+        "citations": 1,
+        "accumulated_percentage": 90.0
+      },
+      "1990": {
+        "percentage": 2.380952380952381,
+        "citations": 5,
+        "accumulated_percentage": 79.52380952380952
+      },
+      "1993": {
+        "percentage": 0.9523809523809524,
+        "citations": 2,
+        "accumulated_percentage": 87.61904761904762
+      },
+      "1992": {
+        "percentage": 3.3333333333333335,
+        "citations": 7,
+        "accumulated_percentage": 67.61904761904762
+      },
+      "1995": {
+        "percentage": 2.380952380952381,
+        "citations": 5,
+        "accumulated_percentage": 81.9047619047619
+      },
+      "1994": {
+        "percentage": 0.9523809523809524,
+        "citations": 2,
+        "accumulated_percentage": 88.57142857142857
+      },
+      "1997": {
+        "percentage": 3.3333333333333335,
+        "citations": 7,
+        "accumulated_percentage": 70.95238095238095
+      },
+      "1996": {
+        "percentage": 4.761904761904762,
+        "citations": 10,
+        "accumulated_percentage": 46.666666666666664
+      },
+      "1999": {
+        "percentage": 3.3333333333333335,
+        "citations": 7,
+        "accumulated_percentage": 74.28571428571429
+      },
+      "1998": {
+        "percentage": 6.190476190476191,
+        "citations": 13,
+        "accumulated_percentage": 30.476190476190478
+      },
+      "1975": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 84.76190476190476
+      },
+      "1978": {
+        "percentage": 0.4761904761904762,
+        "citations": 1,
+        "accumulated_percentage": 89.52380952380953
+      },
+      "1973": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 84.76190476190476
+      },
+      "1972": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 84.76190476190476
+      },
+      "1971": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 84.76190476190476
+      },
+      "1970": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 84.76190476190476
+      },
+      "2002": {
+        "percentage": 4.285714285714286,
+        "citations": 9,
+        "accumulated_percentage": 60.476190476190474
+      },
+      "2003": {
+        "percentage": 1.9047619047619049,
+        "citations": 4,
+        "accumulated_percentage": 83.80952380952381
+      },
+      "2000": {
+        "percentage": 7.6190476190476195,
+        "citations": 16,
+        "accumulated_percentage": 16.666666666666664
+      },
+      "2001": {
+        "percentage": 3.8095238095238098,
+        "citations": 8,
+        "accumulated_percentage": 64.28571428571429
+      },
+      "2006": {
+        "percentage": 9.047619047619047,
+        "citations": 19,
+        "accumulated_percentage": 9.047619047619047
+      },
+      "2007": {
+        "percentage": 6.190476190476191,
+        "citations": 13,
+        "accumulated_percentage": 36.666666666666664
+      },
+      "2004": {
+        "percentage": 4.761904761904762,
+        "citations": 10,
+        "accumulated_percentage": 51.42857142857142
+      },
+      "2005": {
+        "percentage": 5.238095238095238,
+        "citations": 11,
+        "accumulated_percentage": 41.904761904761905
+      },
+      "2008": {
+        "percentage": 7.6190476190476195,
+        "citations": 16,
+        "accumulated_percentage": 24.285714285714285
+      },
+      "2009": {
+        "percentage": 4.761904761904762,
+        "citations": 10,
+        "accumulated_percentage": 56.19047619047619
+      }
+    }
+  },
+  "2010": {
+    "half_life": {
+      "value": 3.1585365853658534,
+      "year": "2008"
+    },
+    "total": 193,
+    "data": {
+      "1976": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.04663212435233
+      },
+      "1962": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.04663212435233
+      },
+      "1963": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.04663212435233
+      },
+      "1977": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.04663212435233
+      },
+      "1986": {
+        "percentage": 1.5544041450777202,
+        "citations": 3,
+        "accumulated_percentage": 81.86528497409327
+      },
+      "1987": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 63.730569948186535
+      },
+      "1948": {
+        "percentage": 0.5181347150259068,
+        "citations": 1,
+        "accumulated_percentage": 86.01036269430051
+      },
+      "1985": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 81.86528497409327
+      },
+      "1982": {
+        "percentage": 1.0362694300518136,
+        "citations": 2,
+        "accumulated_percentage": 85.49222797927462
+      },
+      "1983": {
+        "percentage": 1.5544041450777202,
+        "citations": 3,
+        "accumulated_percentage": 80.31088082901555
+      },
+      "1980": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 84.4559585492228
+      },
+      "1981": {
+        "percentage": 1.0362694300518136,
+        "citations": 2,
+        "accumulated_percentage": 84.4559585492228
+      },
+      "1964": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.04663212435233
+      },
+      "1965": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.04663212435233
+      },
+      "1966": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.04663212435233
+      },
+      "1967": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.04663212435233
+      },
+      "1960": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.04663212435233
+      },
+      "1961": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.04663212435233
+      },
+      "1988": {
+        "percentage": 3.1088082901554404,
+        "citations": 6,
+        "accumulated_percentage": 63.730569948186535
+      },
+      "1989": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 76.68393782383419
+      },
+      "1949": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 86.52849740932642
+      },
+      "2010": {
+        "percentage": 0.5181347150259068,
+        "citations": 1,
+        "accumulated_percentage": 89.11917098445595
+      },
+      "1974": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.04663212435233
+      },
+      "1984": {
+        "percentage": 0.5181347150259068,
+        "citations": 1,
+        "accumulated_percentage": 87.56476683937824
+      },
+      "1955": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.04663212435233
+      },
+      "1954": {
+        "percentage": 0.5181347150259068,
+        "citations": 1,
+        "accumulated_percentage": 86.52849740932642
+      },
+      "1957": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.04663212435233
+      },
+      "1956": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.04663212435233
+      },
+      "1951": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 86.52849740932642
+      },
+      "1950": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 86.52849740932642
+      },
+      "1953": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 86.52849740932642
+      },
+      "1952": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 86.52849740932642
+      },
+      "1968": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.04663212435233
+      },
+      "1959": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.04663212435233
+      },
+      "1958": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.04663212435233
+      },
+      "1994": {
+        "percentage": 0.5181347150259068,
+        "citations": 1,
+        "accumulated_percentage": 88.60103626943005
+      },
+      "1991": {
+        "percentage": 0.5181347150259068,
+        "citations": 1,
+        "accumulated_percentage": 88.08290155440415
+      },
+      "1990": {
+        "percentage": 2.072538860103627,
+        "citations": 4,
+        "accumulated_percentage": 76.68393782383419
+      },
+      "1993": {
+        "percentage": 2.5906735751295336,
+        "citations": 5,
+        "accumulated_percentage": 69.43005181347151
+      },
+      "1992": {
+        "percentage": 1.5544041450777202,
+        "citations": 3,
+        "accumulated_percentage": 83.41968911917098
+      },
+      "1995": {
+        "percentage": 2.5906735751295336,
+        "citations": 5,
+        "accumulated_percentage": 72.02072538860104
+      },
+      "1979": {
+        "percentage": 0.5181347150259068,
+        "citations": 1,
+        "accumulated_percentage": 87.04663212435233
+      },
+      "1997": {
+        "percentage": 4.145077720207254,
+        "citations": 8,
+        "accumulated_percentage": 45.07772020725388
+      },
+      "1996": {
+        "percentage": 3.6269430051813467,
+        "citations": 7,
+        "accumulated_percentage": 56.994818652849744
+      },
+      "1999": {
+        "percentage": 2.072538860103627,
+        "citations": 4,
+        "accumulated_percentage": 78.75647668393782
+      },
+      "1998": {
+        "percentage": 5.181347150259067,
+        "citations": 10,
+        "accumulated_percentage": 40.932642487046635
+      },
+      "1975": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.04663212435233
+      },
+      "1978": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.04663212435233
+      },
+      "1973": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.04663212435233
+      },
+      "1972": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.04663212435233
+      },
+      "1971": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.04663212435233
+      },
+      "1970": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.04663212435233
+      },
+      "2002": {
+        "percentage": 7.772020725388601,
+        "citations": 15,
+        "accumulated_percentage": 16.580310880829018
+      },
+      "2003": {
+        "percentage": 3.6269430051813467,
+        "citations": 7,
+        "accumulated_percentage": 60.62176165803109
+      },
+      "2000": {
+        "percentage": 3.1088082901554404,
+        "citations": 6,
+        "accumulated_percentage": 66.83937823834198
+      },
+      "2001": {
+        "percentage": 6.217616580310881,
+        "citations": 12,
+        "accumulated_percentage": 30.05181347150259
+      },
+      "2006": {
+        "percentage": 8.808290155440414,
+        "citations": 17,
+        "accumulated_percentage": 8.808290155440414
+      },
+      "2007": {
+        "percentage": 7.253886010362693,
+        "citations": 14,
+        "accumulated_percentage": 23.83419689119171
+      },
+      "2004": {
+        "percentage": 5.699481865284974,
+        "citations": 11,
+        "accumulated_percentage": 35.751295336787564
+      },
+      "2005": {
+        "percentage": 4.145077720207254,
+        "citations": 8,
+        "accumulated_percentage": 49.22279792746114
+      },
+      "1969": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.04663212435233
+      },
+      "2008": {
+        "percentage": 4.145077720207254,
+        "citations": 8,
+        "accumulated_percentage": 53.36787564766839
+      },
+      "2009": {
+        "percentage": 2.5906735751295336,
+        "citations": 5,
+        "accumulated_percentage": 74.61139896373057
+      }
+    }
+  },
+  "2013": {
+    "half_life": {
+      "value": 5.78,
+      "year": "2008"
+    },
+    "total": 230,
+    "data": {
+      "1976": {
+        "percentage": 0.43478260869565216,
+        "citations": 1,
+        "accumulated_percentage": 99.56521739130434
+      },
+      "1977": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 100.0
+      },
+      "1986": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.39130434782608
+      },
+      "1987": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.39130434782608
+      },
+      "1984": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.39130434782608
+      },
+      "1985": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.39130434782608
+      },
+      "1982": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.39130434782608
+      },
+      "1983": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.39130434782608
+      },
+      "1980": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.39130434782608
+      },
+      "1981": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.39130434782608
+      },
+      "1979": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 87.39130434782608
+      },
+      "1988": {
+        "percentage": 2.1739130434782608,
+        "citations": 5,
+        "accumulated_percentage": 87.39130434782608
+      },
+      "1989": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 80.0
+      },
+      "2011": {
+        "percentage": 3.0434782608695654,
+        "citations": 7,
+        "accumulated_percentage": 77.39130434782608
+      },
+      "2010": {
+        "percentage": 10.434782608695652,
+        "citations": 24,
+        "accumulated_percentage": 23.47826086956522
+      },
+      "2013": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 0
+      },
+      "2012": {
+        "percentage": 1.7391304347826086,
+        "citations": 4,
+        "accumulated_percentage": 96.95652173913044
+      },
+      "1991": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 99.1304347826087
+      },
+      "1990": {
+        "percentage": 2.608695652173913,
+        "citations": 6,
+        "accumulated_percentage": 80.0
+      },
+      "1993": {
+        "percentage": 0.8695652173913043,
+        "citations": 2,
+        "accumulated_percentage": 99.1304347826087
+      },
+      "1992": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 99.1304347826087
+      },
+      "1995": {
+        "percentage": 1.7391304347826086,
+        "citations": 4,
+        "accumulated_percentage": 93.47826086956522
+      },
+      "1994": {
+        "percentage": 1.3043478260869565,
+        "citations": 3,
+        "accumulated_percentage": 98.26086956521739
+      },
+      "1997": {
+        "percentage": 1.7391304347826086,
+        "citations": 4,
+        "accumulated_percentage": 95.21739130434783
+      },
+      "1996": {
+        "percentage": 4.782608695652174,
+        "citations": 11,
+        "accumulated_percentage": 71.30434782608695
+      },
+      "1999": {
+        "percentage": 3.0434782608695654,
+        "citations": 7,
+        "accumulated_percentage": 74.34782608695653
+      },
+      "1998": {
+        "percentage": 2.1739130434782608,
+        "citations": 5,
+        "accumulated_percentage": 89.56521739130436
+      },
+      "1978": {
+        "percentage": 0.43478260869565216,
+        "citations": 1,
+        "accumulated_percentage": 100.0
+      },
+      "2002": {
+        "percentage": 2.608695652173913,
+        "citations": 6,
+        "accumulated_percentage": 82.6086956521739
+      },
+      "2003": {
+        "percentage": 2.608695652173913,
+        "citations": 6,
+        "accumulated_percentage": 85.21739130434783
+      },
+      "2000": {
+        "percentage": 2.1739130434782608,
+        "citations": 5,
+        "accumulated_percentage": 91.73913043478261
+      },
+      "2001": {
+        "percentage": 5.6521739130434785,
+        "citations": 13,
+        "accumulated_percentage": 66.52173913043478
+      },
+      "2006": {
+        "percentage": 13.043478260869565,
+        "citations": 30,
+        "accumulated_percentage": 13.043478260869565
+      },
+      "2007": {
+        "percentage": 6.956521739130435,
+        "citations": 16,
+        "accumulated_percentage": 47.82608695652174
+      },
+      "2004": {
+        "percentage": 6.086956521739131,
+        "citations": 14,
+        "accumulated_percentage": 60.86956521739131
+      },
+      "2005": {
+        "percentage": 7.82608695652174,
+        "citations": 18,
+        "accumulated_percentage": 40.869565217391305
+      },
+      "2008": {
+        "percentage": 6.956521739130435,
+        "citations": 16,
+        "accumulated_percentage": 54.78260869565217
+      },
+      "2009": {
+        "percentage": 9.565217391304348,
+        "citations": 22,
+        "accumulated_percentage": 33.04347826086956
+      }
+    }
+  },
+  "2012": {
+    "half_life": {
+      "value": 3.0792682926829267,
+      "year": "2010"
+    },
+    "total": 193,
+    "data": {
+      "1986": {
+        "percentage": 0.5181347150259068,
+        "citations": 1,
+        "accumulated_percentage": 98.44559585492227
+      },
+      "1987": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 90.67357512953367
+      },
+      "1984": {
+        "percentage": 0.5181347150259068,
+        "citations": 1,
+        "accumulated_percentage": 97.92746113989638
+      },
+      "1985": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 98.44559585492227
+      },
+      "1983": {
+        "percentage": 0.5181347150259068,
+        "citations": 1,
+        "accumulated_percentage": 97.40932642487047
+      },
+      "1988": {
+        "percentage": 1.5544041450777202,
+        "citations": 3,
+        "accumulated_percentage": 90.67357512953367
+      },
+      "1989": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 71.50259067357513
+      },
+      "2011": {
+        "percentage": 1.0362694300518136,
+        "citations": 2,
+        "accumulated_percentage": 95.85492227979275
+      },
+      "2010": {
+        "percentage": 7.253886010362693,
+        "citations": 14,
+        "accumulated_percentage": 53.36787564766839
+      },
+      "2012": {
+        "percentage": 1.0362694300518136,
+        "citations": 2,
+        "accumulated_percentage": 96.89119170984456
+      },
+      "1991": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 94.81865284974094
+      },
+      "1990": {
+        "percentage": 5.699481865284974,
+        "citations": 11,
+        "accumulated_percentage": 71.50259067357513
+      },
+      "1993": {
+        "percentage": 3.1088082901554404,
+        "citations": 6,
+        "accumulated_percentage": 86.01036269430051
+      },
+      "1992": {
+        "percentage": 1.0362694300518136,
+        "citations": 2,
+        "accumulated_percentage": 94.81865284974094
+      },
+      "1995": {
+        "percentage": 1.5544041450777202,
+        "citations": 3,
+        "accumulated_percentage": 92.2279792746114
+      },
+      "1994": {
+        "percentage": 0.5181347150259068,
+        "citations": 1,
+        "accumulated_percentage": 98.96373056994818
+      },
+      "1997": {
+        "percentage": 0.5181347150259068,
+        "citations": 1,
+        "accumulated_percentage": 99.48186528497409
+      },
+      "1996": {
+        "percentage": 1.5544041450777202,
+        "citations": 3,
+        "accumulated_percentage": 93.78238341968913
+      },
+      "1999": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 79.27461139896373
+      },
+      "1998": {
+        "percentage": 3.1088082901554404,
+        "citations": 6,
+        "accumulated_percentage": 89.11917098445595
+      },
+      "2002": {
+        "percentage": 6.217616580310881,
+        "citations": 12,
+        "accumulated_percentage": 59.58549222797927
+      },
+      "2003": {
+        "percentage": 4.145077720207254,
+        "citations": 8,
+        "accumulated_percentage": 75.64766839378238
+      },
+      "2000": {
+        "percentage": 3.6269430051813467,
+        "citations": 7,
+        "accumulated_percentage": 79.27461139896373
+      },
+      "2001": {
+        "percentage": 3.6269430051813467,
+        "citations": 7,
+        "accumulated_percentage": 82.90155440414507
+      },
+      "2006": {
+        "percentage": 9.844559585492227,
+        "citations": 19,
+        "accumulated_percentage": 21.243523316062177
+      },
+      "2007": {
+        "percentage": 11.398963730569948,
+        "citations": 22,
+        "accumulated_percentage": 11.398963730569948
+      },
+      "2004": {
+        "percentage": 6.217616580310881,
+        "citations": 12,
+        "accumulated_percentage": 65.80310880829016
+      },
+      "2005": {
+        "percentage": 8.290155440414509,
+        "citations": 16,
+        "accumulated_percentage": 29.533678756476682
+      },
+      "2008": {
+        "percentage": 8.290155440414509,
+        "citations": 16,
+        "accumulated_percentage": 37.82383419689119
+      },
+      "2009": {
+        "percentage": 8.290155440414509,
+        "citations": 16,
+        "accumulated_percentage": 46.1139896373057
+      }
+    }
+  },
+  "1992": {
+    "half_life": {
+      "value": 6.5,
+      "year": "1986"
+    },
+    "total": 1,
+    "data": {
+      "1986": {
+        "percentage": 100.0,
+        "citations": 1,
+        "accumulated_percentage": 100.0
+      },
+      "1991": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 0
+      },
+      "1992": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 0
+      },
+      "1990": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 0
+      },
+      "1988": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 0
+      },
+      "1989": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 0
+      },
+      "1987": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 0
+      }
+    }
+  },
+  "1997": {
+    "half_life": {
+      "value": 12.0,
+      "year": "1986"
+    },
+    "total": 2,
+    "data": {
+      "1986": {
+        "percentage": 50.0,
+        "citations": 1,
+        "accumulated_percentage": 50.0
+      },
+      "1991": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 100.0
+      },
+      "1993": {
+        "percentage": 50.0,
+        "citations": 1,
+        "accumulated_percentage": 100.0
+      },
+      "1992": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 100.0
+      },
+      "1995": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 0
+      },
+      "1994": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 0
+      },
+      "1997": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 0
+      },
+      "1996": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 0
+      },
+      "1988": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 100.0
+      },
+      "1990": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 100.0
+      },
+      "1989": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 100.0
+      },
+      "1987": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 100.0
+      }
+    }
+  },
+  "1996": {
+    "half_life": {
+      "value": 6.5,
+      "year": "1991"
+    },
+    "total": 5,
+    "data": {
+      "1991": {
+        "percentage": 20.0,
+        "citations": 1,
+        "accumulated_percentage": 60.0
+      },
+      "1990": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 60.0
+      },
+      "1993": {
+        "percentage": 20.0,
+        "citations": 1,
+        "accumulated_percentage": 80.0
+      },
+      "1992": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 80.0
+      },
+      "1995": {
+        "percentage": 20.0,
+        "citations": 1,
+        "accumulated_percentage": 100.0
+      },
+      "1994": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 100.0
+      },
+      "1996": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 0
+      },
+      "1988": {
+        "percentage": 40.0,
+        "citations": 2,
+        "accumulated_percentage": 40.0
+      },
+      "1989": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 60.0
+      }
+    }
+  },
+  "1999": {
+    "half_life": {
+      "value": 8.3,
+      "year": "1992"
+    },
+    "total": 15,
+    "data": {
+      "1991": {
+        "percentage": 6.666666666666667,
+        "citations": 1,
+        "accumulated_percentage": 86.66666666666667
+      },
+      "1990": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 86.66666666666667
+      },
+      "1993": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 93.33333333333333
+      },
+      "1992": {
+        "percentage": 13.333333333333334,
+        "citations": 2,
+        "accumulated_percentage": 60.0
+      },
+      "1995": {
+        "percentage": 13.333333333333334,
+        "citations": 2,
+        "accumulated_percentage": 73.33333333333333
+      },
+      "1994": {
+        "percentage": 6.666666666666667,
+        "citations": 1,
+        "accumulated_percentage": 93.33333333333333
+      },
+      "1997": {
+        "percentage": 6.666666666666667,
+        "citations": 1,
+        "accumulated_percentage": 100.0
+      },
+      "1996": {
+        "percentage": 26.666666666666668,
+        "citations": 4,
+        "accumulated_percentage": 26.666666666666668
+      },
+      "1999": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 0
+      },
+      "1998": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 0
+      },
+      "1988": {
+        "percentage": 20.0,
+        "citations": 3,
+        "accumulated_percentage": 46.666666666666664
+      },
+      "1989": {
+        "percentage": 6.666666666666667,
+        "citations": 1,
+        "accumulated_percentage": 80.0
+      }
+    }
+  },
+  "1998": {
+    "half_life": {
+      "value": 3.25,
+      "year": "1996"
+    },
+    "total": 10,
+    "data": {
+      "1991": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 60.0
+      },
+      "1990": {
+        "percentage": 30.0,
+        "citations": 3,
+        "accumulated_percentage": 30.0
+      },
+      "1993": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 60.0
+      },
+      "1992": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 60.0
+      },
+      "1995": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 60.0
+      },
+      "1994": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 60.0
+      },
+      "1997": {
+        "percentage": 20.0,
+        "citations": 2,
+        "accumulated_percentage": 100.0
+      },
+      "1996": {
+        "percentage": 30.0,
+        "citations": 3,
+        "accumulated_percentage": 60.0
+      },
+      "1998": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 0
+      },
+      "1988": {
+        "percentage": 20.0,
+        "citations": 2,
+        "accumulated_percentage": 80.0
+      },
+      "1989": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 30.0
+      }
+    }
+  },
+  "2002": {
+    "half_life": {
+      "value": 6.291666666666667,
+      "year": "1997"
+    },
+    "total": 35,
+    "data": {
+      "1986": {
+        "percentage": 5.714285714285714,
+        "citations": 2,
+        "accumulated_percentage": 74.28571428571429
+      },
+      "1990": {
+        "percentage": 8.571428571428571,
+        "citations": 3,
+        "accumulated_percentage": 68.57142857142857
+      },
+      "1993": {
+        "percentage": 11.428571428571429,
+        "citations": 4,
+        "accumulated_percentage": 37.142857142857146
+      },
+      "1992": {
+        "percentage": 5.714285714285714,
+        "citations": 2,
+        "accumulated_percentage": 85.71428571428571
+      },
+      "1995": {
+        "percentage": 25.71428571428571,
+        "citations": 9,
+        "accumulated_percentage": 25.71428571428571
+      },
+      "1994": {
+        "percentage": 2.857142857142857,
+        "citations": 1,
+        "accumulated_percentage": 91.42857142857143
+      },
+      "1997": {
+        "percentage": 11.428571428571429,
+        "citations": 4,
+        "accumulated_percentage": 60.0
+      },
+      "1996": {
+        "percentage": 11.428571428571429,
+        "citations": 4,
+        "accumulated_percentage": 48.57142857142857
+      },
+      "1999": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 97.14285714285714
+      },
+      "1998": {
+        "percentage": 2.857142857142857,
+        "citations": 1,
+        "accumulated_percentage": 94.28571428571428
+      },
+      "1988": {
+        "percentage": 5.714285714285714,
+        "citations": 2,
+        "accumulated_percentage": 80.0
+      },
+      "1989": {
+        "percentage": 2.857142857142857,
+        "citations": 1,
+        "accumulated_percentage": 88.57142857142857
+      },
+      "2002": {
+        "percentage": 2.857142857142857,
+        "citations": 1,
+        "accumulated_percentage": 100.0
+      },
+      "1991": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 85.71428571428571
+      },
+      "2000": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 97.14285714285714
+      },
+      "2001": {
+        "percentage": 2.857142857142857,
+        "citations": 1,
+        "accumulated_percentage": 97.14285714285714
+      },
+      "1987": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 80.0
+      }
+    }
+  },
+  "2003": {
+    "half_life": {
+      "value": 7.0,
+      "year": "1997"
+    },
+    "total": 44,
+    "data": {
+      "1986": {
+        "percentage": 2.272727272727273,
+        "citations": 1,
+        "accumulated_percentage": 97.72727272727273
+      },
+      "1990": {
+        "percentage": 15.909090909090908,
+        "citations": 7,
+        "accumulated_percentage": 15.909090909090908
+      },
+      "1993": {
+        "percentage": 2.272727272727273,
+        "citations": 1,
+        "accumulated_percentage": 100.0
+      },
+      "1992": {
+        "percentage": 4.545454545454546,
+        "citations": 2,
+        "accumulated_percentage": 90.9090909090909
+      },
+      "1995": {
+        "percentage": 9.090909090909092,
+        "citations": 4,
+        "accumulated_percentage": 40.909090909090914
+      },
+      "1994": {
+        "percentage": 4.545454545454546,
+        "citations": 2,
+        "accumulated_percentage": 95.45454545454545
+      },
+      "1997": {
+        "percentage": 9.090909090909092,
+        "citations": 4,
+        "accumulated_percentage": 50.0
+      },
+      "1996": {
+        "percentage": 15.909090909090908,
+        "citations": 7,
+        "accumulated_percentage": 31.818181818181817
+      },
+      "1999": {
+        "percentage": 6.8181818181818175,
+        "citations": 3,
+        "accumulated_percentage": 75.0
+      },
+      "1998": {
+        "percentage": 9.090909090909092,
+        "citations": 4,
+        "accumulated_percentage": 59.09090909090909
+      },
+      "1988": {
+        "percentage": 4.545454545454546,
+        "citations": 2,
+        "accumulated_percentage": 86.36363636363636
+      },
+      "1989": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 15.909090909090908
+      },
+      "2002": {
+        "percentage": 6.8181818181818175,
+        "citations": 3,
+        "accumulated_percentage": 81.81818181818183
+      },
+      "2003": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 0
+      },
+      "2000": {
+        "percentage": 9.090909090909092,
+        "citations": 4,
+        "accumulated_percentage": 68.18181818181817
+      },
+      "2001": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 81.81818181818183
+      },
+      "1987": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 86.36363636363636
+      },
+      "1991": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 90.9090909090909
+      }
+    }
+  },
+  "2000": {
+    "half_life": {
+      "value": 8.222222222222221,
+      "year": "1993"
+    },
+    "total": 24,
+    "data": {
+      "1991": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 91.66666666666666
+      },
+      "1990": {
+        "percentage": 20.833333333333336,
+        "citations": 5,
+        "accumulated_percentage": 20.833333333333336
+      },
+      "1993": {
+        "percentage": 16.666666666666664,
+        "citations": 4,
+        "accumulated_percentage": 58.333333333333336
+      },
+      "1992": {
+        "percentage": 4.166666666666666,
+        "citations": 1,
+        "accumulated_percentage": 91.66666666666666
+      },
+      "1995": {
+        "percentage": 20.833333333333336,
+        "citations": 5,
+        "accumulated_percentage": 41.66666666666667
+      },
+      "1994": {
+        "percentage": 4.166666666666666,
+        "citations": 1,
+        "accumulated_percentage": 95.83333333333334
+      },
+      "1997": {
+        "percentage": 8.333333333333332,
+        "citations": 2,
+        "accumulated_percentage": 87.5
+      },
+      "1996": {
+        "percentage": 8.333333333333332,
+        "citations": 2,
+        "accumulated_percentage": 79.16666666666666
+      },
+      "1999": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 0
+      },
+      "1998": {
+        "percentage": 4.166666666666666,
+        "citations": 1,
+        "accumulated_percentage": 100.0
+      },
+      "1988": {
+        "percentage": 12.5,
+        "citations": 3,
+        "accumulated_percentage": 70.83333333333334
+      },
+      "1989": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 20.833333333333336
+      },
+      "2000": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 0
+      }
+    }
+  },
+  "2001": {
+    "half_life": {
+      "value": 8.75,
+      "year": "1993"
+    },
+    "total": 21,
+    "data": {
+      "1986": {
+        "percentage": 4.761904761904762,
+        "citations": 1,
+        "accumulated_percentage": 85.71428571428571
+      },
+      "1990": {
+        "percentage": 28.57142857142857,
+        "citations": 6,
+        "accumulated_percentage": 28.57142857142857
+      },
+      "1993": {
+        "percentage": 9.523809523809524,
+        "citations": 2,
+        "accumulated_percentage": 52.38095238095239
+      },
+      "1992": {
+        "percentage": 4.761904761904762,
+        "citations": 1,
+        "accumulated_percentage": 95.23809523809523
+      },
+      "1995": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 42.857142857142854
+      },
+      "1994": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 42.857142857142854
+      },
+      "1997": {
+        "percentage": 9.523809523809524,
+        "citations": 2,
+        "accumulated_percentage": 61.904761904761905
+      },
+      "1996": {
+        "percentage": 14.285714285714285,
+        "citations": 3,
+        "accumulated_percentage": 42.857142857142854
+      },
+      "1999": {
+        "percentage": 9.523809523809524,
+        "citations": 2,
+        "accumulated_percentage": 71.42857142857143
+      },
+      "1998": {
+        "percentage": 4.761904761904762,
+        "citations": 1,
+        "accumulated_percentage": 100.0
+      },
+      "1988": {
+        "percentage": 4.761904761904762,
+        "citations": 1,
+        "accumulated_percentage": 90.47619047619048
+      },
+      "1989": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 28.57142857142857
+      },
+      "1991": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 95.23809523809523
+      },
+      "2000": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 80.95238095238095
+      },
+      "2001": {
+        "percentage": 9.523809523809524,
+        "citations": 2,
+        "accumulated_percentage": 80.95238095238095
+      },
+      "1987": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 90.47619047619048
+      }
+    }
+  },
+  "2006": {
+    "half_life": {
+      "value": 6.208333333333334,
+      "year": "2001"
+    },
+    "total": 69,
+    "data": {
+      "1986": {
+        "percentage": 2.898550724637681,
+        "citations": 2,
+        "accumulated_percentage": 94.20289855072464
+      },
+      "1990": {
+        "percentage": 5.797101449275362,
+        "citations": 4,
+        "accumulated_percentage": 59.42028985507246
+      },
+      "1993": {
+        "percentage": 7.246376811594203,
+        "citations": 5,
+        "accumulated_percentage": 46.3768115942029
+      },
+      "1992": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 46.3768115942029
+      },
+      "1995": {
+        "percentage": 4.3478260869565215,
+        "citations": 3,
+        "accumulated_percentage": 86.95652173913044
+      },
+      "1994": {
+        "percentage": 8.695652173913043,
+        "citations": 6,
+        "accumulated_percentage": 30.434782608695656
+      },
+      "1997": {
+        "percentage": 10.144927536231885,
+        "citations": 7,
+        "accumulated_percentage": 21.73913043478261
+      },
+      "1996": {
+        "percentage": 5.797101449275362,
+        "citations": 4,
+        "accumulated_percentage": 65.21739130434783
+      },
+      "1999": {
+        "percentage": 11.594202898550725,
+        "citations": 8,
+        "accumulated_percentage": 11.594202898550725
+      },
+      "1998": {
+        "percentage": 8.695652173913043,
+        "citations": 6,
+        "accumulated_percentage": 39.130434782608695
+      },
+      "1988": {
+        "percentage": 2.898550724637681,
+        "citations": 2,
+        "accumulated_percentage": 97.10144927536231
+      },
+      "1989": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 59.42028985507246
+      },
+      "2002": {
+        "percentage": 5.797101449275362,
+        "citations": 4,
+        "accumulated_percentage": 71.01449275362319
+      },
+      "2003": {
+        "percentage": 5.797101449275362,
+        "citations": 4,
+        "accumulated_percentage": 76.81159420289855
+      },
+      "2000": {
+        "percentage": 1.4492753623188406,
+        "citations": 1,
+        "accumulated_percentage": 100.0
+      },
+      "2001": {
+        "percentage": 7.246376811594203,
+        "citations": 5,
+        "accumulated_percentage": 53.62318840579711
+      },
+      "2006": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 0
+      },
+      "2004": {
+        "percentage": 4.3478260869565215,
+        "citations": 3,
+        "accumulated_percentage": 91.30434782608695
+      },
+      "2005": {
+        "percentage": 5.797101449275362,
+        "citations": 4,
+        "accumulated_percentage": 82.6086956521739
+      },
+      "1987": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 97.10144927536231
+      },
+      "1991": {
+        "percentage": 1.4492753623188406,
+        "citations": 1,
+        "accumulated_percentage": 98.55072463768117
+      }
+    }
+  },
+  "2007": {
+    "half_life": {
+      "value": 4.1875,
+      "year": "2004"
+    },
+    "total": 68,
+    "data": {
+      "1986": {
+        "percentage": 1.4705882352941175,
+        "citations": 1,
+        "accumulated_percentage": 97.05882352941177
+      },
+      "1987": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 60.29411764705882
+      },
+      "1984": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 97.05882352941177
+      },
+      "1985": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 97.05882352941177
+      },
+      "1983": {
+        "percentage": 1.4705882352941175,
+        "citations": 1,
+        "accumulated_percentage": 95.58823529411765
+      },
+      "1988": {
+        "percentage": 5.88235294117647,
+        "citations": 4,
+        "accumulated_percentage": 60.29411764705882
+      },
+      "1989": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 8.823529411764707
+      },
+      "1991": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 94.11764705882352
+      },
+      "1990": {
+        "percentage": 8.823529411764707,
+        "citations": 6,
+        "accumulated_percentage": 8.823529411764707
+      },
+      "1993": {
+        "percentage": 1.4705882352941175,
+        "citations": 1,
+        "accumulated_percentage": 98.52941176470588
+      },
+      "1992": {
+        "percentage": 2.941176470588235,
+        "citations": 2,
+        "accumulated_percentage": 94.11764705882352
+      },
+      "1995": {
+        "percentage": 4.411764705882353,
+        "citations": 3,
+        "accumulated_percentage": 82.35294117647058
+      },
+      "1994": {
+        "percentage": 7.352941176470589,
+        "citations": 5,
+        "accumulated_percentage": 25.0
+      },
+      "1997": {
+        "percentage": 8.823529411764707,
+        "citations": 6,
+        "accumulated_percentage": 17.647058823529413
+      },
+      "1996": {
+        "percentage": 7.352941176470589,
+        "citations": 5,
+        "accumulated_percentage": 32.35294117647059
+      },
+      "1999": {
+        "percentage": 4.411764705882353,
+        "citations": 3,
+        "accumulated_percentage": 86.76470588235294
+      },
+      "1998": {
+        "percentage": 5.88235294117647,
+        "citations": 4,
+        "accumulated_percentage": 66.17647058823529
+      },
+      "2002": {
+        "percentage": 4.411764705882353,
+        "citations": 3,
+        "accumulated_percentage": 91.17647058823529
+      },
+      "2003": {
+        "percentage": 5.88235294117647,
+        "citations": 4,
+        "accumulated_percentage": 72.05882352941177
+      },
+      "2000": {
+        "percentage": 7.352941176470589,
+        "citations": 5,
+        "accumulated_percentage": 39.705882352941174
+      },
+      "2001": {
+        "percentage": 7.352941176470589,
+        "citations": 5,
+        "accumulated_percentage": 47.05882352941176
+      },
+      "2006": {
+        "percentage": 1.4705882352941175,
+        "citations": 1,
+        "accumulated_percentage": 100.0
+      },
+      "2007": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 0
+      },
+      "2004": {
+        "percentage": 7.352941176470589,
+        "citations": 5,
+        "accumulated_percentage": 54.41176470588235
+      },
+      "2005": {
+        "percentage": 5.88235294117647,
+        "citations": 4,
+        "accumulated_percentage": 77.94117647058823
+      }
+    }
+  },
+  "2004": {
+    "half_life": {
+      "value": 3.0576923076923075,
+      "year": "2002"
+    },
+    "total": 55,
+    "data": {
+      "1986": {
+        "percentage": 5.454545454545454,
+        "citations": 3,
+        "accumulated_percentage": 80.0
+      },
+      "1987": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 12.727272727272727
+      },
+      "1984": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 80.0
+      },
+      "1985": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 80.0
+      },
+      "1982": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 80.0
+      },
+      "1983": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 80.0
+      },
+      "1980": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 96.36363636363636
+      },
+      "1981": {
+        "percentage": 1.8181818181818181,
+        "citations": 1,
+        "accumulated_percentage": 96.36363636363636
+      },
+      "1979": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 96.36363636363636
+      },
+      "1988": {
+        "percentage": 12.727272727272727,
+        "citations": 7,
+        "accumulated_percentage": 12.727272727272727
+      },
+      "1989": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 43.63636363636363
+      },
+      "1991": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 98.18181818181819
+      },
+      "1990": {
+        "percentage": 9.090909090909092,
+        "citations": 5,
+        "accumulated_percentage": 43.63636363636363
+      },
+      "1993": {
+        "percentage": 7.2727272727272725,
+        "citations": 4,
+        "accumulated_percentage": 60.0
+      },
+      "1992": {
+        "percentage": 1.8181818181818181,
+        "citations": 1,
+        "accumulated_percentage": 98.18181818181819
+      },
+      "1995": {
+        "percentage": 5.454545454545454,
+        "citations": 3,
+        "accumulated_percentage": 85.45454545454545
+      },
+      "1994": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 85.45454545454545
+      },
+      "1997": {
+        "percentage": 10.909090909090908,
+        "citations": 6,
+        "accumulated_percentage": 23.636363636363637
+      },
+      "1996": {
+        "percentage": 7.2727272727272725,
+        "citations": 4,
+        "accumulated_percentage": 67.27272727272727
+      },
+      "1999": {
+        "percentage": 3.6363636363636362,
+        "citations": 2,
+        "accumulated_percentage": 89.0909090909091
+      },
+      "1998": {
+        "percentage": 7.2727272727272725,
+        "citations": 4,
+        "accumulated_percentage": 74.54545454545455
+      },
+      "1978": {
+        "percentage": 1.8181818181818181,
+        "citations": 1,
+        "accumulated_percentage": 94.54545454545455
+      },
+      "2002": {
+        "percentage": 9.090909090909092,
+        "citations": 5,
+        "accumulated_percentage": 52.72727272727272
+      },
+      "2003": {
+        "percentage": 1.8181818181818181,
+        "citations": 1,
+        "accumulated_percentage": 100.0
+      },
+      "2000": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 34.54545454545455
+      },
+      "2001": {
+        "percentage": 10.909090909090908,
+        "citations": 6,
+        "accumulated_percentage": 34.54545454545455
+      },
+      "2004": {
+        "percentage": 3.6363636363636362,
+        "citations": 2,
+        "accumulated_percentage": 92.72727272727272
+      }
+    }
+  },
+  "2005": {
+    "half_life": {
+      "value": 4.875,
+      "year": "2001"
+    },
+    "total": 57,
+    "data": {
+      "1986": {
+        "percentage": 5.263157894736842,
+        "citations": 3,
+        "accumulated_percentage": 78.94736842105263
+      },
+      "1990": {
+        "percentage": 15.789473684210526,
+        "citations": 9,
+        "accumulated_percentage": 15.789473684210526
+      },
+      "1993": {
+        "percentage": 5.263157894736842,
+        "citations": 3,
+        "accumulated_percentage": 84.21052631578947
+      },
+      "1992": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 84.21052631578947
+      },
+      "1995": {
+        "percentage": 1.7543859649122806,
+        "citations": 1,
+        "accumulated_percentage": 100.0
+      },
+      "1994": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 100.0
+      },
+      "1997": {
+        "percentage": 3.508771929824561,
+        "citations": 2,
+        "accumulated_percentage": 98.24561403508771
+      },
+      "1996": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 98.24561403508771
+      },
+      "1999": {
+        "percentage": 5.263157894736842,
+        "citations": 3,
+        "accumulated_percentage": 89.47368421052632
+      },
+      "1998": {
+        "percentage": 10.526315789473683,
+        "citations": 6,
+        "accumulated_percentage": 42.10526315789473
+      },
+      "1988": {
+        "percentage": 7.017543859649122,
+        "citations": 4,
+        "accumulated_percentage": 59.64912280701754
+      },
+      "1989": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 15.789473684210526
+      },
+      "2002": {
+        "percentage": 15.789473684210526,
+        "citations": 9,
+        "accumulated_percentage": 31.57894736842105
+      },
+      "2003": {
+        "percentage": 7.017543859649122,
+        "citations": 4,
+        "accumulated_percentage": 73.68421052631578
+      },
+      "2000": {
+        "percentage": 7.017543859649122,
+        "citations": 4,
+        "accumulated_percentage": 66.66666666666666
+      },
+      "2001": {
+        "percentage": 10.526315789473683,
+        "citations": 6,
+        "accumulated_percentage": 52.63157894736842
+      },
+      "2004": {
+        "percentage": 5.263157894736842,
+        "citations": 3,
+        "accumulated_percentage": 94.73684210526315
+      },
+      "2005": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 0
+      },
+      "1987": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 59.64912280701754
+      },
+      "1991": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 84.21052631578947
+      }
+    }
+  },
+  "2008": {
+    "half_life": {
+      "value": 14.800000000000002,
+      "year": "1995"
+    },
+    "total": 84,
+    "data": {
+      "1986": {
+        "percentage": 2.380952380952381,
+        "citations": 2,
+        "accumulated_percentage": 88.09523809523809
+      },
+      "1987": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 65.47619047619048
+      },
+      "1984": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 88.09523809523809
+      },
+      "1985": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 88.09523809523809
+      },
+      "1982": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 88.09523809523809
+      },
+      "1983": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 88.09523809523809
+      },
+      "1980": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 88.09523809523809
+      },
+      "1981": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 88.09523809523809
+      },
+      "1979": {
+        "percentage": 1.1904761904761905,
+        "citations": 1,
+        "accumulated_percentage": 98.80952380952381
+      },
+      "1988": {
+        "percentage": 4.761904761904762,
+        "citations": 4,
+        "accumulated_percentage": 65.47619047619048
+      },
+      "1989": {
+        "percentage": 2.380952380952381,
+        "citations": 2,
+        "accumulated_percentage": 90.47619047619048
+      },
+      "1991": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 92.85714285714286
+      },
+      "1990": {
+        "percentage": 7.142857142857142,
+        "citations": 6,
+        "accumulated_percentage": 34.523809523809526
+      },
+      "1993": {
+        "percentage": 3.571428571428571,
+        "citations": 3,
+        "accumulated_percentage": 78.57142857142857
+      },
+      "1992": {
+        "percentage": 2.380952380952381,
+        "citations": 2,
+        "accumulated_percentage": 92.85714285714286
+      },
+      "1995": {
+        "percentage": 5.952380952380952,
+        "citations": 5,
+        "accumulated_percentage": 54.761904761904766
+      },
+      "1994": {
+        "percentage": 3.571428571428571,
+        "citations": 3,
+        "accumulated_percentage": 82.14285714285714
+      },
+      "1997": {
+        "percentage": 3.571428571428571,
+        "citations": 3,
+        "accumulated_percentage": 85.71428571428571
+      },
+      "1996": {
+        "percentage": 5.952380952380952,
+        "citations": 5,
+        "accumulated_percentage": 60.71428571428571
+      },
+      "1999": {
+        "percentage": 8.333333333333332,
+        "citations": 7,
+        "accumulated_percentage": 27.380952380952383
+      },
+      "1998": {
+        "percentage": 2.380952380952381,
+        "citations": 2,
+        "accumulated_percentage": 95.23809523809523
+      },
+      "2002": {
+        "percentage": 7.142857142857142,
+        "citations": 6,
+        "accumulated_percentage": 41.66666666666667
+      },
+      "2003": {
+        "percentage": 4.761904761904762,
+        "citations": 4,
+        "accumulated_percentage": 75.0
+      },
+      "2000": {
+        "percentage": 4.761904761904762,
+        "citations": 4,
+        "accumulated_percentage": 70.23809523809523
+      },
+      "2001": {
+        "percentage": 9.523809523809524,
+        "citations": 8,
+        "accumulated_percentage": 9.523809523809524
+      },
+      "2006": {
+        "percentage": 2.380952380952381,
+        "citations": 2,
+        "accumulated_percentage": 97.61904761904762
+      },
+      "2007": {
+        "percentage": 1.1904761904761905,
+        "citations": 1,
+        "accumulated_percentage": 100.0
+      },
+      "2004": {
+        "percentage": 9.523809523809524,
+        "citations": 8,
+        "accumulated_percentage": 19.047619047619047
+      },
+      "2005": {
+        "percentage": 7.142857142857142,
+        "citations": 6,
+        "accumulated_percentage": 48.80952380952381
+      },
+      "2008": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 0
+      }
+    }
+  },
+  "2009": {
+    "half_life": {
+      "value": 4.833333333333333,
+      "year": "2005"
+    },
+    "total": 143,
+    "data": {
+      "1976": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 97.2027972027972
+      },
+      "1965": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 96.5034965034965
+      },
+      "1962": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 96.5034965034965
+      },
+      "1963": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 96.5034965034965
+      },
+      "1977": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 97.2027972027972
+      },
+      "1986": {
+        "percentage": 2.097902097902098,
+        "citations": 3,
+        "accumulated_percentage": 88.11188811188812
+      },
+      "1987": {
+        "percentage": 0.6993006993006993,
+        "citations": 1,
+        "accumulated_percentage": 97.9020979020979
+      },
+      "1984": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 88.11188811188812
+      },
+      "1985": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 88.11188811188812
+      },
+      "1968": {
+        "percentage": 0.6993006993006993,
+        "citations": 1,
+        "accumulated_percentage": 96.5034965034965
+      },
+      "1983": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 88.11188811188812
+      },
+      "1980": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 88.11188811188812
+      },
+      "1981": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 88.11188811188812
+      },
+      "1964": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 96.5034965034965
+      },
+      "1979": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 88.11188811188812
+      },
+      "1966": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 96.5034965034965
+      },
+      "1967": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 96.5034965034965
+      },
+      "1960": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 96.5034965034965
+      },
+      "1961": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 96.5034965034965
+      },
+      "1988": {
+        "percentage": 4.895104895104895,
+        "citations": 7,
+        "accumulated_percentage": 63.63636363636363
+      },
+      "1989": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 19.58041958041958
+      },
+      "1974": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 97.2027972027972
+      },
+      "1955": {
+        "percentage": 0.6993006993006993,
+        "citations": 1,
+        "accumulated_percentage": 95.8041958041958
+      },
+      "1957": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 96.5034965034965
+      },
+      "1956": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 96.5034965034965
+      },
+      "1982": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 88.11188811188812
+      },
+      "1959": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 96.5034965034965
+      },
+      "1958": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 96.5034965034965
+      },
+      "1969": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 97.2027972027972
+      },
+      "1991": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 93.7062937062937
+      },
+      "1990": {
+        "percentage": 8.391608391608392,
+        "citations": 12,
+        "accumulated_percentage": 19.58041958041958
+      },
+      "1993": {
+        "percentage": 4.195804195804196,
+        "citations": 6,
+        "accumulated_percentage": 72.72727272727273
+      },
+      "1992": {
+        "percentage": 1.3986013986013985,
+        "citations": 2,
+        "accumulated_percentage": 93.7062937062937
+      },
+      "1995": {
+        "percentage": 6.293706293706294,
+        "citations": 9,
+        "accumulated_percentage": 40.55944055944056
+      },
+      "1994": {
+        "percentage": 1.3986013986013985,
+        "citations": 2,
+        "accumulated_percentage": 95.1048951048951
+      },
+      "1997": {
+        "percentage": 6.293706293706294,
+        "citations": 9,
+        "accumulated_percentage": 46.85314685314685
+      },
+      "1996": {
+        "percentage": 7.6923076923076925,
+        "citations": 11,
+        "accumulated_percentage": 27.27272727272727
+      },
+      "1999": {
+        "percentage": 3.4965034965034967,
+        "citations": 5,
+        "accumulated_percentage": 80.41958041958041
+      },
+      "1998": {
+        "percentage": 2.797202797202797,
+        "citations": 4,
+        "accumulated_percentage": 83.21678321678321
+      },
+      "1975": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 97.2027972027972
+      },
+      "1978": {
+        "percentage": 0.6993006993006993,
+        "citations": 1,
+        "accumulated_percentage": 97.2027972027972
+      },
+      "1973": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 97.2027972027972
+      },
+      "1972": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 97.2027972027972
+      },
+      "1971": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 97.2027972027972
+      },
+      "1970": {
+        "percentage": 0,
+        "citations": 0,
+        "accumulated_percentage": 97.2027972027972
+      },
+      "2002": {
+        "percentage": 4.195804195804196,
+        "citations": 6,
+        "accumulated_percentage": 76.92307692307693
+      },
+      "2003": {
+        "percentage": 2.097902097902098,
+        "citations": 3,
+        "accumulated_percentage": 90.20979020979021
+      },
+      "2000": {
+        "percentage": 2.797202797202797,
+        "citations": 4,
+        "accumulated_percentage": 86.01398601398601
+      },
+      "2001": {
+        "percentage": 5.594405594405594,
+        "citations": 8,
+        "accumulated_percentage": 58.74125874125874
+      },
+      "2006": {
+        "percentage": 6.993006993006993,
+        "citations": 10,
+        "accumulated_percentage": 34.26573426573427
+      },
+      "2007": {
+        "percentage": 11.188811188811188,
+        "citations": 16,
+        "accumulated_percentage": 11.188811188811188
+      },
+      "2004": {
+        "percentage": 4.895104895104895,
+        "citations": 7,
+        "accumulated_percentage": 68.53146853146853
+      },
+      "2005": {
+        "percentage": 6.293706293706294,
+        "citations": 9,
+        "accumulated_percentage": 53.14685314685315
+      },
+      "2008": {
+        "percentage": 2.097902097902098,
+        "citations": 3,
+        "accumulated_percentage": 92.3076923076923
+      },
+      "2009": {
+        "percentage": 0.6993006993006993,
+        "citations": 1,
+        "accumulated_percentage": 98.6013986013986
+      }
+    }
+  }
+}
