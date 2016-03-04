@@ -14,9 +14,11 @@
   <div class="chart">
     <%include file="publication_article_affiliations_publication_year.mako"/>
   </div>
-  <div class="chart">
-    <%include file="publication_article_citable_documents.mako"/>
-  </div>
+  % if not 'bibliometrics' in under_development:
+    <div class="chart">
+      <%include file="publication_article_citable_documents.mako"/>
+    </div>
+  % endif
 </%block>
 
 <%block name="extra_js">
