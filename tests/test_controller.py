@@ -1,5 +1,7 @@
 # coding: utf-8
 import unittest
+import os
+import json
 
 from analytics import controller
 
@@ -13,6 +15,7 @@ class ControllerTest(unittest.TestCase):
 
     def setUp(self):
 
+        self._path = os.path.dirname(os.path.realpath(__file__))
         self._stats = controller.Stats('localhost:11600', 'localhost:11600', 'localhost:11600', 'localhost:11600')
 
     def test_must_not_custom_query(self):
@@ -1895,6 +1898,16 @@ class ControllerTest(unittest.TestCase):
                 "citable_docs": 40
             }
         }
+
+        self.assertEqual(expected, result)
+
+    def test_compute_citing_half_life(self):
+
+        pub_citing_years = json.loads(open('%s/fixtures/pub_citing_years.json' % self._path).read())
+
+        expected = json.loads(open('%s/fixtures/citing_half_life.json' % self._path).read())
+
+        result = self._stats._compute_citing_half_life(pub_citing_years)
 
         self.assertEqual(expected, result)
 

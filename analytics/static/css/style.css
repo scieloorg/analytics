@@ -75,6 +75,11 @@ body { padding-top: 70px; }
     margin-top: 50px;
 }
 
-.table-impact-factor .table-impact-factor-header {
+.table-impact-factor .table-impact-factor-header, .table-citing-half-life .table-citing-half-life-header{
     background-color: #F0F0F0;
+}
+
+.table-citing-half-life .citing-half-life-result{
+    text-align: center;
+    vertical-align: middle;
 }

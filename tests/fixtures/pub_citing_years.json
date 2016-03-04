@@ -1,0 +1,1580 @@
+{
+  "hits": {
+    "hits": [],
+    "total": 1825,
+    "max_score": 0.0
+  },
+  "_shards": {
+    "successful": 5,
+    "failed": 0,
+    "total": 5
+  },
+  "timed_out": false,
+  "aggregations": {
+    "publication_year": {
+      "buckets": [
+        {
+          "reference_publication_year": {
+            "buckets": [
+              {
+                "key": "2008",
+                "doc_count": 22
+              },
+              {
+                "key": "2010",
+                "doc_count": 19
+              },
+              {
+                "key": "2004",
+                "doc_count": 18
+              },
+              {
+                "key": "2001",
+                "doc_count": 17
+              },
+              {
+                "key": "2007",
+                "doc_count": 17
+              },
+              {
+                "key": "2003",
+                "doc_count": 16
+              },
+              {
+                "key": "2005",
+                "doc_count": 15
+              },
+              {
+                "key": "2006",
+                "doc_count": 15
+              },
+              {
+                "key": "2011",
+                "doc_count": 13
+              },
+              {
+                "key": "2012",
+                "doc_count": 11
+              },
+              {
+                "key": "2009",
+                "doc_count": 10
+              },
+              {
+                "key": "1990",
+                "doc_count": 9
+              },
+              {
+                "key": "1998",
+                "doc_count": 9
+              },
+              {
+                "key": "1999",
+                "doc_count": 9
+              },
+              {
+                "key": "2013",
+                "doc_count": 9
+              },
+              {
+                "key": "1996",
+                "doc_count": 5
+              },
+              {
+                "key": "2000",
+                "doc_count": 5
+              },
+              {
+                "key": "2002",
+                "doc_count": 5
+              },
+              {
+                "key": "2014",
+                "doc_count": 4
+              },
+              {
+                "key": "1993",
+                "doc_count": 2
+              },
+              {
+                "key": "1978",
+                "doc_count": 1
+              },
+              {
+                "key": "1981",
+                "doc_count": 1
+              },
+              {
+                "key": "1994",
+                "doc_count": 1
+              },
+              {
+                "key": "1995",
+                "doc_count": 1
+              },
+              {
+                "key": "1997",
+                "doc_count": 1
+              }
+            ],
+            "sum_other_doc_count": 0,
+            "doc_count_error_upper_bound": 0
+          },
+          "key": "2014",
+          "doc_count": 237
+        },
+        {
+          "reference_publication_year": {
+            "buckets": [
+              {
+                "key": "2006",
+                "doc_count": 30
+              },
+              {
+                "key": "2010",
+                "doc_count": 24
+              },
+              {
+                "key": "2009",
+                "doc_count": 22
+              },
+              {
+                "key": "2005",
+                "doc_count": 18
+              },
+              {
+                "key": "2007",
+                "doc_count": 16
+              },
+              {
+                "key": "2008",
+                "doc_count": 16
+              },
+              {
+                "key": "2004",
+                "doc_count": 14
+              },
+              {
+                "key": "2001",
+                "doc_count": 13
+              },
+              {
+                "key": "1996",
+                "doc_count": 11
+              },
+              {
+                "key": "1999",
+                "doc_count": 7
+              },
+              {
+                "key": "2011",
+                "doc_count": 7
+              },
+              {
+                "key": "1990",
+                "doc_count": 6
+              },
+              {
+                "key": "2002",
+                "doc_count": 6
+              },
+              {
+                "key": "2003",
+                "doc_count": 6
+              },
+              {
+                "key": "1988",
+                "doc_count": 5
+              },
+              {
+                "key": "1998",
+                "doc_count": 5
+              },
+              {
+                "key": "2000",
+                "doc_count": 5
+              },
+              {
+                "key": "1995",
+                "doc_count": 4
+              },
+              {
+                "key": "1997",
+                "doc_count": 4
+              },
+              {
+                "key": "2012",
+                "doc_count": 4
+              },
+              {
+                "key": "1994",
+                "doc_count": 3
+              },
+              {
+                "key": "1993",
+                "doc_count": 2
+              },
+              {
+                "key": "1976",
+                "doc_count": 1
+              },
+              {
+                "key": "1978",
+                "doc_count": 1
+              }
+            ],
+            "sum_other_doc_count": 0,
+            "doc_count_error_upper_bound": 0
+          },
+          "key": "2013",
+          "doc_count": 230
+        },
+        {
+          "reference_publication_year": {
+            "buckets": [
+              {
+                "key": "2006",
+                "doc_count": 19
+              },
+              {
+                "key": "2000",
+                "doc_count": 16
+              },
+              {
+                "key": "2008",
+                "doc_count": 16
+              },
+              {
+                "key": "1998",
+                "doc_count": 13
+              },
+              {
+                "key": "2007",
+                "doc_count": 13
+              },
+              {
+                "key": "2005",
+                "doc_count": 11
+              },
+              {
+                "key": "1996",
+                "doc_count": 10
+              },
+              {
+                "key": "2004",
+                "doc_count": 10
+              },
+              {
+                "key": "2009",
+                "doc_count": 10
+              },
+              {
+                "key": "2002",
+                "doc_count": 9
+              },
+              {
+                "key": "2001",
+                "doc_count": 8
+              },
+              {
+                "key": "1992",
+                "doc_count": 7
+              },
+              {
+                "key": "1997",
+                "doc_count": 7
+              },
+              {
+                "key": "1999",
+                "doc_count": 7
+              },
+              {
+                "key": "2010",
+                "doc_count": 6
+              },
+              {
+                "key": "1990",
+                "doc_count": 5
+              },
+              {
+                "key": "1995",
+                "doc_count": 5
+              },
+              {
+                "key": "2003",
+                "doc_count": 4
+              },
+              {
+                "key": "1976",
+                "doc_count": 2
+              },
+              {
+                "key": "1986",
+                "doc_count": 2
+              },
+              {
+                "key": "1988",
+                "doc_count": 2
+              },
+              {
+                "key": "1993",
+                "doc_count": 2
+              },
+              {
+                "key": "1994",
+                "doc_count": 2
+              },
+              {
+                "key": "1963",
+                "doc_count": 1
+              },
+              {
+                "key": "1978",
+                "doc_count": 1
+              },
+              {
+                "key": "1991",
+                "doc_count": 1
+              }
+            ],
+            "sum_other_doc_count": 0,
+            "doc_count_error_upper_bound": 0
+          },
+          "key": "2011",
+          "doc_count": 210
+        },
+        {
+          "reference_publication_year": {
+            "buckets": [
+              {
+                "key": "2006",
+                "doc_count": 17
+              },
+              {
+                "key": "2002",
+                "doc_count": 15
+              },
+              {
+                "key": "2007",
+                "doc_count": 14
+              },
+              {
+                "key": "2001",
+                "doc_count": 12
+              },
+              {
+                "key": "2004",
+                "doc_count": 11
+              },
+              {
+                "key": "1998",
+                "doc_count": 10
+              },
+              {
+                "key": "1997",
+                "doc_count": 8
+              },
+              {
+                "key": "2005",
+                "doc_count": 8
+              },
+              {
+                "key": "2008",
+                "doc_count": 8
+              },
+              {
+                "key": "1996",
+                "doc_count": 7
+              },
+              {
+                "key": "2003",
+                "doc_count": 7
+              },
+              {
+                "key": "1988",
+                "doc_count": 6
+              },
+              {
+                "key": "2000",
+                "doc_count": 6
+              },
+              {
+                "key": "1993",
+                "doc_count": 5
+              },
+              {
+                "key": "1995",
+                "doc_count": 5
+              },
+              {
+                "key": "2009",
+                "doc_count": 5
+              },
+              {
+                "key": "1990",
+                "doc_count": 4
+              },
+              {
+                "key": "1999",
+                "doc_count": 4
+              },
+              {
+                "key": "1983",
+                "doc_count": 3
+              },
+              {
+                "key": "1986",
+                "doc_count": 3
+              },
+              {
+                "key": "1992",
+                "doc_count": 3
+              },
+              {
+                "key": "1981",
+                "doc_count": 2
+              },
+              {
+                "key": "1982",
+                "doc_count": 2
+              },
+              {
+                "key": "1948",
+                "doc_count": 1
+              },
+              {
+                "key": "1954",
+                "doc_count": 1
+              },
+              {
+                "key": "1979",
+                "doc_count": 1
+              },
+              {
+                "key": "1984",
+                "doc_count": 1
+              },
+              {
+                "key": "1991",
+                "doc_count": 1
+              },
+              {
+                "key": "1994",
+                "doc_count": 1
+              },
+              {
+                "key": "2010",
+                "doc_count": 1
+              }
+            ],
+            "sum_other_doc_count": 0,
+            "doc_count_error_upper_bound": 0
+          },
+          "key": "2010",
+          "doc_count": 193
+        },
+        {
+          "reference_publication_year": {
+            "buckets": [
+              {
+                "key": "2007",
+                "doc_count": 22
+              },
+              {
+                "key": "2006",
+                "doc_count": 19
+              },
+              {
+                "key": "2005",
+                "doc_count": 16
+              },
+              {
+                "key": "2008",
+                "doc_count": 16
+              },
+              {
+                "key": "2009",
+                "doc_count": 16
+              },
+              {
+                "key": "2010",
+                "doc_count": 14
+              },
+              {
+                "key": "2002",
+                "doc_count": 12
+              },
+              {
+                "key": "2004",
+                "doc_count": 12
+              },
+              {
+                "key": "1990",
+                "doc_count": 11
+              },
+              {
+                "key": "2003",
+                "doc_count": 8
+              },
+              {
+                "key": "2000",
+                "doc_count": 7
+              },
+              {
+                "key": "2001",
+                "doc_count": 7
+              },
+              {
+                "key": "1993",
+                "doc_count": 6
+              },
+              {
+                "key": "1998",
+                "doc_count": 6
+              },
+              {
+                "key": "1988",
+                "doc_count": 3
+              },
+              {
+                "key": "1995",
+                "doc_count": 3
+              },
+              {
+                "key": "1996",
+                "doc_count": 3
+              },
+              {
+                "key": "1992",
+                "doc_count": 2
+              },
+              {
+                "key": "2011",
+                "doc_count": 2
+              },
+              {
+                "key": "2012",
+                "doc_count": 2
+              },
+              {
+                "key": "1983",
+                "doc_count": 1
+              },
+              {
+                "key": "1984",
+                "doc_count": 1
+              },
+              {
+                "key": "1986",
+                "doc_count": 1
+              },
+              {
+                "key": "1994",
+                "doc_count": 1
+              },
+              {
+                "key": "1997",
+                "doc_count": 1
+              }
+            ],
+            "sum_other_doc_count": 0,
+            "doc_count_error_upper_bound": 0
+          },
+          "key": "2012",
+          "doc_count": 193
+        },
+        {
+          "reference_publication_year": {
+            "buckets": [
+              {
+                "key": "2007",
+                "doc_count": 16
+              },
+              {
+                "key": "1990",
+                "doc_count": 12
+              },
+              {
+                "key": "1996",
+                "doc_count": 11
+              },
+              {
+                "key": "2006",
+                "doc_count": 10
+              },
+              {
+                "key": "1995",
+                "doc_count": 9
+              },
+              {
+                "key": "1997",
+                "doc_count": 9
+              },
+              {
+                "key": "2005",
+                "doc_count": 9
+              },
+              {
+                "key": "2001",
+                "doc_count": 8
+              },
+              {
+                "key": "1988",
+                "doc_count": 7
+              },
+              {
+                "key": "2004",
+                "doc_count": 7
+              },
+              {
+                "key": "1993",
+                "doc_count": 6
+              },
+              {
+                "key": "2002",
+                "doc_count": 6
+              },
+              {
+                "key": "1999",
+                "doc_count": 5
+              },
+              {
+                "key": "1998",
+                "doc_count": 4
+              },
+              {
+                "key": "2000",
+                "doc_count": 4
+              },
+              {
+                "key": "1986",
+                "doc_count": 3
+              },
+              {
+                "key": "2003",
+                "doc_count": 3
+              },
+              {
+                "key": "2008",
+                "doc_count": 3
+              },
+              {
+                "key": "1992",
+                "doc_count": 2
+              },
+              {
+                "key": "1994",
+                "doc_count": 2
+              },
+              {
+                "key": "1955",
+                "doc_count": 1
+              },
+              {
+                "key": "1968",
+                "doc_count": 1
+              },
+              {
+                "key": "1978",
+                "doc_count": 1
+              },
+              {
+                "key": "1987",
+                "doc_count": 1
+              },
+              {
+                "key": "2009",
+                "doc_count": 1
+              }
+            ],
+            "sum_other_doc_count": 0,
+            "doc_count_error_upper_bound": 0
+          },
+          "key": "2009",
+          "doc_count": 143
+        },
+        {
+          "reference_publication_year": {
+            "buckets": [
+              {
+                "key": "2007",
+                "doc_count": 16
+              },
+              {
+                "key": "2010",
+                "doc_count": 11
+              },
+              {
+                "key": "2001",
+                "doc_count": 10
+              },
+              {
+                "key": "2006",
+                "doc_count": 9
+              },
+              {
+                "key": "2009",
+                "doc_count": 9
+              },
+              {
+                "key": "2011",
+                "doc_count": 9
+              },
+              {
+                "key": "2012",
+                "doc_count": 7
+              },
+              {
+                "key": "2013",
+                "doc_count": 6
+              },
+              {
+                "key": "2002",
+                "doc_count": 5
+              },
+              {
+                "key": "2008",
+                "doc_count": 5
+              },
+              {
+                "key": "1996",
+                "doc_count": 4
+              },
+              {
+                "key": "2004",
+                "doc_count": 4
+              },
+              {
+                "key": "2005",
+                "doc_count": 4
+              },
+              {
+                "key": "1986",
+                "doc_count": 3
+              },
+              {
+                "key": "1988",
+                "doc_count": 3
+              },
+              {
+                "key": "1990",
+                "doc_count": 3
+              },
+              {
+                "key": "1995",
+                "doc_count": 3
+              },
+              {
+                "key": "1998",
+                "doc_count": 3
+              },
+              {
+                "key": "2014",
+                "doc_count": 3
+              },
+              {
+                "key": "1992",
+                "doc_count": 2
+              },
+              {
+                "key": "1997",
+                "doc_count": 2
+              },
+              {
+                "key": "2000",
+                "doc_count": 2
+              },
+              {
+                "key": "2003",
+                "doc_count": 2
+              },
+              {
+                "key": "1999",
+                "doc_count": 1
+              }
+            ],
+            "sum_other_doc_count": 0,
+            "doc_count_error_upper_bound": 0
+          },
+          "key": "2015",
+          "doc_count": 126
+        },
+        {
+          "reference_publication_year": {
+            "buckets": [
+              {
+                "key": "2001",
+                "doc_count": 8
+              },
+              {
+                "key": "2004",
+                "doc_count": 8
+              },
+              {
+                "key": "1999",
+                "doc_count": 7
+              },
+              {
+                "key": "1990",
+                "doc_count": 6
+              },
+              {
+                "key": "2002",
+                "doc_count": 6
+              },
+              {
+                "key": "2005",
+                "doc_count": 6
+              },
+              {
+                "key": "1995",
+                "doc_count": 5
+              },
+              {
+                "key": "1996",
+                "doc_count": 5
+              },
+              {
+                "key": "1988",
+                "doc_count": 4
+              },
+              {
+                "key": "2000",
+                "doc_count": 4
+              },
+              {
+                "key": "2003",
+                "doc_count": 4
+              },
+              {
+                "key": "1993",
+                "doc_count": 3
+              },
+              {
+                "key": "1994",
+                "doc_count": 3
+              },
+              {
+                "key": "1997",
+                "doc_count": 3
+              },
+              {
+                "key": "1986",
+                "doc_count": 2
+              },
+              {
+                "key": "1989",
+                "doc_count": 2
+              },
+              {
+                "key": "1992",
+                "doc_count": 2
+              },
+              {
+                "key": "1998",
+                "doc_count": 2
+              },
+              {
+                "key": "2006",
+                "doc_count": 2
+              },
+              {
+                "key": "1979",
+                "doc_count": 1
+              },
+              {
+                "key": "2007",
+                "doc_count": 1
+              }
+            ],
+            "sum_other_doc_count": 0,
+            "doc_count_error_upper_bound": 0
+          },
+          "key": "2008",
+          "doc_count": 84
+        },
+        {
+          "reference_publication_year": {
+            "buckets": [
+              {
+                "key": "1999",
+                "doc_count": 8
+              },
+              {
+                "key": "1997",
+                "doc_count": 7
+              },
+              {
+                "key": "1994",
+                "doc_count": 6
+              },
+              {
+                "key": "1998",
+                "doc_count": 6
+              },
+              {
+                "key": "1993",
+                "doc_count": 5
+              },
+              {
+                "key": "2001",
+                "doc_count": 5
+              },
+              {
+                "key": "1990",
+                "doc_count": 4
+              },
+              {
+                "key": "1996",
+                "doc_count": 4
+              },
+              {
+                "key": "2002",
+                "doc_count": 4
+              },
+              {
+                "key": "2003",
+                "doc_count": 4
+              },
+              {
+                "key": "2005",
+                "doc_count": 4
+              },
+              {
+                "key": "1995",
+                "doc_count": 3
+              },
+              {
+                "key": "2004",
+                "doc_count": 3
+              },
+              {
+                "key": "1986",
+                "doc_count": 2
+              },
+              {
+                "key": "1988",
+                "doc_count": 2
+              },
+              {
+                "key": "1991",
+                "doc_count": 1
+              },
+              {
+                "key": "2000",
+                "doc_count": 1
+              }
+            ],
+            "sum_other_doc_count": 0,
+            "doc_count_error_upper_bound": 0
+          },
+          "key": "2006",
+          "doc_count": 69
+        },
+        {
+          "reference_publication_year": {
+            "buckets": [
+              {
+                "key": "1990",
+                "doc_count": 6
+              },
+              {
+                "key": "1997",
+                "doc_count": 6
+              },
+              {
+                "key": "1994",
+                "doc_count": 5
+              },
+              {
+                "key": "1996",
+                "doc_count": 5
+              },
+              {
+                "key": "2000",
+                "doc_count": 5
+              },
+              {
+                "key": "2001",
+                "doc_count": 5
+              },
+              {
+                "key": "2004",
+                "doc_count": 5
+              },
+              {
+                "key": "1988",
+                "doc_count": 4
+              },
+              {
+                "key": "1998",
+                "doc_count": 4
+              },
+              {
+                "key": "2003",
+                "doc_count": 4
+              },
+              {
+                "key": "2005",
+                "doc_count": 4
+              },
+              {
+                "key": "1995",
+                "doc_count": 3
+              },
+              {
+                "key": "1999",
+                "doc_count": 3
+              },
+              {
+                "key": "2002",
+                "doc_count": 3
+              },
+              {
+                "key": "1992",
+                "doc_count": 2
+              },
+              {
+                "key": "1983",
+                "doc_count": 1
+              },
+              {
+                "key": "1986",
+                "doc_count": 1
+              },
+              {
+                "key": "1993",
+                "doc_count": 1
+              },
+              {
+                "key": "2006",
+                "doc_count": 1
+              }
+            ],
+            "sum_other_doc_count": 0,
+            "doc_count_error_upper_bound": 0
+          },
+          "key": "2007",
+          "doc_count": 68
+        },
+        {
+          "reference_publication_year": {
+            "buckets": [
+              {
+                "key": "1990",
+                "doc_count": 9
+              },
+              {
+                "key": "2002",
+                "doc_count": 9
+              },
+              {
+                "key": "1998",
+                "doc_count": 6
+              },
+              {
+                "key": "2001",
+                "doc_count": 6
+              },
+              {
+                "key": "1988",
+                "doc_count": 4
+              },
+              {
+                "key": "2000",
+                "doc_count": 4
+              },
+              {
+                "key": "2003",
+                "doc_count": 4
+              },
+              {
+                "key": "1986",
+                "doc_count": 3
+              },
+              {
+                "key": "1993",
+                "doc_count": 3
+              },
+              {
+                "key": "1999",
+                "doc_count": 3
+              },
+              {
+                "key": "2004",
+                "doc_count": 3
+              },
+              {
+                "key": "1997",
+                "doc_count": 2
+              },
+              {
+                "key": "1995",
+                "doc_count": 1
+              }
+            ],
+            "sum_other_doc_count": 0,
+            "doc_count_error_upper_bound": 0
+          },
+          "key": "2005",
+          "doc_count": 57
+        },
+        {
+          "reference_publication_year": {
+            "buckets": [
+              {
+                "key": "1988",
+                "doc_count": 7
+              },
+              {
+                "key": "1997",
+                "doc_count": 6
+              },
+              {
+                "key": "2001",
+                "doc_count": 6
+              },
+              {
+                "key": "1990",
+                "doc_count": 5
+              },
+              {
+                "key": "2002",
+                "doc_count": 5
+              },
+              {
+                "key": "1993",
+                "doc_count": 4
+              },
+              {
+                "key": "1996",
+                "doc_count": 4
+              },
+              {
+                "key": "1998",
+                "doc_count": 4
+              },
+              {
+                "key": "1986",
+                "doc_count": 3
+              },
+              {
+                "key": "1995",
+                "doc_count": 3
+              },
+              {
+                "key": "1999",
+                "doc_count": 2
+              },
+              {
+                "key": "2004",
+                "doc_count": 2
+              },
+              {
+                "key": "1978",
+                "doc_count": 1
+              },
+              {
+                "key": "1981",
+                "doc_count": 1
+              },
+              {
+                "key": "1992",
+                "doc_count": 1
+              },
+              {
+                "key": "2003",
+                "doc_count": 1
+              }
+            ],
+            "sum_other_doc_count": 0,
+            "doc_count_error_upper_bound": 0
+          },
+          "key": "2004",
+          "doc_count": 55
+        },
+        {
+          "reference_publication_year": {
+            "buckets": [
+              {
+                "key": "1990",
+                "doc_count": 7
+              },
+              {
+                "key": "1996",
+                "doc_count": 7
+              },
+              {
+                "key": "1995",
+                "doc_count": 4
+              },
+              {
+                "key": "1997",
+                "doc_count": 4
+              },
+              {
+                "key": "1998",
+                "doc_count": 4
+              },
+              {
+                "key": "2000",
+                "doc_count": 4
+              },
+              {
+                "key": "1999",
+                "doc_count": 3
+              },
+              {
+                "key": "2002",
+                "doc_count": 3
+              },
+              {
+                "key": "1988",
+                "doc_count": 2
+              },
+              {
+                "key": "1992",
+                "doc_count": 2
+              },
+              {
+                "key": "1994",
+                "doc_count": 2
+              },
+              {
+                "key": "1986",
+                "doc_count": 1
+              },
+              {
+                "key": "1993",
+                "doc_count": 1
+              }
+            ],
+            "sum_other_doc_count": 0,
+            "doc_count_error_upper_bound": 0
+          },
+          "key": "2003",
+          "doc_count": 44
+        },
+        {
+          "reference_publication_year": {
+            "buckets": [
+              {
+                "key": "1995",
+                "doc_count": 9
+              },
+              {
+                "key": "1993",
+                "doc_count": 4
+              },
+              {
+                "key": "1996",
+                "doc_count": 4
+              },
+              {
+                "key": "1997",
+                "doc_count": 4
+              },
+              {
+                "key": "1990",
+                "doc_count": 3
+              },
+              {
+                "key": "1986",
+                "doc_count": 2
+              },
+              {
+                "key": "1988",
+                "doc_count": 2
+              },
+              {
+                "key": "1992",
+                "doc_count": 2
+              },
+              {
+                "key": "1989",
+                "doc_count": 1
+              },
+              {
+                "key": "1994",
+                "doc_count": 1
+              },
+              {
+                "key": "1998",
+                "doc_count": 1
+              },
+              {
+                "key": "2001",
+                "doc_count": 1
+              },
+              {
+                "key": "2002",
+                "doc_count": 1
+              }
+            ],
+            "sum_other_doc_count": 0,
+            "doc_count_error_upper_bound": 0
+          },
+          "key": "2002",
+          "doc_count": 35
+        },
+        {
+          "reference_publication_year": {
+            "buckets": [
+              {
+                "key": "1990",
+                "doc_count": 5
+              },
+              {
+                "key": "1995",
+                "doc_count": 5
+              },
+              {
+                "key": "1993",
+                "doc_count": 4
+              },
+              {
+                "key": "1988",
+                "doc_count": 3
+              },
+              {
+                "key": "1996",
+                "doc_count": 2
+              },
+              {
+                "key": "1997",
+                "doc_count": 2
+              },
+              {
+                "key": "1992",
+                "doc_count": 1
+              },
+              {
+                "key": "1994",
+                "doc_count": 1
+              },
+              {
+                "key": "1998",
+                "doc_count": 1
+              }
+            ],
+            "sum_other_doc_count": 0,
+            "doc_count_error_upper_bound": 0
+          },
+          "key": "2000",
+          "doc_count": 24
+        },
+        {
+          "reference_publication_year": {
+            "buckets": [
+              {
+                "key": "1990",
+                "doc_count": 6
+              },
+              {
+                "key": "1996",
+                "doc_count": 3
+              },
+              {
+                "key": "1993",
+                "doc_count": 2
+              },
+              {
+                "key": "1997",
+                "doc_count": 2
+              },
+              {
+                "key": "1999",
+                "doc_count": 2
+              },
+              {
+                "key": "2001",
+                "doc_count": 2
+              },
+              {
+                "key": "1986",
+                "doc_count": 1
+              },
+              {
+                "key": "1988",
+                "doc_count": 1
+              },
+              {
+                "key": "1992",
+                "doc_count": 1
+              },
+              {
+                "key": "1998",
+                "doc_count": 1
+              }
+            ],
+            "sum_other_doc_count": 0,
+            "doc_count_error_upper_bound": 0
+          },
+          "key": "2001",
+          "doc_count": 21
+        },
+        {
+          "reference_publication_year": {
+            "buckets": [
+              {
+                "key": "1996",
+                "doc_count": 4
+              },
+              {
+                "key": "1988",
+                "doc_count": 3
+              },
+              {
+                "key": "1992",
+                "doc_count": 2
+              },
+              {
+                "key": "1995",
+                "doc_count": 2
+              },
+              {
+                "key": "1989",
+                "doc_count": 1
+              },
+              {
+                "key": "1991",
+                "doc_count": 1
+              },
+              {
+                "key": "1994",
+                "doc_count": 1
+              },
+              {
+                "key": "1997",
+                "doc_count": 1
+              }
+            ],
+            "sum_other_doc_count": 0,
+            "doc_count_error_upper_bound": 0
+          },
+          "key": "1999",
+          "doc_count": 15
+        },
+        {
+          "reference_publication_year": {
+            "buckets": [
+              {
+                "key": "1990",
+                "doc_count": 3
+              },
+              {
+                "key": "1996",
+                "doc_count": 3
+              },
+              {
+                "key": "1988",
+                "doc_count": 2
+              },
+              {
+                "key": "1997",
+                "doc_count": 2
+              }
+            ],
+            "sum_other_doc_count": 0,
+            "doc_count_error_upper_bound": 0
+          },
+          "key": "1998",
+          "doc_count": 10
+        },
+        {
+          "reference_publication_year": {
+            "buckets": [
+              {
+                "key": "1988",
+                "doc_count": 2
+              },
+              {
+                "key": "1991",
+                "doc_count": 1
+              },
+              {
+                "key": "1993",
+                "doc_count": 1
+              },
+              {
+                "key": "1995",
+                "doc_count": 1
+              }
+            ],
+            "sum_other_doc_count": 0,
+            "doc_count_error_upper_bound": 0
+          },
+          "key": "1996",
+          "doc_count": 5
+        },
+        {
+          "reference_publication_year": {
+            "buckets": [
+              {
+                "key": "1984",
+                "doc_count": 1
+              },
+              {
+                "key": "1988",
+                "doc_count": 1
+              }
+            ],
+            "sum_other_doc_count": 0,
+            "doc_count_error_upper_bound": 0
+          },
+          "key": "1989",
+          "doc_count": 2
+        },
+        {
+          "reference_publication_year": {
+            "buckets": [
+              {
+                "key": "1986",
+                "doc_count": 1
+              },
+              {
+                "key": "1993",
+                "doc_count": 1
+              }
+            ],
+            "sum_other_doc_count": 0,
+            "doc_count_error_upper_bound": 0
+          },
+          "key": "1997",
+          "doc_count": 2
+        },
+        {
+          "reference_publication_year": {
+            "buckets": [
+              {
+                "key": "1987",
+                "doc_count": 1
+              }
+            ],
+            "sum_other_doc_count": 0,
+            "doc_count_error_upper_bound": 0
+          },
+          "key": "1987",
+          "doc_count": 1
+        },
+        {
+          "reference_publication_year": {
+            "buckets": [
+              {
+                "key": "1986",
+                "doc_count": 1
+              }
+            ],
+            "sum_other_doc_count": 0,
+            "doc_count_error_upper_bound": 0
+          },
+          "key": "1992",
+          "doc_count": 1
+        }
+      ],
+      "sum_other_doc_count": 0,
+      "doc_count_error_upper_bound": 0
+    }
+  },
+  "took": 9059
+}

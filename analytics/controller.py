@@ -234,6 +234,51 @@ class Stats(object):
 
         return self._compute_impact_factor_chart(query_result)
 
+    @staticmethod
+    def _compute_citing_half_life(query_result):
+
+        data = {}
+        for publication_year in query_result['aggregations']['publication_year']['buckets']:
+            base_year = publication_year['key']
+            total_citations = publication_year['doc_count']
+            accumulated_citations = 0
+            data[base_year] = {}
+            data[base_year]['data'] = {}
+            data[base_year]['half_life'] = {}
+            data[base_year]['total'] = total_citations
+
+            for bucket in publication_year['reference_publication_year']['buckets']:
+                year = bucket['key']
+                accumulated_citations += bucket['doc_count']
+                data[base_year]['data'][year] = {}
+                data[base_year]['data'][year]['citations'] = bucket['doc_count']
+                data[base_year]['data'][year]['percentage'] =  (float(bucket['doc_count']) / total_citations) * 100
+                data[base_year]['data'][year]['accumulated_percentage'] = (float(accumulated_citations) / total_citations) * 100
+                if data[base_year]['data'][year]['accumulated_percentage'] >= 50 and 'year' not in data[base_year]['half_life']:
+                    data[base_year]['half_life']['year'] = year
+
+        for publication_year, item in data.items():
+            half_life_year = int(data[publication_year]['half_life']['year'])
+
+            for i in range(int(publication_year), int(sorted(item['data'])[0]) - 1, -1):
+                data[publication_year]['data'].setdefault(str(i), {'percentage': 0, 'citations': 0, 'accumulated_percentage': 0})
+                if i < int(publication_year) and data[publication_year]['data'][str(i)]['citations'] == 0:
+                    data[publication_year]['data'][str(i)]['accumulated_percentage'] = data[publication_year]['data'][str(i+1)]['accumulated_percentage']
+
+            previous_percentage = data[publication_year]['data'].get(str(half_life_year + 1), {'accumulated_percentage': 0})['accumulated_percentage']
+            half_life_percentage = data[publication_year]['data'][str(half_life_year)]['accumulated_percentage']
+            data[publication_year]['half_life']['value'] = (int(publication_year) - half_life_year) + ((50 - previous_percentage)/(half_life_percentage - previous_percentage))
+
+        return data
+
+    def citing_half_life(self, issn, collection, titles, citation_size=0):
+
+        # query_result = self.bibliometrics.received_citations_by_publication_year(issn, titles, raw=True)
+
+        query_result = self.bibliometrics.publication_and_citing_years(issn, titles, citation_size=citation_size, raw=True)
+
+        return self._compute_citing_half_life(query_result)
+
 
 class CitedbyStats(clients.Citedby):
 
@@ -450,7 +495,6 @@ class CitedbyStats(clients.Citedby):
         ]
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
-        # print json.dumps(body)
         computed = self._compute_received_citations_by_year(query_result)
 
         return query_result if raw else computed
@@ -1069,7 +1113,6 @@ class PublicationStats(clients.PublicationStats):
             clients.accessstats_thrift.kwargs('size', '0')
         ]
 
-        # print json.dumps(body)
         query_result = json.loads(self.client.search('article', json.dumps(body), query_parameters))
 
         computed = self._compute_by_publication_year(query_result, field)
