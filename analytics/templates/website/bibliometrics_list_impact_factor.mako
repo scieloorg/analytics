@@ -19,7 +19,7 @@
           <button type="submit" class="btn btn-default">${_(u'aplicar')}</button>
       </form>
     </div>
-    <h3>${_(u'Fator de Impacto em 1, 2, 3, 4 e 5 anos')}</h3>
+    <h3>${_(u'Impacto SciELO em 1, 2, 3, 4 e 5 anos')}</h3>
       <table class="table table-bordered table-impact-factor">
       % for base_year, data in sorted(blist.items(), reverse=True):
         <% 
@@ -28,7 +28,7 @@
         <tr>
           <th class="table-impact-factor-header" colspan="6">${_(u'citações em')} ${base_year} ${_(u'para publicações de')}</th>
           <th class="table-impact-factor-header" colspan="6">${_(u'documentos publicados em')}
-            <span class="glyphicon glyphicon-question-sign" data-toggle="popover" data-container="body" data-placement="bottom" data-content="${_(u'Aqui são considerados  apenas os documentos citáveis. Entendesse por documentos citáveis, todos os documentos elegíveis para o cálculo de Fator de Impacto, esses documentos devem ser do tipo Research Article ou Review Article.')}"></span>
+            <span class="glyphicon glyphicon-question-sign" data-toggle="popover" data-container="body" data-placement="bottom" data-content="${_(u'Aqui são considerados apenas os documentos citáveis. De acordo com as regras de contagem do SciELO, documentos citáveis devem ser do tipo Research Article, Review Article, Case Report, Brief Report, Rapid Communication e Article Commentary. Os demais tipos de documentos são considerados não citáveis.')}"></span>
           </th>
           <th class="table-impact-factor-header" colspan="5">${_(u'Fator de Impacto')}</th>
         </tr>
