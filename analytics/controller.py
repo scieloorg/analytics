@@ -7,7 +7,20 @@ from dogpile.cache import make_region
 
 from analytics import utils
 from analytics.custom_queries import custom_query
+
+
 PAGE_SIZE = 20
+
+
+CITABLE_THEMATIC_AREAS = (
+    u'article-commentary',
+    u'brief-report',
+    u'case-report',
+    u'rapid-communication',
+    u'research-article',
+    u'review-article'
+)
+
 
 ALLOWED_DOC_TYPES_N_FACETS = {
     'articles': [
@@ -942,36 +955,14 @@ class PublicationStats(clients.PublicationStats):
                         "citable_documents": {
                             "filter": {
                                 "bool": {
-                                    "should": [
-                                        {
-                                            "term": {
-                                                "document_type": "research-article"
-                                            }
-                                        },
-                                        {
-                                            "term": {
-                                                "document_type": "review-article"
-                                            }
-                                        }
-                                    ]
+                                    "should": []
                                 }
                             }
                         },
                         "not_citable_documents": {
                             "filter": {
                                 "bool": {
-                                    "must_not": [
-                                        {
-                                            "term": {
-                                                "document_type": "research-article"
-                                            }
-                                        },
-                                        {
-                                            "term": {
-                                                "document_type": "review-article"
-                                            }
-                                        }
-                                    ]
+                                    "must_not": []
                                 }
                             }
                         }
@@ -979,6 +970,15 @@ class PublicationStats(clients.PublicationStats):
                 }
             }
         }
+
+        for thematic_area in CITABLE_THEMATIC_AREAS:
+            body['aggs']['publication_year']['aggs']['citable_documents']['filter']['bool']['should'].append(
+                {"term": {"document_type": thematic_area}}
+            )
+
+            body['aggs']['publication_year']['aggs']['not_citable_documents']['filter']['bool']['must_not'].append(
+                {"term": {"document_type": thematic_area}}
+            )
 
         code_type = self._code_type(code)
 
