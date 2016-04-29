@@ -40,12 +40,12 @@ class ChartsConfig(object):
             data['series'][i]['name'] = name[serie['name']]
 
         chart = self.highchart
-        chart['title'] = {'text': self._(u'Fator de Impacto em 1, 2, 3, 4, 5 anos e Índice de Imediatez')}
+        chart['title'] = {'text': self._(u'Impacto SciELO em 1, 2, 3, 4, 5 anos e Índice de Imediatez')}
         chart['xAxis'] = {'categories': data['categories']}
         chart['series'] = data['series']
-        chart['yAxis']['title'] = {'text': self._(u'Fator de Impacto')}
+        chart['yAxis']['title'] = {'text': self._(u'Impacto SciELO')}
         chart['tooltip'] = {
-            'headerFormat': self._(u'Fator de Impacto'),
+            'headerFormat': self._(u'Impacto SciELO'),
             'pointFormat': u'<br/><strong>'+self._(u'Ano base')+u'</strong>: {point.category}<br/><strong>{series.name}</strong>: {point.y:.4f}',
             'followPointer': True
         }

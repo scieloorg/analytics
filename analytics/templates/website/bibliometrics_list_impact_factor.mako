@@ -30,7 +30,7 @@
           <th class="table-impact-factor-header" colspan="6">${_(u'documentos publicados em')}
             <span class="glyphicon glyphicon-question-sign" data-toggle="popover" data-container="body" data-placement="bottom" data-content="${_(u'Aqui são considerados apenas os documentos citáveis. De acordo com as regras de contagem do SciELO, documentos citáveis devem ser do tipo Research Article, Review Article, Case Report, Brief Report, Rapid Communication e Article Commentary. Os demais tipos de documentos são considerados não citáveis.')}"></span>
           </th>
-          <th class="table-impact-factor-header" colspan="5">${_(u'Fator de Impacto')}</th>
+          <th class="table-impact-factor-header" colspan="5">${_(u'Impacto SciELO')}</th>
         </tr>
         <tr>
           <th class="success">${base_year-1}</th>
