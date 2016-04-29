@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: analytics 0.9\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-02-04 16:03-0200\n"
+"POT-Creation-Date: 2016-04-29 11:48-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,280 +17,280 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.1.1\n"
 
-#: analytics/charts_config.py:21
+#: analytics/charts_config.py:23
 msgid "Fuente: SciELO.org"
 msgstr ""
 
-#: analytics/charts_config.py:29
+#: analytics/charts_config.py:31
 msgid "imediatez"
 msgstr ""
 
-#: analytics/charts_config.py:30
+#: analytics/charts_config.py:32
 #: analytics/templates/website/access_datepicker.mako:11
 #: analytics/templates/website/bibliometrics_list_impact_factor.mako:48
 msgid "1 ano"
 msgstr ""
 
-#: analytics/charts_config.py:31
+#: analytics/charts_config.py:33
 #: analytics/templates/website/access_datepicker.mako:10
 msgid "2 anos"
 msgstr ""
 
-#: analytics/charts_config.py:32
+#: analytics/charts_config.py:34
 #: analytics/templates/website/access_datepicker.mako:9
 msgid "3 anos"
 msgstr ""
 
-#: analytics/charts_config.py:33
+#: analytics/charts_config.py:35
 msgid "4 anos"
 msgstr ""
 
-#: analytics/charts_config.py:34
+#: analytics/charts_config.py:36
 msgid "5 anos"
 msgstr ""
 
-#: analytics/charts_config.py:41
-msgid "Fator de Impacto em 1, 2, 3, 4, 5 anos e Índice de Imediatez"
+#: analytics/charts_config.py:43
+msgid "Impacto SciELO em 1, 2, 3, 4, 5 anos e Índice de Imediatez"
 msgstr ""
 
-#: analytics/charts_config.py:44 analytics/charts_config.py:46
+#: analytics/charts_config.py:46 analytics/charts_config.py:48
 #: analytics/templates/website/bibliometrics_list_impact_factor.mako:33
-msgid "Fator de Impacto"
+msgid "Impacto SciELO"
 msgstr ""
 
-#: analytics/charts_config.py:47
+#: analytics/charts_config.py:49
 msgid "Ano base"
 msgstr ""
 
-#: analytics/charts_config.py:55
+#: analytics/charts_config.py:57
 msgid "Auto citação"
 msgstr ""
 
-#: analytics/charts_config.py:55
+#: analytics/charts_config.py:57
 msgid "Citações concedidas"
 msgstr ""
 
-#: analytics/charts_config.py:55
+#: analytics/charts_config.py:57
 msgid "Citações recebidas"
 msgstr ""
 
-#: analytics/charts_config.py:62
+#: analytics/charts_config.py:64
 msgid "Distribuição de citações concedidas, recebidas e auto citações"
 msgstr ""
 
-#: analytics/charts_config.py:69
+#: analytics/charts_config.py:71
 msgid "Número de citações"
 msgstr ""
 
-#: analytics/charts_config.py:74 analytics/charts_config.py:91
-#: analytics/charts_config.py:105 analytics/charts_config.py:226
-#: analytics/charts_config.py:235 analytics/charts_config.py:250
-#: analytics/charts_config.py:258 analytics/charts_config.py:297
-#: analytics/charts_config.py:306 analytics/charts_config.py:385
-#: analytics/charts_config.py:395 analytics/charts_config.py:436
-#: analytics/charts_config.py:444 analytics/charts_config.py:560
+#: analytics/charts_config.py:76 analytics/charts_config.py:93
+#: analytics/charts_config.py:107 analytics/charts_config.py:227
+#: analytics/charts_config.py:236 analytics/charts_config.py:251
+#: analytics/charts_config.py:259 analytics/charts_config.py:298
+#: analytics/charts_config.py:307 analytics/charts_config.py:386
+#: analytics/charts_config.py:396 analytics/charts_config.py:437
+#: analytics/charts_config.py:445 analytics/charts_config.py:561
 msgid "Ano de publicação"
 msgstr ""
 
-#: analytics/charts_config.py:83
+#: analytics/charts_config.py:85
 msgid "Documentos citáveis"
 msgstr ""
 
-#: analytics/charts_config.py:83
+#: analytics/charts_config.py:85
 msgid "Documentos não citáveis"
 msgstr ""
 
-#: analytics/charts_config.py:90
+#: analytics/charts_config.py:92
 msgid "Distribuição de documentos citáveis e não citáveis"
 msgstr ""
 
-#: analytics/charts_config.py:99 analytics/charts_config.py:123
-#: analytics/charts_config.py:142 analytics/charts_config.py:159
-#: analytics/charts_config.py:204 analytics/charts_config.py:224
-#: analytics/charts_config.py:253 analytics/charts_config.py:275
-#: analytics/charts_config.py:295 analytics/charts_config.py:363
-#: analytics/charts_config.py:383 analytics/charts_config.py:391
-#: analytics/charts_config.py:414 analytics/charts_config.py:434
-#: analytics/charts_config.py:463
+#: analytics/charts_config.py:101 analytics/charts_config.py:125
+#: analytics/charts_config.py:144 analytics/charts_config.py:161
+#: analytics/charts_config.py:205 analytics/charts_config.py:225
+#: analytics/charts_config.py:254 analytics/charts_config.py:276
+#: analytics/charts_config.py:296 analytics/charts_config.py:364
+#: analytics/charts_config.py:384 analytics/charts_config.py:392
+#: analytics/charts_config.py:415 analytics/charts_config.py:435
+#: analytics/charts_config.py:464
 msgid "Número de documentos"
 msgstr ""
 
-#: analytics/charts_config.py:116
+#: analytics/charts_config.py:118
 msgid "Distribuição de número de referências bibliográficas dos documentos"
 msgstr ""
 
-#: analytics/charts_config.py:119
+#: analytics/charts_config.py:121
 msgid "Referências bibliográficas"
 msgstr ""
 
-#: analytics/charts_config.py:126
+#: analytics/charts_config.py:128
 #, python-format
 msgid "%s documentos com %s referências bibliográficas"
 msgstr ""
 
-#: analytics/charts_config.py:135
+#: analytics/charts_config.py:137
 msgid "Distribuição de número de autores dos documentos"
 msgstr ""
 
-#: analytics/charts_config.py:138
+#: analytics/charts_config.py:140
 msgid "Número de autores"
 msgstr ""
 
-#: analytics/charts_config.py:145
+#: analytics/charts_config.py:147
 #, python-format
 msgid "%s documentos com %s autores"
 msgstr ""
 
-#: analytics/charts_config.py:156 analytics/charts_config.py:196
+#: analytics/charts_config.py:158 analytics/charts_config.py:197
 msgid "Distribuição de países de afiliação dos documentos"
 msgstr ""
 
-#: analytics/charts_config.py:177 analytics/charts_config.py:207
-#: analytics/charts_config.py:258 analytics/charts_config.py:278
-#: analytics/charts_config.py:366 analytics/charts_config.py:417
-#: analytics/charts_config.py:466
+#: analytics/charts_config.py:179 analytics/charts_config.py:208
+#: analytics/charts_config.py:259 analytics/charts_config.py:279
+#: analytics/charts_config.py:367 analytics/charts_config.py:418
+#: analytics/charts_config.py:467
 msgid "Documentos"
 msgstr ""
 
-#: analytics/charts_config.py:187 analytics/charts_config.py:199
-#: analytics/charts_config.py:207
+#: analytics/charts_config.py:188 analytics/charts_config.py:200
+#: analytics/charts_config.py:208
 msgid "País de afiliação"
 msgstr ""
 
-#: analytics/charts_config.py:216
+#: analytics/charts_config.py:217
 msgid "Distribuição de países de afiliação dos documentos por ano de publicação"
 msgstr ""
 
-#: analytics/charts_config.py:249
+#: analytics/charts_config.py:250
 msgid "Distribuição de ano de publicação dos documentos"
 msgstr ""
 
-#: analytics/charts_config.py:267
+#: analytics/charts_config.py:268
 msgid "Distribuição de idiomas dos documentos"
 msgstr ""
 
-#: analytics/charts_config.py:270
+#: analytics/charts_config.py:271
 msgid "Idiomas de publicação"
 msgstr ""
 
-#: analytics/charts_config.py:278
+#: analytics/charts_config.py:279
 msgid "Idioma do documento"
 msgstr ""
 
-#: analytics/charts_config.py:287
+#: analytics/charts_config.py:288
 msgid "Distribuição de idiomas dos documentos por ano de publicação"
 msgstr ""
 
-#: analytics/charts_config.py:317
+#: analytics/charts_config.py:318
 msgid "Distribuição de periódicos por situação atual de publicação no SciELO"
 msgstr ""
 
-#: analytics/charts_config.py:320 analytics/charts_config.py:328
+#: analytics/charts_config.py:321 analytics/charts_config.py:329
 msgid "Situação da publicação"
 msgstr ""
 
-#: analytics/charts_config.py:325 analytics/charts_config.py:341
-#: analytics/charts_config.py:483 analytics/charts_config.py:503
+#: analytics/charts_config.py:326 analytics/charts_config.py:342
+#: analytics/charts_config.py:484 analytics/charts_config.py:504
 msgid "Número de periódicos"
 msgstr ""
 
-#: analytics/charts_config.py:328 analytics/charts_config.py:346
-#: analytics/charts_config.py:486 analytics/charts_config.py:506
+#: analytics/charts_config.py:329 analytics/charts_config.py:347
+#: analytics/charts_config.py:487 analytics/charts_config.py:507
 #: analytics/templates/website/base.mako:77
 msgid "Periódicos"
 msgstr ""
 
-#: analytics/charts_config.py:337
+#: analytics/charts_config.py:338
 msgid "Distribuição de periódicos por ano de inclusão no SciELO"
 msgstr ""
 
-#: analytics/charts_config.py:338 analytics/charts_config.py:346
+#: analytics/charts_config.py:339 analytics/charts_config.py:347
 msgid "Ano de inclusão"
 msgstr ""
 
-#: analytics/charts_config.py:355
+#: analytics/charts_config.py:356
 msgid "Distribuição de área temática dos documentos"
 msgstr ""
 
-#: analytics/charts_config.py:358 analytics/charts_config.py:478
+#: analytics/charts_config.py:359 analytics/charts_config.py:479
 msgid "Areas temáticas"
 msgstr ""
 
-#: analytics/charts_config.py:366 analytics/charts_config.py:486
+#: analytics/charts_config.py:367 analytics/charts_config.py:487
 msgid "Área temática"
 msgstr ""
 
-#: analytics/charts_config.py:375
+#: analytics/charts_config.py:376
 msgid "Distribuição de área temática dos documentos por ano de publicação"
 msgstr ""
 
-#: analytics/charts_config.py:406
+#: analytics/charts_config.py:407
 msgid "Distribuição por tipo de documento"
 msgstr ""
 
-#: analytics/charts_config.py:409
+#: analytics/charts_config.py:410
 msgid "Tipos de documentos"
 msgstr ""
 
-#: analytics/charts_config.py:417
+#: analytics/charts_config.py:418
 msgid "Tipo de documento"
 msgstr ""
 
-#: analytics/charts_config.py:426
+#: analytics/charts_config.py:427
 msgid "Distribuição de licenças de uso por ano de publicação"
 msgstr ""
 
-#: analytics/charts_config.py:455
+#: analytics/charts_config.py:456
 msgid "Distribuição de licença de uso dos documentos"
 msgstr ""
 
-#: analytics/charts_config.py:458 analytics/charts_config.py:498
+#: analytics/charts_config.py:459 analytics/charts_config.py:499
 msgid "Licenças de uso"
 msgstr ""
 
-#: analytics/charts_config.py:466 analytics/charts_config.py:506
+#: analytics/charts_config.py:467 analytics/charts_config.py:507
 msgid "Licença"
 msgstr ""
 
-#: analytics/charts_config.py:475
+#: analytics/charts_config.py:476
 msgid "Distribuição de área temática dos periódicos"
 msgstr ""
 
-#: analytics/charts_config.py:495
+#: analytics/charts_config.py:496
 msgid "Distribuição de licença de uso dos periódicos"
 msgstr ""
 
-#: analytics/charts_config.py:514
+#: analytics/charts_config.py:515
 msgid "Total de acessos por ano e mês"
 msgstr ""
 
-#: analytics/charts_config.py:522 analytics/charts_config.py:557
+#: analytics/charts_config.py:523 analytics/charts_config.py:558
 #: analytics/templates/website/base.mako:74
 msgid "Acessos"
 msgstr ""
 
-#: analytics/charts_config.py:528
+#: analytics/charts_config.py:529
 msgid "Acessos em"
 msgstr ""
 
-#: analytics/charts_config.py:539
+#: analytics/charts_config.py:540
 msgid "Total de accessos por tipo de documento"
 msgstr ""
 
-#: analytics/charts_config.py:543
+#: analytics/charts_config.py:544
 #, python-format
 msgid "%s acessos a documentos do tipo %s"
 msgstr ""
 
-#: analytics/charts_config.py:555
+#: analytics/charts_config.py:556
 msgid "Vida útil de artigos por número de acessos em"
 msgstr ""
 
-#: analytics/charts_config.py:564
+#: analytics/charts_config.py:565
 msgid "Ano de referência"
 msgstr ""
 
-#: analytics/charts_config.py:564
+#: analytics/charts_config.py:565
 #, python-format
 msgid "%s acessos aos documentos do ano %s"
 msgstr ""
@@ -416,7 +416,7 @@ msgid "selecionar periódico"
 msgstr ""
 
 #: analytics/templates/website/base.mako:76
-#: analytics/templates/website/base.mako:95
+#: analytics/templates/website/base.mako:94
 msgid "Gráficos"
 msgstr ""
 
@@ -448,7 +448,7 @@ msgstr ""
 msgid "Gráficos de periódicos"
 msgstr ""
 
-#: analytics/templates/website/base.mako:93
+#: analytics/templates/website/base.mako:92
 msgid "Bibliometria"
 msgstr ""
 
@@ -457,27 +457,32 @@ msgid "Fator de Impacto 1, 2, 3, 4 e 5 anos"
 msgstr ""
 
 #: analytics/templates/website/base.mako:97
+#: analytics/templates/website/bibliometrics_list_citing_half_life.mako:22
+msgid "Vida media da citação"
+msgstr ""
+
+#: analytics/templates/website/base.mako:99
 msgid "Citações concedidas por periódicos"
 msgstr ""
 
-#: analytics/templates/website/base.mako:98
+#: analytics/templates/website/base.mako:100
 #: analytics/templates/website/bibliometrics_list_received.mako:22
 msgid "Citações recebidas por periódicos"
 msgstr ""
 
-#: analytics/templates/website/base.mako:99
+#: analytics/templates/website/base.mako:101
 msgid "Formas de citação do periódico"
 msgstr ""
 
-#: analytics/templates/website/base.mako:104
+#: analytics/templates/website/base.mako:105
 msgid "Downloads"
 msgstr ""
 
-#: analytics/templates/website/base.mako:115
+#: analytics/templates/website/base.mako:116
 msgid "Ferramenta em desenvolvimento disponível em versão Beta Test."
 msgstr ""
 
-#: analytics/templates/website/base.mako:117
+#: analytics/templates/website/base.mako:118
 msgid ""
 "Esta ferramenta esta em desenvolvimento e foi publicada com o objetivo de "
 "realizar testes de uso e performance. Todos os indicadores carregados são "
@@ -485,124 +490,125 @@ msgid ""
 "lentidão e indisponibilidade do serviços são esperados nesta fase."
 msgstr ""
 
-#: analytics/templates/website/base.mako:139
+#: analytics/templates/website/base.mako:140
 msgid "Ajuda"
 msgstr ""
 
-#: analytics/templates/website/base.mako:141
+#: analytics/templates/website/base.mako:142
 msgid "Reportar error"
 msgstr ""
 
-#: analytics/templates/website/base.mako:142
+#: analytics/templates/website/base.mako:143
 msgid "Lista de discussão"
 msgstr ""
 
-#: analytics/templates/website/base.mako:146
+#: analytics/templates/website/base.mako:147
 msgid "Desenvolvimento"
 msgstr ""
 
-#: analytics/templates/website/base.mako:149
+#: analytics/templates/website/base.mako:150
 msgid "Lista de desenvolvimento"
 msgstr ""
 
-#: analytics/templates/website/base.mako:185
+#: analytics/templates/website/base.mako:186
 msgid "Janeiro"
 msgstr ""
 
-#: analytics/templates/website/base.mako:185
+#: analytics/templates/website/base.mako:186
 msgid "Fevereiro"
 msgstr ""
 
-#: analytics/templates/website/base.mako:185
+#: analytics/templates/website/base.mako:186
 msgid "Março"
 msgstr ""
 
-#: analytics/templates/website/base.mako:185
+#: analytics/templates/website/base.mako:186
 msgid "Abril"
 msgstr ""
 
-#: analytics/templates/website/base.mako:185
+#: analytics/templates/website/base.mako:186
 msgid "Maio"
 msgstr ""
 
-#: analytics/templates/website/base.mako:185
+#: analytics/templates/website/base.mako:186
 msgid "Junho"
 msgstr ""
 
-#: analytics/templates/website/base.mako:185
+#: analytics/templates/website/base.mako:186
 msgid "Julho"
 msgstr ""
 
-#: analytics/templates/website/base.mako:185
+#: analytics/templates/website/base.mako:186
 msgid "Agosto"
 msgstr ""
 
-#: analytics/templates/website/base.mako:185
+#: analytics/templates/website/base.mako:186
 msgid "Setembro"
 msgstr ""
 
-#: analytics/templates/website/base.mako:185
+#: analytics/templates/website/base.mako:186
 msgid "Outubro"
 msgstr ""
 
-#: analytics/templates/website/base.mako:185
+#: analytics/templates/website/base.mako:186
 msgid "Novembro"
 msgstr ""
 
-#: analytics/templates/website/base.mako:185
+#: analytics/templates/website/base.mako:186
 msgid "Dezembro"
 msgstr ""
 
-#: analytics/templates/website/base.mako:186
+#: analytics/templates/website/base.mako:187
 msgid "Jan"
 msgstr ""
 
-#: analytics/templates/website/base.mako:186
+#: analytics/templates/website/base.mako:187
 msgid "Fev"
 msgstr ""
 
-#: analytics/templates/website/base.mako:186
+#: analytics/templates/website/base.mako:187
 msgid "Mar"
 msgstr ""
 
-#: analytics/templates/website/base.mako:186
+#: analytics/templates/website/base.mako:187
 msgid "Abr"
 msgstr ""
 
-#: analytics/templates/website/base.mako:186
+#: analytics/templates/website/base.mako:187
 msgid "Mai"
 msgstr ""
 
-#: analytics/templates/website/base.mako:186
+#: analytics/templates/website/base.mako:187
 msgid "Jun"
 msgstr ""
 
-#: analytics/templates/website/base.mako:186
+#: analytics/templates/website/base.mako:187
 msgid "Jul"
 msgstr ""
 
-#: analytics/templates/website/base.mako:186
+#: analytics/templates/website/base.mako:187
 msgid "Ago"
 msgstr ""
 
-#: analytics/templates/website/base.mako:186
+#: analytics/templates/website/base.mako:187
 msgid "Set"
 msgstr ""
 
-#: analytics/templates/website/base.mako:186
+#: analytics/templates/website/base.mako:187
 msgid "Out"
 msgstr ""
 
-#: analytics/templates/website/base.mako:186
+#: analytics/templates/website/base.mako:187
 msgid "Nov"
 msgstr ""
 
-#: analytics/templates/website/base.mako:186
+#: analytics/templates/website/base.mako:187
 msgid "Dez"
 msgstr ""
 
 #: analytics/templates/website/bibliometrics_journal.mako:8
 #: analytics/templates/website/bibliometrics_list_citing_forms.mako:8
+#: analytics/templates/website/bibliometrics_list_citing_half_life.mako:8
 #: analytics/templates/website/bibliometrics_list_granted.mako:8
 #: analytics/templates/website/bibliometrics_list_impact_factor.mako:8
 #: analytics/templates/website/bibliometrics_list_received.mako:8
@@ -611,6 +617,7 @@ msgstr ""
 
 #: analytics/templates/website/bibliometrics_journal.mako:11
 #: analytics/templates/website/bibliometrics_list_citing_forms.mako:11
+#: analytics/templates/website/bibliometrics_list_citing_half_life.mako:11
 #: analytics/templates/website/bibliometrics_list_granted.mako:11
 #: analytics/templates/website/bibliometrics_list_impact_factor.mako:11
 #: analytics/templates/website/bibliometrics_list_received.mako:11
@@ -619,6 +626,7 @@ msgstr ""
 
 #: analytics/templates/website/bibliometrics_journal.mako:19
 #: analytics/templates/website/bibliometrics_list_citing_forms.mako:19
+#: analytics/templates/website/bibliometrics_list_citing_half_life.mako:19
 #: analytics/templates/website/bibliometrics_list_impact_factor.mako:19
 #: analytics/templates/website/bibliometrics_list_received.mako:19
 msgid "aplicar"
@@ -685,20 +693,42 @@ msgstr ""
 msgid "sem resultados"
 msgstr ""
 
+#: analytics/templates/website/bibliometrics_list_citing_half_life.mako:32
+#: analytics/templates/website/bibliometrics_list_impact_factor.mako:29
+msgid "citações em"
+msgstr ""
+
+#: analytics/templates/website/bibliometrics_list_citing_half_life.mako:32
+#: analytics/templates/website/bibliometrics_list_impact_factor.mako:29
+msgid "para publicações de"
+msgstr ""
+
+#: analytics/templates/website/bibliometrics_list_citing_half_life.mako:33
+msgid "Citação total"
+msgstr ""
+
+#: analytics/templates/website/bibliometrics_list_citing_half_life.mako:34
+msgid "Vida media"
+msgstr ""
+
+#: analytics/templates/website/bibliometrics_list_citing_half_life.mako:48
+msgid "citações"
+msgstr ""
+
+#: analytics/templates/website/bibliometrics_list_citing_half_life.mako:57
+msgid "percentagem"
+msgstr ""
+
+#: analytics/templates/website/bibliometrics_list_citing_half_life.mako:66
+msgid "percentagem acumulado"
+msgstr ""
+
 #: analytics/templates/website/bibliometrics_list_granted.mako:15
 msgid "Citações concedidas por periódico"
 msgstr ""
 
 #: analytics/templates/website/bibliometrics_list_impact_factor.mako:22
-msgid "Fator de Impacto em 1, 2, 3, 4 e 5 anos"
-msgstr ""
-
-#: analytics/templates/website/bibliometrics_list_impact_factor.mako:29
-msgid "citações em"
-msgstr ""
-
-#: analytics/templates/website/bibliometrics_list_impact_factor.mako:29
-msgid "para publicações de"
+msgid "Impacto SciELO em 1, 2, 3, 4 e 5 anos"
 msgstr ""
 
 #: analytics/templates/website/bibliometrics_list_impact_factor.mako:30
@@ -707,10 +737,11 @@ msgstr ""
 
 #: analytics/templates/website/bibliometrics_list_impact_factor.mako:31
 msgid ""
-"Aqui são considerados  apenas os documentos citáveis. Entendesse por "
-"documentos citáveis, todos os documentos elegíveis para o cálculo de Fator de"
-" Impacto, esses documentos devem ser do tipo Research Article ou Review "
-"Article."
+"Aqui são considerados apenas os documentos citáveis. De acordo com as regras "
+"de contagem do SciELO, documentos citáveis devem ser do tipo Research "
+"Article, Review Article, Case Report, Brief Report, Rapid Communication e "
+"Article Commentary. Os demais tipos de documentos são considerados não "
+"citáveis."
 msgstr ""
 
 #: analytics/templates/website/bibliometrics_list_impact_factor.mako:49
@@ -918,10 +949,11 @@ msgstr ""
 #: analytics/templates/website/publication_article_citable_documents.mako:17
 msgid ""
 "Este gráfico apresenta a distribuição de documentos citáveis e não citáveis "
-"relacionados ao periódico selecionado. Entendesse por documentos citáveis, "
-"todos os documentos elegíveis para contagem de fator de impacto, esses "
-"documentos devem ser do tipo \"Research Article\" ou \"Review Article\". Os "
-"demais tipos de documentos são considerados não citáveis."
+"relacionados ao periódico selecionado. De acordo com as regras de contagem do"
+" SciELO, documentos citáveis devem ser do tipo \"Research Article\", \"Review"
+" Article\", \"Case Report\", \"Brief Report\", \"Rapid Communication\" e "
+"\"Article Commentary\". Os demais tipos de documentos são considerados não "
+"citáveis."
 msgstr ""
 
 #: analytics/templates/website/publication_article_document_type.mako:17
