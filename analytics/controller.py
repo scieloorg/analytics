@@ -12,7 +12,7 @@ from analytics.custom_queries import custom_query
 PAGE_SIZE = 20
 
 
-CITABLE_THEMATIC_AREAS = (
+CITABLE_DOCUMENT_TYPES = (
     u'article-commentary',
     u'brief-report',
     u'case-report',
@@ -971,7 +971,7 @@ class PublicationStats(clients.PublicationStats):
             }
         }
 
-        for thematic_area in CITABLE_THEMATIC_AREAS:
+        for thematic_area in CITABLE_DOCUMENT_TYPES:
             body['aggs']['publication_year']['aggs']['citable_documents']['filter']['bool']['should'].append(
                 {"term": {"document_type": thematic_area}}
             )
