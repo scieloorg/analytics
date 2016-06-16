@@ -828,17 +828,23 @@ class PublicationStats(clients.PublicationStats):
         return publication_year
 
     @cache_region.cache_on_arguments()
-    def general(self, index, field, code, collection, py_range=None, size=0, sort_term=None, raw=False):
+    def general(self, index, field, code, collection, py_range=None, sa_scope=None, size=0, sort_term=None, raw=False):
 
         sort_term = sort_term if sort_term in ['asc', 'desc'] else None
 
         body = {"query": {"filtered": {}}}
 
-        fltr = {}
+        fltr = {
+            "filter": {
+                "bool": {
+                    "must": []
+                }
+            }
+        }
 
         if py_range:
-            fltr = {
-                "filter": {
+            fltr["filter"]["bool"]['must'].append(
+                {
                     "range": {
                         "publication_year": {
                             "gte": py_range[0],
@@ -846,7 +852,16 @@ class PublicationStats(clients.PublicationStats):
                         }
                     }
                 }
-            }
+            )
+
+        if sa_scope:
+            fltr["filter"]["bool"]['must'].append(
+                {
+                    "terms": {
+                        "subject_areas": sa_scope
+                    }
+                }
+            )
 
         query = {
             "query": {
@@ -915,7 +930,7 @@ class PublicationStats(clients.PublicationStats):
             return None
 
     @cache_region.cache_on_arguments()
-    def collection_size(self, code, collection, field, py_range, raw=False):
+    def collection_size(self, code, collection, field, py_range, sa_scope, raw=False):
 
         if field not in ['issue', 'issn', 'citations', 'documents']:
             raise ValueError('Expected values for field: [issue, issn, citations, documents]')
@@ -924,11 +939,21 @@ class PublicationStats(clients.PublicationStats):
 
         fltr = {
             "filter": {
-                "range": {
-                    "publication_year": {
-                        "gte": py_range[0],
-                        "lte": py_range[1]
-                    }
+                "bool": {
+                    "must": [
+                        {
+                            "range": {
+                                "publication_year": {
+                                    "gte": py_range[0],
+                                    "lte": py_range[1]
+                                }
+                            }
+                        }, {
+                            "terms": {
+                                "subject_areas": sa_scope
+                            }
+                        }
+                    ]
                 }
             }
         }
@@ -1086,27 +1111,27 @@ class PublicationStats(clients.PublicationStats):
         return query_result if raw else computed
 
     @cache_region.cache_on_arguments()
-    def affiliations_by_publication_year(self, code, collection, py_range, raw=False):
-        result = self.by_publication_year(code, collection, 'aff_countries', py_range, raw)
+    def affiliations_by_publication_year(self, code, collection, py_range, sa_scope, raw=False):
+        result = self.by_publication_year(code, collection, 'aff_countries', py_range, sa_scope, raw)
 
         return result
 
     @cache_region.cache_on_arguments()
-    def subject_areas_by_publication_year(self, code, collection, py_range, raw=False):
+    def subject_areas_by_publication_year(self, code, collection, py_range, sa_scope, raw=False):
 
-        return self.by_publication_year(code, collection, 'subject_areas', py_range, raw)
+        return self.by_publication_year(code, collection, 'subject_areas', py_range, sa_scope, raw)
 
     @cache_region.cache_on_arguments()
-    def languages_by_publication_year(self, code, collection, py_range, raw=False):
+    def languages_by_publication_year(self, code, collection, py_range, sa_scope, raw=False):
 
-        result = self.by_publication_year(code, collection, 'languages', py_range, raw)
+        result = self.by_publication_year(code, collection, 'languages', py_range, sa_scope, raw)
 
         return result
 
     @cache_region.cache_on_arguments()
-    def lincenses_by_publication_year(self, code, collection, py_range, raw=False):
+    def lincenses_by_publication_year(self, code, collection, py_range, sa_scope, raw=False):
 
-        return self.by_publication_year(code, collection, 'license', py_range, raw)
+        return self.by_publication_year(code, collection, 'license', py_range, sa_scope, raw)
 
     @staticmethod
     def _compute_by_publication_year(query_result, field):
@@ -1144,17 +1169,27 @@ class PublicationStats(clients.PublicationStats):
         return {"series": series, "navigator_series": navigator_series}
 
     @cache_region.cache_on_arguments()
-    def by_publication_year(self, code, collection, field, py_range, raw=False):
+    def by_publication_year(self, code, collection, field, py_range, sa_scope, raw=False):
 
         body = {"query": {"filtered": {}}}
 
         fltr = {
             "filter": {
-                "range": {
-                    "publication_year": {
-                        "gte": py_range[0],
-                        "lte": py_range[1]
-                    }
+                "bool": {
+                    "must": [
+                        {
+                            "range": {
+                                "publication_year": {
+                                    "gte": py_range[0],
+                                    "lte": py_range[1]
+                                }
+                            }
+                        }, {
+                            "terms": {
+                                "subject_areas": sa_scope
+                            }
+                        }
+                    ]
                 }
             }
         }
@@ -1295,17 +1330,27 @@ class AccessStats(clients.AccessStats):
         return data
 
     @cache_region.cache_on_arguments()
-    def list_journals(self, code, collection, py_range, date_range_start=None, date_range_end=None, raw=False):
+    def list_journals(self, code, collection, py_range, sa_scope, date_range_start=None, date_range_end=None, raw=False):
 
         body = {"query": {"filtered": {}}}
 
         fltr = {
             "filter": {
-                "range": {
-                    "publication_year": {
-                        "gte": py_range[0],
-                        "lte": py_range[1]
-                    }
+                "bool": {
+                    "must": [
+                        {
+                            "range": {
+                                "publication_year": {
+                                    "gte": py_range[0],
+                                    "lte": py_range[1]
+                                }
+                            }
+                        }, {
+                            "terms": {
+                                "subject_areas": sa_scope
+                            }
+                        }
+                    ]
                 }
             }
         }
@@ -1437,17 +1482,27 @@ class AccessStats(clients.AccessStats):
         return data
 
     @cache_region.cache_on_arguments()
-    def list_issues(self, code, collection, py_range, date_range_start=None, date_range_end=None, raw=False):
+    def list_issues(self, code, collection, py_range, sa_scope, date_range_start=None, date_range_end=None, raw=False):
 
         body = {"query": {"filtered": {}}}
 
         fltr = {
             "filter": {
-                "range": {
-                    "publication_year": {
-                        "gte": py_range[0],
-                        "lte": py_range[1]
-                    }
+                "bool": {
+                    "must": [
+                        {
+                            "range": {
+                                "publication_year": {
+                                    "gte": py_range[0],
+                                    "lte": py_range[1]
+                                }
+                            }
+                        }, {
+                            "terms": {
+                                "subject_areas": sa_scope
+                            }
+                        }
+                    ]
                 }
             }
         }
@@ -1579,7 +1634,7 @@ class AccessStats(clients.AccessStats):
         return data
 
     @cache_region.cache_on_arguments()
-    def list_articles(self, code, collection, py_range, date_range_start=None, date_range_end=None, raw=False):
+    def list_articles(self, code, collection, py_range, sa_scope, date_range_start=None, date_range_end=None, raw=False):
 
         body = {"query": {"filtered": {}}}
 
@@ -1597,6 +1652,10 @@ class AccessStats(clients.AccessStats):
                         }, {
                             "exists": {
                                 "field": "document_title"
+                            }
+                        }, {
+                            "terms": {
+                                "subject_areas": sa_scope
                             }
                         }
                     ]
@@ -1731,7 +1790,7 @@ class AccessStats(clients.AccessStats):
         return {"series": series}
 
     @cache_region.cache_on_arguments()
-    def access_by_document_type(self, code, collection, py_range, date_range_start=None, date_range_end=None, raw=False):
+    def access_by_document_type(self, code, collection, py_range, sa_scope, date_range_start=None, date_range_end=None, raw=False):
 
         body = {"query": {"filtered": {}}}
 
@@ -1743,11 +1802,25 @@ class AccessStats(clients.AccessStats):
 
         fltr = {
             "filter": {
-                "range": {
-                    "publication_year": {
-                        "gte": py_range[0],
-                        "lte": py_range[1]
-                    }
+                "bool": {
+                    "must": [
+                        {
+                            "range": {
+                                "publication_year": {
+                                    "gte": py_range[0],
+                                    "lte": py_range[1]
+                                }
+                            }
+                        }, {
+                            "exists": {
+                                "field": "document_title"
+                            }
+                        }, {
+                            "terms": {
+                                "subject_areas": sa_scope
+                            }
+                        }
+                    ]
                 }
             }
         }
@@ -1831,7 +1904,7 @@ class AccessStats(clients.AccessStats):
         return charts
 
     @cache_region.cache_on_arguments()
-    def access_lifetime(self, code, collection, py_range, date_range_start=None, date_range_end=None, raw=False):
+    def access_lifetime(self, code, collection, py_range, sa_scope, date_range_start=None, date_range_end=None, raw=False):
 
         body = {"query": {"filtered": {}}}
 
@@ -1843,11 +1916,25 @@ class AccessStats(clients.AccessStats):
 
         fltr = {
             "filter": {
-                "range": {
-                    "publication_year": {
-                        "gte": py_range[0],
-                        "lte": py_range[1]
-                    }
+                "bool": {
+                    "must": [
+                        {
+                            "range": {
+                                "publication_year": {
+                                    "gte": py_range[0],
+                                    "lte": py_range[1]
+                                }
+                            }
+                        }, {
+                            "exists": {
+                                "field": "document_title"
+                            }
+                        }, {
+                            "terms": {
+                                "subject_areas": sa_scope
+                            }
+                        }
+                    ]
                 }
             }
         }
@@ -1958,7 +2045,7 @@ class AccessStats(clients.AccessStats):
         return {'series': series, 'navigator_series': navigator_series}
 
     @cache_region.cache_on_arguments()
-    def access_by_month_and_year(self, code, collection, py_range, date_range_start=None, date_range_end=None, raw=False):
+    def access_by_month_and_year(self, code, collection, py_range, sa_scope, date_range_start=None, date_range_end=None, raw=False):
 
         body = {"query": {"filtered": {}}}
 
@@ -1970,11 +2057,25 @@ class AccessStats(clients.AccessStats):
 
         fltr = {
             "filter": {
-                "range": {
-                    "publication_year": {
-                        "gte": py_range[0],
-                        "lte": py_range[1]
-                    }
+                "bool": {
+                    "must": [
+                        {
+                            "range": {
+                                "publication_year": {
+                                    "gte": py_range[0],
+                                    "lte": py_range[1]
+                                }
+                            }
+                        }, {
+                            "exists": {
+                                "field": "document_title"
+                            }
+                        }, {
+                            "terms": {
+                                "subject_areas": sa_scope
+                            }
+                        }
+                    ]
                 }
             }
         }

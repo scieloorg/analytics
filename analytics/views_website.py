@@ -209,6 +209,7 @@ def accesses_list_journals(request):
         data['selected_code'],
         data['selected_collection_code'],
         data['py_range'],
+        data['sa_scope'],
         data['range_start'],
         data['range_end']
     )
@@ -227,6 +228,7 @@ def accesses_list_issues(request):
         data['selected_code'],
         data['selected_collection_code'],
         data['py_range'],
+        data['sa_scope'],
         data['range_start'],
         data['range_end']
     )
@@ -245,6 +247,7 @@ def accesses_list_articles(request):
         data['selected_code'],
         data['selected_collection_code'],
         data['py_range'],
+        data['sa_scope'],
         data['range_start'],
         data['range_end']
     )

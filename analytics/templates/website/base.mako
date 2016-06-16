@@ -123,33 +123,35 @@
               <h5>${_(u'Ano de publicação')}</h5>
               <a href="#" valign="right" id="apply-py-range">${_(u"aplicar")}</a>
               <hr>
-              <form>
+              <form id="py-range">
                 <p>
                   <label for="year_range">${_(u'período')}:</label>
-                  <input type="text" id="year_range" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                  <input type="text" id="year-range" readonly style="border:0; color:#f6931f; font-weight:bold;">
                 </p>
                 <div id="slider-range"></div>
               </form>
               <hr>
               <h5>${_(u'Área temática')}</h5>
+              <a href="#" valign="right" id="apply-sa-scope">${_(u"aplicar")}</a>
               <hr>
-              <form>
+              <form id="sa-scope-form" target="_self" method="post">
                 % for subject_area in sorted(subject_areas):
                 <div class="checkbox">
                   <label>
-                    <input type="checkbox" value="${subject_area}"> ${subject_area}
+                    <input type="checkbox" name="sa_scope" value="${subject_area}" ${'checked' if subject_area in sa_scope else ''}> ${subject_area}
                   </label>
                 </div>
                 % endfor
               </form>
               <hr>
               <h5>${_(u'Idioma')}</h5>
+              <a href="#" valign="right" id="apply-la-scope">${_(u"aplicar")}</a>
               <hr>
               <form>
                 % for iso, language in sorted(languages, key=lambda x: x[1]):
-                <div class="checkbox">
+                <div class="checkbox" id="la-scope">
                   <label>
-                    <input type="checkbox" value="${iso}"> ${language}
+                    <input type="checkbox" value="${iso}" checked> ${language}
                   </label>
                 </div>
                 % endfor
@@ -214,6 +216,7 @@
       </center>
     </div>
     <%include file="journal_selector_modal.mako"/>
+    <%include file="share.mako"/>
     <script src="/static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
     <script src="/static/moment/moment.min.js"></script>
     <script src="/static/highcharts/highstock.js"></script>
@@ -251,17 +254,24 @@
         max: ${sorted(publication_years)[-1]},
         values: [${py_range[0]},${py_range[1]}],
         slide: function( event, ui ) {
-          $( "#year_range" ).val( ui.values[0] + " - " + ui.values[1] );
+          $( "#year-range" ).val( ui.values[0] + " - " + ui.values[1] );
         }
       });
-      $( "#year_range" ).val( $( "#slider-range" ).slider( "values", 0 ) +
+      $( "#year-range" ).val( $( "#slider-range" ).slider( "values", 0 ) +
         " - " + $( "#slider-range" ).slider( "values", 1 ) );
     });
     $("#apply-py-range").click(function(){
-      window.open("?py_range=" + $("#year_range").val().replace(re_py_range_replace, ''), name="_self");
+      window.open("?py_range=" + $("#year-range").val().replace(re_py_range_replace, ''), name="_self");
     })
     </script>
     <!-- Fim de JS de filtros de ano de publicação-->
+    <!-- Início de JS de filtros de scopo de área temática-->
+    <script>
+    $("#apply-sa-scope").click(function() {
+      $("#sa-scope-form").submit();
+    })      
+    </script>
+    <!-- Fim de JS de filtros de scopo de área temática-->
     <%block name="extra_js" />
   </body>
 </html>

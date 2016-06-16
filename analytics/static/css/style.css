@@ -83,3 +83,12 @@ body { padding-top: 70px; }
     text-align: center;
     vertical-align: middle;
 }
+
+#share-this {
+    background-color: green;
+    position: fixed;
+    right: -80px;
+    top: 160px;
+    color: #FFFFFF;
+    padding: 6px;
+}

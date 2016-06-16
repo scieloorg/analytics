@@ -7,8 +7,25 @@ from dogpile.cache import make_region
 
 from analytics import utils
 from analytics import choices
+import re
 
 cache_region = make_region(name='control_manager')
+
+
+def current_url(current_url, data):
+
+    params = {
+        'collection': data.get('selected_collection_code', None),
+        'journal': data.get('selected_journal_code', None),
+        'py_range': '-'.join(data.get('py_range', None)),
+        'sa_scope': '&'.join(['pa_scope=%s' % i for i in data.get('sa_scope', [])])
+    }
+
+    params_url = '&'.join(['%s=%s' % (k, v) for k, v in params.items() if v])
+
+    url = '%s?%s' % (current_url, params_url)
+
+    return url
 
 
 def check_session(wrapped):
@@ -24,6 +41,7 @@ def check_session(wrapped):
         under_development = request.GET.get('under_development', None)
         range_end = request.GET.get('range_end', None)
         py_range = request.GET.get('py_range', None)
+        sa_scope = sorted([v for k, v in request.POST.items() if k == 'sa_scope'])
         locale = request.GET.get('_LOCALE_', request.locale_name)
 
         if journal == 'clean' and 'journal' in request.session:
@@ -44,6 +62,7 @@ def check_session(wrapped):
         session_range_start = request.session.get('range_start', None)
         session_range_end = request.session.get('range_end', None)
         session_py_range = request.session.get('py_range', None)
+        session_sa_scope = sorted(request.session.get('sa_scope', []))
         session_locale = request.session.get('_LOCALE_', None)
 
         if collection and collection != session_collection:
@@ -71,6 +90,9 @@ def check_session(wrapped):
 
         if py_range and py_range != session_py_range:
             request.session['py_range'] = py_range
+
+        if sa_scope and sorted(sa_scope) != sorted(session_sa_scope):
+            request.session['sa_scope'] = sorted(sa_scope)
 
         if locale and locale != session_locale:
             request.session['_LOCALE_'] = locale
@@ -148,6 +170,8 @@ def base_data_manager(wrapped):
         data['languages'] = [(i, choices.ISO_639_1.get(i.upper(), 'undefined')) for i in request.stats.publication.list_languages(data['selected_code'], data['selected_collection_code'])]
         data['publication_years'] = request.stats.publication.list_publication_years(data['selected_code'], data['selected_collection_code'])
         data['py_range'] = request.session.get('py_range', '-'.join([data['publication_years'][-1], data['publication_years'][0]])).split('-')
+        data['sa_scope'] = request.session.get('sa_scope', data['subject_areas'])
+        data['current_url'] = current_url(request.url, data)
 
         setattr(request, 'data_manager', data)
 
