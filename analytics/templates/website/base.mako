@@ -8,9 +8,11 @@
     <link rel="stylesheet" href="/static/bootstrap-3.2.0/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/static/bootstrap-3.2.0/css/bootstrap-tokenfield.min.css">
     <link rel="stylesheet" href="/static/bootstrap-3.2.0/css/tokenfield-typeahead.min.css">
+    <link rel="stylesheet" href="/static/jquery-ui-1.11.4/jquery-ui.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/daterangepicker/daterangepicker.css" />
     <script src="/static/jquery-1.11.1/jquery-1.11.1.min.js"></script>
+    <script src="/static/jquery-ui-1.11.4/jquery-ui.min.js"></script>
   </header>
   <body>
     <%include file="google_analytics.mako"/>
@@ -93,7 +95,7 @@
               <ul class="dropdown-menu">
                 <li><a href="${request.route_url('bibliometrics_journal_web')}">${_(u'Gráficos')}</a></li>
                 % if not 'bibliometrics' in under_development:
-                  <li><a href="${request.route_url('bibliometrics_list_impact_factor_web')}">${_(u'Fator de Impacto 1, 2, 3, 4 e 5 anos')}</a></li>
+                  <li><a href="${request.route_url('bibliometrics_list_impact_factor_web')}">${_(u'Impacto SciELO em 1, 2, 3, 4 e 5 anos')}</a></li>
                   <li><a href="${request.route_url('bibliometrics_list_citing_half_life_web')}">${_(u'Vida media da citação')}</a></li>
                 % endif
                 <li><a href="${request.route_url('bibliometrics_list_granted_web')}">${_(u'Citações concedidas por periódicos')}</a></li>
@@ -112,13 +114,58 @@
       </nav>
     </div> <!-- div row -->
     <div class="row container-fluid" style="padding-left: 40px; padding-right: 40px;">
-      <div class="panel panel-info">
-          <div class="panel-heading">${_(u'Ferramenta em desenvolvimento disponível em versão Beta Test.')}</div>
-          <div class="panel-body">
-              ${_(u'Esta ferramenta esta em desenvolvimento e foi publicada com o objetivo de realizar testes de uso e performance. Todos os indicadores carregados são reais e estão sendo atualizados e inseridos gradativamente. Problemas de lentidão e indisponibilidade do serviços são esperados nesta fase.')}
-          </div>
+      <div class="col-md-3">
+        <div class="panel panel-default" id="filters-menu">
+            <div class="panel-heading">
+              <div class="panel-title"><b>${_(u'Filtros')}</b></div>
+            </div>
+            <div class="panel-body">
+              <h5>${_(u'Ano de publicação')}</h5>
+              <a href="#" valign="right" id="apply-py-range">${_(u"aplicar")}</a>
+              <hr>
+              <form>
+                <p>
+                  <label for="year_range">${_(u'período')}:</label>
+                  <input type="text" id="year_range" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                </p>
+                <div id="slider-range"></div>
+              </form>
+              <hr>
+              <h5>${_(u'Área temática')}</h5>
+              <hr>
+              <form>
+                % for subject_area in sorted(subject_areas):
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" value="${subject_area}"> ${subject_area}
+                  </label>
+                </div>
+                % endfor
+              </form>
+              <hr>
+              <h5>${_(u'Idioma')}</h5>
+              <hr>
+              <form>
+                % for iso, language in sorted(languages, key=lambda x: x[1]):
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" value="${iso}"> ${language}
+                  </label>
+                </div>
+                % endfor
+              </form>
+            </div>
+        </div>
       </div>
-      <%block name="central_container" />
+      <div class="col-md-9">
+        <div class="panel panel-info">
+            <div class="panel-heading">${_(u'Ferramenta em desenvolvimento disponível em versão Beta Test.')}</div>
+            <div class="panel-body">
+                ${_(u'Esta ferramenta esta em desenvolvimento e foi publicada com o objetivo de realizar testes de uso e performance. Todos os indicadores carregados são reais e estão sendo atualizados e inseridos gradativamente. Problemas de lentidão e indisponibilidade do serviços são esperados nesta fase.')}
+            </div>
+        </div>
+        <%block name="central_container" />
+      </div>
     </div><!-- div row -->
     <div class="row container-fluid footer">
       <div class="col-md-4">
@@ -194,6 +241,27 @@
           $('#form_languages').submit();
         });
     </script>
+    <!-- Início de JS de filtros de ano de publicação-->
+    <script>
+    var re_py_range_replace = new RegExp(' ', 'g');
+    $(function() {
+      $( "#slider-range" ).slider({
+        range: true,
+        min: ${sorted(publication_years)[0]},
+        max: ${sorted(publication_years)[-1]},
+        values: [${py_range[0]},${py_range[1]}],
+        slide: function( event, ui ) {
+          $( "#year_range" ).val( ui.values[0] + " - " + ui.values[1] );
+        }
+      });
+      $( "#year_range" ).val( $( "#slider-range" ).slider( "values", 0 ) +
+        " - " + $( "#slider-range" ).slider( "values", 1 ) );
+    });
+    $("#apply-py-range").click(function(){
+      window.open("?py_range=" + $("#year_range").val().replace(re_py_range_replace, ''), name="_self");
+    })
+    </script>
+    <!-- Fim de JS de filtros de ano de publicação-->
     <%block name="extra_js" />
   </body>
 </html>

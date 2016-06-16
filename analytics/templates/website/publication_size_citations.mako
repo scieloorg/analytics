@@ -12,8 +12,7 @@
 <script language="javascript">
     $("#loading_size_citations").show();
     $(document).ready(function() {
-        var url =  "${request.route_url('publication_size')}?code=${selected_code}&collection=${selected_collection_code}&field=citations&callback=?";
-
+        var url =  "${request.route_url('publication_size')}?code=${selected_code}&collection=${selected_collection_code}&field=citations&py_range=${'-'.join(py_range)}&callback=?";
         $.getJSON(url,  function(data) {
             $('#size_citations_value').prepend($.number(data['total']).replace(/,/gi, '.'));
             $("#loading_size_citations").hide();

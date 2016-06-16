@@ -8,7 +8,7 @@
 <script language="javascript">
     $("#loading_bymonthandyear").show();
     $(document).ready(function() {
-        var url =  "/ajx/accesses/bymonthandyear?code=${selected_code}&collection=${selected_collection_code}&range_start=${range_start}&range_end=${range_end}&callback=?";
+        var url =  "/ajx/accesses/bymonthandyear?code=${selected_code}&collection=${selected_collection_code}&range_start=${range_start}&range_end=${range_end}&py_range=${'-'.join(py_range)}&callback=?";
 
         $.getJSON(url,  function(data) {
             $('#bymonthandyear').highcharts('StockChart', data['options']);

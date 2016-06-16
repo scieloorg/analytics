@@ -20,7 +20,7 @@
   </div>
 </div>
 <script language="javascript">
-    $("#loading_article_affiliations").show();
+    $("#loading_article_affiliations_map").show();
 
     $(document).ready(function() {
         var url =  "${request.route_url('publication_article_affiliations_map')}?code=${selected_code}&collection=${selected_collection_code}&callback=?";

@@ -6,6 +6,7 @@ from pyramid.settings import aslist
 from dogpile.cache import make_region
 
 from analytics import utils
+from analytics import choices
 
 cache_region = make_region(name='control_manager')
 
@@ -22,6 +23,7 @@ def check_session(wrapped):
         range_start = request.GET.get('range_start', None)
         under_development = request.GET.get('under_development', None)
         range_end = request.GET.get('range_end', None)
+        py_range = request.GET.get('py_range', None)
         locale = request.GET.get('_LOCALE_', request.locale_name)
 
         if journal == 'clean' and 'journal' in request.session:
@@ -41,6 +43,7 @@ def check_session(wrapped):
         session_document = request.session.get('document', None)
         session_range_start = request.session.get('range_start', None)
         session_range_end = request.session.get('range_end', None)
+        session_py_range = request.session.get('py_range', None)
         session_locale = request.session.get('_LOCALE_', None)
 
         if collection and collection != session_collection:
@@ -65,6 +68,9 @@ def check_session(wrapped):
 
         if range_end and range_end != session_range_end:
             request.session['range_end'] = range_end
+
+        if py_range and py_range != session_py_range:
+            request.session['py_range'] = py_range
 
         if locale and locale != session_locale:
             request.session['_LOCALE_'] = locale
@@ -138,6 +144,10 @@ def base_data_manager(wrapped):
         data['under_development'] = [i for i in aslist(request.registry.settings.get('under_development', '')) if i != under_development]
         data['google_analytics_code'] = request.registry.settings.get('google_analytics_code', None)
         data['google_analytics_sample_rate'] = request.registry.settings.get('google_analytics_sample_rate', '100')
+        data['subject_areas'] = request.stats.publication.list_subject_areas(data['selected_code'], data['selected_collection_code'])
+        data['languages'] = [(i, choices.ISO_639_1.get(i.upper(), 'undefined')) for i in request.stats.publication.list_languages(data['selected_code'], data['selected_collection_code'])]
+        data['publication_years'] = request.stats.publication.list_publication_years(data['selected_code'], data['selected_collection_code'])
+        data['py_range'] = request.session.get('py_range', '-'.join([data['publication_years'][-1], data['publication_years'][0]])).split('-')
 
         setattr(request, 'data_manager', data)
 

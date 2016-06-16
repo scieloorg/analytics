@@ -1,5 +1,7 @@
 # coding: utf-8
 
+from analytics import choices
+
 
 def chartsconfig(request):
     return ChartsConfig(request)
@@ -191,6 +193,9 @@ class ChartsConfig(object):
         return {'options': chart}
 
     def publication_article_affiliations(self, data):
+        # convertendo ISO 3166 para texto
+        country_names = [choices.ISO_3166.get(i, 'undefined') for i in data['categories']]
+        data['categories'] = country_names
 
         chart = self.highchart
         chart['chart']['type'] = 'column'
@@ -211,6 +216,10 @@ class ChartsConfig(object):
         return {'options': chart}
 
     def publication_article_affiliations_by_publication_year(self, data):
+
+        # convertendo ISO 3166 para texto
+        for item in data['series']:
+            item['name'] = choices.ISO_3166.get(item['name'].upper(), 'undefined')
 
         chart = self.highchart
         chart['chart']['type'] = 'column'
@@ -263,6 +272,10 @@ class ChartsConfig(object):
 
     def publication_article_languages(self, data):
 
+        # convertendo ISO 639_1 para texto
+        language_names = [choices.ISO_639_1.get(i.upper(), 'undefined') for i in data['categories']]
+        data['categories'] = language_names
+
         chart = self.highchart
         chart['chart']['type'] = 'column'
         chart['title'] = {'text': self._(u'Distribuição de idiomas dos documentos')}
@@ -282,6 +295,11 @@ class ChartsConfig(object):
         return {'options': chart}
 
     def publication_article_languages_by_publication_year(self, data):
+
+        # convertendo ISO 639_1 para texto
+        for item in data['series']:
+            item['name'] = choices.ISO_639_1.get(item['name'].upper(), 'undefined')
+
 
         chart = self.highchart
         chart['chart']['type'] = 'column'

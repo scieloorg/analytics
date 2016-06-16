@@ -59,6 +59,7 @@ def bibliometrics_list_impact_factor(request):
 
     return data
 
+
 @view_config(route_name='bibliometrics_list_citing_half_life_web', renderer='templates/website/bibliometrics_list_citing_half_life.mako')
 @base_data_manager
 def bibliometrics_list_citing_half_life(request):
@@ -207,6 +208,7 @@ def accesses_list_journals(request):
     data['aclist'] = request.stats.access.list_journals(
         data['selected_code'],
         data['selected_collection_code'],
+        data['py_range'],
         data['range_start'],
         data['range_end']
     )
@@ -224,6 +226,7 @@ def accesses_list_issues(request):
     data['aclist'] = request.stats.access.list_issues(
         data['selected_code'],
         data['selected_collection_code'],
+        data['py_range'],
         data['range_start'],
         data['range_end']
     )
@@ -241,6 +244,7 @@ def accesses_list_articles(request):
     data['aclist'] = request.stats.access.list_articles(
         data['selected_code'],
         data['selected_collection_code'],
+        data['py_range'],
         data['range_start'],
         data['range_end']
     )
