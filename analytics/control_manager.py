@@ -18,12 +18,15 @@ def current_url(current_url, data):
         'collection': data.get('selected_collection_code', None),
         'journal': data.get('selected_journal_code', None),
         'py_range': '-'.join(data.get('py_range', None)),
-        'sa_scope': '&'.join(['pa_scope=%s' % i for i in data.get('sa_scope', [])])
+        'document': data.get('selected_document_code', None),
+        'range_start': data.get('range_start', None),
+        'range_end': data.get('range_end', None)
     }
 
-    params_url = '&'.join(['%s=%s' % (k, v) for k, v in params.items() if v])
+    sa_scope = '&'.join(['sa_scope=%s' % i for i in data.get('sa_scope', [])])
+    params_url = '&'.join(['%s=%s' % (k, v) for k, v in params.items() if v]+[sa_scope])
 
-    url = '%s?%s' % (current_url, params_url)
+    url = '?'.join([current_url.split('?')[0], params_url])
 
     return url
 
@@ -41,7 +44,7 @@ def check_session(wrapped):
         under_development = request.GET.get('under_development', None)
         range_end = request.GET.get('range_end', None)
         py_range = request.GET.get('py_range', None)
-        sa_scope = sorted([v for k, v in request.POST.items() if k == 'sa_scope'])
+        sa_scope = sorted([v for k, v in request.GET.items() if k == 'sa_scope'])
         locale = request.GET.get('_LOCALE_', request.locale_name)
 
         if journal == 'clean' and 'journal' in request.session:
@@ -139,6 +142,7 @@ def base_data_manager(wrapped):
                 'selected_code': code,
                 'selected_journal': selected_journal,
                 'selected_journal_code': selected_journal_code,
+                'selected_document_code': document or None,
                 'selected_collection': collections[collection],
                 'selected_collection_code': collection,
                 'journals': journals,
@@ -169,9 +173,12 @@ def base_data_manager(wrapped):
         data['subject_areas'] = request.stats.publication.list_subject_areas(data['selected_code'], data['selected_collection_code'])
         data['languages'] = [(i, choices.ISO_639_1.get(i.upper(), 'undefined')) for i in request.stats.publication.list_languages(data['selected_code'], data['selected_collection_code'])]
         data['publication_years'] = request.stats.publication.list_publication_years(data['selected_code'], data['selected_collection_code'])
-        data['py_range'] = request.session.get('py_range', '-'.join([data['publication_years'][-1], data['publication_years'][0]])).split('-')
+        if len(data['publication_years']) == 0:
+            data['publication_years'] = [str(datetime.datetime.now().year)]
+        py = '-'.join([data['publication_years'][-1], data['publication_years'][0]])
+        data['py_range'] = request.session.get('py_range', py).split('-')
         data['sa_scope'] = request.session.get('sa_scope', data['subject_areas'])
-        data['current_url'] = current_url(request.url, data)
+        data['share_this_url'] = current_url(request.url, data)
 
         setattr(request, 'data_manager', data)
 

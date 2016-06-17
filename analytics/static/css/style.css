@@ -85,10 +85,25 @@ body { padding-top: 70px; }
 }
 
 #share-this {
-    background-color: green;
+    border-radius: 5px;
+    background-color: #81A185;
     position: fixed;
-    right: -80px;
-    top: 160px;
+    right: -490px;
+    top: 225px;
     color: #FFFFFF;
     padding: 6px;
+    width: 530px;
+}
+
+#filters-submenu {
+
+}
+
+.dashed-hr{
+    border-top: 1px dashed #CCCCCC;
+    margin-top: 0px;
+}
+
+.continuous-hr{
+    border-top: 1px solid #CCCCCC;
 }

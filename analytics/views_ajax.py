@@ -24,7 +24,7 @@ def bibliometrics_journal_impact_factor_chart(request):
         titles.append(journal.abbreviated_title)
         titles.extend(x['title'] for x in custom_query.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
 
-    data = request.stats.impact_factor_chart(data['selected_journal_code'], data['selected_collection_code'], titles)
+    data = request.stats.impact_factor_chart(data['selected_journal_code'], data['selected_collection_code'], titles, py_range=data['py_range'])
 
     return request.chartsconfig.bibliometrics_impact_factor(data)
 
@@ -44,7 +44,7 @@ def bibliometrics_journal_received_self_and_granted_citation_chart(request):
         titles.append(journal.abbreviated_title)
         titles.extend(x['title'] for x in custom_query.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
 
-    data = request.stats.received_self_and_granted_citation_chart(data['selected_journal_code'], data['selected_collection_code'], titles)
+    data = request.stats.received_self_and_granted_citation_chart(data['selected_journal_code'], data['selected_collection_code'], titles, py_range=data['py_range'])
 
     return request.chartsconfig.bibliometrics_journal_received_self_and_granted_citation_chart(data)
 
@@ -55,7 +55,7 @@ def publication_article_references(request):
 
     data = request.data_manager
 
-    chart_data = request.stats.publication.general('article', 'citations', data['selected_code'], data['selected_collection_code'], data['py_range'], data['sa_scope'], 40, 'asc')
+    chart_data = request.stats.publication.general('article', 'citations', data['selected_code'], data['selected_collection_code'], py_range=data['py_range'], sa_scope=data['sa_scope'], size=40, sort_term='asc')
 
     return request.chartsconfig.publication_article_references(chart_data)
 
@@ -66,7 +66,7 @@ def publication_article_authors(request):
 
     data = request.data_manager
 
-    chart_data = request.stats.publication.general('article', 'authors', data['selected_code'], data['selected_collection_code'], data['py_range'], data['sa_scope'], 0, 'asc')
+    chart_data = request.stats.publication.general('article', 'authors', data['selected_code'], data['selected_collection_code'], py_range=data['py_range'], sa_scope=data['sa_scope'], size=0, sort_term='asc')
 
     return request.chartsconfig.publication_article_authors(chart_data)
 
@@ -77,7 +77,7 @@ def publication_article_affiliations_map(request):
 
     data = request.data_manager
 
-    chart_data = request.stats.publication.general('article', 'aff_countries', data['selected_code'], data['selected_collection_code'], data['py_range'], data['sa_scope'])
+    chart_data = request.stats.publication.general('article', 'aff_countries', data['selected_code'], data['selected_collection_code'], py_range=data['py_range'], sa_scope=data['sa_scope'])
 
     return request.chartsconfig.publication_article_affiliations_map(chart_data)
 
@@ -88,7 +88,7 @@ def publication_article_affiliations(request):
 
     data = request.data_manager
 
-    chart_data = request.stats.publication.general('article', 'aff_countries', data['selected_code'], data['selected_collection_code'], data['py_range'], data['sa_scope'], size=20)
+    chart_data = request.stats.publication.general('article', 'aff_countries', data['selected_code'], data['selected_collection_code'], py_range=data['py_range'], sa_scope=data['sa_scope'], size=20)
 
     return request.chartsconfig.publication_article_affiliations(chart_data)
 
@@ -110,7 +110,7 @@ def publication_article_year(request):
 
     data = request.data_manager
 
-    data_chart = request.stats.publication.general('article', 'publication_year', data['selected_code'], data['selected_collection_code'], data['py_range'], data['sa_scope'], 0, 'desc')
+    data_chart = request.stats.publication.general('article', 'publication_year', data['selected_code'], data['selected_collection_code'], py_range=data['py_range'], sa_scope=data['sa_scope'], size=0, sort_term='desc')
 
     return request.chartsconfig.publication_article_year(data_chart)
 
@@ -121,7 +121,7 @@ def publication_article_languages(request):
 
     data = request.data_manager
 
-    data_chart = request.stats.publication.general('article', 'languages', data['selected_code'], data['selected_collection_code'], data['py_range'], data['sa_scope'])
+    data_chart = request.stats.publication.general('article', 'languages', data['selected_code'], data['selected_collection_code'], py_range=data['py_range'], sa_scope=data['sa_scope'])
 
     return request.chartsconfig.publication_article_languages(data_chart)
 
@@ -143,7 +143,7 @@ def publication_journal_status(request):
 
     data = request.data_manager
 
-    data_chart = request.stats.publication.general('journal', 'status', data['selected_code'], data['selected_collection_code'], data['py_range'], data['sa_scope'])
+    data_chart = request.stats.publication.general('journal', 'status', data['selected_code'], data['selected_collection_code'], sa_scope=data['sa_scope'])
 
     return request.chartsconfig.publication_journal_status(data_chart)
 
@@ -154,7 +154,7 @@ def publication_journal_year(request):
 
     data = request.data_manager
 
-    data_chart = request.stats.publication.general('journal', 'included_at_year', data['selected_code'], data['selected_collection_code'], data['py_range'], data['sa_scope'], 0, 'asc')
+    data_chart = request.stats.publication.general('journal', 'included_at_year', data['selected_code'], data['selected_collection_code'], sa_scope=data['sa_scope'], size=0, sort_term='asc')
 
     return request.chartsconfig.publication_journal_year(data_chart)
 
@@ -165,7 +165,7 @@ def publication_article_citable_documents(request):
 
     data = request.data_manager
 
-    data_chart = request.stats.publication.citable_documents(data['selected_code'], data['selected_collection_code'])
+    data_chart = request.stats.publication.citable_documents(data['selected_code'], data['selected_collection_code'], py_range=data['py_range'])
 
     return request.chartsconfig.publication_article_citable_documents(data_chart)
 
@@ -176,7 +176,7 @@ def publication_article_subject_areas(request):
 
     data = request.data_manager
 
-    data_chart = request.stats.publication.general('article', 'subject_areas', data['selected_code'], data['selected_collection_code'], data['py_range'], data['sa_scope'])
+    data_chart = request.stats.publication.general('article', 'subject_areas', data['selected_code'], data['selected_collection_code'], py_range=data['py_range'], sa_scope=data['sa_scope'])
 
     return request.chartsconfig.publication_article_subject_areas(data_chart)
 
@@ -198,7 +198,7 @@ def publication_article_document_type(request):
 
     data = request.data_manager
 
-    data_chart = request.stats.publication.general('article', 'document_type', data['selected_code'], data['selected_collection_code'], data['py_range'], data['sa_scope'])
+    data_chart = request.stats.publication.general('article', 'document_type', data['selected_code'], data['selected_collection_code'], py_range=data['py_range'], sa_scope=data['sa_scope'])
 
     return request.chartsconfig.publication_article_document_type(data_chart)
 
@@ -220,7 +220,7 @@ def publication_article_licenses(request):
 
     data = request.data_manager
 
-    data_chart = request.stats.publication.general('article', 'license', data['selected_code'], data['selected_collection_code'], data['py_range'], data['sa_scope'])
+    data_chart = request.stats.publication.general('article', 'license', data['selected_code'], data['selected_collection_code'], py_range=data['py_range'], sa_scope=data['sa_scope'])
 
     return request.chartsconfig.publication_article_licenses(data_chart)
 
@@ -231,7 +231,7 @@ def publication_journal_subject_areas(request):
 
     data = request.data_manager
 
-    data_chart = request.stats.publication.general('journal', 'subject_areas', data['selected_code'], data['selected_collection_code'], data['py_range'], data['sa_scope'])
+    data_chart = request.stats.publication.general('journal', 'subject_areas', data['selected_code'], data['selected_collection_code'], sa_scope=data['sa_scope'])
 
     return request.chartsconfig.publication_journal_subject_areas(data_chart)
 
@@ -242,7 +242,7 @@ def publication_journal_licenses(request):
 
     data = request.data_manager
 
-    data_chart = request.stats.publication.general('journal', 'license', data['selected_code'], data['selected_collection_code'], data['py_range'], data['sa_scope'])
+    data_chart = request.stats.publication.general('journal', 'license', data['selected_code'], data['selected_collection_code'], sa_scope=data['sa_scope'])
 
     return request.chartsconfig.publication_journal_licenses(data_chart)
 

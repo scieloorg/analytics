@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="/static/daterangepicker/daterangepicker.css" />
     <script src="/static/jquery-1.11.1/jquery-1.11.1.min.js"></script>
     <script src="/static/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">stLight.options({publisher: "1eab5827-c9f3-406e-a65d-b1fdf08ae141", doNotHash: true, doNotCopy: true, hashAddressBar: false, onhover: false});</script>
+    <script src="/static/clipboard/clipboard.min.js"></script>
   </header>
   <body>
     <%include file="google_analytics.mako"/>
@@ -120,9 +124,15 @@
               <div class="panel-title"><b>${_(u'Filtros')}</b></div>
             </div>
             <div class="panel-body">
-              <h5>${_(u'Ano de publicação')}</h5>
-              <a href="#" valign="right" id="apply-py-range">${_(u"aplicar")}</a>
-              <hr>
+              <div class="row" id="filters-submenu">
+                <div class="col-md-8">
+                  <h5>${_(u'Ano de publicação')}</h5>
+                </div>
+                <div class="col-md-4" style="text-align: right;">
+                  <h5><a href="#" id="apply-py-range">${_(u"aplicar")}</a></h5>
+                </div>
+              </div>
+              <hr class="dashed-hr">
               <form id="py-range">
                 <p>
                   <label for="year_range">${_(u'período')}:</label>
@@ -130,11 +140,17 @@
                 </p>
                 <div id="slider-range"></div>
               </form>
-              <hr>
-              <h5>${_(u'Área temática')}</h5>
-              <a href="#" valign="right" id="apply-sa-scope">${_(u"aplicar")}</a>
-              <hr>
-              <form id="sa-scope-form" target="_self" method="post">
+              <hr class="continuous-hr">
+              <div class="row" id="filters-submenu">
+                <div class="col-md-8">
+                  <h5>${_(u'Área temática')}</h5>
+                </div>
+                <div class="col-md-4" style="text-align: right;">
+                  <h5><a href="#" valign="right" id="apply-sa-scope">${_(u"aplicar")}</a></h5>
+                </div>
+              </div>
+              <hr class="dashed-hr">
+              <form id="sa-scope-form" target="_self">
                 % for subject_area in sorted(subject_areas):
                 <div class="checkbox">
                   <label>
@@ -143,10 +159,16 @@
                 </div>
                 % endfor
               </form>
-              <hr>
-              <h5>${_(u'Idioma')}</h5>
-              <a href="#" valign="right" id="apply-la-scope">${_(u"aplicar")}</a>
-              <hr>
+              <hr class="continuous-hr">
+              <div class="row" id="filters-submenu">
+                <div class="col-md-8">
+                  <h5>${_(u'Idioma')}</h5>
+                </div>
+                <div class="col-md-4" style="text-align: right;">
+                  <h5><a href="#" valign="right" id="apply-la-scope">${_(u"aplicar")}</a></h5>
+                </div>
+              </div>              
+              <hr class="dashed-hr">
               <form>
                 % for iso, language in sorted(languages, key=lambda x: x[1]):
                 <div class="checkbox" id="la-scope">
@@ -156,16 +178,11 @@
                 </div>
                 % endfor
               </form>
+              <hr class="continuous-hr">
             </div>
         </div>
       </div>
       <div class="col-md-9">
-        <div class="panel panel-info">
-            <div class="panel-heading">${_(u'Ferramenta em desenvolvimento disponível em versão Beta Test.')}</div>
-            <div class="panel-body">
-                ${_(u'Esta ferramenta esta em desenvolvimento e foi publicada com o objetivo de realizar testes de uso e performance. Todos os indicadores carregados são reais e estão sendo atualizados e inseridos gradativamente. Problemas de lentidão e indisponibilidade do serviços são esperados nesta fase.')}
-            </div>
-        </div>
         <%block name="central_container" />
       </div>
     </div><!-- div row -->

@@ -28,7 +28,7 @@ def dogpile_controller_key_generator(namespace, fn, *kwargs):
             tuple(the_kwargs.items())
         ])
 
-        return str(hash(tp))
+        return hash(str(tp))
 
     return generate_key
 
