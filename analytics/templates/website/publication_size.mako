@@ -1,5 +1,5 @@
 ## coding: utf-8
-<%inherit file="base.mako"/>
+<%inherit file="central_container_for_article_filters.mako"/>
 
 <%block name="central_container">
     <div class="row container-fluid">

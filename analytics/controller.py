@@ -490,13 +490,40 @@ class CitedbyStats(clients.Citedby):
         return items
 
     @cache_region.cache_on_arguments()
-    def granted_citations(self, issn, size=0, raw=False):
-        body = {
+    def granted_citations(self, issn, size=0, py_range=None, raw=False):
+
+        body = {"query": {"filtered": {}}}
+
+        fltr = {
+            "filter": {
+                "bool": {
+                    "must": []
+
+                }
+            }
+        }
+
+        if py_range:
+            fltr["filter"]["bool"]['must'].append(
+                {
+                    "range": {
+                        "publication_year": {
+                            "gte": py_range[0],
+                            "lte": py_range[1]
+                        }
+                    }
+                }
+            )
+
+        query = {
             "query": {
                 "match": {
                     "issn": issn
                 }
-            },
+            }
+        }
+
+        aggs = {
             "aggs": {
                 "reference_source": {
                     "terms": {
@@ -506,6 +533,10 @@ class CitedbyStats(clients.Citedby):
                 }
             }
         }
+
+        body['query']['filtered'].update(fltr)
+        body['query']['filtered'].update(query)
+        body.update(aggs)
 
         query_parameters = [
             clients.citedby_thrift.kwargs('size', '0'),
@@ -610,15 +641,40 @@ class CitedbyStats(clients.Citedby):
         return items
 
     @cache_region.cache_on_arguments()
-    def received_citations(self, issn, titles, size=0, raw=False):
+    def received_citations(self, issn, titles, py_range=None, size=0, raw=False):
 
-        body = {
+        body = {"query": {"filtered": {}}}
+
+        fltr = {
+            "filter": {
+                "bool": {
+                    "must": []
+
+                }
+            }
+        }
+
+        if py_range:
+            fltr["filter"]["bool"]['must'].append(
+                {
+                    "range": {
+                        "publication_year": {
+                            "gte": py_range[0],
+                            "lte": py_range[1]
+                        }
+                    }
+                }
+            )
+
+        query = {
             "query": {
                 "bool": {
                     "should": [],
                     "must_not": []
                 }
-            },
+            }
+        }
+        aggs = {
             "aggs": {
                 "source": {
                     "terms": {
@@ -630,10 +686,14 @@ class CitedbyStats(clients.Citedby):
         }
 
         for item in self._fuzzy_custom_query(issn, titles):
-            body['query']['bool']['should'].append(item)
+            query['query']['bool']['should'].append(item)
 
         for item in self._must_not_custom_query(issn):
-            body['query']['bool']['must_not'].append(item)
+            query['query']['bool']['must_not'].append(item)
+
+        body['query']['filtered'].update(fltr)
+        body['query']['filtered'].update(query)
+        body.update(aggs)
 
         query_parameters = [
             clients.citedby_thrift.kwargs('size', '0'),
@@ -660,15 +720,40 @@ class CitedbyStats(clients.Citedby):
         return items
 
     @cache_region.cache_on_arguments()
-    def citing_forms(self, issn, titles, size=0, raw=False):
+    def citing_forms(self, issn, titles, py_range=None, size=0, raw=False):
 
-        body = {
+        body = {"query": {"filtered": {}}}
+
+        fltr = {
+            "filter": {
+                "bool": {
+                    "must": []
+
+                }
+            }
+        }
+
+        if py_range:
+            fltr["filter"]["bool"]['must'].append(
+                {
+                    "range": {
+                        "publication_year": {
+                            "gte": py_range[0],
+                            "lte": py_range[1]
+                        }
+                    }
+                }
+            )
+
+        query = {
             "query": {
                 "bool": {
                     "should": [],
                     "must_not": []
                 }
-            },
+            }
+        }
+        aggs = {
             "aggs": {
                 "reference_source": {
                     "terms": {
@@ -680,10 +765,14 @@ class CitedbyStats(clients.Citedby):
         }
 
         for item in self._fuzzy_custom_query(issn, titles):
-            body['query']['bool']['should'].append(item)
+            query['query']['bool']['should'].append(item)
 
         for item in self._must_not_custom_query(issn):
-            body['query']['bool']['must_not'].append(item)
+            query['query']['bool']['must_not'].append(item)
+
+        body['query']['filtered'].update(fltr)
+        body['query']['filtered'].update(query)
+        body.update(aggs)
 
         query_parameters = [
             clients.citedby_thrift.kwargs('size', '0'),
@@ -941,7 +1030,7 @@ class PublicationStats(clients.PublicationStats):
         return publication_year
 
     @cache_region.cache_on_arguments()
-    def general(self, index, field, code, collection, py_range=None, sa_scope=None, size=0, sort_term=None, raw=False):
+    def general(self, index, field, code, collection, py_range=None, sa_scope=None, la_scope=None, size=0, sort_term=None, raw=False):
 
         sort_term = sort_term if sort_term in ['asc', 'desc'] else None
 
@@ -972,6 +1061,15 @@ class PublicationStats(clients.PublicationStats):
                 {
                     "terms": {
                         "subject_areas": sa_scope
+                    }
+                }
+            )
+
+        if la_scope:
+            fltr["filter"]["bool"]['must'].append(
+                {
+                    "terms": {
+                        "languages": la_scope
                     }
                 }
             )
@@ -1043,7 +1141,7 @@ class PublicationStats(clients.PublicationStats):
             return None
 
     @cache_region.cache_on_arguments()
-    def collection_size(self, code, collection, field, py_range, sa_scope, raw=False):
+    def collection_size(self, code, collection, field, py_range, sa_scope, la_scope, raw=False):
 
         if field not in ['issue', 'issn', 'citations', 'documents']:
             raise ValueError('Expected values for field: [issue, issn, citations, documents]')
@@ -1064,6 +1162,10 @@ class PublicationStats(clients.PublicationStats):
                         }, {
                             "terms": {
                                 "subject_areas": sa_scope
+                            }
+                        }, {
+                            "terms": {
+                                "languages": la_scope
                             }
                         }
                     ]
@@ -1250,27 +1352,27 @@ class PublicationStats(clients.PublicationStats):
         return query_result if raw else computed
 
     @cache_region.cache_on_arguments()
-    def affiliations_by_publication_year(self, code, collection, py_range, sa_scope, raw=False):
-        result = self.by_publication_year(code, collection, 'aff_countries', py_range, sa_scope, raw)
+    def affiliations_by_publication_year(self, code, collection, py_range, sa_scope, la_scope, raw=False):
+        result = self.by_publication_year(code, collection, 'aff_countries', py_range, sa_scope,la_scope, raw)
 
         return result
 
     @cache_region.cache_on_arguments()
-    def subject_areas_by_publication_year(self, code, collection, py_range, sa_scope, raw=False):
+    def subject_areas_by_publication_year(self, code, collection, py_range, sa_scope, la_scope, raw=False):
 
-        return self.by_publication_year(code, collection, 'subject_areas', py_range, sa_scope, raw)
+        return self.by_publication_year(code, collection, 'subject_areas', py_range, sa_scope, la_scope, raw)
 
     @cache_region.cache_on_arguments()
-    def languages_by_publication_year(self, code, collection, py_range, sa_scope, raw=False):
+    def languages_by_publication_year(self, code, collection, py_range, sa_scope, la_scope, raw=False):
 
-        result = self.by_publication_year(code, collection, 'languages', py_range, sa_scope, raw)
+        result = self.by_publication_year(code, collection, 'languages', py_range, sa_scope, la_scope, raw)
 
         return result
 
     @cache_region.cache_on_arguments()
-    def lincenses_by_publication_year(self, code, collection, py_range, sa_scope, raw=False):
+    def lincenses_by_publication_year(self, code, collection, py_range, sa_scope, la_scope, raw=False):
 
-        return self.by_publication_year(code, collection, 'license', py_range, sa_scope, raw)
+        return self.by_publication_year(code, collection, 'license', py_range, sa_scope, la_scope, raw)
 
     @staticmethod
     def _compute_by_publication_year(query_result, field):
@@ -1308,7 +1410,7 @@ class PublicationStats(clients.PublicationStats):
         return {"series": series, "navigator_series": navigator_series}
 
     @cache_region.cache_on_arguments()
-    def by_publication_year(self, code, collection, field, py_range, sa_scope, raw=False):
+    def by_publication_year(self, code, collection, field, py_range, sa_scope, la_scope, raw=False):
 
         body = {"query": {"filtered": {}}}
 
@@ -1326,6 +1428,10 @@ class PublicationStats(clients.PublicationStats):
                         }, {
                             "terms": {
                                 "subject_areas": sa_scope
+                            }
+                        }, {
+                            "terms": {
+                                "languages": la_scope
                             }
                         }
                     ]
@@ -1469,7 +1575,7 @@ class AccessStats(clients.AccessStats):
         return data
 
     @cache_region.cache_on_arguments()
-    def list_journals(self, code, collection, py_range, sa_scope, date_range_start=None, date_range_end=None, raw=False):
+    def list_journals(self, code, collection, py_range, sa_scope, la_scope, date_range_start=None, date_range_end=None, raw=False):
 
         body = {"query": {"filtered": {}}}
 
@@ -1487,6 +1593,10 @@ class AccessStats(clients.AccessStats):
                         }, {
                             "terms": {
                                 "subject_areas": sa_scope
+                            }
+                        }, {
+                            "terms": {
+                                "languages": la_scope
                             }
                         }
                     ]
@@ -1579,18 +1689,18 @@ class AccessStats(clients.AccessStats):
             }
         }
 
-        body['query']['filtered'].update(fltr)
-        body['query']['filtered'].update(query)
-        body.update(aggs)
-
         code_type = self._code_type(code)
 
         if code_type:
-            body["query"]["bool"]["must"].append({
+            query["query"]["bool"]["must"].append({
                 "match": {
                     code_type: code
                 }
             })
+
+        body['query']['filtered'].update(fltr)
+        body['query']['filtered'].update(query)
+        body.update(aggs)
 
         query_parameters = [
             clients.accessstats_thrift.kwargs('size', '0')
@@ -1621,7 +1731,7 @@ class AccessStats(clients.AccessStats):
         return data
 
     @cache_region.cache_on_arguments()
-    def list_issues(self, code, collection, py_range, sa_scope, date_range_start=None, date_range_end=None, raw=False):
+    def list_issues(self, code, collection, py_range, sa_scope, la_scope, date_range_start=None, date_range_end=None, raw=False):
 
         body = {"query": {"filtered": {}}}
 
@@ -1639,6 +1749,10 @@ class AccessStats(clients.AccessStats):
                         }, {
                             "terms": {
                                 "subject_areas": sa_scope
+                            }
+                        }, {
+                            "terms": {
+                                "languages": la_scope
                             }
                         }
                     ]
@@ -1731,10 +1845,6 @@ class AccessStats(clients.AccessStats):
             }
         }
 
-        body['query']['filtered'].update(fltr)
-        body['query']['filtered'].update(query)
-        body.update(aggs)
-
         code_type = self._code_type(code)
 
         if code_type:
@@ -1743,6 +1853,10 @@ class AccessStats(clients.AccessStats):
                     code_type: code
                 }
             })
+
+        body['query']['filtered'].update(fltr)
+        body['query']['filtered'].update(query)
+        body.update(aggs)
 
         query_parameters = [
             clients.accessstats_thrift.kwargs('size', '0')
@@ -1773,7 +1887,7 @@ class AccessStats(clients.AccessStats):
         return data
 
     @cache_region.cache_on_arguments()
-    def list_articles(self, code, collection, py_range, sa_scope, date_range_start=None, date_range_end=None, raw=False):
+    def list_articles(self, code, collection, py_range, sa_scope, la_scope, date_range_start=None, date_range_end=None, raw=False):
 
         body = {"query": {"filtered": {}}}
 
@@ -1795,6 +1909,10 @@ class AccessStats(clients.AccessStats):
                         }, {
                             "terms": {
                                 "subject_areas": sa_scope
+                            }
+                        }, {
+                            "terms": {
+                                "languages": la_scope
                             }
                         }
                     ]
@@ -1887,10 +2005,6 @@ class AccessStats(clients.AccessStats):
             }
         }
 
-        body['query']['filtered'].update(fltr)
-        body['query']['filtered'].update(query)
-        body.update(aggs)
-
         code_type = self._code_type(code)
 
         if code_type:
@@ -1899,6 +2013,10 @@ class AccessStats(clients.AccessStats):
                     code_type: code
                 }
             })
+
+        body['query']['filtered'].update(fltr)
+        body['query']['filtered'].update(query)
+        body.update(aggs)
 
         query_parameters = [
             clients.accessstats_thrift.kwargs('size', '0')
@@ -1929,7 +2047,7 @@ class AccessStats(clients.AccessStats):
         return {"series": series}
 
     @cache_region.cache_on_arguments()
-    def access_by_document_type(self, code, collection, py_range, sa_scope, date_range_start=None, date_range_end=None, raw=False):
+    def access_by_document_type(self, code, collection, py_range, sa_scope, la_scope, date_range_start=None, date_range_end=None, raw=False):
 
         body = {"query": {"filtered": {}}}
 
@@ -1957,6 +2075,10 @@ class AccessStats(clients.AccessStats):
                         }, {
                             "terms": {
                                 "subject_areas": sa_scope
+                            }
+                        }, {
+                            "terms": {
+                                "languages": la_scope
                             }
                         }
                     ]
@@ -2043,7 +2165,7 @@ class AccessStats(clients.AccessStats):
         return charts
 
     @cache_region.cache_on_arguments()
-    def access_lifetime(self, code, collection, py_range, sa_scope, date_range_start=None, date_range_end=None, raw=False):
+    def access_lifetime(self, code, collection, py_range, sa_scope, la_scope, date_range_start=None, date_range_end=None, raw=False):
 
         body = {"query": {"filtered": {}}}
 
@@ -2071,6 +2193,10 @@ class AccessStats(clients.AccessStats):
                         }, {
                             "terms": {
                                 "subject_areas": sa_scope
+                            }
+                        }, {
+                            "terms": {
+                                "languages": la_scope
                             }
                         }
                     ]
@@ -2184,7 +2310,7 @@ class AccessStats(clients.AccessStats):
         return {'series': series, 'navigator_series': navigator_series}
 
     @cache_region.cache_on_arguments()
-    def access_by_month_and_year(self, code, collection, py_range, sa_scope, date_range_start=None, date_range_end=None, raw=False):
+    def access_by_month_and_year(self, code, collection, py_range, sa_scope, la_scope, date_range_start=None, date_range_end=None, raw=False):
 
         body = {"query": {"filtered": {}}}
 
@@ -2212,6 +2338,10 @@ class AccessStats(clients.AccessStats):
                         }, {
                             "terms": {
                                 "subject_areas": sa_scope
+                            }
+                        }, {
+                            "terms": {
+                                "languages": la_scope
                             }
                         }
                     ]

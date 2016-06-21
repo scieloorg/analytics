@@ -23,7 +23,12 @@ def current_url(current_url, data):
         'range_end': data.get('range_end', None)
     }
 
+    # escopo de áreas temáticas
     sa_scope = '&'.join(['sa_scope=%s' % i for i in data.get('sa_scope', [])])
+
+    # escopo de idiomas de publicação dos documentos
+    la_scope = '&'.join(['la_scope=%s' % k for k, v in data.get('la_scope', [])])
+
     params_url = '&'.join(['%s=%s' % (k, v) for k, v in params.items() if v]+[sa_scope])
 
     url = '?'.join([current_url.split('?')[0], params_url])
@@ -45,6 +50,7 @@ def check_session(wrapped):
         range_end = request.GET.get('range_end', None)
         py_range = request.GET.get('py_range', None)
         sa_scope = sorted([v for k, v in request.GET.items() if k == 'sa_scope'])
+        la_scope = sorted([v for k, v in request.GET.items() if k == 'la_scope'])
         locale = request.GET.get('_LOCALE_', request.locale_name)
 
         if journal == 'clean' and 'journal' in request.session:
@@ -66,6 +72,7 @@ def check_session(wrapped):
         session_range_end = request.session.get('range_end', None)
         session_py_range = request.session.get('py_range', None)
         session_sa_scope = sorted(request.session.get('sa_scope', []))
+        session_la_scope = sorted(request.session.get('la_scope', []))
         session_locale = request.session.get('_LOCALE_', None)
 
         if collection and collection != session_collection:
@@ -96,6 +103,9 @@ def check_session(wrapped):
 
         if sa_scope and sorted(sa_scope) != sorted(session_sa_scope):
             request.session['sa_scope'] = sorted(sa_scope)
+
+        if la_scope and sorted(la_scope) != sorted(session_la_scope):
+            request.session['la_scope'] = sorted(la_scope)
 
         if locale and locale != session_locale:
             request.session['_LOCALE_'] = locale
@@ -178,6 +188,7 @@ def base_data_manager(wrapped):
         py = '-'.join([data['publication_years'][-1], data['publication_years'][0]])
         data['py_range'] = request.session.get('py_range', py).split('-')
         data['sa_scope'] = request.session.get('sa_scope', data['subject_areas'])
+        data['la_scope'] = request.session.get('la_scope', [k for k, v in data['languages']])
         data['share_this_url'] = current_url(request.url, data)
 
         setattr(request, 'data_manager', data)
