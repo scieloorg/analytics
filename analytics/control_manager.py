@@ -27,7 +27,6 @@ def current_url(current_url, data):
     sa_scope = '&'.join(['sa_scope=%s' % i for i in data.get('sa_scope', [])])
 
     # escopo de idiomas de publicação dos documentos
-    print(data['la_scope'])
     la_scope = '&'.join(['la_scope=%s' % i for i in data.get('la_scope', [])])
 
     params_url = '&'.join(['%s=%s' % (k, v) for k, v in params.items() if v]+[sa_scope])
