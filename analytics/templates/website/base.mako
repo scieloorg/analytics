@@ -76,6 +76,9 @@
       <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
           <ul class="nav navbar-nav">
+            <li class="${'active' if page == 'home' else ''}">
+              <a href="${request.route_url('index_web')}"><span class="glyphicon glyphicon-home"></span></a>
+            </li>
             <li class="${'active' if page == 'accesses' else ''}">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${_(u'Acessos')} <span class="caret"></span></a>
               <ul class="dropdown-menu">

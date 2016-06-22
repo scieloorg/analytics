@@ -1,23 +1,9 @@
 ## coding: utf-8
-<div class="row container-fluid">
-  <div class="col-md-8">
-    <div id="citabledocuments" style="width:100%; height:400px;">
-      <span id="loading_citabledocuments">
-        <img src="/static/images/loading.gif" />
-        <h5>${_(u'loading')}</h5>
-      </span>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        <h3 class="panel-title">${_(u'Sobre o gráfico')}</h3>
-      </div>
-      <div class="panel-body">
-          ${_(u'Este gráfico apresenta a distribuição de documentos citáveis e não citáveis relacionados ao periódico selecionado. De acordo com as regras de contagem do SciELO, documentos citáveis devem ser do tipo "Research Article", "Review Article", "Case Report", "Brief Report", "Rapid Communication" e "Article Commentary". Os demais tipos de documentos são considerados não citáveis.')}
-      </div>
-    </div>
-  </div>
+<div id="citabledocuments" style="width:100%; height:400px;">
+  <span id="loading_citabledocuments">
+    <img src="/static/images/loading.gif" />
+    <h5>${_(u'loading')}</h5>
+  </span>
 </div>
 <script language="javascript">
     $("#loading_citabledocuments").show();

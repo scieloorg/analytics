@@ -1,5 +1,5 @@
 ## coding: utf-8
-<ul id="lifetime" style="width: 60%; list-style-type: none; padding: 0px; margin: 0px;"></ul>
+<ul id="lifetime" style="width: 100%; list-style-type: none; padding: 0px; margin: 0px;"></ul>
 <span id="loading_lifetime">
     <img src="/static/images/loading.gif" />
     <h5>${_(u'loading')}</h5>

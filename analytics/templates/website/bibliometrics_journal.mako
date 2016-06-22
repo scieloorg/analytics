@@ -21,14 +21,56 @@
       </div>
       % if not 'bibliometrics' in under_development:
         <div class="chart">
-          <%include file="publication_article_citable_documents.mako"/>
+          <div class="row container-fluid">
+            <div class="col-md-8">
+              <%include file="publication_article_citable_documents.mako"/>
+            </div>
+            <div class="col-md-4">
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  <h3 class="panel-title">${_(u'Sobre o gráfico')}</h3>
+                </div>
+                <div class="panel-body">
+                    ${_(u'Este gráfico apresenta a distribuição de documentos citáveis e não citáveis relacionados ao periódico selecionado. De acordo com as regras de contagem do SciELO, documentos citáveis devem ser do tipo "Research Article", "Review Article", "Case Report", "Brief Report", "Rapid Communication" e "Article Commentary". Os demais tipos de documentos são considerados não citáveis.')}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="chart">
-          <%include file="bibliometrics_journal_impact_factor_chart.mako"/>
+          <div class="row container-fluid">
+            <div class="col-md-8">
+              <%include file="bibliometrics_journal_impact_factor_chart.mako"/>
+            </div>
+            <div class="col-md-4">
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  <h3 class="panel-title">${_(u'Sobre o gráfico')}</h3>
+                </div>
+                <div class="panel-body">
+                    ${_(u'Este gráfico apresenta a o fator de impacto do periódico selecionado considerando os períodos de imediatez, além de períodos de 1 a 5 anos. A linha de 2 anos equivale ao fator de impacto de periódicos da Thomson Reuters')}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       % endif
       <div class="chart">
-        <%include file="bibliometrics_journal_received_self_and_granted_citation_chart.mako"/>
+        <div class="row container-fluid">
+          <div class="col-md-8">
+            <%include file="bibliometrics_journal_received_self_and_granted_citation_chart.mako"/>
+          </div>
+          <div class="col-md-4">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <h3 class="panel-title">${_(u'Sobre o gráfico')}</h3>
+              </div>
+              <div class="panel-body">
+                  ${_(u'Este gráfico apresenta o número de citações concedidas, recebidas e auto citações do periódico selecionado, os dados estão distribuidos por ano de publicação.')}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
   % endif
 </%block>
