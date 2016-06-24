@@ -126,6 +126,14 @@
       <%block name="central_container_for_journal_filters" />
       <%block name="central_container_for_bibliometric_filters" />
     </div><!-- div row -->
+    <div class="row" style="padding-left: 40px; padding-right: 40px; margin-top: 100px;">
+      <div class="panel panel-info">
+          <div class="panel-heading">${_(u'Ferramenta em desenvolvimento disponível em versão Beta Test.')}</div>
+          <div class="panel-body">
+              ${_(u'Esta ferramenta esta em desenvolvimento e foi publicada com o objetivo de realizar testes de uso e performance. Todos os indicadores carregados são reais e estão sendo atualizados e inseridos gradativamente. Problemas de lentidão e indisponibilidade do serviços são esperados nesta fase.')}
+          </div>
+      </div>
+    </div>
     <div class="row container-fluid footer">
       <div class="col-md-4">
         <p>
