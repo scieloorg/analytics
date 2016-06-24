@@ -83,3 +83,52 @@ body { padding-top: 70px; }
     text-align: center;
     vertical-align: middle;
 }
+
+#share-this {
+
+    background-color: #81A185;
+    position: fixed;
+    right: -1px;
+    top: 225px;
+    color: #FFFFFF;
+    padding: 6px;
+    width: 50px;
+    border: solid 1px #04461A;
+}
+
+#share-this label {
+    text-align: center;
+    width: 100%;
+    font-size: 12px;
+}
+
+#share-this ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    background-color: #C0C0C0;
+    border: 1px solid #CCCCCC;
+}
+
+#share-this li {
+    list-style: none;
+    padding: 5px;
+    text-align: center;
+}
+
+#share-this ul li a {
+    color: inherit;
+}
+
+#share-this ul li a:hover {
+    color: inherit;
+}
+
+.dashed-hr{
+    border-top: 1px dashed #CCCCCC;
+    margin-top: 0px;
+}
+
+.continuous-hr{
+    border-top: 1px solid #CCCCCC;
+}

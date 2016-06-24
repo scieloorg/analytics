@@ -1,5 +1,5 @@
 ## coding: utf-8
-<%inherit file="base.mako"/>
+<%inherit file="central_container_for_article_filters.mako"/>
 
 <%block name="central_container">
   <%include file="access_datepicker.mako"/>
@@ -19,7 +19,7 @@
           <a href="http://${selected_collection['domain']}/scielo.php?script=sci_arttext&amp;pid=${item['pid']}" target="_blank">
             <span class="glyphicon glyphicon-globe" />
           </a>
-          <a href="${request.route_url('accesses_web')}?document=${item['pid']}">${item['title']}</a></td>
+          <a href="${request.route_url('index_web')}?document=${item['pid']}">${item['title']}</a></td>
         <td>${item['html']}</td>
         <td>${item['pdf']}</td>
         <td>${item['epdf']}</td>

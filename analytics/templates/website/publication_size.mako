@@ -1,5 +1,5 @@
 ## coding: utf-8
-<%inherit file="base.mako"/>
+<%inherit file="central_container_for_article_filters.mako"/>
 
 <%block name="central_container">
     <div class="row container-fluid">
@@ -34,7 +34,7 @@
             <div class="panel-body">
               ${_(u'Os números a cima correspondem ao número de documentos publicados. Os números são relacionados a coleção ou ao periódico quando um periódico é selecionado na barra superior do site.')}
             </div>
-            </div>
+          </div>
         </div>
         <div class="col-md-3">
           <%include file="publication_size_citations.mako"/>

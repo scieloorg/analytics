@@ -1,5 +1,5 @@
 ## coding: utf-8
-<%inherit file="base.mako"/>
+<%inherit file="central_container_for_article_filters.mako"/>
 
 <%block name="central_container">
   <%include file="access_datepicker.mako"/>
