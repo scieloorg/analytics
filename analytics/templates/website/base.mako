@@ -77,7 +77,7 @@
         <div class="container-fluid">
           <ul class="nav navbar-nav">
             <li class="${'active' if page == 'home' else ''}">
-              <a href="${request.route_url('index_web')}"><span class="glyphicon glyphicon-home"></span></a>
+              <a href="${request.route_url('index_web')}"><span class="glyphicon glyphicon-home"></span> ${content_scope}</a>
             </li>
             <li class="${'active' if page == 'accesses' else ''}">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${_(u'Acessos')} <span class="caret"></span></a>
@@ -207,8 +207,8 @@
     $(function() {
       $( "#slider-range" ).slider({
         range: true,
-        min: ${sorted(publication_years)[0]},
-        max: ${sorted(publication_years)[-1]},
+        min: ${publication_years[0]},
+        max: ${publication_years[-1]},
         values: [${py_range[0]},${py_range[1]}],
         slide: function( event, ui ) {
           $( "#year-range" ).val( ui.values[0] + " - " + ui.values[1] );
@@ -236,6 +236,10 @@
     })      
     </script>
     <!-- Fim de JS de filtros de scopo de idioma-->
+    <script>
+      $('[data-toggle="popover"]').popover();
+      $('[data-toggle="tooltip"]').tooltip();
+    </script>
     <%block name="extra_js" />
   </body>
 </html>

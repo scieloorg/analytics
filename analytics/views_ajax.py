@@ -9,6 +9,18 @@ from analytics.custom_queries import custom_query
 cache_region = make_region(name='views_ajax_cache')
 
 
+@view_config(route_name='bibliometrics_document_received_citations', request_method='GET', renderer='jsonp')
+@base_data_manager
+def bibliometrics_document_received_citations(request):
+
+    data = request.data_manager
+    code = request.GET.get('code', '')
+
+    data = request.stats.bibliometrics.document_received_citations(code)
+
+    return data
+
+
 @view_config(route_name='bibliometrics_journal_impact_factor_chart', request_method='GET', renderer='jsonp')
 @base_data_manager
 def bibliometrics_journal_impact_factor_chart(request):

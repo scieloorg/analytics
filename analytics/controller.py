@@ -295,6 +295,15 @@ class Stats(object):
 
 class CitedbyStats(clients.Citedby):
 
+    def document_received_citations(self, document, py_range=None):
+
+        try:
+            data = json.loads(self.client.citedby_pid(document))
+        except:
+            return {}
+
+        return {'total': data.get('article', {}).get('total_received', 0)}
+
     @staticmethod
     def _compute_publication_and_citing_years(query_result):
         """
@@ -1025,7 +1034,7 @@ class PublicationStats(clients.PublicationStats):
 
         result = self.general('article', 'publication_year', code, collection, size=0, raw=True)
 
-        publication_year = [i['key'] for i in result['aggregations']['publication_year']['buckets']]
+        publication_year = sorted([i['key'] for i in result['aggregations']['publication_year']['buckets']])
 
         return publication_year
 

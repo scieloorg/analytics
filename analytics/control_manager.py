@@ -55,6 +55,7 @@ def check_session(wrapped):
 
         if journal == 'clean' and 'journal' in request.session:
             del request.session['journal']
+            document = None
             journal = None
             if 'document' in request.session:
                 del request.session['document']
@@ -185,10 +186,11 @@ def base_data_manager(wrapped):
         data['publication_years'] = request.stats.publication.list_publication_years(data['selected_code'], data['selected_collection_code'])
         if len(data['publication_years']) == 0:
             data['publication_years'] = [str(datetime.datetime.now().year)]
-        py = '-'.join([data['publication_years'][-1], data['publication_years'][0]])
+        py = '-'.join([data['publication_years'][0], data['publication_years'][-1]])
         data['py_range'] = request.session.get('py_range', py).split('-')
         data['sa_scope'] = request.session.get('sa_scope', data['subject_areas'])
         data['la_scope'] = request.session.get('la_scope', [k for k, v in data['languages']])
+        data['content_scope'] = 'document' if data['selected_document_code'] else 'journal' if data['selected_journal_code'] else 'collection' if data['selected_collection_code'] else 'network'
         data['share_this_url'] = current_url(request.url, data)
 
         setattr(request, 'data_manager', data)

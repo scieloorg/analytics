@@ -19,7 +19,7 @@
           <a href="http://${selected_collection['domain']}/scielo.php?script=sci_serial&amp;pid=${item['issn']}" target="_blank">
             <span class="glyphicon glyphicon-globe" />
           </a>
-          <a href="${request.route_url('accesses_web')}?journal=${item['issn']}">
+          <a href="${request.route_url('index_web')}?journal=${item['issn']}">
             ${item['title']}
           </a>
         </td>
