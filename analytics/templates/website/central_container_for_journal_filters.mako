@@ -5,7 +5,7 @@
   <div class="col-md-3">
     <div class="panel panel-default" id="filters-menu">
         <div class="panel-heading">
-          <div class="panel-title"><b>${_(u'Filtros para revistas')}</b></div>
+          <div class="panel-title"><b>${_(u'Filtros para periódicos')}</b></div>
         </div>
         <div class="panel-body">
           <div class="row" id="filters-submenu">
