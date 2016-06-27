@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Analytics\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2016-06-27 12:51-0300\n"
-"PO-Revision-Date: 2016-06-27 16:05+0000\n"
+"PO-Revision-Date: 2016-06-27 16:20+0000\n"
 "Last-Translator: fabiobatalha <fabiobatalha@gmail.com>\n"
 "Language-Team: Spanish (Mexico) (http://www.transifex.com/scielo/analytics/language/es_MX/)\n"
 "MIME-Version: 1.0\n"
@@ -802,7 +802,7 @@ msgstr "Filtrados para documentos"
 #: analytics/templates/website/central_container_for_article_filters.mako:22
 #: analytics/templates/website/central_container_for_bibliometric_filters.mako:22
 msgid "período"
-msgstr "revista"
+msgstr "período"
 
 #: analytics/templates/website/central_container_for_article_filters.mako:49
 msgid "Idioma"
