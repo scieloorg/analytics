@@ -41,8 +41,8 @@ def main(global_config, **settings):
     config.add_route('accesses_bymonthandyear', '/ajx/accesses/bymonthandyear')
     config.add_route('accesses_lifetime', '/ajx/accesses/lifetime')
     config.add_route('publication_size_web', '/w/publication/size')
-    config.add_route('publication_journal_web', '/w/publication/journal')
     config.add_route('publication_size', '/ajx/publication/size')
+    config.add_route('publication_journal_web', '/w/publication/journal')
     config.add_route('publication_journal_year', '/ajx/publication/journal/year')
     config.add_route('publication_journal_licenses', '/ajx/publication/journal/licenses')
     config.add_route('publication_journal_subject_areas', '/ajx/publication/journal/subject_areas')
@@ -71,6 +71,7 @@ def main(global_config, **settings):
     config.add_route('bibliometrics_list_citing_half_life_web', '/bibliometrics/list/citing_half_life')
     config.add_route('bibliometrics_journal_received_self_and_granted_citation_chart', '/ajx/bibliometrics/journal/received_self_and_granted_citation_chart')
     config.add_route('bibliometrics_journal_impact_factor_chart', '/ajx/bibliometrics/journal/impact_factor_chart')
+    config.add_route('bibliometrics_document_received_citations', '/ajx/bibliometrics/document/received_citations')
     config.add_request_method(add_stats, 'stats', reify=True)
     config.add_request_method(add_chartsconfig, 'chartsconfig', reify=True)
 

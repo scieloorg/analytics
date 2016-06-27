@@ -50,12 +50,12 @@ msgid "5 anos"
 msgstr ""
 
 #: analytics/charts_config.py:43
-msgid "Fator de Impacto em 1, 2, 3, 4, 5 anos e Índice de Imediatez"
+msgid "Impacto SciELO em 1, 2, 3, 4, 5 anos e Índice de Imediatez"
 msgstr ""
 
 #: analytics/charts_config.py:46 analytics/charts_config.py:48
 #: analytics/templates/website/bibliometrics_list_impact_factor.mako:33
-msgid "Fator de Impacto"
+msgid "Impacto SciELO"
 msgstr ""
 
 #: analytics/charts_config.py:49
@@ -730,7 +730,7 @@ msgid "Citações concedidas por periódico"
 msgstr ""
 
 #: analytics/templates/website/bibliometrics_list_impact_factor.mako:22
-msgid "Fator de Impacto em 1, 2, 3, 4 e 5 anos"
+msgid "Impacto SciELO em 1, 2, 3, 4 e 5 anos"
 msgstr ""
 
 #: analytics/templates/website/bibliometrics_list_impact_factor.mako:30
@@ -739,10 +739,11 @@ msgstr ""
 
 #: analytics/templates/website/bibliometrics_list_impact_factor.mako:31
 msgid ""
-"Aqui são considerados  apenas os documentos citáveis. Entendesse por "
-"documentos citáveis, todos os documentos elegíveis para o cálculo de Fator de"
-" Impacto, esses documentos devem ser do tipo Research Article ou Review "
-"Article."
+"Aqui são considerados apenas os documentos citáveis. De acordo com as regras "
+"de contagem do SciELO, documentos citáveis devem ser do tipo Research "
+"Article, Review Article, Case Report, Brief Report, Rapid Communication e "
+"Article Commentary. Os demais tipos de documentos são considerados não "
+"citáveis."
 msgstr ""
 
 #: analytics/templates/website/bibliometrics_list_impact_factor.mako:49
@@ -951,10 +952,11 @@ msgstr ""
 #: analytics/templates/website/publication_article_citable_documents.mako:17
 msgid ""
 "Este gráfico apresenta a distribuição de documentos citáveis e não citáveis "
-"relacionados ao periódico selecionado. Entendesse por documentos citáveis, "
-"todos os documentos elegíveis para contagem de fator de impacto, esses "
-"documentos devem ser do tipo \"Research Article\" ou \"Review Article\". Os "
-"demais tipos de documentos são considerados não citáveis."
+"relacionados ao periódico selecionado. De acordo com as regras de contagem do"
+" SciELO, documentos citáveis devem ser do tipo \"Research Article\", \"Review"
+" Article\", \"Case Report\", \"Brief Report\", \"Rapid Communication\" e "
+"\"Article Commentary\". Os demais tipos de documentos são considerados não "
+"citáveis."
 msgstr ""
 
 #: analytics/templates/website/publication_article_document_type.mako:17

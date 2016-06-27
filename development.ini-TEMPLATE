@@ -22,6 +22,8 @@ accessstats = 127.0.0.1:11660
 publicationstats = 127.0.0.1:11620
 articlemeta = 127.0.0.1:11720
 citedby = 127.0.0.1:11610
+altmetrics_user = 
+altmetrics_key = 
 
 #memcached_host = 127.0.0.1
 memcached_expiration_time =3600

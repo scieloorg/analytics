@@ -59,6 +59,7 @@ def bibliometrics_list_impact_factor(request):
 
     return data
 
+
 @view_config(route_name='bibliometrics_list_citing_half_life_web', renderer='templates/website/bibliometrics_list_citing_half_life.mako')
 @base_data_manager
 def bibliometrics_list_citing_half_life(request):
@@ -103,7 +104,7 @@ def bibliometrics_list_citing_forms(request):
     data['titles'] = []
     if titles and not len(titles) == 0:
         forms = set([i.strip() for i in titles if i])
-        data['blist'] = request.stats.bibliometrics.citing_forms(data['selected_journal_code'], forms)
+        data['blist'] = request.stats.bibliometrics.citing_forms(data['selected_journal_code'], forms, py_range=data['py_range'])
         data['titles'] = u'||'.join(forms)
 
     return data
@@ -128,7 +129,7 @@ def bibliometrics_list_received(request):
     data['titles'] = []
     if titles and not len(titles) == 0:
         forms = set([i.strip() for i in titles if i])
-        data['blist'] = request.stats.bibliometrics.received_citations(data['selected_journal_code'], forms)
+        data['blist'] = request.stats.bibliometrics.received_citations(data['selected_journal_code'], forms, py_range=data['py_range'])
         data['titles'] = u'||'.join(forms)
 
     return data
@@ -143,7 +144,8 @@ def bibliometrics_list_granted(request):
     data['blist'] = []
     if data['selected_journal_code']:
         data['blist'] = request.stats.bibliometrics.granted_citations(
-            data['selected_journal_code'])
+            data['selected_journal_code'],
+            py_range=data['py_range'])
 
     return data
 
@@ -207,6 +209,9 @@ def accesses_list_journals(request):
     data['aclist'] = request.stats.access.list_journals(
         data['selected_code'],
         data['selected_collection_code'],
+        data['py_range'],
+        data['sa_scope'],
+        data['la_scope'],
         data['range_start'],
         data['range_end']
     )
@@ -224,6 +229,9 @@ def accesses_list_issues(request):
     data['aclist'] = request.stats.access.list_issues(
         data['selected_code'],
         data['selected_collection_code'],
+        data['py_range'],
+        data['sa_scope'],
+        data['la_scope'],
         data['range_start'],
         data['range_end']
     )
@@ -241,6 +249,9 @@ def accesses_list_articles(request):
     data['aclist'] = request.stats.access.list_articles(
         data['selected_code'],
         data['selected_collection_code'],
+        data['py_range'],
+        data['sa_scope'],
+        data['la_scope'],
         data['range_start'],
         data['range_end']
     )

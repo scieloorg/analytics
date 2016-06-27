@@ -1,5 +1,5 @@
 ## coding: utf-8
-<%inherit file="base.mako"/>
+<%inherit file="central_container_without_filters.mako"/>
 
 <%block name="central_container">
 <h1>${_(u'Tabulações')}</h1>

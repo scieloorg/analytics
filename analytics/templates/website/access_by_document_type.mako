@@ -1,5 +1,5 @@
 ## coding: utf-8
-<div id="bydocumenttype" style="width:60%; height:400px;">
+<div id="bydocumenttype" style="width:100%; height:400px;">
     <span id="loading_bydocumenttype">
         <img src="/static/images/loading.gif" />
         <h5>${_(u'loading')}</h5>

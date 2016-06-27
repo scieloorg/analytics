@@ -31,7 +31,5 @@
         window.open("?range_start="+start.format('YYYY-MM-DD')+"&range_end="+end.format('YYYY-MM-DD'), name="_self");
       }
     );
-    $('[data-toggle="popover"]').popover();
-    $('[data-toggle="tooltip"]').tooltip();
   });
 </script>

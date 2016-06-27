@@ -8,9 +8,15 @@
     <link rel="stylesheet" href="/static/bootstrap-3.2.0/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/static/bootstrap-3.2.0/css/bootstrap-tokenfield.min.css">
     <link rel="stylesheet" href="/static/bootstrap-3.2.0/css/tokenfield-typeahead.min.css">
+    <link rel="stylesheet" href="/static/jquery-ui-1.11.4/jquery-ui.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/daterangepicker/daterangepicker.css" />
     <script src="/static/jquery-1.11.1/jquery-1.11.1.min.js"></script>
+    <script src="/static/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">stLight.options({publisher: "1eab5827-c9f3-406e-a65d-b1fdf08ae141", doNotHash: true, doNotCopy: true, hashAddressBar: false, onhover: false});</script>
+    <script src="/static/clipboard/clipboard.min.js"></script>
   </header>
   <body>
     <%include file="google_analytics.mako"/>
@@ -70,6 +76,9 @@
       <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
           <ul class="nav navbar-nav">
+            <li class="${'active' if page == 'home' else ''}">
+              <a href="${request.route_url('index_web')}"><span class="glyphicon glyphicon-home"></span> ${content_scope}</a>
+            </li>
             <li class="${'active' if page == 'accesses' else ''}">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${_(u'Acessos')} <span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -93,7 +102,7 @@
               <ul class="dropdown-menu">
                 <li><a href="${request.route_url('bibliometrics_journal_web')}">${_(u'Gráficos')}</a></li>
                 % if not 'bibliometrics' in under_development:
-                  <li><a href="${request.route_url('bibliometrics_list_impact_factor_web')}">${_(u'Fator de Impacto 1, 2, 3, 4 e 5 anos')}</a></li>
+                  <li><a href="${request.route_url('bibliometrics_list_impact_factor_web')}">${_(u'Impacto SciELO em 1, 2, 3, 4 e 5 anos')}</a></li>
                   <li><a href="${request.route_url('bibliometrics_list_citing_half_life_web')}">${_(u'Vida media da citação')}</a></li>
                 % endif
                 <li><a href="${request.route_url('bibliometrics_list_granted_web')}">${_(u'Citações concedidas por periódicos')}</a></li>
@@ -112,14 +121,19 @@
       </nav>
     </div> <!-- div row -->
     <div class="row container-fluid" style="padding-left: 40px; padding-right: 40px;">
+      <%block name="central_container_without_filters" />
+      <%block name="central_container_for_article_filters" />
+      <%block name="central_container_for_journal_filters" />
+      <%block name="central_container_for_bibliometric_filters" />
+    </div><!-- div row -->
+    <div class="row" style="padding-left: 40px; padding-right: 40px; margin-top: 100px;">
       <div class="panel panel-info">
           <div class="panel-heading">${_(u'Ferramenta em desenvolvimento disponível em versão Beta Test.')}</div>
           <div class="panel-body">
               ${_(u'Esta ferramenta esta em desenvolvimento e foi publicada com o objetivo de realizar testes de uso e performance. Todos os indicadores carregados são reais e estão sendo atualizados e inseridos gradativamente. Problemas de lentidão e indisponibilidade do serviços são esperados nesta fase.')}
           </div>
       </div>
-      <%block name="central_container" />
-    </div><!-- div row -->
+    </div>
     <div class="row container-fluid footer">
       <div class="col-md-4">
         <p>
@@ -167,6 +181,7 @@
       </center>
     </div>
     <%include file="journal_selector_modal.mako"/>
+    <%include file="share.mako"/>
     <script src="/static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
     <script src="/static/moment/moment.min.js"></script>
     <script src="/static/highcharts/highstock.js"></script>
@@ -193,6 +208,45 @@
         function(){
           $('#form_languages').submit();
         });
+    </script>
+    <!-- Início de JS de filtros de ano de publicação-->
+    <script>
+    var re_py_range_replace = new RegExp(' ', 'g');
+    $(function() {
+      $( "#slider-range" ).slider({
+        range: true,
+        min: ${publication_years[0]},
+        max: ${publication_years[-1]},
+        values: [${py_range[0]},${py_range[1]}],
+        slide: function( event, ui ) {
+          $( "#year-range" ).val( ui.values[0] + " - " + ui.values[1] );
+        }
+      });
+      $( "#year-range" ).val( $( "#slider-range" ).slider( "values", 0 ) +
+        " - " + $( "#slider-range" ).slider( "values", 1 ) );
+    });
+    $("#apply-py-range").click(function(){
+      window.open("?py_range=" + $("#year-range").val().replace(re_py_range_replace, ''), name="_self");
+    })
+    </script>
+    <!-- Fim de JS de filtros de ano de publicação-->
+    <!-- Início de JS de filtros de scopo de área temática-->
+    <script>
+    $("#apply-sa-scope").click(function() {
+      $("#sa-scope-form").submit();
+    })      
+    </script>
+    <!-- Fim de JS de filtros de scopo de área temática-->
+    <!-- Início de JS de filtros de scopo de idioma-->
+    <script>
+    $("#apply-la-scope").click(function() {
+      $("#la-scope-form").submit();
+    })      
+    </script>
+    <!-- Fim de JS de filtros de scopo de idioma-->
+    <script>
+      $('[data-toggle="popover"]').popover();
+      $('[data-toggle="tooltip"]').tooltip();
     </script>
     <%block name="extra_js" />
   </body>

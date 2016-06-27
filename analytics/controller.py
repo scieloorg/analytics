@@ -7,7 +7,20 @@ from dogpile.cache import make_region
 
 from analytics import utils
 from analytics.custom_queries import custom_query
+
+
 PAGE_SIZE = 20
+
+
+CITABLE_DOCUMENT_TYPES = (
+    u'article-commentary',
+    u'brief-report',
+    u'case-report',
+    u'rapid-communication',
+    u'research-article',
+    u'review-article'
+)
+
 
 ALLOWED_DOC_TYPES_N_FACETS = {
     'articles': [
@@ -157,11 +170,11 @@ class Stats(object):
 
         return data
 
-    def received_self_and_granted_citation_chart(self, issn, collection, titles):
+    def received_self_and_granted_citation_chart(self, issn, collection, titles, py_range=None):
 
-        self_citations = self.bibliometrics.self_citations(issn, titles, raw=True)
-        granted_citations = self.publication.granted_citations_by_year(issn, collection, raw=True)
-        received_citations = self.bibliometrics.received_citations_by_year(issn, titles, raw=True)
+        self_citations = self.bibliometrics.self_citations(issn, titles, py_range=py_range, raw=True)
+        granted_citations = self.publication.granted_citations_by_year(issn, collection, py_range=py_range, raw=True)
+        received_citations = self.bibliometrics.received_citations_by_year(issn, titles, py_range=py_range, raw=True)
 
         return self._compute_received_self_and_granted_citation_chart(self_citations, granted_citations, received_citations)
 
@@ -201,11 +214,11 @@ class Stats(object):
         return cit_docs
 
     @cache_region.cache_on_arguments()
-    def impact_factor(self, issn, collection, titles, citation_size=0):
+    def impact_factor(self, issn, collection, titles, py_range=None, citation_size=0):
 
-        pub_citing_years = self.bibliometrics.publication_and_citing_years(issn, titles, citation_size=citation_size, raw=True)
+        pub_citing_years = self.bibliometrics.publication_and_citing_years(issn, titles, py_range=py_range, citation_size=citation_size, raw=True)
 
-        citable_docs = self.publication.citable_documents(issn, collection, raw=True)
+        citable_docs = self.publication.citable_documents(issn, collection, py_range=py_range, raw=True)
 
         return self._compute_impact_factor(pub_citing_years, citable_docs)
 
@@ -228,9 +241,9 @@ class Stats(object):
 
         return {"series": series, "categories": categories}
 
-    def impact_factor_chart(self, issn, collection, titles):
+    def impact_factor_chart(self, issn, collection, titles, py_range=None):
 
-        query_result = self.impact_factor(issn, collection, titles, citation_size=0)
+        query_result = self.impact_factor(issn, collection, titles, py_range=py_range, citation_size=0)
 
         return self._compute_impact_factor_chart(query_result)
 
@@ -282,6 +295,15 @@ class Stats(object):
 
 class CitedbyStats(clients.Citedby):
 
+    def document_received_citations(self, document, py_range=None):
+
+        try:
+            data = json.loads(self.client.citedby_pid(document))
+        except:
+            return {}
+
+        return {'total': data.get('article', {}).get('total_received', 0)}
+
     @staticmethod
     def _compute_publication_and_citing_years(query_result):
         """
@@ -294,15 +316,41 @@ class CitedbyStats(clients.Citedby):
         return query_result
 
     @cache_region.cache_on_arguments()
-    def publication_and_citing_years(self, issn, titles, size=0, citation_size=0, raw=False):
+    def publication_and_citing_years(self, issn, titles, py_range=None, size=0, citation_size=0, raw=False):
 
-        body = {
+        body = {"query": {"filtered": {}}}
+
+        fltr = {
+            "filter": {
+                "bool": {
+                    "must": []
+
+                }
+            }
+        }
+
+        if py_range:
+            fltr["filter"]["bool"]['must'].append(
+                {
+                    "range": {
+                        "publication_year": {
+                            "gte": py_range[0],
+                            "lte": py_range[1]
+                        }
+                    }
+                }
+            )
+
+        query = {
             "query": {
                 "bool": {
                     "should": [],
                     "must_not": []
                 }
-            },
+            }
+        }
+
+        aggs = {
             "aggs": {
                 "publication_year": {
                     "terms": {
@@ -325,10 +373,14 @@ class CitedbyStats(clients.Citedby):
         }
 
         for item in self._fuzzy_custom_query(issn, titles):
-            body['query']['bool']['should'].append(item)
+            query['query']['bool']['should'].append(item)
 
         for item in self._must_not_custom_query(issn):
-            body['query']['bool']['must_not'].append(item)
+            query['query']['bool']['must_not'].append(item)
+
+        body['query']['filtered'].update(fltr)
+        body['query']['filtered'].update(query)
+        body.update(aggs)
 
         query_parameters = [
             clients.citedby_thrift.kwargs('size', '0'),
@@ -360,24 +412,45 @@ class CitedbyStats(clients.Citedby):
         return {"series": series, "categories": categories}
 
     @cache_region.cache_on_arguments()
-    def self_citations(self, issn, titles, size=0, raw=False):
+    def self_citations(self, issn, titles, py_range=None, size=0, raw=False):
 
-        body = {
-            "query": {
-                "filtered": {
-                    "query": {
-                        "bool": {
-                            "should": [],
-                            "must_not": []
-                        }
-                    },
-                    "filter": {
+        body = {"query": {"filtered": {}}}
+
+        fltr = {
+            "filter": {
+                "bool": {
+                    "must": [{
                         "term": {
                             "issn": issn
                         }
+                    }]
+
+                }
+            }
+        }
+
+        if py_range:
+            fltr["filter"]["bool"]['must'].append(
+                {
+                    "range": {
+                        "publication_year": {
+                            "gte": py_range[0],
+                            "lte": py_range[1]
+                        }
                     }
                 }
-            },
+            )
+
+        query = {
+            "query": {
+                "bool": {
+                    "should": [],
+                    "must_not": []
+                }
+            }
+        }
+
+        aggs = {
             "aggs": {
                 "publication_year": {
                     "terms": {
@@ -392,10 +465,14 @@ class CitedbyStats(clients.Citedby):
         }
 
         for item in self._fuzzy_custom_query(issn, titles):
-            body['query']['filtered']['query']['bool']['should'].append(item)
+            query['query']['bool']['should'].append(item)
 
         for item in self._must_not_custom_query(issn):
-            body['query']['filtered']['query']['bool']['must_not'].append(item)
+            query['query']['bool']['must_not'].append(item)
+
+        body['query']['filtered'].update(fltr)
+        body['query']['filtered'].update(query)
+        body.update(aggs)
 
         query_parameters = [
             clients.citedby_thrift.kwargs('size', '0'),
@@ -422,13 +499,40 @@ class CitedbyStats(clients.Citedby):
         return items
 
     @cache_region.cache_on_arguments()
-    def granted_citations(self, issn, size=0, raw=False):
-        body = {
+    def granted_citations(self, issn, size=0, py_range=None, raw=False):
+
+        body = {"query": {"filtered": {}}}
+
+        fltr = {
+            "filter": {
+                "bool": {
+                    "must": []
+
+                }
+            }
+        }
+
+        if py_range:
+            fltr["filter"]["bool"]['must'].append(
+                {
+                    "range": {
+                        "publication_year": {
+                            "gte": py_range[0],
+                            "lte": py_range[1]
+                        }
+                    }
+                }
+            )
+
+        query = {
             "query": {
                 "match": {
                     "issn": issn
                 }
-            },
+            }
+        }
+
+        aggs = {
             "aggs": {
                 "reference_source": {
                     "terms": {
@@ -438,6 +542,10 @@ class CitedbyStats(clients.Citedby):
                 }
             }
         }
+
+        body['query']['filtered'].update(fltr)
+        body['query']['filtered'].update(query)
+        body.update(aggs)
 
         query_parameters = [
             clients.citedby_thrift.kwargs('size', '0'),
@@ -464,15 +572,40 @@ class CitedbyStats(clients.Citedby):
         return items
 
     @cache_region.cache_on_arguments()
-    def received_citations_by_year(self, issn, titles, size=0, raw=False):
+    def received_citations_by_year(self, issn, titles, py_range=None, size=0, raw=False):
 
-        body = {
+        body = {"query": {"filtered": {}}}
+
+        fltr = {
+            "filter": {
+                "bool": {
+                    "must": []
+
+                }
+            }
+        }
+
+        if py_range:
+            fltr["filter"]["bool"]['must'].append(
+                {
+                    "range": {
+                        "publication_year": {
+                            "gte": py_range[0],
+                            "lte": py_range[1]
+                        }
+                    }
+                }
+            )
+
+        query = {
             "query": {
                 "bool": {
                     "should": [],
                     "must_not": []
                 }
-            },
+            }
+        }
+        aggs = {
             "aggs": {
                 "publication_year": {
                     "terms": {
@@ -484,10 +617,14 @@ class CitedbyStats(clients.Citedby):
         }
 
         for item in self._fuzzy_custom_query(issn, titles):
-            body['query']['bool']['should'].append(item)
+            query['query']['bool']['should'].append(item)
 
         for item in self._must_not_custom_query(issn):
-            body['query']['bool']['must_not'].append(item)
+            query['query']['bool']['must_not'].append(item)
+
+        body['query']['filtered'].update(fltr)
+        body['query']['filtered'].update(query)
+        body.update(aggs)
 
         query_parameters = [
             clients.citedby_thrift.kwargs('size', '0'),
@@ -513,15 +650,40 @@ class CitedbyStats(clients.Citedby):
         return items
 
     @cache_region.cache_on_arguments()
-    def received_citations(self, issn, titles, size=0, raw=False):
+    def received_citations(self, issn, titles, py_range=None, size=0, raw=False):
 
-        body = {
+        body = {"query": {"filtered": {}}}
+
+        fltr = {
+            "filter": {
+                "bool": {
+                    "must": []
+
+                }
+            }
+        }
+
+        if py_range:
+            fltr["filter"]["bool"]['must'].append(
+                {
+                    "range": {
+                        "publication_year": {
+                            "gte": py_range[0],
+                            "lte": py_range[1]
+                        }
+                    }
+                }
+            )
+
+        query = {
             "query": {
                 "bool": {
                     "should": [],
                     "must_not": []
                 }
-            },
+            }
+        }
+        aggs = {
             "aggs": {
                 "source": {
                     "terms": {
@@ -533,10 +695,14 @@ class CitedbyStats(clients.Citedby):
         }
 
         for item in self._fuzzy_custom_query(issn, titles):
-            body['query']['bool']['should'].append(item)
+            query['query']['bool']['should'].append(item)
 
         for item in self._must_not_custom_query(issn):
-            body['query']['bool']['must_not'].append(item)
+            query['query']['bool']['must_not'].append(item)
+
+        body['query']['filtered'].update(fltr)
+        body['query']['filtered'].update(query)
+        body.update(aggs)
 
         query_parameters = [
             clients.citedby_thrift.kwargs('size', '0'),
@@ -563,15 +729,40 @@ class CitedbyStats(clients.Citedby):
         return items
 
     @cache_region.cache_on_arguments()
-    def citing_forms(self, issn, titles, size=0, raw=False):
+    def citing_forms(self, issn, titles, py_range=None, size=0, raw=False):
 
-        body = {
+        body = {"query": {"filtered": {}}}
+
+        fltr = {
+            "filter": {
+                "bool": {
+                    "must": []
+
+                }
+            }
+        }
+
+        if py_range:
+            fltr["filter"]["bool"]['must'].append(
+                {
+                    "range": {
+                        "publication_year": {
+                            "gte": py_range[0],
+                            "lte": py_range[1]
+                        }
+                    }
+                }
+            )
+
+        query = {
             "query": {
                 "bool": {
                     "should": [],
                     "must_not": []
                 }
-            },
+            }
+        }
+        aggs = {
             "aggs": {
                 "reference_source": {
                     "terms": {
@@ -583,10 +774,14 @@ class CitedbyStats(clients.Citedby):
         }
 
         for item in self._fuzzy_custom_query(issn, titles):
-            body['query']['bool']['should'].append(item)
+            query['query']['bool']['should'].append(item)
 
         for item in self._must_not_custom_query(issn):
-            body['query']['bool']['must_not'].append(item)
+            query['query']['bool']['must_not'].append(item)
+
+        body['query']['filtered'].update(fltr)
+        body['query']['filtered'].update(query)
+        body.update(aggs)
 
         query_parameters = [
             clients.citedby_thrift.kwargs('size', '0'),
@@ -686,9 +881,32 @@ class PublicationStats(clients.PublicationStats):
         return {"series": series, "categories": categories}
 
     @cache_region.cache_on_arguments()
-    def granted_citations_by_year(self, code, collection, raw=False):
+    def granted_citations_by_year(self, code, collection, py_range=None, raw=False):
 
-        body = {
+        body = {"query": {"filtered": {}}}
+
+        fltr = {
+            "filter": {
+                "bool": {
+                    "must": []
+                }
+            }
+        }
+
+        if py_range:
+            fltr["filter"]["bool"]['must'].append(
+                {
+                    "range": {
+                        "publication_year": {
+                            "gte": py_range[0],
+                            "lte": py_range[1]
+                        }
+                    }
+                }
+            )
+            body['query']['filtered'].update(fltr)
+
+        query = {
             "query": {
                 "bool": {
                     "must": [
@@ -699,7 +917,10 @@ class PublicationStats(clients.PublicationStats):
                         }
                     ]
                 }
-            },
+            }
+        }
+
+        aggs = {
             "aggs": {
                 "publication_year": {
                     "terms": {
@@ -720,11 +941,14 @@ class PublicationStats(clients.PublicationStats):
         code_type = self._code_type(code)
 
         if code_type:
-            body["query"]["bool"]["must"].append({
+            query["query"]["bool"]["must"].append({
                 "match": {
                     code_type: code
                 }
             })
+
+        body['query']['filtered'].update(query)
+        body.update(aggs)
 
         query_parameters = [
             clients.publicationstats_thrift.kwargs('size', '0'),
@@ -767,11 +991,99 @@ class PublicationStats(clients.PublicationStats):
         return {"series": series, "categories": categories}
 
     @cache_region.cache_on_arguments()
-    def general(self, index, field, code, collection, size=0, sort_term=None, raw=False):
+    def list_subject_areas(self, code, collection):
+        """
+        Este método retorna uma lista de áreas temáticas disponíveis de acordo com os
+        filtros indicados.
+
+        Ex:
+        [u'Health Sciences', u'Agricultural Sciences', u'Human Sciences']
+        """
+
+        result = self.general('article', 'subject_areas', code, collection, size=0, raw=True)
+
+        subject_areas = [i['key'] for i in result['aggregations']['subject_areas']['buckets']]
+
+        return subject_areas
+
+    @cache_region.cache_on_arguments()
+    def list_languages(self, code, collection):
+        """
+        Este método retorna uma lista de idiomas disponíveis de acordo com os
+        filtros indicados.
+
+        Ex:
+        [u'PT', u'ES', u'EN']
+        """
+
+        result = self.general('article', 'languages', code, collection, size=0, raw=True)
+
+        languages = [i['key'] for i in result['aggregations']['languages']['buckets']]
+
+        return languages
+
+    @cache_region.cache_on_arguments()
+    def list_publication_years(self, code, collection):
+        """
+        Este método retorna uma lista de anos de publicação disponíveis de acordo
+        com os filtros indicados.
+
+        Ex:
+        [u'2015', u'2016', u'2017']
+        """
+
+        result = self.general('article', 'publication_year', code, collection, size=0, raw=True)
+
+        publication_year = sorted([i['key'] for i in result['aggregations']['publication_year']['buckets']])
+
+        return publication_year
+
+    @cache_region.cache_on_arguments()
+    def general(self, index, field, code, collection, py_range=None, sa_scope=None, la_scope=None, size=0, sort_term=None, raw=False):
 
         sort_term = sort_term if sort_term in ['asc', 'desc'] else None
 
-        body = {
+        body = {"query": {"filtered": {}}}
+
+        fltr = {
+            "filter": {
+                "bool": {
+                    "must": []
+                }
+            }
+        }
+
+        if py_range:
+            fltr["filter"]["bool"]['must'].append(
+                {
+                    "range": {
+                        "publication_year": {
+                            "gte": py_range[0],
+                            "lte": py_range[1]
+                        }
+                    }
+                }
+            )
+
+        if sa_scope:
+            fltr["filter"]["bool"]['must'].append(
+                {
+                    "terms": {
+                        "subject_areas": sa_scope
+                    }
+                }
+            )
+
+        if la_scope:
+            fltr["filter"]["bool"]['must'].append(
+                {
+                    "terms": {
+                        "languages": la_scope
+                    }
+                }
+            )
+
+        query = {
             "query": {
                 "bool": {
                     "must": [
@@ -782,7 +1094,10 @@ class PublicationStats(clients.PublicationStats):
                         }
                     ]
                 }
-            },
+            }
+        }
+
+        aggs = {
             "aggs": {
                 field: {
                     "terms": {
@@ -794,16 +1109,20 @@ class PublicationStats(clients.PublicationStats):
         }
 
         if sort_term:
-            body['aggs'][field]['terms']['order'] = {"_term": sort_term}
+            aggs['aggs'][field]['terms']['order'] = {"_term": sort_term}
 
         code_type = self._code_type(code)
 
         if code_type:
-            body["query"]["bool"]["must"].append({
+            query["query"]["bool"]["must"].append({
                 "match": {
                     code_type: code
                 }
             })
+
+        body['query']['filtered'].update(fltr)
+        body['query']['filtered'].update(query)
+        body.update(aggs)
 
         query_parameters = [
             clients.publicationstats_thrift.kwargs('size', '0'),
@@ -831,12 +1150,39 @@ class PublicationStats(clients.PublicationStats):
             return None
 
     @cache_region.cache_on_arguments()
-    def collection_size(self, code, collection, field, raw=False):
+    def collection_size(self, code, collection, field, py_range, sa_scope, la_scope, raw=False):
 
         if field not in ['issue', 'issn', 'citations', 'documents']:
             raise ValueError('Expected values for field: [issue, issn, citations, documents]')
 
-        body = {
+        body = {"query": {"filtered": {}}}
+
+        fltr = {
+            "filter": {
+                "bool": {
+                    "must": [
+                        {
+                            "range": {
+                                "publication_year": {
+                                    "gte": py_range[0],
+                                    "lte": py_range[1]
+                                }
+                            }
+                        }, {
+                            "terms": {
+                                "subject_areas": sa_scope
+                            }
+                        }, {
+                            "terms": {
+                                "languages": la_scope
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+
+        query = {
             "query": {
                 "bool": {
                     "must": [
@@ -850,10 +1196,12 @@ class PublicationStats(clients.PublicationStats):
             }
         }
 
-        code_type = self._code_type(code)
+        body['query']['filtered'].update(fltr)
+        body['query']['filtered'].update(query)
 
+        code_type = self._code_type(code)
         if code_type:
-            body["query"]["bool"]["must"].append({
+            query["query"]["bool"]["must"].append({
                 "match": {
                     code_type: code
                 }
@@ -915,9 +1263,30 @@ class PublicationStats(clients.PublicationStats):
         return {"series": series, "navigator_series": navigator_series}
 
     @cache_region.cache_on_arguments()
-    def citable_documents(self, code, collection, raw=False):
+    def citable_documents(self, code, collection, py_range=None, raw=False):
 
-        body = {
+        body = {"query": {"filtered": {}}}
+
+        if py_range:
+            fltr = {
+                "filter": {
+                    "bool": {
+                        "must": [
+                            {
+                                "range": {
+                                    "publication_year": {
+                                        "gte": py_range[0],
+                                        "lte": py_range[1]
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+            body['query']['filtered'].update(fltr)
+
+        query = {
             "query": {
                 "bool": {
                     "must": [
@@ -928,7 +1297,9 @@ class PublicationStats(clients.PublicationStats):
                         }
                     ]
                 }
-            },
+            }
+        }
+        aggs = {
             "aggs": {
                 "publication_year": {
                     "terms": {
@@ -942,36 +1313,14 @@ class PublicationStats(clients.PublicationStats):
                         "citable_documents": {
                             "filter": {
                                 "bool": {
-                                    "should": [
-                                        {
-                                            "term": {
-                                                "document_type": "research-article"
-                                            }
-                                        },
-                                        {
-                                            "term": {
-                                                "document_type": "review-article"
-                                            }
-                                        }
-                                    ]
+                                    "should": []
                                 }
                             }
                         },
                         "not_citable_documents": {
                             "filter": {
                                 "bool": {
-                                    "must_not": [
-                                        {
-                                            "term": {
-                                                "document_type": "research-article"
-                                            }
-                                        },
-                                        {
-                                            "term": {
-                                                "document_type": "review-article"
-                                            }
-                                        }
-                                    ]
+                                    "must_not": []
                                 }
                             }
                         }
@@ -980,14 +1329,26 @@ class PublicationStats(clients.PublicationStats):
             }
         }
 
+        for thematic_area in CITABLE_DOCUMENT_TYPES:
+            aggs['aggs']['publication_year']['aggs']['citable_documents']['filter']['bool']['should'].append(
+                {"term": {"document_type": thematic_area}}
+            )
+
+            aggs['aggs']['publication_year']['aggs']['not_citable_documents']['filter']['bool']['must_not'].append(
+                {"term": {"document_type": thematic_area}}
+            )
+
         code_type = self._code_type(code)
 
         if code_type:
-            body["query"]["bool"]["must"].append({
+            query["query"]["bool"]["must"].append({
                 "match": {
                     code_type: code
                 }
             })
+
+        body['query']['filtered'].update(query)
+        body.update(aggs)
 
         query_parameters = [
             clients.publicationstats_thrift.kwargs('size', '0'),
@@ -1000,24 +1361,27 @@ class PublicationStats(clients.PublicationStats):
         return query_result if raw else computed
 
     @cache_region.cache_on_arguments()
-    def affiliations_by_publication_year(self, code, collection, raw=False):
+    def affiliations_by_publication_year(self, code, collection, py_range, sa_scope, la_scope, raw=False):
+        result = self.by_publication_year(code, collection, 'aff_countries', py_range, sa_scope,la_scope, raw)
 
-        return self.by_publication_year(code, collection, 'aff_countries', raw)
-
-    @cache_region.cache_on_arguments()
-    def subject_areas_by_publication_year(self, code, collection, raw=False):
-
-        return self.by_publication_year(code, collection, 'subject_areas', raw)
+        return result
 
     @cache_region.cache_on_arguments()
-    def languages_by_publication_year(self, code, collection, raw=False):
+    def subject_areas_by_publication_year(self, code, collection, py_range, sa_scope, la_scope, raw=False):
 
-        return self.by_publication_year(code, collection, 'languages', raw)
+        return self.by_publication_year(code, collection, 'subject_areas', py_range, sa_scope, la_scope, raw)
 
     @cache_region.cache_on_arguments()
-    def lincenses_by_publication_year(self, code, collection, raw=False):
+    def languages_by_publication_year(self, code, collection, py_range, sa_scope, la_scope, raw=False):
 
-        return self.by_publication_year(code, collection, 'license', raw)
+        result = self.by_publication_year(code, collection, 'languages', py_range, sa_scope, la_scope, raw)
+
+        return result
+
+    @cache_region.cache_on_arguments()
+    def lincenses_by_publication_year(self, code, collection, py_range, sa_scope, la_scope, raw=False):
+
+        return self.by_publication_year(code, collection, 'license', py_range, sa_scope, la_scope, raw)
 
     @staticmethod
     def _compute_by_publication_year(query_result, field):
@@ -1055,7 +1419,34 @@ class PublicationStats(clients.PublicationStats):
         return {"series": series, "navigator_series": navigator_series}
 
     @cache_region.cache_on_arguments()
-    def by_publication_year(self, code, collection, field, raw=False):
+    def by_publication_year(self, code, collection, field, py_range, sa_scope, la_scope, raw=False):
+
+        body = {"query": {"filtered": {}}}
+
+        fltr = {
+            "filter": {
+                "bool": {
+                    "must": [
+                        {
+                            "range": {
+                                "publication_year": {
+                                    "gte": py_range[0],
+                                    "lte": py_range[1]
+                                }
+                            }
+                        }, {
+                            "terms": {
+                                "subject_areas": sa_scope
+                            }
+                        }, {
+                            "terms": {
+                                "languages": la_scope
+                            }
+                        }
+                    ]
+                }
+            }
+        }
 
         allowed_fields = [
             'license', 'languages', 'subject_areas', 'aff_countries'
@@ -1063,7 +1454,7 @@ class PublicationStats(clients.PublicationStats):
 
         field = field if field in allowed_fields else None
 
-        body = {
+        query = {
             "query": {
                 "bool": {
                     "must": [
@@ -1074,8 +1465,10 @@ class PublicationStats(clients.PublicationStats):
                         }
                     ]
                 }
-            },
-            "size": 0,
+            }
+        }
+
+        aggs = {
             "aggs": {
                 "publication_year": {
                     "terms": {
@@ -1091,7 +1484,7 @@ class PublicationStats(clients.PublicationStats):
         }
 
         if field:
-            body['aggs']['publication_year']['aggs'] = {
+            aggs['aggs']['publication_year']['aggs'] = {
                 field: {
                     "terms": {
                         "field": field,
@@ -1103,11 +1496,15 @@ class PublicationStats(clients.PublicationStats):
         code_type = self._code_type(code)
 
         if code_type:
-            body["query"]["bool"]["must"].append({
+            query["query"]["bool"]["must"].append({
                 "match": {
                     code_type: code
                 }
             })
+
+        body['query']['filtered'].update(fltr)
+        body['query']['filtered'].update(query)
+        body.update(aggs)
 
         query_parameters = [
             clients.accessstats_thrift.kwargs('size', '0')
@@ -1187,7 +1584,34 @@ class AccessStats(clients.AccessStats):
         return data
 
     @cache_region.cache_on_arguments()
-    def list_journals(self, code, collection, date_range_start=None, date_range_end=None, raw=False):
+    def list_journals(self, code, collection, py_range, sa_scope, la_scope, date_range_start=None, date_range_end=None, raw=False):
+
+        body = {"query": {"filtered": {}}}
+
+        fltr = {
+            "filter": {
+                "bool": {
+                    "must": [
+                        {
+                            "range": {
+                                "publication_year": {
+                                    "gte": py_range[0],
+                                    "lte": py_range[1]
+                                }
+                            }
+                        }, {
+                            "terms": {
+                                "subject_areas": sa_scope
+                            }
+                        }, {
+                            "terms": {
+                                "languages": la_scope
+                            }
+                        }
+                    ]
+                }
+            }
+        }
 
         end = datetime.now()
         start = end - timedelta(365*3)
@@ -1195,7 +1619,7 @@ class AccessStats(clients.AccessStats):
         date_range_start = date_range_start or start.isoformat()
         date_range_end = date_range_end or end.isoformat()
 
-        body = {
+        query = {
             "query": {
                 "bool": {
                     "must": [
@@ -1214,8 +1638,10 @@ class AccessStats(clients.AccessStats):
                         }
                     ]
                 }
-            },
-            "size": 0,
+            }
+        }
+
+        aggs = {
             "aggs": {
                 "issn": {
                     "terms": {
@@ -1275,11 +1701,15 @@ class AccessStats(clients.AccessStats):
         code_type = self._code_type(code)
 
         if code_type:
-            body["query"]["bool"]["must"].append({
+            query["query"]["bool"]["must"].append({
                 "match": {
                     code_type: code
                 }
             })
+
+        body['query']['filtered'].update(fltr)
+        body['query']['filtered'].update(query)
+        body.update(aggs)
 
         query_parameters = [
             clients.accessstats_thrift.kwargs('size', '0')
@@ -1310,7 +1740,34 @@ class AccessStats(clients.AccessStats):
         return data
 
     @cache_region.cache_on_arguments()
-    def list_issues(self, code, collection, date_range_start=None, date_range_end=None, raw=False):
+    def list_issues(self, code, collection, py_range, sa_scope, la_scope, date_range_start=None, date_range_end=None, raw=False):
+
+        body = {"query": {"filtered": {}}}
+
+        fltr = {
+            "filter": {
+                "bool": {
+                    "must": [
+                        {
+                            "range": {
+                                "publication_year": {
+                                    "gte": py_range[0],
+                                    "lte": py_range[1]
+                                }
+                            }
+                        }, {
+                            "terms": {
+                                "subject_areas": sa_scope
+                            }
+                        }, {
+                            "terms": {
+                                "languages": la_scope
+                            }
+                        }
+                    ]
+                }
+            }
+        }
 
         end = datetime.now()
         start = end - timedelta(365*3)
@@ -1318,7 +1775,7 @@ class AccessStats(clients.AccessStats):
         date_range_start = date_range_start or start.isoformat()
         date_range_end = date_range_end or end.isoformat()
 
-        body = {
+        query = {
             "query": {
                 "bool": {
                     "must": [
@@ -1337,8 +1794,10 @@ class AccessStats(clients.AccessStats):
                         }
                     ]
                 }
-            },
-            "size": 0,
+            }
+        }
+
+        aggs = {
             "aggs": {
                 "issue": {
                     "terms": {
@@ -1398,11 +1857,15 @@ class AccessStats(clients.AccessStats):
         code_type = self._code_type(code)
 
         if code_type:
-            body["query"]["bool"]["must"].append({
+            query["query"]["bool"]["must"].append({
                 "match": {
                     code_type: code
                 }
             })
+
+        body['query']['filtered'].update(fltr)
+        body['query']['filtered'].update(query)
+        body.update(aggs)
 
         query_parameters = [
             clients.accessstats_thrift.kwargs('size', '0')
@@ -1433,7 +1896,38 @@ class AccessStats(clients.AccessStats):
         return data
 
     @cache_region.cache_on_arguments()
-    def list_articles(self, code, collection, date_range_start=None, date_range_end=None, raw=False):
+    def list_articles(self, code, collection, py_range, sa_scope, la_scope, date_range_start=None, date_range_end=None, raw=False):
+
+        body = {"query": {"filtered": {}}}
+
+        fltr = {
+            "filter": {
+                "bool": {
+                    "must": [
+                        {
+                            "range": {
+                                "publication_year": {
+                                    "gte": py_range[0],
+                                    "lte": py_range[1]
+                                }
+                            }
+                        }, {
+                            "exists": {
+                                "field": "document_title"
+                            }
+                        }, {
+                            "terms": {
+                                "subject_areas": sa_scope
+                            }
+                        }, {
+                            "terms": {
+                                "languages": la_scope
+                            }
+                        }
+                    ]
+                }
+            }
+        }
 
         end = datetime.now()
         start = end - timedelta(365*3)
@@ -1441,36 +1935,29 @@ class AccessStats(clients.AccessStats):
         date_range_start = date_range_start or start.isoformat()
         date_range_end = date_range_end or end.isoformat()
 
-        body = {
+        query = {
             "query": {
-                "filtered": {
-                    "query": {
-                        "bool": {
-                            "must": [
-                                {
-                                    "match": {
-                                        "collection": collection
-                                    }
-                                },
-                                {
-                                    "range": {
-                                        "access_date": {
-                                            "gte": date_range_start,
-                                            "lte": date_range_end
-                                        }
-                                    }
+                "bool": {
+                    "must": [
+                        {
+                            "match": {
+                                "collection": collection
+                            }
+                        },
+                        {
+                            "range": {
+                                "access_date": {
+                                    "gte": date_range_start,
+                                    "lte": date_range_end
                                 }
-                            ]
+                            }
                         }
-                    },
-                    "filter": {
-                        "exists": {
-                            "field": "document_title"
-                        }
-                    }
+                    ]
                 }
-            },
-            "size": 0,
+            }
+        }
+
+        aggs = {
             "aggs": {
                 "pid": {
                     "terms": {
@@ -1530,11 +2017,15 @@ class AccessStats(clients.AccessStats):
         code_type = self._code_type(code)
 
         if code_type:
-            body["query"]["filtered"]["query"]["bool"]["must"].append({
+            query["query"]["bool"]["must"].append({
                 "match": {
                     code_type: code
                 }
             })
+
+        body['query']['filtered'].update(fltr)
+        body['query']['filtered'].update(query)
+        body.update(aggs)
 
         query_parameters = [
             clients.accessstats_thrift.kwargs('size', '0')
@@ -1565,7 +2056,9 @@ class AccessStats(clients.AccessStats):
         return {"series": series}
 
     @cache_region.cache_on_arguments()
-    def access_by_document_type(self, code, collection, date_range_start=None, date_range_end=None, raw=False):
+    def access_by_document_type(self, code, collection, py_range, sa_scope, la_scope, date_range_start=None, date_range_end=None, raw=False):
+
+        body = {"query": {"filtered": {}}}
 
         end = datetime.now()
         start = end - timedelta(365*3)
@@ -1573,7 +2066,36 @@ class AccessStats(clients.AccessStats):
         date_range_start = date_range_start or start.isoformat()[0:10]
         date_range_end = date_range_end or end.isoformat()[0:10]
 
-        body = {
+        fltr = {
+            "filter": {
+                "bool": {
+                    "must": [
+                        {
+                            "range": {
+                                "publication_year": {
+                                    "gte": py_range[0],
+                                    "lte": py_range[1]
+                                }
+                            }
+                        }, {
+                            "exists": {
+                                "field": "document_title"
+                            }
+                        }, {
+                            "terms": {
+                                "subject_areas": sa_scope
+                            }
+                        }, {
+                            "terms": {
+                                "languages": la_scope
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+
+        query = {
             "query": {
                 "bool": {
                     "must": [
@@ -1592,8 +2114,10 @@ class AccessStats(clients.AccessStats):
                         }
                     ]
                 }
-            },
-            "size": 0,
+            }
+        }
+
+        aggs = {
             "aggs": {
                 "document_type": {
                     "terms": {
@@ -1611,10 +2135,14 @@ class AccessStats(clients.AccessStats):
             }
         }
 
+        body['query']['filtered'].update(fltr)
+        body['query']['filtered'].update(query)
+        body.update(aggs)
+
         code_type = self._code_type(code)
 
         if code_type:
-            body["query"]["bool"]["must"].append({
+            query["query"]["bool"]["must"].append({
                 "match": {
                     code_type: code
                 }
@@ -1646,7 +2174,9 @@ class AccessStats(clients.AccessStats):
         return charts
 
     @cache_region.cache_on_arguments()
-    def access_lifetime(self, code, collection, date_range_start=None, date_range_end=None, raw=False):
+    def access_lifetime(self, code, collection, py_range, sa_scope, la_scope, date_range_start=None, date_range_end=None, raw=False):
+
+        body = {"query": {"filtered": {}}}
 
         end = datetime.now()
         start = end - timedelta(365*3)
@@ -1654,7 +2184,36 @@ class AccessStats(clients.AccessStats):
         date_range_start = date_range_start or start.isoformat()[0:10]
         date_range_end = date_range_end or end.isoformat()[0:10]
 
-        body = {
+        fltr = {
+            "filter": {
+                "bool": {
+                    "must": [
+                        {
+                            "range": {
+                                "publication_year": {
+                                    "gte": py_range[0],
+                                    "lte": py_range[1]
+                                }
+                            }
+                        }, {
+                            "exists": {
+                                "field": "document_title"
+                            }
+                        }, {
+                            "terms": {
+                                "subject_areas": sa_scope
+                            }
+                        }, {
+                            "terms": {
+                                "languages": la_scope
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+
+        query = {
             "query": {
                 "bool": {
                     "must": [
@@ -1673,8 +2232,10 @@ class AccessStats(clients.AccessStats):
                         }
                     ]
                 }
-            },
-            "size": 0,
+            }
+        }
+
+        aggs = {
             "aggs": {
                 "access_year": {
                     "terms": {
@@ -1711,10 +2272,14 @@ class AccessStats(clients.AccessStats):
             }
         }
 
+        body['query']['filtered'].update(fltr)
+        body['query']['filtered'].update(query)
+        body.update(aggs)
+
         code_type = self._code_type(code)
 
         if code_type:
-            body["query"]["bool"]["must"].append({
+            query["query"]["bool"]["must"].append({
                 "match": {
                     code_type: code
                 }
@@ -1754,7 +2319,9 @@ class AccessStats(clients.AccessStats):
         return {'series': series, 'navigator_series': navigator_series}
 
     @cache_region.cache_on_arguments()
-    def access_by_month_and_year(self, code, collection, date_range_start=None, date_range_end=None, raw=False):
+    def access_by_month_and_year(self, code, collection, py_range, sa_scope, la_scope, date_range_start=None, date_range_end=None, raw=False):
+
+        body = {"query": {"filtered": {}}}
 
         end = datetime.now()
         start = end - timedelta(365*3)
@@ -1762,7 +2329,36 @@ class AccessStats(clients.AccessStats):
         date_range_start = date_range_start or start.isoformat()[0:10]
         date_range_end = date_range_end or end.isoformat()[0:10]
 
-        body = {
+        fltr = {
+            "filter": {
+                "bool": {
+                    "must": [
+                        {
+                            "range": {
+                                "publication_year": {
+                                    "gte": py_range[0],
+                                    "lte": py_range[1]
+                                }
+                            }
+                        }, {
+                            "exists": {
+                                "field": "document_title"
+                            }
+                        }, {
+                            "terms": {
+                                "subject_areas": sa_scope
+                            }
+                        }, {
+                            "terms": {
+                                "languages": la_scope
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+
+        query = {
             "query": {
                 "bool": {
                     "must": [
@@ -1781,8 +2377,10 @@ class AccessStats(clients.AccessStats):
                         }
                     ]
                 }
-            },
-            "size": 0,
+            }
+        }
+
+        aggs = {
             "aggs": {
                 "access_date": {
                     "terms": {
@@ -1818,10 +2416,14 @@ class AccessStats(clients.AccessStats):
             }
         }
 
+        body['query']['filtered'].update(fltr)
+        body['query']['filtered'].update(query)
+        body.update(aggs)
+
         code_type = self._code_type(code)
 
         if code_type:
-            body["query"]["bool"]["must"].append({
+            query["query"]["bool"]["must"].append({
                 "match": {
                     code_type: code
                 }
