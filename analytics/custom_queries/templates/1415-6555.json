@@ -1,0 +1,36 @@
+{
+    "should": [
+        {
+            "title": "Revista de Administração Contemporânea",
+            "fuzziness": 3
+        },
+        {
+            "title": "Rev. adm. contemp.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Rev. administração contemporânea",
+            "fuzziness": 3
+        },
+        {
+            "title": "rev adm cont",
+            "fuzziness": 3
+        },
+        {
+            "title": "Rev admin cont",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista adm contemp",
+            "fuzziness": 3
+        },
+        {
+            "title": "Administração Contemporânea",
+            "fuzziness": 3            
+        }
+    ],
+    "must_not": [
+        "Rev. Ed. Cont.",
+        "Rev Adm Const"
+    ]
+}
