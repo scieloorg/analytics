@@ -438,6 +438,57 @@ class ChartsConfig(object):
 
         return {'options': chart}
 
+    def publication_article_document_type_by_publication_year(self, data):
+        # convertendo ISO 639_1 para texto
+
+        chart = self.highchart
+        chart['chart']['type'] = 'column'
+        chart['title'] = {'text': self._(u'Distribuição de tipos de documentos por ano de publicação')}
+        chart['legend'] = {'enabled': True}
+        chart['series'] = data['series']
+        chart['navigator'] = {
+            'series': {
+                'data': data['navigator_series']
+            }
+        }
+        chart['yAxis']['title'] = {'text': self._(u'Número de documentos')}
+        chart['yAxis']['opposite'] = False
+        chart['xAxis'] = {'title': {'text': self._(u'Ano de publicação')}}
+        chart['plotOptions'] = {
+            'column': {'stacking': 'normal'}
+        }
+        chart['rangeSelector'] = {'enabled': False}
+        chart['series'] = data['series']
+        chart['tooltip'] = {
+            'shared': True,
+            'useHTML': True,
+            'headerFormat': self._(u'Ano de publicação') + ' <strong>{point.x:%Y}</strong><table>',
+            'pointFormat': u'<tr><td><span style="color:{point.color}">\u25CF</span> {series.name}: </td><td style="text-align: right"><strong>{point.y}</strong></td><td style="text-align: right">&nbsp;({point.percentage:.2f}%)</td></tr>',
+            'footerFormat': '</table>'
+        }
+
+        return {'options': chart}
+
+    def publication_journal_status(self, data):
+
+        chart = self.highchart
+        chart['chart']['type'] = 'column'
+        chart['title'] = {'text': self._(u'Distribuição de periódicos por situação atual de publicação no SciELO')}
+        chart['xAxis'] = {
+            'categories': data['categories'],
+            'title': {'text': self._(u'Situação da publicação')}
+            }
+        chart['legend'] = {'enabled': False}
+        chart['series'] = data['series']
+        chart['plotOptions'] = {'series': {'colorByPoint': True}}
+        chart['yAxis']['title'] = {'text': self._(u'Número de periódicos')}
+        chart['tooltip'] = {
+            'headerFormat': '',
+            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'Situação da publicação') + ' <strong>{point.category}</strong><br>' + self._(u'Periódicos') + ': <strong>{point.y}</strong>'
+        }
+
+        return {'options': chart}
+
     def publication_article_licenses_by_publication_year(self, data):
 
         chart = self.highchart

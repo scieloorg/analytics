@@ -39,6 +39,23 @@
   <div class="chart">
     <div class="row container-fluid">
       <div class="col-md-8">
+        <%include file="publication_article_document_type_publication_year.mako"/>
+      </div>
+      <div class="col-md-4">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">${_(u'Sobre o gráfico')}</h3>
+          </div>
+          <div class="panel-body">
+            ${_(u'Este gráfico apresenta a distribuição de documentos por tipo de publicação e ano de publicação. Os números são relacionados a coleção ou ao periódico quando um periódico é selecionado.')}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="chart">
+    <div class="row container-fluid">
+      <div class="col-md-8">
         <%include file="publication_article_languages_publication_year.mako"/>
       </div>
       <div class="col-md-4">

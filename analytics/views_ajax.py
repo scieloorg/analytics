@@ -215,6 +215,17 @@ def publication_article_document_type(request):
     return request.chartsconfig.publication_article_document_type(data_chart)
 
 
+@view_config(route_name='publication_article_document_type_publication_year', request_method='GET', renderer='jsonp')
+@base_data_manager
+def publication_article_document_type_publication_year(request):
+
+    data = request.data_manager
+
+    data_chart = request.stats.publication.document_type_by_publication_year(data['selected_code'], data['selected_collection_code'], data['py_range'], data['sa_scope'], la_scope=data['la_scope'])
+
+    return request.chartsconfig.publication_article_document_type_by_publication_year(data_chart)
+
+
 @view_config(route_name='publication_article_licenses_publication_year', request_method='GET', renderer='jsonp')
 @base_data_manager
 def publication_article_licenses_publication_year(request):

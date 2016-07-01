@@ -1372,6 +1372,11 @@ class PublicationStats(clients.PublicationStats):
         return self.by_publication_year(code, collection, 'subject_areas', py_range, sa_scope, la_scope, raw)
 
     @cache_region.cache_on_arguments()
+    def document_type_by_publication_year(self, code, collection, py_range, sa_scope, la_scope, raw=False):
+
+        return self.by_publication_year(code, collection, 'document_type', py_range, sa_scope, la_scope, raw)
+
+    @cache_region.cache_on_arguments()
     def languages_by_publication_year(self, code, collection, py_range, sa_scope, la_scope, raw=False):
 
         result = self.by_publication_year(code, collection, 'languages', py_range, sa_scope, la_scope, raw)
@@ -1449,7 +1454,7 @@ class PublicationStats(clients.PublicationStats):
         }
 
         allowed_fields = [
-            'license', 'languages', 'subject_areas', 'aff_countries'
+            'license', 'languages', 'subject_areas', 'aff_countries', 'document_type'
         ]
 
         field = field if field in allowed_fields else None
