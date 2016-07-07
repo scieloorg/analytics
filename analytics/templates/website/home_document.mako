@@ -6,10 +6,15 @@
         <div class="row">
             <h3>${_(u'Indicadores do documento')}</h3>
         </div>
-        <div class="col-md-6">
+        % if not 'bibliometrics' in under_development:
+        <div class="col-md-4">
+          <%include file="bibliometrics_document_altmetrics.mako"/>
+        </div>
+        % endif
+        <div class="col-md-4">
           <%include file="bibliometrics_document_received_citations.mako"/>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <%include file="publication_size_citations.mako"/>
         </div>
     </div>

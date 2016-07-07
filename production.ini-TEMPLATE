@@ -12,7 +12,6 @@ pyramid.debug_notfound = false
 pyramid.debug_routematch = false
 pyramid.default_locale_name = en
 
-elasticsearch = 127.0.0.1
 accessstats = 127.0.0.1:11660
 publicationstats = 127.0.0.1:11620
 articlemeta = 127.0.0.1:11720

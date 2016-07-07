@@ -17,7 +17,6 @@ pyramid.includes = pyramid_debugtoolbar
 # '127.0.0.1' and '::1'.
 # debugtoolbar.hosts = 127.0.0.1 ::1
 
-elasticsearch = 127.0.0.1
 accessstats = 127.0.0.1:11660
 publicationstats = 127.0.0.1:11620
 articlemeta = 127.0.0.1:11720
