@@ -21,6 +21,17 @@ def bibliometrics_document_received_citations(request):
     return data
 
 
+@view_config(route_name='bibliometrics_journal_google_h5m5_chart', request_method='GET', renderer='jsonp')
+@base_data_manager
+def bibliometrics_journal_google_h5m5_chart(request):
+
+    data = request.data_manager
+
+    data = request.stats.bibliometrics.google_h5m5(data['selected_journal_code'])
+
+    return request.chartsconfig.bibliometrics_google_h5m5(data)
+
+
 @view_config(route_name='bibliometrics_journal_impact_factor_chart', request_method='GET', renderer='jsonp')
 @base_data_manager
 def bibliometrics_journal_impact_factor_chart(request):

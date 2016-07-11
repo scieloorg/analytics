@@ -12,14 +12,14 @@
       </div>
     </div>
   % else:
-      <div class="row container-fluid">
-        <form class="form-inline" method="GET">
-            <label>Formas do título</label>
-            <input type="text" name="titles" class="col-md-8" id="tokenfield" value="${titles}"/>
-            <button type="submit" class="btn btn-default">${_(u'aplicar')}</button>
-        </form>
-      </div>
       % if not 'bibliometrics' in under_development:
+        <div class="row container-fluid">
+          <form class="form-inline" method="GET">
+              <label>Formas do título</label>
+              <input type="text" name="titles" class="col-md-8" id="tokenfield" value="${titles}"/>
+              <button type="submit" class="btn btn-default">${_(u'aplicar')}</button>
+          </form>
+        </div>
         <div class="chart">
           <div class="row container-fluid">
             <div class="col-md-8">
@@ -55,6 +55,23 @@
           </div>
         </div>
       % endif
+      <div class="chart">
+        <div class="row container-fluid">
+          <div class="col-md-8">
+            <%include file="bibliometrics_journal_h5m5.mako"/>
+          </div>
+          <div class="col-md-4">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <h3 class="panel-title">${_(u'Sobre o gráfico')}</h3>
+              </div>
+              <div class="panel-body">
+                  ${_(u'Este gráfico apresenta os indices H5 e M5 do Google Scholar. Os idicadores são fornecidos anualmente pelo Google Scholar. A ausência de indicadores para um periódico ou para um período de um periódico pode ocorrer esses dados não tenham sido fornecidos pelo Google Scholar. Ao clicar na série, você será direcionado para o site do Google Scholar.')}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="chart">
         <div class="row container-fluid">
           <div class="col-md-8">

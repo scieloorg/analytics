@@ -18,6 +18,50 @@ class ControllerTest(unittest.TestCase):
         self._path = os.path.dirname(os.path.realpath(__file__))
         self._stats = controller.Stats('localhost:11600', 'localhost:11600', 'localhost:11600', 'localhost:11600')
 
+    def test_compute_h5m5(self):
+
+        data = [
+            [
+                "2015",
+                "20",
+                "29",
+                "http://scholar.google.com/citations?view_op=list_hcore&venue=WHDXiUrfw2oJ.2015&hl=pt-BR"
+            ],
+            [
+                "2014",
+                "23",
+                "29",
+                "http://scholar.google.com/citations?view_op=list_hcore&venue=WHDXiUrfw2oJ.2014&hl=pt-br"
+            ]
+        ]
+
+        result = self._stats.bibliometrics._compute_google_h5m5(data)
+
+        expected = {
+            "series": [
+                {
+                    "data": [
+                        "23",
+                        "20"
+                    ],
+                    "name": "H5"
+                },
+                {
+                    "data": [
+                        "29",
+                        "29"
+                    ],
+                    "name": "M5"
+                }
+            ],
+            "categories": [
+                "2014",
+                "2015"
+            ]
+        }
+
+        self.assertEqual(result, expected)
+
     def test_must_not_custom_query(self):
         result = [i for i in self._stats.bibliometrics._must_not_custom_query('0000-0000')]
 

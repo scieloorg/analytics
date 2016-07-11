@@ -18,6 +18,17 @@
     </div>
     <div class="row container-fluid" style="margin-top: 100px;">
         <div class="row">
+            <h3>${_(u'Indicadores Bibliométricos')}</h3>
+        </div>
+        <div class="col-md-6">
+            <%include file="bibliometrics_journal_h5m5.mako"/>
+        </div>
+        <div class="col-md-6">
+            <%include file="publication_article_citable_documents.mako"/>
+        </div>
+    </div>
+    <div class="row container-fluid" style="margin-top: 100px;">
+        <div class="row">
             <h3>${_(u'Charts')}</h3>
         </div>
         <div class="col-md-6">

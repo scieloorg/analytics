@@ -156,6 +156,8 @@ def index(request):
     data = request.data_manager
     data['page'] = 'home'
 
+    data['h5m5'] = request.stats.bibliometrics.google_h5m5(data['selected_journal_code'])
+
     return data
 
 

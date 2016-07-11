@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 _CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
 JOURNALS = {}
 
+
 def load_query_from_file(file_name):
     with open(file_name, 'r') as f:
         try:
@@ -24,6 +25,7 @@ for f in os.listdir(_CURRENT_DIR + '/templates'):
 
     if query:
         JOURNALS[issn] = query
+
 
 def load(issn):
 

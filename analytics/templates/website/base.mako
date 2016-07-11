@@ -185,6 +185,7 @@
     <script src="/static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
     <script src="/static/moment/moment.min.js"></script>
     <script src="/static/highcharts/highstock.js"></script>
+    <script src="/static/highcharts/modules/no-data-to-display.js"></script>
     <script src="/static/highcharts/maps/modules/map.js"></script>
     <script src="/static/highcharts/mapdata/custom/world.js"></script>
     <script src="/static/highcharts/plugins/export-csv-master/export-csv.js"></script>

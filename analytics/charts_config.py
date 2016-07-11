@@ -27,6 +27,28 @@ class ChartsConfig(object):
 
         return _highchart
 
+    def bibliometrics_google_h5m5(self, data):
+
+        chart = self.highchart
+        chart['title'] = {'text': self._(u'Métricas H5M5')}
+        chart['xAxis'] = {'categories': data['categories']}
+        chart['series'] = data['series']
+        chart['yAxis']['title'] = {'text': self._(u'Métricas H5M5')}
+        chart['plotOptions'] = {
+            'line': {
+                'dataLabels': {
+                    'enabled': True
+                }
+            }
+        }
+        chart['tooltip'] = {
+            'headerFormat': self._(u'Métricas H5M5'),
+            'pointFormat': u'<br/><strong>'+self._(u'Ano base')+u'</strong>: {point.category}<br/><strong>{series.name}</strong>: {point.y}',
+            'followPointer': False,
+        }
+
+        return {'options': chart}
+
     def bibliometrics_impact_factor(self, data):
 
         name = {
@@ -48,7 +70,7 @@ class ChartsConfig(object):
         chart['yAxis']['title'] = {'text': self._(u'Impacto SciELO')}
         chart['tooltip'] = {
             'headerFormat': self._(u'Impacto SciELO'),
-            'pointFormat': u'<br/><strong>'+self._(u'Ano base')+u'</strong>: {point.category}<br/><strong>{series.name}</strong>: {point.y:.4f}',
+            'pointFormat': u'<br/><strong>'+self._(u'Ano base')+u'</strong>: {point.category}<br/><strong>{series.name}</strong>: {point.y}',
             'followPointer': True
         }
 

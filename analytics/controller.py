@@ -7,6 +7,7 @@ from dogpile.cache import make_region
 
 from analytics import utils
 from analytics.custom_queries import custom_query
+from clients.google import h5m5
 
 
 PAGE_SIZE = 20
@@ -116,7 +117,7 @@ def bibliometrics(host):
 
     address, port = host.split(':')
 
-    return CitedbyStats(address, port)
+    return BibliometricsStats(address, port)
 
 
 class Stats(object):
@@ -293,7 +294,41 @@ class Stats(object):
         return self._compute_citing_half_life(query_result)
 
 
-class CitedbyStats(clients.Citedby):
+class BibliometricsStats(clients.Citedby):
+
+    def _compute_google_h5m5(self, data):
+
+        series = []
+        categories = []
+
+        series_h5 = {
+            'name': 'H5',
+            'data': []
+        }
+
+        series_m5 = {
+            'name': 'M5',
+            'data': []
+        }
+
+        for item in sorted(data):
+            categories.append(item[0])
+            series_h5["data"].append({'y': int(item[1]), 'ownURL':item[3]})
+            series_m5["data"].append({'y': int(item[2]), 'ownURL':item[3]})
+
+        series.append(series_h5)
+        series.append(series_m5)
+
+        return {"series": series, "categories": categories}
+
+    def google_h5m5(self, issn, raw=False):
+
+        data = h5m5.load(issn)
+
+        if raw:
+            return data
+
+        return self._compute_google_h5m5(data)
 
     def document_received_citations(self, document, py_range=None):
 
