@@ -179,21 +179,32 @@ def downloads(request):
     data = request.data_manager
     data['page'] = 'downloads'
 
-    data['tabs'] = []
+    tabsurl = 'http://static.scielo.org/tabs/tabs_network.zip'
+    rd = requests.head(tabsurl).headers
+    contentlength = Decimal(rd.get('content-length', 0))/Decimal(1024000)
+    data['tabs'] = [
+        {
+            'collection': {'name': 'Network'},
+            'tabsurl': tabsurl,
+            'tabsfilename': 'tabs_network.zip',
+            'contentlength': '%.2f' % contentlength,
+            'lastmodified': rd.get('last-modified', 'undefined'),
+            'is_available': True if contentlength > Decimal(0.001) else False
+        }
+    ]
 
     for collection in data['collections']:
         coll_code = 'bra' if collection == 'scl' else collection
         tabsfilename = 'tabs_%s.zip' % coll_code
         tabsurl = 'http://static.scielo.org/tabs/%s' % tabsfilename
-        rd = requests.head(tabsurl)
-        rd = rd.headers
+        rd = requests.head(tabsurl).headers
         contentlength = Decimal(rd.get('content-length', 0))/Decimal(1024000)
         lastmodified = rd.get('last-modified', 'undefined')
         data['tabs'].append({
             'collection': data['collections'][collection],
             'tabsurl': tabsurl,
             'tabsfilename': tabsfilename,
-            'contentlength': contentlength,
+            'contentlength': '%.2f' % contentlength,
             'lastmodified': lastmodified,
             'is_available': True if contentlength > Decimal(0.001) else False
         })
