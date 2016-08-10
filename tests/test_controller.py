@@ -18,6 +18,14 @@ class ControllerTest(unittest.TestCase):
         self._path = os.path.dirname(os.path.realpath(__file__))
         self._stats = controller.Stats('localhost:11600', 'localhost:11600', 'localhost:11600', 'localhost:11600')
 
+    def test_compute_h5m5_without_data(self):
+
+        data = None
+
+        result = self._stats.bibliometrics.google_h5m5('xxxx-xxxx')
+
+        self.assertEqual(result, None)
+
     def test_compute_h5m5(self):
 
         data = {

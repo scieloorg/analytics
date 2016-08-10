@@ -327,6 +327,9 @@ class BibliometricsStats(clients.Citedby):
 
         data = h5m5.get(issn)
 
+        if not data:
+            return None
+
         if raw:
             return data
 
