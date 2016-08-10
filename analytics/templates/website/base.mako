@@ -110,8 +110,8 @@
                 <li><a href="${request.route_url('bibliometrics_list_citing_forms_web')}">${_(u'Formas de citação do periódico')}</a></li>
               </ul>
             </li>
-            <li class="${'active' if page == 'downloads' else ''}">
-              <a href="${request.route_url('downloads')}">${_(u'Downloads')}</a>
+            <li class="${'active' if page == 'reports' else ''}">
+              <a href="${request.route_url('reports')}">${_(u'Reports')}</a>
             </li>
             <li class="${'active' if page == 'faq' else ''}">
               <a href="${request.route_url('faq_web')}">FAQ</a>

@@ -20,20 +20,28 @@ class ControllerTest(unittest.TestCase):
 
     def test_compute_h5m5(self):
 
-        data = [
-            [
-                "2015",
-                "20",
-                "29",
-                "http://scholar.google.com/citations?view_op=list_hcore&venue=WHDXiUrfw2oJ.2015&hl=pt-BR"
-            ],
-            [
-                "2014",
-                "23",
-                "29",
-                "http://scholar.google.com/citations?view_op=list_hcore&venue=WHDXiUrfw2oJ.2014&hl=pt-br"
-            ]
-        ]
+        data = {
+          "2015": {
+            "m5": "13",
+            "url": "https://scholar.google.com/citations?hl=pt-BR&view_op=list_hcore&venue=0QWSMJzTA00J.2015",
+            "h5": "10"
+          },
+          "2014": {
+            "m5": "11",
+            "url": "http://scholar.google.com/citations?view_op=list_hcore&venue=0QWSMJzTA00J.2014&hl=pt-br",
+            "h5": "7"
+          },
+          "2016": {
+            "m5": "12",
+            "url": "http://scholar.google.com/citations?view_op=list_hcore&venue=0QWSMJzTA00J.2016&hl=en",
+            "h5": "9"
+          },
+          "2013": {
+            "m5": "6",
+            "url": "http://scholar.google.com/citations?view_op=list_hcore&venue=0QWSMJzTA00J.2013&hl=pt-br",
+            "h5": "5"
+          }
+        }
 
         result = self._stats.bibliometrics._compute_google_h5m5(data)
 
@@ -41,22 +49,52 @@ class ControllerTest(unittest.TestCase):
             "series": [
                 {
                     "data": [
-                        "23",
-                        "20"
+                        {
+                            "y": 5,
+                            "ownURL": "http://scholar.google.com/citations?view_op=list_hcore&venue=0QWSMJzTA00J.2013&hl=pt-br"
+                        },
+                        {
+                            "y": 7,
+                            "ownURL": "http://scholar.google.com/citations?view_op=list_hcore&venue=0QWSMJzTA00J.2014&hl=pt-br"
+                        },
+                        {
+                            "y": 10,
+                            "ownURL": "https://scholar.google.com/citations?hl=pt-BR&view_op=list_hcore&venue=0QWSMJzTA00J.2015"
+                        },
+                        {
+                            "y": 9,
+                            "ownURL": "http://scholar.google.com/citations?view_op=list_hcore&venue=0QWSMJzTA00J.2016&hl=en"
+                        }
                     ],
                     "name": "H5"
                 },
                 {
                     "data": [
-                        "29",
-                        "29"
+                        {
+                            "y": 6,
+                            "ownURL": "http://scholar.google.com/citations?view_op=list_hcore&venue=0QWSMJzTA00J.2013&hl=pt-br"
+                        },
+                        {
+                            "y": 11,
+                            "ownURL": "http://scholar.google.com/citations?view_op=list_hcore&venue=0QWSMJzTA00J.2014&hl=pt-br"
+                        },
+                        {
+                            "y": 13,
+                            "ownURL": "https://scholar.google.com/citations?hl=pt-BR&view_op=list_hcore&venue=0QWSMJzTA00J.2015"
+                        },
+                        {
+                            "y": 12,
+                            "ownURL": "http://scholar.google.com/citations?view_op=list_hcore&venue=0QWSMJzTA00J.2016&hl=en"
+                        }
                     ],
                     "name": "M5"
                 }
             ],
             "categories": [
+                "2013",
                 "2014",
-                "2015"
+                "2015",
+                "2016"
             ]
         }
 
@@ -1947,9 +1985,11 @@ class ControllerTest(unittest.TestCase):
 
     def test_compute_citing_half_life(self):
 
-        pub_citing_years = json.loads(open('%s/fixtures/pub_citing_years.json' % self._path).read())
+        with open('%s/fixtures/pub_citing_years.json' % self._path) as pcy:
+            pub_citing_years = json.loads(pcy.read())
 
-        expected = json.loads(open('%s/fixtures/citing_half_life.json' % self._path).read())
+        with open('%s/fixtures/citing_half_life.json' % self._path) as chl:
+            expected = json.loads(chl.read())
 
         result = self._stats._compute_citing_half_life(pub_citing_years)
 

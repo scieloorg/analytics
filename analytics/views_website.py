@@ -171,13 +171,13 @@ def faq(request):
     return data
 
 
-@view_config(route_name='downloads', renderer='templates/website/downloads.mako')
+@view_config(route_name='reports', renderer='templates/website/reports.mako')
 @base_data_manager
-def downloads(request):
+def reports(request):
     from decimal import Decimal
 
     data = request.data_manager
-    data['page'] = 'downloads'
+    data['page'] = 'reports'
 
     tabsurl = 'http://static.scielo.org/tabs/tabs_network.zip'
     rd = requests.head(tabsurl).headers

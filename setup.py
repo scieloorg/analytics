@@ -11,7 +11,6 @@ with open(os.path.join(here, 'CHANGES.txt')) as f:
 
 install_requires = [
     'requests>=2.7.0',
-    'elasticsearch>=1.7.0',
     'cython>=0.22',
     'thriftpy>=0.3.1',
     'thriftpywrap',
@@ -23,14 +22,15 @@ install_requires = [
     'waitress',
     'Babel>=2.0',
     'dogpile.cache>=0.5.6',
-    'pylibmc>=1.5.0'
+    'pylibmc>=1.5.0',
+    'scieloh5m5>=1.2.4'
     ]
 
 test_requires = []
 
 setup(
     name="analytics",
-    version='0.11.0',
+    version='0.10.0',
     description="A analytics frontend for SciELO usage and publication statistics",
     author="SciELO",
     author_email="scielo-dev@googlegroups.com",

@@ -7,7 +7,7 @@ from dogpile.cache import make_region
 
 from analytics import utils
 from analytics.custom_queries import custom_query
-from clients.google import h5m5
+from scieloh5m5 import h5m5
 
 
 PAGE_SIZE = 20
@@ -311,10 +311,12 @@ class BibliometricsStats(clients.Citedby):
             'data': []
         }
 
-        for item in sorted(data):
-            categories.append(item[0])
-            series_h5["data"].append({'y': int(item[1]), 'ownURL':item[3]})
-            series_m5["data"].append({'y': int(item[2]), 'ownURL':item[3]})
+        for year, data in sorted(data.items()):
+            categories.append(year)
+            series_h5["data"].append(
+                {'y': int(data['h5']), 'ownURL': data['url']})
+            series_m5["data"].append(
+                {'y': int(data['m5']), 'ownURL': data['url']})
 
         series.append(series_h5)
         series.append(series_m5)
@@ -323,7 +325,7 @@ class BibliometricsStats(clients.Citedby):
 
     def google_h5m5(self, issn, raw=False):
 
-        data = h5m5.load(issn)
+        data = h5m5.get(issn)
 
         if raw:
             return data
