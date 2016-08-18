@@ -30,6 +30,7 @@ class ChartsConfig(object):
     def bibliometrics_google_h5m5(self, data):
 
         chart = self.highchart
+        chart['credits'] = {'href': 'http://scholar.google.com', 'text': self._(u'Fuente: Google Scholar')}
         chart['title'] = {'text': self._(u'Métricas H5M5')}
         chart['xAxis'] = {'categories': data['categories']}
         chart['series'] = data['series']

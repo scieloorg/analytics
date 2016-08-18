@@ -7,7 +7,7 @@
 ${_(u'O SciELO fornece algumas tabulações pré-formatadas com alguns dos metadados utilizados para produção dos indicadores presentes nesta ferramenta. Qualquer interessado pode fazer o download e produzir análises bibliométricas de acordo com suas necessidade.')}
 </p>
 <p>
-${_(u'Para mais informações sobre as catacterísticas de cada tabulação, acessar')} <a href="http://docs.scielo.org/projects/scielo-processing/pt/master/public_reports.html" target="_blank"><span class="glyphicon glyphicon-globe"></span></a>.
+${_(u'Para mais informações sobre as catacterísticas de cada tabulação, acessar')} <a href="http://docs.scielo.org/projects/scielo-processing/pt/latest/public_reports.html" target="_blank"><span class="glyphicon glyphicon-globe"></span></a>.
 </p>
 % for tab in  sorted(tabs, key=lambda x: x['collection']['name']):
   <h2>${tab['collection']['name']}</h2>

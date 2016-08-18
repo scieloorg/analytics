@@ -1169,10 +1169,7 @@ class PublicationStats(clients.PublicationStats):
             clients.publicationstats_thrift.kwargs('search_type', 'count')
         ]
 
-        try:
-            query_result = json.loads(self.client.search(index, json.dumps(body), query_parameters))
-        except:
-            import pdb; pdb.set_trace()
+        query_result = json.loads(self.client.search(index, json.dumps(body), query_parameters))
 
         computed = self._compute_general(query_result, field)
 

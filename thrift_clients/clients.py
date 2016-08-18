@@ -47,7 +47,7 @@ class Citedby(object):
         client = make_client(
             citedby_thrift.Citedby,
             self._address,
-            self._port
+            int(self._port)
         )
         return client
 
@@ -67,7 +67,7 @@ class PublicationStats(object):
         client = make_client(
             publicationstats_thrift.PublicationStats,
             self._address,
-            self._port
+            int(self._port)
         )
         return client
 
@@ -91,7 +91,7 @@ class AccessStats(object):
         client = make_client(
             accessstats_thrift.AccessStats,
             self._address,
-            self._port
+            int(self._port)
         )
         return client
 
@@ -115,7 +115,7 @@ class ArticleMeta(object):
         client = make_client(
             articlemeta_thrift.ArticleMeta,
             self._address,
-            self._port
+            int(self._port)
         )
         return client
 
