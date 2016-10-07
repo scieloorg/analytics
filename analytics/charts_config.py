@@ -22,7 +22,7 @@ class ChartsConfig(object):
             'chart': {'type': 'line', 'backgroundColor': 'transparent'},
             'yAxis': {'min': 0, 'labels': {'format': '{value}'}},
             'legend': {'align': 'center', 'highlightSeries': {'enabled': True}},
-            'credits': {'href': 'http://www.scielo.org', 'text': self._(u'Fuente: SciELO.org')}
+            'credits': {'href': 'http://www.scielo.org', 'text': self._(u'Fonte: SciELO.org')}
         }
 
         return _highchart
@@ -30,7 +30,8 @@ class ChartsConfig(object):
     def bibliometrics_google_h5m5(self, data):
 
         chart = self.highchart
-        chart['credits'] = {'href': 'http://scholar.google.com', 'text': self._(u'Fuente: Google Scholar')}
+
+        chart['credits'] = {'href': 'http://scholar.google.com', 'text': self._(u'Fonte: Google Scholar')}
         chart['title'] = {'text': self._(u'Métricas H5M5')}
         chart['xAxis'] = {'categories': data['categories']}
         chart['series'] = data['series']
