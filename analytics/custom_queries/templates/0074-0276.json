@@ -1,0 +1,32 @@
+{
+    "should": [
+        {
+            "title": "Mem Instituto Oswaldo Cruz",
+            "fuzziness": 3
+        },
+        {
+            "title": "Mem Ins Oswaldo Cruz",
+            "fuzziness": 3
+        },
+        {
+            "title": "Memórias do Instituto Oswaldo Cruz",
+            "fuzziness": 3
+        },
+        {
+            "title": "Mem Inst Osvaldo Cruz",
+            "fuzziness": 3
+        },
+        {
+            "title": "Mem Inst Oswaldo",
+            "fuzziness": 3
+        },
+        {
+            "title": "Mem. Inst. Oswaldo Cruz",
+            "fuzziness": 3
+        },
+        {
+            "title": "Mem Inst Osw Cruz",
+            "fuzziness": 3
+        }
+    ]
+}
