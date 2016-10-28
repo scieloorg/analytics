@@ -148,7 +148,7 @@ class ArticleMeta(object):
             for identifier in identifiers:
 
                 yield self.journal(
-                    code=identifier.code[0], collection=identifier.collection
+                    code=identifier.code, collection=identifier.collection
                 )
 
             offset += 1000
