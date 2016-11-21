@@ -149,6 +149,16 @@ def bibliometrics_list_granted(request):
 
     return data
 
+@view_config(route_name='bibliometrics_document_list_received_citations', renderer='templates/website/bibliometrics_document_list_received_citations.mako')
+@base_data_manager
+def bibliometrics_document_list_received_citations(request):
+    data = request.data_manager
+    data['page'] = 'bibliometrics'
+    data['citedby'] = request.stats.bibliometrics.document_received_citations(
+        request.data_manager.get('selected_document_code', 0))
+
+    return data
+
 
 @view_config(route_name='index_web', renderer='templates/website/home.mako')
 @base_data_manager
@@ -281,6 +291,14 @@ def accesses(request):
 
     return data
 
+@view_config(route_name='accesses_document_web', renderer='templates/website/accesses_document.mako')
+@base_data_manager
+def accesses_document(request):
+
+    data = request.data_manager
+    data['page'] = 'accesses'
+
+    return data
 
 @view_config(route_name='publication_size_web', renderer='templates/website/publication_size.mako')
 @base_data_manager

@@ -19,10 +19,10 @@ def main(global_config, **settings):
 
     def add_stats(request):
         return controller.Stats(
-            settings['articlemeta'],
+            settings.get('articlemeta', None),
             settings['publicationstats'],
             settings['accessstats'],
-            settings['citedby']
+            settings.get('citedby', None)
         )
 
     def add_chartsconfig(request):
@@ -34,6 +34,7 @@ def main(global_config, **settings):
     config.add_route('faq_web', '/w/faq')
     config.add_route('reports', '/w/reports')
     config.add_route('accesses_web', '/w/accesses')
+    config.add_route('accesses_document_web', '/w/accesses/document')
     config.add_route('accesses_list_journals_web', '/w/accesses/list/journals')
     config.add_route('accesses_list_issues_web', '/w/accesses/list/issues')
     config.add_route('accesses_list_articles_web', '/w/accesses/list/articles')
@@ -65,15 +66,16 @@ def main(global_config, **settings):
     config.add_route('publication_article_subject_areas', '/ajx/publication/article/subject_areas')
     config.add_route('publication_article_subject_areas_publication_year', '/ajx/publication/article/subject_areas_publication_year')
     config.add_route('bibliometrics_journal_web', '/w/bibliometrics/journal')
-    config.add_route('bibliometrics_list_granted_web', '/bibliometrics/list/granted')
-    config.add_route('bibliometrics_list_received_web', '/bibliometrics/list/received')
-    config.add_route('bibliometrics_list_citing_forms_web', '/bibliometrics/list/citing_forms')
-    config.add_route('bibliometrics_list_impact_factor_web', '/bibliometrics/list/impact_factor')
-    config.add_route('bibliometrics_list_citing_half_life_web', '/bibliometrics/list/citing_half_life')
+    config.add_route('bibliometrics_list_granted_web', '/w/bibliometrics/list/granted')
+    config.add_route('bibliometrics_list_received_web', '/w/bibliometrics/list/received')
+    config.add_route('bibliometrics_list_citing_forms_web', '/w/bibliometrics/list/citing_forms')
+    config.add_route('bibliometrics_list_impact_factor_web', '/w/bibliometrics/list/impact_factor')
+    config.add_route('bibliometrics_list_citing_half_life_web', '/w/bibliometrics/list/citing_half_life')
     config.add_route('bibliometrics_journal_received_self_and_granted_citation_chart', '/ajx/bibliometrics/journal/received_self_and_granted_citation_chart')
     config.add_route('bibliometrics_journal_impact_factor_chart', '/ajx/bibliometrics/journal/impact_factor_chart')
     config.add_route('bibliometrics_journal_google_h5m5_chart', '/ajx/bibliometrics/journal/google_h5m5_chart')
     config.add_route('bibliometrics_document_received_citations', '/ajx/bibliometrics/document/received_citations')
+    config.add_route('bibliometrics_document_list_received_citations', '/w/bibliometrics/document/list/received_citations')
     config.add_request_method(add_stats, 'stats', reify=True)
     config.add_request_method(add_chartsconfig, 'chartsconfig', reify=True)
 

@@ -1,4 +1,5 @@
 ## coding: utf-8
+% if content_scope in ['network', 'collection', 'journal']:
 <div id="bydocumenttype" style="width:100%; height:400px;">
     <span id="loading_bydocumenttype">
         <img src="/static/images/loading.gif" />
@@ -15,3 +16,4 @@
         });
     });
 </script>
+% endif

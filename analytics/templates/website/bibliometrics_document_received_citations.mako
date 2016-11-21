@@ -15,7 +15,7 @@
         var url =  "${request.route_url('bibliometrics_document_received_citations')}?code=${selected_code}&callback=?";
 
         $.getJSON(url,  function(data) {
-            $('#document_received_citations_value').prepend($.number(data['total']).replace(',', '.'));
+            $('#document_received_citations_value').prepend($.number(data['total']).replace(',', '.')+' <a href="${request.route_url('bibliometrics_document_list_received_citations')}" class="glyphicon glyphicon-list small"></a>');
             $("#loading_document_received_citations").hide();
         });
     });

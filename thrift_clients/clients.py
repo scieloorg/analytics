@@ -11,17 +11,11 @@ LIMIT = 1000
 
 logger = logging.getLogger(__name__)
 
-articlemeta_thrift = thriftpy.load(
-    os.path.join(os.path.dirname(__file__))+'/articlemeta.thrift')
-
 accessstats_thrift = thriftpy.load(
     os.path.join(os.path.dirname(__file__))+'/accessstats.thrift')
 
 publicationstats_thrift = thriftpy.load(
     os.path.join(os.path.dirname(__file__))+'/publicationstats.thrift')
-
-citedby_thrift = thriftpy.load(
-    os.path.join(os.path.dirname(__file__))+'/citedby.thrift')
 
 
 class ServerError(Exception):
@@ -30,26 +24,6 @@ class ServerError(Exception):
 
     def __str__(self):
         return repr(self.message)
-
-
-class Citedby(object):
-
-    def __init__(self, address, port):
-        """
-        Cliente thrift para o Cited By.
-        """
-        self._address = address
-        self._port = port
-
-    @property
-    def client(self):
-
-        client = make_client(
-            citedby_thrift.Citedby,
-            self._address,
-            int(self._port)
-        )
-        return client
 
 
 class PublicationStats(object):
@@ -98,107 +72,3 @@ class AccessStats(object):
     def document(self, code, collection):
 
         return self.client.document(code, collection)
-
-
-class ArticleMeta(object):
-
-    def __init__(self, address, port):
-        """
-        Cliente thrift para o Articlemeta.
-        """
-        self._address = address
-        self._port = port
-
-    @property
-    def client(self):
-
-        client = make_client(
-            articlemeta_thrift.ArticleMeta,
-            self._address,
-            int(self._port)
-        )
-        return client
-
-    def journal(self, code, collection=None):
-
-        kwargs = {
-            'code': code,
-        }
-
-        if collection:
-            kwargs['collection'] = collection
-
-        journal = self.client.get_journal(**kwargs)
-
-        if not journal:
-            return None
-
-        jjournal = json.loads(journal)
-        xjournal = Journal(jjournal)
-
-        return xjournal
-
-    def journals(self, collection=None, issn=None):
-        offset = 0
-        while True:
-            identifiers = self.client.get_journal_identifiers(collection=collection, issn=issn, limit=LIMIT, offset=offset)
-            if len(identifiers) == 0:
-                raise StopIteration
-
-            for identifier in identifiers:
-
-                yield self.journal(
-                    code=identifier.code, collection=identifier.collection
-                )
-
-            offset += 1000
-
-    def document(self, code, collection, replace_journal_metadata=True, fmt='xylose'):
-        try:
-            article = self.client.get_article(
-                code=code,
-                collection=collection,
-                replace_journal_metadata=replace_journal_metadata,
-                fmt=fmt
-            )
-        except:
-            msg = 'Error retrieving document: %s_%s' % (collection, code)
-            raise ServerError(msg)
-
-        jarticle = json.loads(article)
-
-        if not jarticle:
-            return None
-
-        if fmt == 'xylose':
-            xarticle = Article(jarticle)
-            return xarticle
-        else:
-            return article
-
-    def documents(self, collection=None, issn=None, from_date=None,
-                  until_date=None, fmt='xylose'):
-        offset = 0
-        while True:
-            identifiers = self.client.get_article_identifiers(
-                collection=collection, issn=issn, from_date=from_date,
-                until_date=until_date, limit=LIMIT, offset=offset)
-
-            if len(identifiers) == 0:
-                raise StopIteration
-
-            for identifier in identifiers:
-
-                document = self.document(
-                    code=identifier.code,
-                    collection=identifier.collection,
-                    replace_journal_metadata=True,
-                    fmt=fmt
-                )
-
-                yield document
-
-            offset += 1000
-
-    def collections(self):
-        return [i for i in self.client.get_collection_identifiers()]

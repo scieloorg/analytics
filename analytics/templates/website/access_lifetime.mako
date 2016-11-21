@@ -1,4 +1,5 @@
 ## coding: utf-8
+% if content_scope in ['network', 'collection', 'journal']:
 <ul id="lifetime" style="width: 100%; list-style-type: none; padding: 0px; margin: 0px;"></ul>
 <span id="loading_lifetime">
     <img src="/static/images/loading.gif" />
@@ -17,3 +18,4 @@
         });
     });
 </script>
+% endif

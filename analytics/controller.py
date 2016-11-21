@@ -8,6 +8,8 @@ from dogpile.cache import make_region
 from analytics import utils
 from analytics.custom_queries import custom_query
 from scieloh5m5 import h5m5
+from articlemeta.client import ThriftClient as ArticleMetaThriftClient
+from citedby.client import ThriftClient as CitedbyThriftClient
 
 
 PAGE_SIZE = 20
@@ -94,9 +96,7 @@ class ServerError(Exception):
 
 def articlemeta(host):
 
-    address, port = host.split(':')
-
-    return ArticleMeta(address, port)
+    return ArticleMeta(host)
 
 
 def accessstats(host):
@@ -115,9 +115,7 @@ def publicationstats(host):
 
 def bibliometrics(host):
 
-    address, port = host.split(':')
-
-    return BibliometricsStats(address, port)
+    return BibliometricsStats(host)
 
 
 class Stats(object):
@@ -294,7 +292,7 @@ class Stats(object):
         return self._compute_citing_half_life(query_result)
 
 
-class BibliometricsStats(clients.Citedby):
+class BibliometricsStats(CitedbyThriftClient):
 
     def _compute_google_h5m5(self, data):
 
@@ -342,7 +340,23 @@ class BibliometricsStats(clients.Citedby):
         except:
             return {}
 
-        return {'total': data.get('article', {}).get('total_received', 0)}
+        result = {
+            'total': data.get('article', {}).get('total_received', 0),
+            'citedby': data.get('cited_by', [])
+        }
+
+        for item in result['citedby']:
+
+            fa = item.get('first_author', {'given_names': '', 'surname': ''})
+
+            item['first_author_lt'] = ''
+            if not isinstance(fa, dict):
+                item['first_author_lt'] = fa
+            else:
+                item['first_author_lt'] = ', '.join(
+                    [fa.get('surname', ''), fa.get('given_names', '')])
+
+        return result
 
     @staticmethod
     def _compute_publication_and_citing_years(query_result):
@@ -423,8 +437,8 @@ class BibliometricsStats(clients.Citedby):
         body.update(aggs)
 
         query_parameters = [
-            clients.citedby_thrift.kwargs('size', '0'),
-            clients.citedby_thrift.kwargs('search_type', 'count')
+            self.CITEDBY_THRIFT.kwargs('size', '0'),
+            self.CITEDBY_THRIFT.kwargs('search_type', 'count')
         ]
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
@@ -515,8 +529,8 @@ class BibliometricsStats(clients.Citedby):
         body.update(aggs)
 
         query_parameters = [
-            clients.citedby_thrift.kwargs('size', '0'),
-            clients.citedby_thrift.kwargs('search_type', 'count')
+            self.CITEDBY_THRIFT.kwargs('size', '0'),
+            self.CITEDBY_THRIFT.kwargs('search_type', 'count')
         ]
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
@@ -588,8 +602,8 @@ class BibliometricsStats(clients.Citedby):
         body.update(aggs)
 
         query_parameters = [
-            clients.citedby_thrift.kwargs('size', '0'),
-            clients.citedby_thrift.kwargs('search_type', 'count')
+            self.CITEDBY_THRIFT.kwargs('size', '0'),
+            self.CITEDBY_THRIFT.kwargs('search_type', 'count')
         ]
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
@@ -667,8 +681,8 @@ class BibliometricsStats(clients.Citedby):
         body.update(aggs)
 
         query_parameters = [
-            clients.citedby_thrift.kwargs('size', '0'),
-            clients.citedby_thrift.kwargs('search_type', 'count')
+            self.CITEDBY_THRIFT.kwargs('size', '0'),
+            self.CITEDBY_THRIFT.kwargs('search_type', 'count')
         ]
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
@@ -745,8 +759,8 @@ class BibliometricsStats(clients.Citedby):
         body.update(aggs)
 
         query_parameters = [
-            clients.citedby_thrift.kwargs('size', '0'),
-            clients.citedby_thrift.kwargs('search_type', 'count')
+            self.CITEDBY_THRIFT.kwargs('size', '0'),
+            self.CITEDBY_THRIFT.kwargs('search_type', 'count')
         ]
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
@@ -824,8 +838,8 @@ class BibliometricsStats(clients.Citedby):
         body.update(aggs)
 
         query_parameters = [
-            clients.citedby_thrift.kwargs('size', '0'),
-            clients.citedby_thrift.kwargs('search_type', 'count')
+            self.CITEDBY_THRIFT.kwargs('size', '0'),
+            self.CITEDBY_THRIFT.kwargs('search_type', 'count')
         ]
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
@@ -1562,7 +1576,7 @@ class PublicationStats(clients.PublicationStats):
         return query_result if raw else computed
 
 
-class ArticleMeta(clients.ArticleMeta):
+class ArticleMeta(ArticleMetaThriftClient):
 
     @cache_region.cache_on_arguments()
     def certified_collections(self):
