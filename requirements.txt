@@ -10,7 +10,7 @@ pylibmc==1.5.0
 Babel==2.0
 scieloh5m5==1.4.4
 xylose==1.16.5
-citedbyapi==1.0.4
+citedbyapi==1.2.4
 articlemetaapi==1.6.11
 -e git+https://github.com/scieloorg/thriftpy-wrap@0.1.1#egg=thriftpywrap
 -e git+https://github.com/scieloorg/analytics@1.12.1#egg=analytics

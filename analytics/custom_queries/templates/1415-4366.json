@@ -1,0 +1,36 @@
+{
+    "should": [
+        {
+            "title": "Rev. bras. de eng. agríc. ambient.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista Brasileira de Engenharia Agrícola e Ambiental",
+            "fuzziness": 3
+        },
+        {
+            "title": "Rev. bras. eng. agríc.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista Brasileira de Engenharia Agrícola Ambiental",
+            "fuzziness": 3
+        },
+        {
+            "title": "Rev. bras. eng. agríc. ambient.",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista Brasileira Engenharia Agrícola",
+            "fuzziness": 3
+        },
+        {
+            "title": "Revista Brasileira Engenharia Agrícola Ambiental",
+            "fuzziness": 3            
+        },
+        {
+            "title": "Revista Brasileira de Engenharia Agrícola",
+            "fuzziness": 3            
+        }
+    ]
+}
