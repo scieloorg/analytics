@@ -12,7 +12,7 @@ with open(os.path.join(here, 'CHANGES.txt')) as f:
 install_requires = [
     'requests>=2.8.1',
     'cython>=0.22',
-    'thriftpy>=0.3.9',
+    'thriftpy>=0.3.1',
     'thriftpywrap',
     'pyramid>=1.5.7',
     'pyramid_chameleon',

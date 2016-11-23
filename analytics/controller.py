@@ -2,15 +2,14 @@
 import json
 from datetime import datetime, timedelta
 
-from thrift_clients import clients
 from dogpile.cache import make_region
-
-from analytics import utils
-from analytics.custom_queries import custom_query
 from scieloh5m5 import h5m5
 from articlemeta.client import ThriftClient as ArticleMetaThriftClient
 from citedby.client import ThriftClient as CitedbyThriftClient
+from citedby import custom_query
 
+from thrift_clients import clients
+from analytics import utils
 
 PAGE_SIZE = 20
 
@@ -857,7 +856,7 @@ class BibliometricsStats(CitedbyThriftClient):
             do periódico, quanto este template existir.
         """
 
-        custom_queries = set([utils.clean_string(i) for i in custom_query.load(issn).get('must_not', [])])
+        custom_queries = set([utils.clean_string(i) for i in custom_query.journal_titles.load(issn).get('must_not', [])])
 
         for item in custom_queries:
 
@@ -878,7 +877,7 @@ class BibliometricsStats(CitedbyThriftClient):
             do periódico, quanto este template existir.
         """
 
-        custom_queries = custom_query.load(issn).get('should', [])
+        custom_queries = custom_query.journal_titles.load(issn).get('should', [])
         titles = [{'title': i} for i in titles if i not in [x['title'] for x in custom_queries]]
         titles.extend(custom_queries)
 
