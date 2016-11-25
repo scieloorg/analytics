@@ -17,7 +17,7 @@
             data['options']['tooltip'] = {
                 'formatter': function () {
                     return 'Documentos da Rede SciELO publicados em <b>' + this.series.xAxis.categories[this.point.x] + '</b> citaram <b>' +
-                    this.point.value + '</b> vezes os documento do periódico <b>${selected_journal}</b> publicados em <b>' + this.series.yAxis.categories[this.point.y];
+                    this.point.value + '</b> vezes os documentos do periódico <b>${selected_journal}</b> publicados em <b>' + this.series.yAxis.categories[this.point.y];
                 }
             }
 

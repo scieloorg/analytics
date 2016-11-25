@@ -367,9 +367,13 @@ class BibliometricsStats(CitedbyThriftClient):
 
         temp_dict = {}
         for xitem in query_result['aggregations']['publication_year']['buckets']:
+            if not int(xitem['key']) >= 1900 or not int(xitem['key']) <= datetime.now().year:
+                continue
             data['categories_x'].add(xitem['key'])
             temp_dict.setdefault(xitem['key'], {})
             for yitem in xitem['reference_publication_year']['buckets']:
+                if not int(yitem['key']) >= 1900 or not int(yitem['key']) <= datetime.now().year:
+                    continue
                 data['categories_y'].add(yitem['key'])
                 temp_dict[xitem['key']].setdefault(yitem['key'], yitem['doc_count'])
 
