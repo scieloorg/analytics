@@ -358,6 +358,53 @@ class BibliometricsStats(CitedbyThriftClient):
         return result
 
     @staticmethod
+    def _compute_publication_and_citing_years_heat(query_result):
+
+        data = {}
+        data['categories_x'] = set()
+        data['categories_y'] = set()
+        data['series'] = []
+
+        temp_dict = {}
+        for xitem in query_result['aggregations']['publication_year']['buckets']:
+            data['categories_x'].add(xitem['key'])
+            temp_dict.setdefault(xitem['key'], {})
+            for yitem in xitem['reference_publication_year']['buckets']:
+                data['categories_y'].add(yitem['key'])
+                temp_dict[xitem['key']].setdefault(yitem['key'], yitem['doc_count'])
+
+        data['categories_x'] = sorted(data['categories_x'])
+        data['categories_y'] = sorted(data['categories_y'])
+
+        x = 0
+        for itemx in data['categories_x']:
+            y = 0
+            for itemy in data['categories_y']:
+                data['series'].append([x, y, temp_dict.get(itemx, {}).get(itemy, 0)])
+                y += 1
+            x += 1
+
+        return data
+
+    @cache_region.cache_on_arguments()
+    def publication_and_citing_years_heat(self, issn, titles, raw=False):
+
+        end = datetime.now()
+        start = end - timedelta(365*15)
+
+        query_result = self.publication_and_citing_years(
+            issn,
+            titles,
+            py_range=[start.year, end.year],
+            raw=raw
+        )
+
+        computed = self._compute_publication_and_citing_years_heat(query_result)
+
+        return query_result if raw is True else computed
+
+
+    @staticmethod
     def _compute_publication_and_citing_years(query_result):
         """
         Metodo mantido apenas por padronização. Nenhum gráfico é montado

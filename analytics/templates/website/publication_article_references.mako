@@ -10,6 +10,9 @@
     $(document).ready(function() {
         var url =  "${request.route_url('publication_article_references')}?code=${selected_code}&collection=${selected_collection_code}&callback=?";
         $.getJSON(url,  function(data) {
+            % if selected_journal:
+                data['options']['subtitle'] = {'text': '${selected_journal}'};
+            % endif
             $('#article_references').highcharts(data['options']);
             $("#loading_article_references").hide();
         });

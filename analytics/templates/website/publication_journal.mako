@@ -5,9 +5,11 @@
     <div class="chart">
       <%include file="publication_journal_licenses.mako"/>
     </div>
+    % if content_scope in ['network', 'collection']:
     <div class="chart">
       <%include file="publication_journal_subject_areas.mako"/>
     </div>
+    % endif
     <div class="chart">
       <%include file="publication_journal_year.mako"/>
     </div>

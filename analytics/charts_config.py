@@ -19,13 +19,46 @@ class ChartsConfig(object):
     def highchart(self):
 
         _highchart = {
-            'chart': {'type': 'line', 'backgroundColor': 'transparent'},
+            'chart': {'type': 'line', 'backgroundColor': '#FFFFFF'},
             'yAxis': {'min': 0, 'labels': {'format': '{value}'}},
             'legend': {'align': 'center', 'highlightSeries': {'enabled': True}},
             'credits': {'href': 'http://www.scielo.org', 'text': self._(u'Fonte: SciELO.org')}
         }
 
         return _highchart
+
+    def bibliometrics_publication_and_citing_years_heat(self, data):
+
+        chart = self.highchart
+
+        chart['chart']['type'] = 'heatmap'
+        chart['xAxis'] = {
+            'categories': data['categories_x']
+        }
+        chart['yAxis'] = {'categories': data['categories_y']}
+        chart['series'] = [{'data': data['series']}]
+        chart['colorAxis'] = {
+            "min": 0,
+            "minColor": '#FFFFFF',
+            "maxColor": '#960D0D'
+
+        }
+        chart['legend'] = {
+            "align": "right",
+            "layout": "vertical",
+            "margin": 0,
+            "verticalAlign": 'top',
+            "y": 25,
+            "symbolHeight": 280
+        }
+
+        chart['yAxis']['title'] = {'text': self._(u'Ano de publicação de documentos do periódico. (citados)')}
+        chart['xAxis']['title'] = {'text': self._(u'Ano de publicação dos documentos da Rede ScIELO. (citantes)')}
+        # chart['tooltip'] = {
+        #     'headerFormat': self._(u'Citations')
+        # }
+
+        return {'options': chart}
 
     def bibliometrics_google_h5m5(self, data):
 

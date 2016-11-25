@@ -11,6 +11,9 @@
         var url =  "/ajx/accesses/bymonthandyear?code=${selected_code}&collection=${selected_collection_code}&range_start=${range_start}&range_end=${range_end}&py_range=${'-'.join(py_range)}&callback=?";
 
         $.getJSON(url,  function(data) {
+            % if selected_journal:
+                data['options']['subtitle'] = {'text': '${selected_journal}'};
+            % endif
             $('#bymonthandyear').highcharts('StockChart', data['options']);
             $("#loading_bymonthandyear").hide();
         });

@@ -6,11 +6,14 @@
   </span>
 </div>
 <script language="javascript">
-    $("#loading_selfcitation").show();
+    $("#loading_google_h5m5_chart").show();
     $(document).ready(function() {
         var url =  "${request.route_url('bibliometrics_journal_google_h5m5_chart')}?journal=${selected_code}&callback=?";
 
         $.getJSON(url,  function(data) {
+            % if selected_journal:
+                data['options']['subtitle'] = {'text': '${selected_journal}'};
+            % endif
             data.options.plotOptions.series = {
                 'cursor': 'pointer',
                 'point': {

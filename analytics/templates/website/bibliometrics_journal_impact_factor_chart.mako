@@ -11,6 +11,9 @@
         var url =  "${request.route_url('bibliometrics_journal_impact_factor_chart')}?journal=${selected_code}&collection=${selected_collection_code}&titles=${titles}&callback=?";
 
         $.getJSON(url,  function(data) {
+            % if selected_journal:
+                data['options']['subtitle'] = {'text': '${selected_journal}'};
+            % endif
             $('#impact_factor_chart').highcharts(data['options']);
             $("#loading_impact_factor_chart").hide();
         });

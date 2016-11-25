@@ -6,7 +6,8 @@ from pyramid.view import view_config
 from dogpile.cache import make_region
 
 from analytics.control_manager import base_data_manager
-from analytics.custom_queries import custom_query
+
+from citedby.custom_query import journal_titles
 
 cache_region = make_region(name='views_website_cache')
 
@@ -25,7 +26,7 @@ def bibliometrics_journal(request):
         journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
         titles.append(journal.title)
         titles.append(journal.abbreviated_title)
-        titles.extend(x['title'] for x in custom_query.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
+        titles.extend(x['title'] for x in journal_titles.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
 
     data['titles'] = []
     if titles and not len(titles) == 0:
@@ -34,6 +35,28 @@ def bibliometrics_journal(request):
 
     return data
 
+@view_config(route_name='bibliometrics_journal_publication_and_citing_years_heat_web', renderer='templates/website/bibliometrics_journal_received_citations_heat.mako')
+@base_data_manager
+def bibliometrics_journal_publication_and_citing_years_heat_web(request):
+    data = request.data_manager
+    data['page'] = 'bibliometrics'
+    titles = request.GET.get('titles', None)
+
+    titles = titles.split('||') if titles else []
+
+    if data['selected_journal_code']:
+        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
+        titles.append(journal.title)
+        titles.append(journal.abbreviated_title)
+        titles.extend(x['title'] for x in journal_titles.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
+
+    data['blist'] = {}
+    data['titles'] = []
+    if titles and not len(titles) == 0:
+        forms = set([i.strip() for i in titles if i])
+        data['titles'] = u'||'.join(forms)
+
+    return data
 
 @view_config(route_name='bibliometrics_list_impact_factor_web', renderer='templates/website/bibliometrics_list_impact_factor.mako')
 @base_data_manager
@@ -48,7 +71,7 @@ def bibliometrics_list_impact_factor(request):
         journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
         titles.append(journal.title)
         titles.append(journal.abbreviated_title)
-        titles.extend(x['title'] for x in custom_query.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
+        titles.extend(x['title'] for x in journal_titles.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
 
     data['blist'] = {}
     data['titles'] = []
@@ -73,7 +96,7 @@ def bibliometrics_list_citing_half_life(request):
         journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
         titles.append(journal.title)
         titles.append(journal.abbreviated_title)
-        titles.extend(x['title'] for x in custom_query.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
+        titles.extend(x['title'] for x in journal_titles.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
 
     data['blist'] = {}
     data['titles'] = []
@@ -98,7 +121,7 @@ def bibliometrics_list_citing_forms(request):
         journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
         titles.append(journal.title)
         titles.append(journal.abbreviated_title)
-        titles.extend(x['title'] for x in custom_query.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
+        titles.extend(x['title'] for x in journal_titles.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
 
     data['blist'] = []
     data['titles'] = []
@@ -123,7 +146,7 @@ def bibliometrics_list_received(request):
         journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
         titles.append(journal.title)
         titles.append(journal.abbreviated_title)
-        titles.extend(x['title'] for x in custom_query.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
+        titles.extend(x['title'] for x in journal_titles.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
 
     data['blist'] = []
     data['titles'] = []
@@ -167,6 +190,21 @@ def index(request):
     data['page'] = 'home'
 
     data['h5m5'] = request.stats.bibliometrics.google_h5m5(data['selected_journal_code'])
+
+    titles = request.GET.get('titles', None)
+
+    titles = titles.split('||') if titles else []
+
+    if data['selected_journal_code']:
+        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
+        titles.append(journal.title)
+        titles.append(journal.abbreviated_title)
+        titles.extend(x['title'] for x in journal_titles.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
+
+    data['titles'] = []
+    if titles and not len(titles) == 0:
+        forms = set([i.strip() for i in titles if i])
+        data['titles'] = u'||'.join(forms)
 
     return data
 

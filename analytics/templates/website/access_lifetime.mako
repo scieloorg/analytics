@@ -11,6 +11,9 @@
         var url =  "/ajx/accesses/lifetime?code=${selected_code}&collection=${selected_collection_code}&range_start=${range_start}&range_end=${range_end}&callback=?";
         $.getJSON(url,  function(data) {
             for (item in data) {
+                % if selected_journal:
+                    data[item]['subtitle'] = {'text': '${selected_journal}'};
+                % endif
                 $('#lifetime').append('<li id="lifetime_'+item+'" style="height: 250px; margin-bottom: 100px; padding: 0px; margin: 0px;"></li>');
                 $('#lifetime_'+item).highcharts('StockChart', data[item]);
                 $("#loading_lifetime").hide();

@@ -38,4 +38,9 @@
             <%include file="publication_article_affiliations_map.mako"/>
         </div>
     </div>
+    <div class="row container-fluid" style="margin-top: 100px;">
+        <div class="col-md-12">
+            <%include file="bibliometrics_journal_received_citations_heat_chart.mako"/>
+        </div>
+    </div>
 </%block>

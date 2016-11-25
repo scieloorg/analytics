@@ -11,6 +11,9 @@
     $(document).ready(function() {
         var url =  "/ajx/accesses/bydocumenttype?code=${selected_code}&collection=${selected_collection_code}&range_start=${range_start}&range_end=${range_end}&callback=?";
         $.getJSON(url,  function(data) {
+            % if selected_journal:
+                data['options']['subtitle'] = {'text': '${selected_journal}'};
+            % endif
             $('#bydocumenttype').highcharts(data['options']);
             $("#loading_bydocumenttype").hide();
         });

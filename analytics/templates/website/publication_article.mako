@@ -19,6 +19,7 @@
       </div>
     </div>
   </div>
+  % if content_scope in ['network', 'collection']:
   <div class="chart">
     <div class="row container-fluid">
       <div class="col-md-8">
@@ -36,6 +37,7 @@
       </div>
     </div>
   </div>
+  % endif
   <div class="chart">
     <div class="row container-fluid">
       <div class="col-md-8">

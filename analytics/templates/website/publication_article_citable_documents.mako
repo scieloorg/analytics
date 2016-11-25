@@ -11,6 +11,9 @@
         var url =  "${request.route_url('publication_article_citable_documents')}?code=${selected_code}&collection=${selected_collection_code}&callback=?";
 
         $.getJSON(url,  function(data) {
+            % if selected_journal:
+                data['options']['subtitle'] = {'text': '${selected_journal}'};
+            % endif
             $('#citabledocuments').highcharts('StockChart', data['options']);
             $("#loading_citabledocuments").hide();
         });

@@ -12,6 +12,9 @@
         var url =  "${request.route_url('publication_article_affiliations_map')}?code=${selected_code}&collection=${selected_collection_code}&callback=?";
 
         $.getJSON(url,  function(data) {
+            % if selected_journal:
+                data['options']['subtitle'] = {'text': '${selected_journal}'};
+            % endif
             data.options.series[0].mapData = Highcharts.maps['custom/world'];
             $('#article_affiliations_map').highcharts('Map', data['options']);
             $("#loading_article_affiliations_map").hide();

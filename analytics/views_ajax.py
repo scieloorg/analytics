@@ -4,7 +4,8 @@ from pyramid.view import view_config
 from dogpile.cache import make_region
 
 from analytics.control_manager import base_data_manager
-from analytics.custom_queries import custom_query
+
+from citedby.custom_query import journal_titles
 
 cache_region = make_region(name='views_ajax_cache')
 
@@ -32,6 +33,28 @@ def bibliometrics_journal_google_h5m5_chart(request):
     return request.chartsconfig.bibliometrics_google_h5m5(data)
 
 
+@view_config(route_name='bibliometrics_journal_publication_and_citing_years_heat', request_method='GET', renderer='jsonp')
+@base_data_manager
+def bibliometrics_journal_publication_and_citing_years_heat(request):
+
+    data = request.data_manager
+    titles = request.GET.get('titles', None)
+
+    titles = titles.split('||') if titles else []
+
+    if data['selected_journal_code']:
+        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
+        titles.append(journal.title)
+        titles.append(journal.abbreviated_title)
+        titles.extend(x['title'] for x in journal_titles.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
+
+    data = request.stats.bibliometrics.publication_and_citing_years_heat(
+        data['selected_journal_code'],
+        titles
+    )
+
+    return request.chartsconfig.bibliometrics_publication_and_citing_years_heat(data)
+
 @view_config(route_name='bibliometrics_journal_impact_factor_chart', request_method='GET', renderer='jsonp')
 @base_data_manager
 def bibliometrics_journal_impact_factor_chart(request):
@@ -45,7 +68,7 @@ def bibliometrics_journal_impact_factor_chart(request):
         journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
         titles.append(journal.title)
         titles.append(journal.abbreviated_title)
-        titles.extend(x['title'] for x in custom_query.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
+        titles.extend(x['title'] for x in journal_titles.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
 
     data = request.stats.impact_factor_chart(data['selected_journal_code'], data['selected_collection_code'], titles, py_range=data['py_range'])
 
@@ -65,7 +88,7 @@ def bibliometrics_journal_received_self_and_granted_citation_chart(request):
         journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
         titles.append(journal.title)
         titles.append(journal.abbreviated_title)
-        titles.extend(x['title'] for x in custom_query.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
+        titles.extend(x['title'] for x in journal_titles.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
 
     data = request.stats.received_self_and_granted_citation_chart(data['selected_journal_code'], data['selected_collection_code'], titles, py_range=data['py_range'])
 

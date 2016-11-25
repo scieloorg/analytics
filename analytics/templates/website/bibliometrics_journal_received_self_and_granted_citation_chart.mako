@@ -11,6 +11,9 @@
         var url =  "${request.route_url('bibliometrics_journal_received_self_and_granted_citation_chart')}?journal=${selected_code}&collection=${selected_collection_code}&titles=${titles}&callback=?";
 
         $.getJSON(url,  function(data) {
+            % if selected_journal:
+                data['options']['subtitle'] = {'text': '${selected_journal}'};
+            % endif
             $('#selfcitation').highcharts(data['options']);
             $("#loading_selfcitation").hide();
         });
