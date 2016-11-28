@@ -23,7 +23,7 @@
                 <h3 class="panel-title">${_(u'Sobre o gráfico')}</h3>
               </div>
               <div class="panel-body">
-                  ${_(u'Este gráfico apresenta o número de citações recebidas por um determinado periódico. O corpus de citações corresponde a todas as coleções da Rede SciELO, coleções Temáticas e Independentes. Este gráfico utiliza os documentos publicados na Rede SciELO nos últimos 15 anos.')}
+                  ${_(u'Este gráfico apresenta o número de citações recebidas por um determinado periódico. O corpus de citações corresponde a todas as coleções da Rede SciELO, coleções Temáticas e Independentes.')}
               </div>
             </div>
           </div>

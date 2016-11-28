@@ -1,3 +1,4 @@
+## coding: utf-8
 <ul class="nav navbar-nav">
   <li class="${'active' if page == 'home' else ''}">
     <a href="${request.route_url('index_web')}"><span class="glyphicon glyphicon-home"></span> ${content_scope}</a>
