@@ -23,7 +23,7 @@
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${_(u'Bibliometria')} <span class="caret"></span></a>
     <ul class="dropdown-menu">
       <li><a href="${request.route_url('bibliometrics_journal_web')}">${_(u'Gráficos')}</a></li>
-      <li><a href="${request.route_url('bibliometrics_journal_publication_and_citing_years_heat_web')}">${_(u'Gráfico de calor de citações recebidas')}</a></li>
+      <li><a href="${request.route_url('bibliometrics_journal_cited_and_citing_years_heat_web')}">${_(u'Gráfico de calor de citações recebidas')}</a></li>
       % if not 'bibliometrics' in under_development:
         <li><a href="${request.route_url('bibliometrics_list_impact_factor_web')}">${_(u'Impacto SciELO em 1, 2, 3, 4 e 5 anos')}</a></li>
         <li><a href="${request.route_url('bibliometrics_list_citing_half_life_web')}">${_(u'Vida media da citação')}</a></li>

@@ -33,9 +33,9 @@ def bibliometrics_journal_google_h5m5_chart(request):
     return request.chartsconfig.bibliometrics_google_h5m5(data)
 
 
-@view_config(route_name='bibliometrics_journal_publication_and_citing_years_heat', request_method='GET', renderer='jsonp')
+@view_config(route_name='bibliometrics_journal_cited_and_citing_years_heat', request_method='GET', renderer='jsonp')
 @base_data_manager
-def bibliometrics_journal_publication_and_citing_years_heat(request):
+def bibliometrics_journal_cited_and_citing_years_heat(request):
 
     data = request.data_manager
     titles = request.GET.get('titles', None)
@@ -48,12 +48,12 @@ def bibliometrics_journal_publication_and_citing_years_heat(request):
         titles.append(journal.abbreviated_title)
         titles.extend(x['title'] for x in journal_titles.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
 
-    data = request.stats.bibliometrics.publication_and_citing_years_heat(
+    data = request.stats.bibliometrics.cited_and_citing_years_heat(
         data['selected_journal_code'],
         titles
     )
 
-    return request.chartsconfig.bibliometrics_publication_and_citing_years_heat(data)
+    return request.chartsconfig.bibliometrics_cited_and_citing_years_heat(data)
 
 @view_config(route_name='bibliometrics_journal_impact_factor_chart', request_method='GET', renderer='jsonp')
 @base_data_manager

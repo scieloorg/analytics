@@ -35,12 +35,14 @@ def bibliometrics_journal(request):
 
     return data
 
-@view_config(route_name='bibliometrics_journal_publication_and_citing_years_heat_web', renderer='templates/website/bibliometrics_journal_received_citations_heat.mako')
+@view_config(route_name='bibliometrics_journal_cited_and_citing_years_heat_web', renderer='templates/website/bibliometrics_journal_received_citations_heat.mako')
 @base_data_manager
-def bibliometrics_journal_publication_and_citing_years_heat_web(request):
+def bibliometrics_journal_cited_and_citing_years_heat_web(request):
     data = request.data_manager
     data['page'] = 'bibliometrics'
     titles = request.GET.get('titles', None)
+    citing_year = request.GET.get('citing_year', None)
+    cited_year = request.GET.get('cited_year', None)
 
     titles = titles.split('||') if titles else []
 
@@ -55,6 +57,17 @@ def bibliometrics_journal_publication_and_citing_years_heat_web(request):
     if titles and not len(titles) == 0:
         forms = set([i.strip() for i in titles if i])
         data['titles'] = u'||'.join(forms)
+
+    data['citing_list'] = []
+    if citing_year and cited_year:
+        citing_list = request.stats.bibliometrics.cited_and_citing_years_document_list(
+            data['selected_journal_code'],
+            titles,
+            citing_year=citing_year,
+            cited_year=cited_year
+        )
+
+        data['citing_list'] = citing_list.get('citing_list', 0)
 
     return data
 

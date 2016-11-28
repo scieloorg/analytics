@@ -27,7 +27,7 @@ class ChartsConfig(object):
 
         return _highchart
 
-    def bibliometrics_publication_and_citing_years_heat(self, data):
+    def bibliometrics_cited_and_citing_years_heat(self, data):
 
         chart = self.highchart
 
@@ -59,9 +59,6 @@ class ChartsConfig(object):
         }
         chart['yAxis']['title'] = {'text': self._(u'Ano de publicação de documentos do periódico. (citados)')}
         chart['xAxis']['title'] = {'text': self._(u'Ano de publicação dos documentos da Rede ScIELO. (citantes)')}
-        # chart['tooltip'] = {
-        #     'headerFormat': self._(u'Citations')
-        # }
 
         return {'options': chart}
 

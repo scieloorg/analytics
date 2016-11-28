@@ -212,9 +212,9 @@ class Stats(object):
         return cit_docs
 
     @cache_region.cache_on_arguments()
-    def impact_factor(self, issn, collection, titles, py_range=None, citation_size=0):
+    def impact_factor(self, issn, collection, titles, py_range=None):
 
-        pub_citing_years = self.bibliometrics.publication_and_citing_years(issn, titles, py_range=py_range, citation_size=citation_size, raw=True)
+        pub_citing_years = self.bibliometrics.cited_and_citing_years(issn, titles, py_range=py_range, raw=True)
 
         citable_docs = self.publication.citable_documents(issn, collection, py_range=py_range, raw=True)
 
@@ -241,7 +241,7 @@ class Stats(object):
 
     def impact_factor_chart(self, issn, collection, titles, py_range=None):
 
-        query_result = self.impact_factor(issn, collection, titles, py_range=py_range, citation_size=0)
+        query_result = self.impact_factor(issn, collection, titles, py_range=py_range)
 
         return self._compute_impact_factor_chart(query_result)
 
@@ -282,11 +282,11 @@ class Stats(object):
 
         return data
 
-    def citing_half_life(self, issn, collection, titles, citation_size=0):
+    def citing_half_life(self, issn, collection, titles):
 
         # query_result = self.bibliometrics.received_citations_by_publication_year(issn, titles, raw=True)
 
-        query_result = self.bibliometrics.publication_and_citing_years(issn, titles, citation_size=citation_size, raw=True)
+        query_result = self.bibliometrics.cited_and_citing_years(issn, titles, raw=True)
 
         return self._compute_citing_half_life(query_result)
 
@@ -358,9 +358,10 @@ class BibliometricsStats(CitedbyThriftClient):
         return result
 
     @staticmethod
-    def _compute_publication_and_citing_years_heat(query_result):
+    def _compute_cited_and_citing_years_heat(query_result):
 
         data = {}
+        data['citing_list'] = []
         data['categories_x'] = set()
         data['categories_y'] = set()
         data['series'] = []
@@ -388,26 +389,60 @@ class BibliometricsStats(CitedbyThriftClient):
                 y += 1
             x += 1
 
+        for item in query_result['hits']['hits']:
+            fitem = {}
+            citing_first_author = item['_source'].get('first_author', {'surname': '', 'given_names': ''})
+
+            fitem['citing_pid'] = item['_source'].get('code', '')
+            fitem['citing_collection'] = item['_source'].get('collection', '')
+            fitem['citing_title'] = item['_source'].get('titles', [''])[0]
+            fitem['citing_publication_year'] = item['_source'].get('publication_year', '')
+            fitem['citing_source'] = item['_source'].get('source', '')
+            fitem['citing_first_author'] = ' '.join([citing_first_author.get('surname', ''), citing_first_author.get('given_names', '')])
+            fitem['cited_title'] = item['_source'].get('reference_title', '')
+            fitem['cited_source'] = item['_source'].get('reference_source', '')
+            fitem['cited_publication_year'] = item['_source'].get('reference_publication_year', '')
+            fitem['cited_first_author'] = item['_source'].get('reference_first_author', [''])[0]
+
+            data['citing_list'].append(fitem)
+
         return data
 
-    @cache_region.cache_on_arguments()
-    def publication_and_citing_years_heat(self, issn, titles, raw=False):
+    def cited_and_citing_years_document_list(self, issn, titles, cited_year, citing_year, raw=False):
 
         end = datetime.now()
 
-        query_result = self.publication_and_citing_years(
+        query_result = self.cited_and_citing_years(
+            issn,
+            titles,
+            cited_year=cited_year,
+            citing_year=citing_year,
+            size=9999,
+            raw=raw
+        )
+
+        computed = self._compute_cited_and_citing_years_heat(query_result)
+
+        return query_result if raw is True else computed
+
+    @cache_region.cache_on_arguments()
+    def cited_and_citing_years_heat(self, issn, titles, raw=False):
+
+        end = datetime.now()
+
+        query_result = self.cited_and_citing_years(
             issn,
             titles,
             raw=raw
         )
 
-        computed = self._compute_publication_and_citing_years_heat(query_result)
+        computed = self._compute_cited_and_citing_years_heat(query_result)
 
         return query_result if raw is True else computed
 
 
     @staticmethod
-    def _compute_publication_and_citing_years(query_result):
+    def _compute_cited_and_citing_years(query_result):
         """
         Metodo mantido apenas por padronização. Nenhum gráfico é montado
         diretamente com esses dados. Ele é utilizado em composição com outros
@@ -417,8 +452,7 @@ class BibliometricsStats(CitedbyThriftClient):
 
         return query_result
 
-    @cache_region.cache_on_arguments()
-    def publication_and_citing_years(self, issn, titles, py_range=None, size=0, citation_size=0, raw=False):
+    def cited_and_citing_years(self, issn, titles, py_range=None, cited_year=None, citing_year=None, size=0, raw=False):
 
         body = {"query": {"filtered": {}}}
 
@@ -443,6 +477,28 @@ class BibliometricsStats(CitedbyThriftClient):
                 }
             )
 
+        if citing_year:
+            fltr["filter"]["bool"]['must'].append(
+                {
+                    "match": {
+                        "publication_year": {
+                            "query": citing_year
+                        }
+                    }
+                }
+            )
+
+        if cited_year:
+            fltr["filter"]["bool"]['must'].append(
+                {
+                    "match": {
+                        "reference_publication_year": {
+                            "query": cited_year
+                        }
+                    }
+                }
+            )
+
         query = {
             "query": {
                 "bool": {
@@ -457,13 +513,13 @@ class BibliometricsStats(CitedbyThriftClient):
                 "publication_year": {
                     "terms": {
                         "field": "publication_year",
-                        "size": size
+                        "size": 0
                     },
                     "aggs": {
                         "reference_publication_year": {
                             "terms": {
                                 "field": "reference_publication_year",
-                                "size": citation_size,
+                                "size": 0,
                                 "order": {
                                     "_term": "desc"
                                 }
@@ -485,13 +541,12 @@ class BibliometricsStats(CitedbyThriftClient):
         body.update(aggs)
 
         query_parameters = [
-            self.CITEDBY_THRIFT.kwargs('size', '0'),
-            self.CITEDBY_THRIFT.kwargs('search_type', 'count')
+            self.CITEDBY_THRIFT.kwargs('size', str(size))
         ]
 
         query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
 
-        computed = self._compute_publication_and_citing_years(query_result)
+        computed = self._compute_cited_and_citing_years(query_result)
 
         return query_result if raw else computed
 
