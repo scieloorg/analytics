@@ -394,12 +394,10 @@ class BibliometricsStats(CitedbyThriftClient):
     def publication_and_citing_years_heat(self, issn, titles, raw=False):
 
         end = datetime.now()
-        start = end - timedelta(365*15)
 
         query_result = self.publication_and_citing_years(
             issn,
             titles,
-            py_range=[start.year, end.year],
             raw=raw
         )
 

@@ -12,7 +12,7 @@
 
         $.getJSON(url,  function(data) {
 
-            data['options']['title'] = {'text': 'Citações recebidas pelo periódico (15 anos)'};
+            data['options']['title'] = {'text': 'Citações recebidas pelo periódico'};
             data['options']['subtitle'] = {'text': '${selected_journal}'}
             data['options']['tooltip'] = {
                 'formatter': function () {
