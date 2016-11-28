@@ -52,6 +52,11 @@ class ChartsConfig(object):
             "symbolHeight": 280
         }
 
+        chart['plotOptions'] = {
+            "heatmap": {
+                "turboThreshold": len(data['series'])
+            }
+        }
         chart['yAxis']['title'] = {'text': self._(u'Ano de publicação de documentos do periódico. (citados)')}
         chart['xAxis']['title'] = {'text': self._(u'Ano de publicação dos documentos da Rede ScIELO. (citantes)')}
         # chart['tooltip'] = {

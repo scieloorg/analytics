@@ -16,8 +16,8 @@
             data['options']['subtitle'] = {'text': '${selected_journal}'}
             data['options']['tooltip'] = {
                 'formatter': function () {
-                    return 'Documentos da Rede SciELO publicados em <b>' + this.series.xAxis.categories[this.point.x] + '</b> citaram <b>' +
-                    this.point.value + '</b> vezes os documentos do periódico <b>${selected_journal}</b> publicados em <b>' + this.series.yAxis.categories[this.point.y];
+                    return '${_(u"Documentos da Rede SciELO publicados em")} <b>' + this.series.xAxis.categories[this.point.x] + '</b> ${_(u"citaram")} <b>' +
+                    this.point.value + '</b> ${_(u"vezes os documentos do periódico")} <b>${selected_journal}</b> ${_(u"publicados em")} <b>' + this.series.yAxis.categories[this.point.y];
                 }
             }
 
