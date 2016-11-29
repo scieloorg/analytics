@@ -12,7 +12,7 @@
 
         $.getJSON(url,  function(data) {
 
-            data['options']['title'] = {'text': 'Citações recebidas pelo periódico'};
+            data['options']['title'] = {'text': "${_(u'Citações recebidas pelo periódico')}"};
             data['options']['subtitle'] = {'text': '${selected_journal}'};
             data['options']['tooltip'] = {
                 'formatter': function () {

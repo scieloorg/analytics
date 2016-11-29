@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: analytics 1.15.3\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-11-28 16:30-0200\n"
+"POT-Creation-Date: 2016-11-29 10:39-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -730,6 +730,10 @@ msgstr ""
 msgid "Selecione um eixo x/y para obter a lista de citações para o período."
 msgstr ""
 
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:15
+msgid "Citações recebidas pelo periódico"
+msgstr ""
+
 #: analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:19
 msgid "Documentos da Rede SciELO publicados em"
 msgstr ""
@@ -738,12 +742,16 @@ msgstr ""
 msgid "citaram"
 msgstr ""
 
-#: analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:20
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:19
 msgid "vezes os documentos do periódico"
 msgstr ""
 
-#: analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:20
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:19
 msgid "publicados em"
+msgstr ""
+
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:19
+msgid "Clique no ponto para ver a lista de artigos."
 msgstr ""
 
 #: analytics/templates/website/bibliometrics_list_citing_forms.mako:22
