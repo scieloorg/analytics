@@ -13,13 +13,13 @@
         $.getJSON(url,  function(data) {
 
             data['options']['title'] = {'text': 'Citações recebidas pelo periódico'};
-            data['options']['subtitle'] = {'text': '${selected_journal}'}
+            data['options']['subtitle'] = {'text': '${selected_journal}'};
             data['options']['tooltip'] = {
                 'formatter': function () {
-                    return '${_(u"Documentos da Rede SciELO publicados em")} <b>' + this.series.xAxis.categories[this.point.x] + '</b> ${_(u"citaram")} <b>' +
-                    this.point.value + '</b> ${_(u"vezes os documentos do periódico")} <b>${selected_journal}</b> ${_(u"publicados em")} <b>' + this.series.yAxis.categories[this.point.y] +'<br/>Clique no ponto para ver a lista de artigos.';
+                    return '${_(u"Documentos da Rede SciELO publicados em")} <b>' + this.series.xAxis.categories[this.point.x] + '</b> ${_(u"citaram")} <b>' + this.point.value + '</b> ${_(u"vezes os documentos do periódico")} <b>${selected_journal}</b> ${_(u"publicados em")} <b>' + this.series.yAxis.categories[this.point.y] +'<br/>${_(u"Clique no ponto para ver a lista de artigos.")}';
                 }
             }
+
             data['options']['plotOptions']['series'] = {
                 'cursor': 'pointer',
                 'point': {
@@ -30,6 +30,7 @@
                     }
                 }
             };
+
             Highcharts.chart('bibliometrics_journal_cited_and_citing_years_heat_chart', data['options']);
             $("#loading_bibliometrics_journal_cited_and_citing_years_heat_chart").hide();
         });
