@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Analytics\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-11-28 16:30-0200\n"
-"PO-Revision-Date: 2016-11-29 11:35+0000\n"
+"POT-Creation-Date: 2016-11-29 10:39-0200\n"
+"PO-Revision-Date: 2016-11-29 12:43+0000\n"
 "Last-Translator: fabiobatalha <fabiobatalha@gmail.com>\n"
 "Language-Team: Spanish (Mexico) (http://www.transifex.com/scielo/analytics/language/es_MX/)\n"
 "MIME-Version: 1.0\n"
@@ -736,6 +736,10 @@ msgstr "documento"
 msgid "Selecione um eixo x/y para obter a lista de citações para o período."
 msgstr "Elija in eje x/y para obtener el listado de citaciones para la revista."
 
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:15
+msgid "Citações recebidas pelo periódico"
+msgstr "Citaciones recibidas por la revista"
+
 #: analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:19
 msgid "Documentos da Rede SciELO publicados em"
 msgstr "Documentos de la Red SciELO publicados en"
@@ -744,13 +748,17 @@ msgstr "Documentos de la Red SciELO publicados en"
 msgid "citaram"
 msgstr "citarón"
 
-#: analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:20
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:19
 msgid "vezes os documentos do periódico"
 msgstr "veces los documentos de la revista"
 
-#: analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:20
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:19
 msgid "publicados em"
 msgstr "publicados en"
+
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:19
+msgid "Clique no ponto para ver a lista de artigos."
+msgstr "Clique en el eje para mirar el listado de articulos citantes y citados."
 
 #: analytics/templates/website/bibliometrics_list_citing_forms.mako:22
 msgid "Formas de citação encontrada para o periódico selecionado"
