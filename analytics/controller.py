@@ -322,10 +322,7 @@ class BibliometricsStats(CitedbyThriftClient):
 
     def google_h5m5(self, issn, raw=False):
 
-        data = h5m5.get(issn)
-
-        if not data:
-            return None
+        data = h5m5.get(issn) or {}
 
         if raw:
             return data

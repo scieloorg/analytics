@@ -24,7 +24,7 @@ class ControllerTest(unittest.TestCase):
 
         result = self._stats.bibliometrics.google_h5m5('xxxx-xxxx')
 
-        self.assertEqual(result, None)
+        self.assertEqual(result, {'series': [{'data': [], 'name': 'H5'}, {'data': [], 'name': 'M5'}], 'categories': []})
 
 
     def test_compute_h5m5(self):
