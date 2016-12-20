@@ -23,7 +23,8 @@ install_requires = [
     'dogpile.cache>=0.5.6',
     'pylibmc>=1.5.0',
     'scieloh5m5>=1.4.4',
-    'xylose>=1.16.5'
+    'xylose>=1.16.5',
+    'articlemetaapi>=1.6.13'
     ]
 
 test_requires = []
