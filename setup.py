@@ -10,9 +10,9 @@ with open(os.path.join(here, 'CHANGES.txt')) as f:
     CHANGES = f.read()
 
 install_requires = [
-    'requests>=2.8.1',
+    'requests==2.11.1',
     'cython>=0.22',
-    'thriftpy>=0.3.1',
+    'thriftpy==0.3.1',
     'thriftpywrap',
     'pyramid>=1.5.7',
     'pyramid_chameleon',
@@ -22,7 +22,7 @@ install_requires = [
     'Babel>=2.0',
     'dogpile.cache>=0.5.6',
     'pylibmc>=1.5.0',
-    'scieloh5m5>=1.4.4',
+    'scieloh5m5>=1.5.4',
     'xylose>=1.16.5',
     'articlemetaapi>=1.6.13'
     ]
