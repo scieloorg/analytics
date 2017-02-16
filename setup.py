@@ -24,8 +24,8 @@ install_requires = [
     'pylibmc>=1.5.0',
     'scieloh5m5>=1.5.4',
     'xylose>=1.16.5',
-    'articlemetaapi>=1.6.13',
-    'citedbyapi>=1.3.7'
+    'articlemetaapi>=1.6.16',
+    'citedbyapi>=1.3.10'
     ]
 
 test_requires = []
