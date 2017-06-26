@@ -22,9 +22,9 @@ install_requires = [
     'Babel>=2.0',
     'dogpile.cache>=0.5.6',
     'pylibmc>=1.5.0',
-    'scieloh5m5>=1.5.4',
-    'xylose>=1.16.5',
-    'articlemetaapi>=1.8.16',
+    'scieloh5m5>=1.6.4',
+    'xylose>=1.20.6',
+    'articlemetaapi>=1.14.19',
     'citedbyapi>=1.3.10'
     ]
 
