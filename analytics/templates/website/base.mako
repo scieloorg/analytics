@@ -146,9 +146,10 @@
     <script src="/static/highcharts/highstock.js"></script>
     <script src="/static/highcharts/modules/no-data-to-display.js"></script>
     <script src="/static/highcharts/modules/heatmap.js"></script>
+    <script src="/static/highcharts/modules/exporting.js"></script>
+    <script src="/static/highcharts/modules/export-data.js"></script>
     <script src="/static/highcharts/maps/modules/map.js"></script>
     <script src="/static/highcharts/mapdata/custom/world.js"></script>
-    <script src="/static/highcharts/plugins/export-csv-master/export-csv.js"></script>
     <script src="/static/daterangepicker/daterangepicker.js"></script>
     <script src="/static/jquery-1.11.1/plugins/jquery.number.min.js"></script>
     <script src="/static/bootstrap-3.2.0/js/bootstrap-tokenfield.min.js"></script>

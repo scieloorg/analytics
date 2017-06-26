@@ -32,9 +32,7 @@ class ChartsConfig(object):
         chart = self.highchart
 
         chart['chart']['type'] = 'heatmap'
-        chart['xAxis'] = {
-            'categories': data['categories_x']
-        }
+        chart['xAxis'] = {'categories': data['categories_x']}
         chart['yAxis'] = {'categories': data['categories_y']}
         chart['series'] = [{'data': data['series']}]
         chart['colorAxis'] = {
