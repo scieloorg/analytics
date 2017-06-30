@@ -8,6 +8,9 @@
       <%include file="access_by_month_and_year.mako"/>
     </div>
     <div class="chart">
+      <%include file="accesses_heat_chart.mako"/>
+    </div>
+    <div class="chart">
       <%include file="access_lifetime.mako"/>
     </div>
     <div class="chart">

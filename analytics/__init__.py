@@ -41,6 +41,7 @@ def main(global_config, **settings):
     config.add_route('accesses_bydocumenttype', '/ajx/accesses/bydocumenttype')
     config.add_route('accesses_bymonthandyear', '/ajx/accesses/bymonthandyear')
     config.add_route('accesses_lifetime', '/ajx/accesses/lifetime')
+    config.add_route('accesses_heat', '/ajx/accesses/heat')
     config.add_route('publication_size_web', '/w/publication/size')
     config.add_route('publication_size', '/ajx/publication/size')
     config.add_route('publication_journal_web', '/w/publication/journal')
