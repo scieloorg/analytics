@@ -6,6 +6,7 @@ from dogpile.cache import make_region
 from scieloh5m5 import h5m5
 from articlemeta.client import ThriftClient as ArticleMetaThriftClient
 from citedby.client import ThriftClient as CitedbyThriftClient
+from accessstats.client import ThriftClient as AccessStatsThriftClient
 from citedby import custom_query
 
 from thrift_clients import clients
@@ -93,18 +94,6 @@ class ServerError(Exception):
         return repr(self.message)
 
 
-def articlemeta(host):
-
-    return ArticleMeta(host)
-
-
-def accessstats(host):
-
-    address, port = host.split(':')
-
-    return AccessStats(address, port)
-
-
 def publicationstats(host):
 
     address, port = host.split(':')
@@ -112,18 +101,13 @@ def publicationstats(host):
     return PublicationStats(address, port)
 
 
-def bibliometrics(host):
-
-    return BibliometricsStats(host)
-
-
 class Stats(object):
 
     def __init__(self, articlemeta_host, publicationstats_host, accessstats_host, bibliometrics_host):
-        self.articlemeta = articlemeta(articlemeta_host)
+        self.articlemeta = ArticleMeta(articlemeta_host)
         self.publication = publicationstats(publicationstats_host)
-        self.access = accessstats(accessstats_host)
-        self.bibliometrics = bibliometrics(bibliometrics_host)
+        self.access = AccessStats(accessstats_host)
+        self.bibliometrics = BibliometricsStats(bibliometrics_host)
 
     @staticmethod
     def _compute_received_self_and_granted_citation_chart(self_citations, granted_citations, received_citations):
@@ -365,13 +349,20 @@ class BibliometricsStats(CitedbyThriftClient):
 
         temp_dict = {}
         for xitem in query_result['aggregations']['publication_year']['buckets']:
-            if not int(xitem['key']) >= 1900 or not int(xitem['key']) <= datetime.now().year:
+            try:  # If not a integer
+                if not int(xitem['key']) >= 1900 or not int(xitem['key']) <= datetime.now().year:
+                    continue
+            except ValueError:
                 continue
             data['categories_x'].add(xitem['key'])
             temp_dict.setdefault(xitem['key'], {})
             for yitem in xitem['reference_publication_year']['buckets']:
-                if not int(yitem['key']) >= 1900 or not int(yitem['key']) <= datetime.now().year:
+                try:  # If not a integer
+                    if not int(yitem['key']) >= 1900 or not int(yitem['key']) <= datetime.now().year:
+                        continue
+                except ValueError:
                     continue
+
                 data['categories_y'].add(yitem['key'])
                 temp_dict[xitem['key']].setdefault(yitem['key'], yitem['doc_count'])
 
@@ -538,10 +529,10 @@ class BibliometricsStats(CitedbyThriftClient):
         body.update(aggs)
 
         query_parameters = [
-            self.CITEDBY_THRIFT.kwargs('size', str(size))
+            ('size', str(size))
         ]
 
-        query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
+        query_result = self.search(json.dumps(body), query_parameters)
 
         computed = self._compute_cited_and_citing_years(query_result)
 
@@ -629,11 +620,11 @@ class BibliometricsStats(CitedbyThriftClient):
         body.update(aggs)
 
         query_parameters = [
-            self.CITEDBY_THRIFT.kwargs('size', '0'),
-            self.CITEDBY_THRIFT.kwargs('search_type', 'count')
+            ('size', '0'),
+            ('search_type', 'count')
         ]
 
-        query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
+        query_result = self.search(json.dumps(body), query_parameters)
 
         computed = self._compute_self_citations(query_result)
 
@@ -702,11 +693,11 @@ class BibliometricsStats(CitedbyThriftClient):
         body.update(aggs)
 
         query_parameters = [
-            self.CITEDBY_THRIFT.kwargs('size', '0'),
-            self.CITEDBY_THRIFT.kwargs('search_type', 'count')
+            ('size', '0'),
+            ('search_type', 'count')
         ]
 
-        query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
+        query_result = self.search(json.dumps(body), query_parameters)
 
         computed = self._compute_granted_citations(query_result)
 
@@ -781,11 +772,11 @@ class BibliometricsStats(CitedbyThriftClient):
         body.update(aggs)
 
         query_parameters = [
-            self.CITEDBY_THRIFT.kwargs('size', '0'),
-            self.CITEDBY_THRIFT.kwargs('search_type', 'count')
+            ('size', '0'),
+            ('search_type', 'count')
         ]
 
-        query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
+        query_result = self.search(json.dumps(body), query_parameters)
         computed = self._compute_received_citations_by_year(query_result)
 
         return query_result if raw else computed
@@ -859,11 +850,11 @@ class BibliometricsStats(CitedbyThriftClient):
         body.update(aggs)
 
         query_parameters = [
-            self.CITEDBY_THRIFT.kwargs('size', '0'),
-            self.CITEDBY_THRIFT.kwargs('search_type', 'count')
+            ('size', '0'),
+            ('search_type', 'count')
         ]
 
-        query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
+        query_result = self.search(json.dumps(body), query_parameters)
 
         computed = self._compute_received_citations(query_result)
 
@@ -938,11 +929,11 @@ class BibliometricsStats(CitedbyThriftClient):
         body.update(aggs)
 
         query_parameters = [
-            self.CITEDBY_THRIFT.kwargs('size', '0'),
-            self.CITEDBY_THRIFT.kwargs('search_type', 'count')
+            ('size', '0'),
+            ('search_type', 'count')
         ]
 
-        query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
+        query_result = self.search(json.dumps(body), query_parameters)
 
         computed = self._compute_citing_forms(query_result)
 
@@ -1666,7 +1657,7 @@ class PublicationStats(clients.PublicationStats):
         body.update(aggs)
 
         query_parameters = [
-            clients.accessstats_thrift.kwargs('size', '0')
+            clients.publicationstats_thrift.kwargs('size', '0')
         ]
 
         query_result = json.loads(self.client.search('article', json.dumps(body), query_parameters))
@@ -1707,7 +1698,7 @@ class ArticleMeta(ArticleMetaThriftClient):
         return self._journals.get(collection, {}) if collection else self._journals
 
 
-class AccessStats(clients.AccessStats):
+class AccessStats(AccessStatsThriftClient):
 
     @staticmethod
     def _code_type(code):
@@ -1871,10 +1862,10 @@ class AccessStats(clients.AccessStats):
         body.update(aggs)
 
         query_parameters = [
-            clients.accessstats_thrift.kwargs('size', '0')
+            ('size', '0')
         ]
 
-        query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
+        query_result = self.search(json.dumps(body), query_parameters)
 
         computed = self._compute_list_journals(query_result)
 
@@ -2027,10 +2018,10 @@ class AccessStats(clients.AccessStats):
         body.update(aggs)
 
         query_parameters = [
-            clients.accessstats_thrift.kwargs('size', '0')
+            ('size', '0')
         ]
 
-        query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
+        query_result = self.search(json.dumps(body), query_parameters)
 
         computed = self._compute_list_issues(query_result)
 
@@ -2187,10 +2178,10 @@ class AccessStats(clients.AccessStats):
         body.update(aggs)
 
         query_parameters = [
-            clients.accessstats_thrift.kwargs('size', '0')
+            ('size', '0')
         ]
 
-        query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
+        query_result = self.search(json.dumps(body), query_parameters)
 
         computed = self._compute_list_articles(query_result)
 
@@ -2308,10 +2299,10 @@ class AccessStats(clients.AccessStats):
             })
 
         query_parameters = [
-            clients.accessstats_thrift.kwargs('size', '0')
+            ('size', '0')
         ]
 
-        query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
+        query_result = self.search(json.dumps(body), query_parameters)
 
         computed = self._compute_access_by_document_type(query_result)
 
@@ -2445,10 +2436,10 @@ class AccessStats(clients.AccessStats):
             })
 
         query_parameters = [
-            clients.accessstats_thrift.kwargs('size', '0')
+            ('size', '0')
         ]
 
-        query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
+        query_result = self.search(json.dumps(body), query_parameters)
 
         computed = self._compute_access_lifetime(query_result)
 
@@ -2589,10 +2580,10 @@ class AccessStats(clients.AccessStats):
             })
 
         query_parameters = [
-            clients.accessstats_thrift.kwargs('size', '0')
+            ('size', '0')
         ]
 
-        query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
+        query_result = self.search(json.dumps(body), query_parameters)
 
         computed = self._compute_access_by_month_and_year(query_result)
 
@@ -2739,10 +2730,10 @@ class AccessStats(clients.AccessStats):
             })
 
         query_parameters = [
-            clients.accessstats_thrift.kwargs('size', '0')
+            ('size', '0')
         ]
 
-        query_result = json.loads(self.client.search(json.dumps(body), query_parameters))
+        query_result = self.search(json.dumps(body), query_parameters)
 
         computed = self._compute_access_heat(query_result)
 

@@ -10,7 +10,7 @@ with open(os.path.join(here, 'CHANGES.txt')) as f:
     CHANGES = f.read()
 
 install_requires = [
-    'requests==2.11.1',
+    'requests>=2.11.1',
     'cython>=0.22',
     'thriftpy==0.3.1',
     'thriftpywrap',
@@ -22,17 +22,18 @@ install_requires = [
     'Babel>=2.0',
     'dogpile.cache>=0.5.6',
     'pylibmc>=1.5.0',
-    'scieloh5m5>=1.6.4',
-    'xylose>=1.20.6',
+    'scieloh5m5>=1.10.4',
+    'xylose>=1.22.7',
     'articlemetaapi>=1.14.19',
-    'citedbyapi>=1.3.10'
+    'accessstatsapi>=1.1.0',
+    'citedbyapi>=1.4.10'
     ]
 
 test_requires = []
 
 setup(
     name="analytics",
-    version='1.19.4',
+    version='1.20.0',
     description="A analytics frontend for SciELO usage and publication statistics",
     author="SciELO",
     author_email="scielo-dev@googlegroups.com",
@@ -52,7 +53,7 @@ setup(
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
     ],
     dependency_links=[
-        "git+https://github.com/scieloorg/thriftpy-wrap@0.1.1#egg=thriftpywrap",
+        "git+https://github.com/scieloorg/thriftpy-wrap@0.1.1#egg=thriftpywrap"
     ],
     message_extractors = {
         'analytics': [

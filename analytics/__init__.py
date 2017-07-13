@@ -21,7 +21,7 @@ def main(global_config, **settings):
         return controller.Stats(
             settings.get('articlemeta', None),
             settings['publicationstats'],
-            settings['accessstats'],
+            settings.get('accessstats', None),
             settings.get('citedby', None)
         )
 

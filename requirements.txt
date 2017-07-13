@@ -8,7 +8,7 @@ waitress==0.8.10
 dogpile.cache==0.5.6
 pylibmc==1.5.0
 Babel==2.0
-scieloh5m5==1.6.4
+scieloh5m5==1.10.4
 xylose==1.20.6
 citedbyapi==1.3.10
 articlemetaapi==1.14.19
