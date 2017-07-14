@@ -7,9 +7,9 @@ from scieloh5m5 import h5m5
 from articlemeta.client import ThriftClient as ArticleMetaThriftClient
 from citedby.client import ThriftClient as CitedbyThriftClient
 from accessstats.client import ThriftClient as AccessStatsThriftClient
+from publicationstats.client import ThriftClient as PublicationStatsThriftClient
 from citedby import custom_query
 
-from thrift_clients import clients
 from analytics import utils
 
 PAGE_SIZE = 20
@@ -94,18 +94,11 @@ class ServerError(Exception):
         return repr(self.message)
 
 
-def publicationstats(host):
-
-    address, port = host.split(':')
-
-    return PublicationStats(address, port)
-
-
 class Stats(object):
 
     def __init__(self, articlemeta_host, publicationstats_host, accessstats_host, bibliometrics_host):
         self.articlemeta = ArticleMeta(articlemeta_host)
-        self.publication = publicationstats(publicationstats_host)
+        self.publication = PublicationStats(publicationstats_host)
         self.access = AccessStats(accessstats_host)
         self.bibliometrics = BibliometricsStats(bibliometrics_host)
 
@@ -991,7 +984,7 @@ class BibliometricsStats(CitedbyThriftClient):
             yield query
 
 
-class PublicationStats(clients.PublicationStats):
+class PublicationStats(PublicationStatsThriftClient):
 
     @staticmethod
     def _code_type(code):
@@ -1096,10 +1089,10 @@ class PublicationStats(clients.PublicationStats):
         body.update(aggs)
 
         query_parameters = [
-            clients.publicationstats_thrift.kwargs('size', '0'),
+            ('size', '0'),
         ]
 
-        query_result = json.loads(self.client.search('article', json.dumps(body), query_parameters))
+        query_result = self.search('article', json.dumps(body), query_parameters)
 
         computed = self._compute_granted_citations_by_year(query_result)
 
@@ -1270,11 +1263,11 @@ class PublicationStats(clients.PublicationStats):
         body.update(aggs)
 
         query_parameters = [
-            clients.publicationstats_thrift.kwargs('size', '0'),
-            clients.publicationstats_thrift.kwargs('search_type', 'count')
+            ('size', '0'),
+            ('search_type', 'count')
         ]
 
-        query_result = json.loads(self.client.search(index, json.dumps(body), query_parameters))
+        query_result = self.search(index, json.dumps(body), query_parameters)
 
         computed = self._compute_general(query_result, field)
 
@@ -1353,8 +1346,8 @@ class PublicationStats(clients.PublicationStats):
             })
 
         query_parameters = [
-            clients.publicationstats_thrift.kwargs('size', '0'),
-            clients.publicationstats_thrift.kwargs('search_type', 'count')
+            ('size', '0'),
+            ('search_type', 'count')
         ]
 
         aggs_type = 'sum' if field == 'citations' else 'cardinality'
@@ -1368,7 +1361,7 @@ class PublicationStats(clients.PublicationStats):
                 }
             }
 
-        query_result = json.loads(self.client.search('article', json.dumps(body), query_parameters))
+        query_result = self.search('article', json.dumps(body), query_parameters)
 
         computed = self._compute_collection_size(query_result, field)
 
@@ -1496,10 +1489,10 @@ class PublicationStats(clients.PublicationStats):
         body.update(aggs)
 
         query_parameters = [
-            clients.publicationstats_thrift.kwargs('size', '0'),
+            ('size', '0'),
         ]
 
-        query_result = json.loads(self.client.search('article', json.dumps(body), query_parameters))
+        query_result = self.search('article', json.dumps(body), query_parameters)
 
         computed = self._compute_citable_documents(query_result)
 
@@ -1657,10 +1650,10 @@ class PublicationStats(clients.PublicationStats):
         body.update(aggs)
 
         query_parameters = [
-            clients.publicationstats_thrift.kwargs('size', '0')
+            ('size', '0')
         ]
 
-        query_result = json.loads(self.client.search('article', json.dumps(body), query_parameters))
+        query_result = self.search('article', json.dumps(body), query_parameters)
 
         computed = self._compute_by_publication_year(query_result, field)
 
