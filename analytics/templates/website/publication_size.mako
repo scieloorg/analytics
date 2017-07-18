@@ -2,6 +2,7 @@
 <%inherit file="central_container_for_article_filters.mako"/>
 
 <%block name="central_container">
+    <h3>${_('Composição da coleção')}</h3>
     <div class="row container-fluid">
         <div class="col-md-3">
           <%include file="publication_size_journals.mako"/>

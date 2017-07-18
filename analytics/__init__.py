@@ -67,6 +67,7 @@ def main(global_config, **settings):
     config.add_route('publication_article_subject_areas', '/ajx/publication/article/subject_areas')
     config.add_route('publication_article_subject_areas_publication_year', '/ajx/publication/article/subject_areas_publication_year')
     config.add_route('bibliometrics_journal_web', '/w/bibliometrics/journal')
+    config.add_route('bibliometrics_journal_jcr', '/w/bibliometrics/journal/jcr')
     config.add_route('bibliometrics_list_granted_web', '/w/bibliometrics/list/granted')
     config.add_route('bibliometrics_list_received_web', '/w/bibliometrics/list/received')
     config.add_route('bibliometrics_list_citing_forms_web', '/w/bibliometrics/list/citing_forms')

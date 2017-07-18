@@ -247,7 +247,7 @@ class ChartsConfig(object):
         del chart['chart']
         del chart['legend']
         del chart['yAxis']
-        chart['title'] = {'text': self._(u'Distribuição de países de afiliação dos documentos')}
+        chart['title'] = {'text': self._(u'Distribuição de países de afiliação dos autores')}
         chart['legend'] = {
             'title': {
                 'text': self._(u'Número de documentos')
@@ -289,7 +289,7 @@ class ChartsConfig(object):
 
         chart = self.highchart
         chart['chart']['type'] = 'column'
-        chart['title'] = {'text': self._(u'Distribuição de países de afiliação dos documentos')}
+        chart['title'] = {'text': self._(u'Distribuição de países de afiliação dos autores')}
         chart['xAxis'] = {
             'categories': data['categories'],
             'title': {'text': self._(u'País de afiliação')}
@@ -313,7 +313,7 @@ class ChartsConfig(object):
 
         chart = self.highchart
         chart['chart']['type'] = 'column'
-        chart['title'] = {'text': self._(u'Distribuição de países de afiliação dos documentos por ano de publicação')}
+        chart['title'] = {'text': self._(u'Distribuição de países de afiliação dos autores por ano de publicação')}
         chart['legend'] = {'enabled': False}
         chart['series'] = data['series']
         chart['navigator'] = {

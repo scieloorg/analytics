@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 
 from dogpile.cache import make_region
 from scieloh5m5 import h5m5
+from scielojcr import jcrindicators
 from articlemeta.client import ThriftClient as ArticleMetaThriftClient
 from citedby.client import ThriftClient as CitedbyThriftClient
 from accessstats.client import ThriftClient as AccessStatsThriftClient
@@ -299,12 +300,21 @@ class BibliometricsStats(CitedbyThriftClient):
 
     def google_h5m5(self, issn, raw=False):
 
-        data = h5m5.get(issn) or {}
+        data = h5m5.get_metrics(issn) or {}
 
         if raw:
             return data
 
         return self._compute_google_h5m5(data)
+
+    def jcr(self, issn, raw=False):
+
+        data = jcrindicators.get_indicators(issn) or {}
+
+        if raw:
+            return data
+
+        return data
 
     def document_received_citations(self, document, py_range=None):
 

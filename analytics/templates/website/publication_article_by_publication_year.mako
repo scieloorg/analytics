@@ -2,6 +2,7 @@
 <%inherit file="central_container_for_article_filters.mako"/>
 
 <%block name="central_container">
+  <h3>${_('Licenças de uso')}</h3>
   <div class="chart">
     <div class="row container-fluid">
       <div class="col-md-8">
@@ -20,6 +21,7 @@
     </div>
   </div>
   % if content_scope in ['network', 'collection']:
+  <h3>${_('Áreas temáticas')}</h3>
   <div class="chart">
     <div class="row container-fluid">
       <div class="col-md-8">
@@ -38,6 +40,7 @@
     </div>
   </div>
   % endif
+  <h3>${_('Tipos de documentos')}</h3>
   <div class="chart">
     <div class="row container-fluid">
       <div class="col-md-8">
@@ -55,6 +58,7 @@
       </div>
     </div>
   </div>
+  <h3>${_('Idiomas dos documentos')}</h3>
   <div class="chart">
     <div class="row container-fluid">
       <div class="col-md-8">
@@ -72,6 +76,7 @@
       </div>
     </div>
   </div>
+  <h3>${_('Países de afiliação')}</h3>
   <div class="chart">
     <div class="row container-fluid">
       <div class="col-md-8">
@@ -89,25 +94,24 @@
       </div>
     </div>
   </div>
-  % if not 'bibliometrics' in under_development:
-    <div class="chart">
-      <div class="row container-fluid">
-        <div class="col-md-8">
-          <%include file="publication_article_citable_documents.mako"/>
-        </div>
-        <div class="col-md-4">
-          <div class="panel panel-info">
-            <div class="panel-heading">
-              <h3 class="panel-title">${_(u'Sobre o gráfico')}</h3>
-            </div>
-            <div class="panel-body">
-                ${_(u'Este gráfico apresenta a distribuição de documentos citáveis e não citáveis relacionados ao periódico selecionado. De acordo com as regras de contagem do SciELO, documentos citáveis devem ser do tipo "Research Article", "Review Article", "Case Report", "Brief Report", "Rapid Communication" e "Article Commentary". Os demais tipos de documentos são considerados não citáveis.')}
-            </div>
+  <h3>${_('Citações recebidas, concedidas e auto citações')}</h3>
+  <div class="chart">
+    <div class="row container-fluid">
+      <div class="col-md-8">
+        <%include file="publication_article_citable_documents.mako"/>
+      </div>
+      <div class="col-md-4">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">${_(u'Sobre o gráfico')}</h3>
+          </div>
+          <div class="panel-body">
+              ${_(u'Este gráfico apresenta a distribuição de documentos citáveis e não citáveis relacionados ao periódico selecionado. De acordo com as regras de contagem do SciELO, documentos citáveis devem ser do tipo "Research Article", "Review Article", "Case Report", "Brief Report", "Rapid Communication" e "Article Commentary". Os demais tipos de documentos são considerados não citáveis.')}
           </div>
         </div>
       </div>
     </div>
-  % endif
+  </div>
 </%block>
 
 <%block name="extra_js">

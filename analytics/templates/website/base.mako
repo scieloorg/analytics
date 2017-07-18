@@ -17,6 +17,7 @@
     <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
     <script type="text/javascript">stLight.options({publisher: "1eab5827-c9f3-406e-a65d-b1fdf08ae141", doNotHash: true, doNotCopy: true, hashAddressBar: false, onhover: false});</script>
     <script src="/static/clipboard/clipboard.min.js"></script>
+    <script src="/static/anchorjs/anchor.min.js"></script>
   </header>
   <body>
     <%include file="google_analytics.mako"/>
@@ -154,6 +155,10 @@
     <script src="/static/jquery-1.11.1/plugins/jquery.number.min.js"></script>
     <script src="/static/bootstrap-3.2.0/js/bootstrap-tokenfield.min.js"></script>
     <script>$('.collapse').collapse()</script>
+    <script type="text/javascript">
+      anchors.options.visible = 'always';
+      anchors.add('h3');
+    </script>
     <script type="text/javascript">
       Highcharts.setOptions({
         colors: ['#3366CC', '#DC3912', '#FF9900', '#109618', '#990099', '#0099C6', '#DD4477', '#66AA00', '#B82E2E', '#316395', '#22AA99', '#AAAA11', '#6633CC', '#E67300', '#8B0707', '#651067'],

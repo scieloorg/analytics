@@ -21,7 +21,7 @@
     </div>
     <div class="row container-fluid" style="margin-top: 100px;">
         <div class="row">
-            <h3>${_(u'Charts')}</h3>
+            <h3>${_(u'Gráficos')}</h3>
         </div>
         <div class="col-md-6">
             <%include file="access_by_month_and_year.mako"/>
