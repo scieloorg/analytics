@@ -1,5 +1,3 @@
-body { padding-top: 70px; }
-
 .header-col {
     color: #FFFFFF;
     width: 100%;
@@ -69,6 +67,7 @@ body { padding-top: 70px; }
 .logo_analytics {
     background-image: url("/static/images/logo_analytics.png");
     background-repeat: no-repeat;
+    background-position: 20px 0px;
 }
 
 .chart {

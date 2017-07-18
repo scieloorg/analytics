@@ -22,7 +22,7 @@
   <body>
     <%include file="google_analytics.mako"/>
     <div class="row">
-      <nav class="navbar navbar-inverse navbar-fixed-top logo_analytics" role="navigation">
+      <nav class="navbar navbar-inverse logo_analytics" role="navigation">
         <div class="container-fluid">
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right" style="padding-right: 30px;">
