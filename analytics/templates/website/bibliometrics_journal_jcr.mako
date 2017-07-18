@@ -13,6 +13,15 @@
     </div>
   % else:
     <h3>${_('Indicadores JCR')}</h3>
+    % if len(jcr) == 0:
+      <div class="row">
+        <div class="col-md-12">
+          <h4>
+            <small>${_(u'Não há indicadores JCR para este periódico')}</small>
+          </h4>      
+        </div>
+      </div>    
+    % endif
     % for year, data in jcr.items():
       <h4>base year: ${ year }</h4>
       <div class="row">
