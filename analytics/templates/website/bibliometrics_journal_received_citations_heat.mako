@@ -12,7 +12,7 @@
       </div>
     </div>
   % else:
-      <h3>${_('Gráfico de calor de citações recebidas')}</h3>
+      <h3>${_(u'Gráfico de calor de citações recebidas')}</h3>
       <div class="chart">
         <div class="row container-fluid">
           <div class="col-md-10">

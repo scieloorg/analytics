@@ -20,7 +20,7 @@
               <button type="submit" class="btn btn-default">${_(u'aplicar')}</button>
           </form>
         </div>
-        <h3>${_('Impacto SciELO')}</h3>
+        <h3>${_(u'Impacto SciELO')}</h3>
         <div class="chart">
           <div class="row container-fluid">
             <div class="col-md-8">
@@ -39,7 +39,7 @@
           </div>
         </div>
       % endif
-      <h3>${_('Documentos citáveis e não citáveis')}</h3>
+      <h3>${_(u'Documentos citáveis e não citáveis')}</h3>
       <div class="chart">
         <div class="row container-fluid">
           <div class="col-md-8">
@@ -57,7 +57,7 @@
           </div>
         </div>
       </div>
-      <h3>${_('Google H5M5')}</h3>
+      <h3>${_(u'Google H5M5')}</h3>
       <div class="chart">
         <div class="row container-fluid">
           <div class="col-md-8">
@@ -75,7 +75,7 @@
           </div>
         </div>
       </div>
-      <h3>${_('Citações concedidas, recebidas e auto citação')}</h3>
+      <h3>${_(u'Citações concedidas, recebidas e auto citação')}</h3>
       <div class="chart">
         <div class="row container-fluid">
           <div class="col-md-8">

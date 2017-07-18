@@ -3,19 +3,19 @@
 
 <%block name="central_container">
   <%include file="access_datepicker.mako"/>
-  <h3>${_('Grafico da evolução de acessos aos documentos')}</h3>
+  <h3>${_(u'Gráfico da evolução de acessos aos documentos')}</h3>
   <center>
     <div class="chart">
       <%include file="access_by_month_and_year.mako"/>
     </div>
   </center>
-  <h3>${_('Grafico de calor de acessos')}</h3>
+  <h3>${_(u'Gráfico de calor de acessos')}</h3>
   <center>
     <div class="chart">
       <%include file="accesses_heat_chart.mako"/>
     </div>
   </center>
-  <h3>${_('Gráfico de tempo de vida de documentos através do número de acessos')}</h3>
+  <h3>${_(u'Gráfico de tempo de vida de documentos através do número de acessos')}</h3>
   <center>
     <div class="chart">
       <%include file="access_lifetime.mako"/>

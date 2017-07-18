@@ -2,7 +2,7 @@
 <%inherit file="central_container_for_article_filters.mako"/>
 
 <%block name="central_container">
-  <h3>${_('Licenças de uso')}</h3>
+  <h3>${_(u'Licenças de uso')}</h3>
   <div class="chart">
     <div class="row container-fluid">
       <div class="col-md-8">
@@ -21,7 +21,7 @@
     </div>
   </div>
   % if content_scope in ['network', 'collection']:
-  <h3>${_('Áreas temáticas')}</h3>
+  <h3>${_(u'Áreas temáticas')}</h3>
   <div class="chart">
     <div class="row container-fluid">
       <div class="col-md-8">
@@ -40,7 +40,7 @@
     </div>
   </div>
   % endif
-  <h3>${_('Tipos de documentos')}</h3>
+  <h3>${_(u'Tipos de documentos')}</h3>
   <div class="chart">
     <div class="row container-fluid">
       <div class="col-md-8">
@@ -58,7 +58,7 @@
       </div>
     </div>
   </div>
-  <h3>${_('Idiomas dos documentos')}</h3>
+  <h3>${_(u'Idiomas dos documentos')}</h3>
   <div class="chart">
     <div class="row container-fluid">
       <div class="col-md-8">
@@ -76,7 +76,7 @@
       </div>
     </div>
   </div>
-  <h3>${_('Países de afiliação')}</h3>
+  <h3>${_(u'Países de afiliação')}</h3>
   <div class="chart">
     <div class="row container-fluid">
       <div class="col-md-8">
@@ -94,7 +94,7 @@
       </div>
     </div>
   </div>
-  <h3>${_('Citações recebidas, concedidas e auto citações')}</h3>
+  <h3>${_(u'Citações recebidas, concedidas e auto citações')}</h3>
   <div class="chart">
     <div class="row container-fluid">
       <div class="col-md-8">

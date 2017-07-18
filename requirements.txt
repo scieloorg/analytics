@@ -12,7 +12,7 @@ scieloh5m5==1.10.4
 xylose==1.22.7
 citedbyapi==1.4.10
 accessstatsapi==1.2.0
-publicationstatsapi=1.1.0
+publicationstatsapi==1.1.0
 articlemetaapi==1.14.19
 scielojcr==1.0.0b0
 -e git+https://github.com/scieloorg/thriftpy-wrap@0.1.1#egg=thriftpywrap
