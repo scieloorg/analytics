@@ -10,6 +10,7 @@ from citedby.client import ThriftClient as CitedbyThriftClient
 from accessstats.client import ThriftClient as AccessStatsThriftClient
 from publicationstats.client import ThriftClient as PublicationStatsThriftClient
 from citedby import custom_query
+from altmetric import Altmetric, AltmetricHTTPException
 
 from analytics import utils
 
@@ -306,6 +307,33 @@ class BibliometricsStats(CitedbyThriftClient):
             return data
 
         return self._compute_google_h5m5(data)
+
+    # @cache_region.cache_on_arguments()
+    def altmetric(self, issn):
+
+        al = Altmetric()
+
+        timeframes = ['1m', '3m', '6m', '1y', 'at']
+
+        indicators = []
+
+        for item in timeframes:
+
+            try:
+                value = al.journals(item, issns=issn)['results'][0]['stats']
+                del(value['weeks_by_articles'])
+            except KeyError as e:
+                value = None
+            except IndexError as e:
+                value = None
+            except TypeError as e:
+                value = None
+            except AltmetricHTTPException as e:
+                value = None
+
+            indicators.append((item, value))
+
+        return indicators
 
     def jcr(self, issn, raw=False):
 

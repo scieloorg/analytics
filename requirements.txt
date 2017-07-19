@@ -15,5 +15,6 @@ accessstatsapi==1.2.0
 publicationstatsapi==1.1.0
 articlemetaapi==1.14.19
 scielojcr==1.0.0b0
+altmetric==1.0.0
 -e git+https://github.com/scieloorg/thriftpy-wrap@0.1.1#egg=thriftpywrap
--e git+https://github.com/scieloorg/analytics@1.22.0#egg=analytics
+-e git+https://github.com/scieloorg/analytics@1.25.0#egg=analytics

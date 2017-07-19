@@ -48,6 +48,19 @@ def bibliometrics_journal_jcr(request):
 
     return data
 
+@view_config(route_name='bibliometrics_journal_altmetric', renderer='templates/website/bibliometrics_journal_altmetric.mako')
+@base_data_manager
+def bibliometrics_journal_altmetric(request):
+
+    data = request.data_manager
+    data['page'] = 'bibliometrics'
+
+    altmetric = request.stats.bibliometrics.altmetric(issn=data['selected_journal_code'])
+
+    data['altmetric'] = altmetric
+
+    return data
+
 @view_config(route_name='bibliometrics_journal_cited_and_citing_years_heat_web', renderer='templates/website/bibliometrics_journal_received_citations_heat.mako')
 @base_data_manager
 def bibliometrics_journal_cited_and_citing_years_heat_web(request):
