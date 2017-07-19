@@ -308,7 +308,7 @@ class BibliometricsStats(CitedbyThriftClient):
 
         return self._compute_google_h5m5(data)
 
-    # @cache_region.cache_on_arguments()
+    @cache_region.cache_on_arguments()
     def altmetric(self, issn):
 
         al = Altmetric()
