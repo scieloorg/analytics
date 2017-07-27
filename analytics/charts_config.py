@@ -93,6 +93,29 @@ class ChartsConfig(object):
 
         return {'options': chart}
 
+    def bibliometrics_jcr_impact_factor(self, data):
+
+        chart = self.highchart
+
+        chart['title'] = {'text': self._(u'Fator de Impacto JCR')}
+        chart['xAxis'] = {'categories': data['categories']}
+        chart['series'] = data['series']
+        chart['yAxis']['title'] = {'text': self._(u'Fator de Impacto JCR')}
+        chart['plotOptions'] = {
+            'line': {
+                'dataLabels': {
+                    'enabled': True
+                }
+            }
+        }
+        chart['tooltip'] = {
+            'headerFormat': self._(u'Fator de Impacto JCR'),
+            'pointFormat': u'<br/><strong>'+self._(u'Ano base')+u'</strong>: {point.category}<br/><strong>{series.name}</strong>: {point.y}',
+            'followPointer': False,
+        }
+
+        return {'options': chart}
+
     def bibliometrics_google_h5m5(self, data):
 
         chart = self.highchart

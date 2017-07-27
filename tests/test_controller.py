@@ -18,6 +18,153 @@ class ControllerTest(unittest.TestCase):
         self._path = os.path.dirname(os.path.realpath(__file__))
         self._stats = controller.Stats('localhost:11600', 'localhost:11600', 'localhost:11600', 'localhost:11600')
 
+    def test_compute_jcr_impact_factor(self):
+
+        data = {
+            "2014": {
+                "article_influence_score": 0.172,
+                "cited_half_life": "5.3",
+                "percentage_articles_in_citable_items": 98.76,
+                "issn_scielo": "0102-8650",
+                "normalized_eigenfactor": 0.18137,
+                "five_year_impact_factor": 0.778,
+                "immediacy_index": 0.068,
+                "citable_items": 161,
+                "impact_factor_without_journal_self_cites": 0.513,
+                "total_cites": 849,
+                "year": 2014,
+                "eigenfactor_score": 0.00162,
+                "journal_impact_factor": 0.661,
+                "citing_half_life": "9.3",
+                "average_journal_impact_factor_percentile": 15.404
+            },
+            "2011": {
+                "article_influence_score": None,
+                "cited_half_life": "4.9",
+                "percentage_articles_in_citable_items": 100.0,
+                "issn_scielo": "0102-8650",
+                "normalized_eigenfactor": None,
+                "five_year_impact_factor": None,
+                "immediacy_index": 0.108,
+                "citable_items": 111,
+                "impact_factor_without_journal_self_cites": 0.462,
+                "total_cites": 550,
+                "year": 2011,
+                "eigenfactor_score": 0.00125,
+                "journal_impact_factor": 0.584,
+                "citing_half_life": "9.3",
+                "average_journal_impact_factor_percentile": 16.834
+            },
+            "2015": {
+                "article_influence_score": 0.165,
+                "cited_half_life": "5.2",
+                "percentage_articles_in_citable_items": 99.19,
+                "issn_scielo": "0102-8650",
+                "normalized_eigenfactor": 0.19143,
+                "five_year_impact_factor": 0.764,
+                "immediacy_index": 0.081,
+                "citable_items": 123,
+                "impact_factor_without_journal_self_cites": 0.465,
+                "total_cites": 913,
+                "year": 2015,
+                "eigenfactor_score": 0.00168,
+                "journal_impact_factor": 0.58,
+                "citing_half_life": "8.8",
+                "average_journal_impact_factor_percentile": 11.25
+            },
+            "2016": {
+                "article_influence_score": 0.159,
+                "cited_half_life": "5.5",
+                "percentage_articles_in_citable_items": 99.23,
+                "issn_scielo": "0102-8650",
+                "normalized_eigenfactor": 0.18478,
+                "five_year_impact_factor": 0.735,
+                "immediacy_index": 0.138,
+                "citable_items": 130,
+                "impact_factor_without_journal_self_cites": 0.616,
+                "total_cites": 1004,
+                "year": 2016,
+                "eigenfactor_score": 0.00161,
+                "journal_impact_factor": 0.729,
+                "citing_half_life": "8.3",
+                "average_journal_impact_factor_percentile": 14.031
+            },
+            "2009": {
+                "article_influence_score": None,
+                "cited_half_life": "4.4",
+                "percentage_articles_in_citable_items": 100.0,
+                "issn_scielo": "0102-8650",
+                "normalized_eigenfactor": None,
+                "five_year_impact_factor": None,
+                "immediacy_index": 0.062,
+                "citable_items": 81,
+                "impact_factor_without_journal_self_cites": 0.383,
+                "total_cites": 407,
+                "year": 2009,
+                "eigenfactor_score": 0.00117,
+                "journal_impact_factor": 0.479,
+                "citing_half_life": ">10.0",
+                "average_journal_impact_factor_percentile": 15.868
+            },
+            "2010": {
+                "article_influence_score": None,
+                "cited_half_life": "4.6",
+                "percentage_articles_in_citable_items": 100.0,
+                "issn_scielo": "0102-8650",
+                "normalized_eigenfactor": None,
+                "five_year_impact_factor": None,
+                "immediacy_index": 0.065,
+                "citable_items": 92,
+                "impact_factor_without_journal_self_cites": 0.403,
+                "total_cites": 423,
+                "year": 2010,
+                "eigenfactor_score": 0.00128,
+                "journal_impact_factor": 0.5,
+                "citing_half_life": "9.4",
+                "average_journal_impact_factor_percentile": 14.628
+            },
+            "2012": {
+                "article_influence_score": 0.133,
+                "cited_half_life": "6.1",
+                "percentage_articles_in_citable_items": 98.11,
+                "issn_scielo": "0102-8650",
+                "normalized_eigenfactor": None,
+                "five_year_impact_factor": 0.695,
+                "immediacy_index": 0.075,
+                "citable_items": 159,
+                "impact_factor_without_journal_self_cites": 0.468,
+                "total_cites": 693,
+                "year": 2012,
+                "eigenfactor_score": 0.0011,
+                "journal_impact_factor": 0.626,
+                "citing_half_life": "8.7",
+                "average_journal_impact_factor_percentile": 19.849
+            },
+            "2013": {
+                "article_influence_score": 0.145,
+                "cited_half_life": "5.6",
+                "percentage_articles_in_citable_items": 98.68,
+                "issn_scielo": "0102-8650",
+                "normalized_eigenfactor": 0.14633,
+                "five_year_impact_factor": 0.677,
+                "immediacy_index": 0.06,
+                "citable_items": 151,
+                "impact_factor_without_journal_self_cites": 0.422,
+                "total_cites": 708,
+                "year": 2013,
+                "eigenfactor_score": 0.00133,
+                "journal_impact_factor": 0.57,
+                "citing_half_life": "9.1",
+                "average_journal_impact_factor_percentile": 14.951
+            }
+        }
+
+        expected = {}
+
+        result = self._stats.bibliometrics._compute_jcr_impact_factor(data)
+
+        self.assertEqual(result, expected)
+
     def test_compute_h5m5_without_data(self):
 
         data = None
@@ -25,7 +172,6 @@ class ControllerTest(unittest.TestCase):
         result = self._stats.bibliometrics.google_h5m5('xxxx-xxxx')
 
         self.assertEqual(result, {'series': [{'data': [], 'name': 'H5'}, {'data': [], 'name': 'M5'}], 'categories': []})
-
 
     def test_compute_h5m5(self):
 

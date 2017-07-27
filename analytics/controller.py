@@ -344,6 +344,51 @@ class BibliometricsStats(CitedbyThriftClient):
 
         return data
 
+    def _compute_jcr_impact_factor(self, data):
+
+        series = []
+        categories = []
+
+        five_year_impact_factor = {
+            'name': 'five_year_impact_factor',
+            'data': []
+        }
+
+        journal_impact_factor = {
+            'name': 'journal_impact_factor',
+            'data': []
+        }
+
+        impact_factor_without_journal_self_cites = {
+            'name': 'impact_factor_without_journal_self_cites',
+            'data': []
+        }
+
+        for year, data in sorted(data.items()):
+            categories.append(year)
+            five_year_impact_factor["data"].append(
+                {'y': float(data['five_year_impact_factor']) if data['five_year_impact_factor'] else None}
+            )
+            journal_impact_factor["data"].append(
+                {'y': float(data['journal_impact_factor']) if data['journal_impact_factor'] else None})
+            impact_factor_without_journal_self_cites["data"].append(
+                {'y': float(data['impact_factor_without_journal_self_cites']) if data['impact_factor_without_journal_self_cites'] else None})
+
+        series.append(five_year_impact_factor)
+        series.append(journal_impact_factor)
+        series.append(impact_factor_without_journal_self_cites)
+
+        return {"series": series, "categories": categories}
+
+    def jcr_impact_factor(self, issn, raw=False):
+
+        data = jcrindicators.get_indicators(issn) or {}
+
+        if raw:
+            return data
+
+        return self._compute_jcr_impact_factor(data)
+
     def document_received_citations(self, document, py_range=None):
 
         try:
