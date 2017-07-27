@@ -159,7 +159,107 @@ class ControllerTest(unittest.TestCase):
             }
         }
 
-        expected = {}
+        expected = {
+            "categories": [
+                "2009",
+                "2010",
+                "2011",
+                "2012",
+                "2013",
+                "2014",
+                "2015",
+                "2016"
+            ],
+            "series": [
+                {
+                    "data": [
+                        {
+                            "y": None
+                        },
+                        {
+                            "y": None
+                        },
+                        {
+                            "y": None
+                        },
+                        {
+                            "y": 0.695
+                        },
+                        {
+                            "y": 0.677
+                        },
+                        {
+                            "y": 0.778
+                        },
+                        {
+                            "y": 0.764
+                        },
+                        {
+                            "y": 0.735
+                        }
+                    ],
+                    "name": "five_year_impact_factor"
+                },
+                {
+                    "data": [
+                        {
+                            "y": 0.479
+                        },
+                        {
+                            "y": 0.5
+                        },
+                        {
+                            "y": 0.584
+                        },
+                        {
+                            "y": 0.626
+                        },
+                        {
+                            "y": 0.57
+                        },
+                        {
+                            "y": 0.661
+                        },
+                        {
+                            "y": 0.58
+                        },
+                        {
+                            "y": 0.729
+                        }
+                    ],
+                    "name": "journal_impact_factor"
+                },
+                {
+                    "data": [
+                        {
+                            "y": 0.383
+                        },
+                        {
+                            "y": 0.403
+                        },
+                        {
+                            "y": 0.462
+                        },
+                        {
+                            "y": 0.468
+                        },
+                        {
+                            "y": 0.422
+                        },
+                        {
+                            "y": 0.513
+                        },
+                        {
+                            "y": 0.465
+                        },
+                        {
+                            "y": 0.616
+                        }
+                    ],
+                    "name": "impact_factor_without_journal_self_cites"
+                }
+            ]
+        }
 
         result = self._stats.bibliometrics._compute_jcr_impact_factor(data)
 
