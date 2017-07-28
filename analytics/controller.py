@@ -2,6 +2,7 @@
 import json
 from datetime import datetime, timedelta
 
+from pyramid.i18n import TranslationString as _
 from dogpile.cache import make_region
 from scieloh5m5 import h5m5
 from scielojcr import jcrindicators
@@ -350,17 +351,17 @@ class BibliometricsStats(CitedbyThriftClient):
         categories = []
 
         five_year_impact_factor = {
-            'name': 'five_year_impact_factor',
+            'name': _('Fator de impacto 5 anos'),
             'data': []
         }
 
         journal_impact_factor = {
-            'name': 'journal_impact_factor',
+            'name': _('Fator de impacto 2 anos'),
             'data': []
         }
 
         impact_factor_without_journal_self_cites = {
-            'name': 'impact_factor_without_journal_self_cites',
+            'name': _('Fator de impacto 2 anos, sem auto citação'),
             'data': []
         }
 
@@ -380,12 +381,9 @@ class BibliometricsStats(CitedbyThriftClient):
 
         return {"series": series, "categories": categories}
 
-    def jcr_impact_factor(self, issn, raw=False):
+    def jcr_impact_factor(self, issn):
 
-        data = jcrindicators.get_indicators(issn) or {}
-
-        if raw:
-            return data
+        data = self.jcr(issn)
 
         return self._compute_jcr_impact_factor(data)
 
