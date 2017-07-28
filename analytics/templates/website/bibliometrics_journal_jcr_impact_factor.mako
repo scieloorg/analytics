@@ -14,16 +14,6 @@
             % if selected_journal:
                 data['options']['subtitle'] = {'text': '${selected_journal}'};
             % endif
-            data.options.plotOptions.series = {
-                'cursor': 'pointer',
-                'point': {
-                    'events': {
-                        'click': function() {
-                            window.open(this.ownURL);
-                        }
-                    }
-                }
-            };
             $('#jcr_impact_factor_chart').highcharts(data['options']);
             $("#loading_jcr_impact_factor_chart").hide();
         });
