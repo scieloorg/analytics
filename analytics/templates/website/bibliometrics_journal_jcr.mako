@@ -13,6 +13,7 @@
     </div>
   % else:
     <h2>${_('Indicadores JCR')}</h2>
+    <h5>${_(u'Dados extraídos em: ')} ${jct_extraction_date.strftime('%Y-%m-%d')}</h5>
     % if len(jcr) == 0:
       <div class="row">
         <div class="col-md-12">
@@ -22,9 +23,15 @@
         </div>
       </div>    
     % else:
-          <h3>${_('Fator de impacto')}</h3>
+          <h3>${_(u'Fator de impacto')}</h3>
             <%include file="bibliometrics_journal_jcr_impact_factor.mako"/>
-          <h3>${_('Dados de todos os anos')}</h3>
+          <h3>${_(u'Fator de impacto (Média de percentil)')}</h3>
+            <%include file="bibliometrics_journal_jcr_average_impact_factor_percentile.mako"/>
+          <h3>${_(u'Citações Recebidas')}</h3>
+            <%include file="bibliometrics_journal_jcr_received_citations.mako"/>
+          <h3>${_(u'Eigen Factor')}</h3>
+            <%include file="bibliometrics_journal_jcr_eigen_factor.mako"/>
+          <h3>${_(u'Dados de todos os anos')}</h3>
         % for year, data in sorted(jcr.items(), reverse=True):
           <h4>base year: ${ year }</h4>
           <div class="row">

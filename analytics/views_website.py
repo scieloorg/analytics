@@ -1,13 +1,13 @@
 #coding: utf-8
 import requests
+from datetime import datetime
 
 from pyramid.view import view_config
-
 from dogpile.cache import make_region
+from citedby.custom_query import journal_titles
+from scielojcr import jcrindicators
 
 from analytics.control_manager import base_data_manager
-
-from citedby.custom_query import journal_titles
 
 cache_region = make_region(name='views_website_cache')
 
@@ -35,6 +35,7 @@ def bibliometrics_journal(request):
 
     return data
 
+
 @view_config(route_name='bibliometrics_journal_jcr', renderer='templates/website/bibliometrics_journal_jcr.mako')
 @base_data_manager
 def bibliometrics_journal_jcr(request):
@@ -42,9 +43,10 @@ def bibliometrics_journal_jcr(request):
     data = request.data_manager
     data['page'] = 'bibliometrics'
 
-    jcr_indicators = request.stats.bibliometrics.jcr(issn=data['selected_journal_code'])
+    jcrind = request.stats.bibliometrics.jcr(issn=data['selected_journal_code'])
 
-    data['jcr'] = jcr_indicators
+    data['jcr'] = jcrind
+    data['jct_extraction_date'] = datetime.strptime(jcrindicators.UPDATE_INDICATORS, '%Y-%m-%d')
 
     return data
 

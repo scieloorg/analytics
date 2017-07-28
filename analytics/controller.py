@@ -2,7 +2,6 @@
 import json
 from datetime import datetime, timedelta
 
-from pyramid.i18n import TranslationString as _
 from dogpile.cache import make_region
 from scieloh5m5 import h5m5
 from scielojcr import jcrindicators
@@ -104,6 +103,11 @@ class Stats(object):
         self.publication = PublicationStats(publicationstats_host)
         self.access = AccessStats(accessstats_host)
         self.bibliometrics = BibliometricsStats(bibliometrics_host)
+
+
+    @property
+    def _(self):
+        return self.request.translate
 
     @staticmethod
     def _compute_received_self_and_granted_citation_chart(self_citations, granted_citations, received_citations):
@@ -351,17 +355,17 @@ class BibliometricsStats(CitedbyThriftClient):
         categories = []
 
         five_year_impact_factor = {
-            'name': _('Fator de impacto 5 anos'),
+            'name': 'Fator de impacto 5 anos',
             'data': []
         }
 
         journal_impact_factor = {
-            'name': _('Fator de impacto 2 anos'),
+            'name': 'Fator de impacto 2 anos',
             'data': []
         }
 
         impact_factor_without_journal_self_cites = {
-            'name': _('Fator de impacto 2 anos, sem auto citação'),
+            'name': 'Fator de impacto 2 anos, sem auto citação',
             'data': []
         }
 
@@ -386,6 +390,93 @@ class BibliometricsStats(CitedbyThriftClient):
         data = self.jcr(issn)
 
         return self._compute_jcr_impact_factor(data)
+
+    def _compute_jcr_average_impact_factor_percentile(self, data):
+
+        series = []
+        categories = []
+
+        average_impact_factor_percentile = {
+            'name': 'Fator de impacto (Média de percentil)',
+            'data': []
+        }
+
+        for year, data in sorted(data.items()):
+            categories.append(year)
+            average_impact_factor_percentile["data"].append(
+                {'y': float(data['average_journal_impact_factor_percentile']) if data['average_journal_impact_factor_percentile'] else None}
+            )
+
+        series.append(average_impact_factor_percentile)
+
+        return {"series": series, "categories": categories}
+
+    def jcr_average_impact_factor_percentile(self, issn):
+
+        data = self.jcr(issn)
+
+        return self._compute_jcr_average_impact_factor_percentile(data)
+
+    def _compute_jcr_received_citations(self, data):
+
+        series = []
+        categories = []
+
+        total_cites = {
+            'name': 'Total de citações recebidas no ano',
+            'data': []
+        }
+
+        for year, data in sorted(data.items()):
+            categories.append(year)
+            total_cites["data"].append(
+                {'y': float(data['total_cites']) if data['total_cites'] else None}
+            )
+
+        series.append(total_cites)
+
+        return {"series": series, "categories": categories}
+
+    def jcr_received_citations(self, issn):
+
+        data = self.jcr(issn)
+
+        return self._compute_jcr_received_citations(data)
+
+    def _compute_jcr_eigen_factor(self, data):
+
+        series = []
+        categories = []
+
+        normalized_eigenfactor = {
+            'name': 'Eigen Factor normalizado',
+            'data': []
+        }
+
+        eigenfactor_score = {
+            'name': 'Pontuação Eigen Factor',
+            'data': []
+        }
+
+        for year, data in sorted(data.items()):
+            categories.append(year)
+            normalized_eigenfactor["data"].append(
+                {'y': float(data['normalized_eigenfactor']) if data['normalized_eigenfactor'] else None}
+            )
+            eigenfactor_score["data"].append(
+                {'y': float(data['eigenfactor_score']) if data['eigenfactor_score'] else None}
+            )
+
+        series.append(normalized_eigenfactor)
+        series.append(eigenfactor_score)
+
+        return {"series": series, "categories": categories}
+
+    def jcr_eigen_factor(self, issn):
+
+        data = self.jcr(issn)
+
+        return self._compute_jcr_eigen_factor(data)
 
     def document_received_citations(self, document, py_range=None):
 
