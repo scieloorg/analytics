@@ -1,3 +1,4 @@
+import os
 from pyramid.session import SignedCookieSessionFactory
 from pyramid.renderers import JSONP
 from pyramid.config import Configurator
@@ -20,7 +21,7 @@ def main(global_config, **settings):
     def add_stats(request):
         return controller.Stats(
             settings.get('articlemeta', None),
-            settings['publicationstats'],
+            settings.get('publicationstats', None),
             settings.get('accessstats', None),
             settings.get('citedby', None)
         )
@@ -95,10 +96,24 @@ def main(global_config, **settings):
     config.add_translation_dirs('analytics:locale')
 
     # Cache Settings Config
+    memcached_host = (
+        os.environ.get(
+            'MEMCACHED_HOST',
+            settings.get('memcached_host', None)
+        )
+    )
+
+    memcached_expiration_time = int((
+        os.environ.get(
+            'MEMCACHED_EXPIRATION_TIME',
+            settings.get('memcached_expiration_time', 2592000)
+        )
+    ))
+
     if 'memcached_host' in settings:
         cache_config = {}
-        cache_config['expiration_time'] = int(settings.get('memcached_expiration_time', 2592000))  # a month cache
-        cache_config['arguments'] = {'url': settings['memcached_host'], 'binary': True}
+        cache_config['expiration_time'] = int(memcached_expiration_time)  # a month cache
+        cache_config['arguments'] = {'url': memcached_host, 'binary': True}
         views_ajax_cache_region.configure('dogpile.cache.pylibmc', **cache_config)
         views_website_cache_region.configure('dogpile.cache.pylibmc', **cache_config)
         controller_cache_region.configure('dogpile.cache.pylibmc', **cache_config)

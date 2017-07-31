@@ -12,12 +12,7 @@ pyramid.debug_notfound = false
 pyramid.debug_routematch = false
 pyramid.default_locale_name = en
 
-accessstats = 127.0.0.1:11660
-publicationstats = 127.0.0.1:11620
-articlemeta = 127.0.0.1:11720
-citedby = 127.0.0.1:11610
-
-memcached_host = 127.0.0.1
+memcached_host = memcached
 memcached_expiration_time =3600
 
 google_analytics_code = 
@@ -25,7 +20,7 @@ google_analytics_sample_rate = 100
 
 ###
 # Tags list of under develoment functionalities
-under_development =
+under_development = bibliometrics
 
 ###
 # wsgi server configuration

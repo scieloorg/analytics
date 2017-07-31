@@ -1,0 +1,34 @@
+version: '2'
+
+services:
+
+  analytics-app:
+    image: scieloorg/analytics:stable
+    hostname: analytics
+    environment:
+      - ANALYTICS_SETTINGS_FILE=/app/config.ini
+      - GOOGLE_ANALYTICS_CODE=
+      - GOOGLE_ANALYTICS_SAMPLE_RATE=100
+      - MEMCACHED_HOST=memcached
+      - MEMCACHED_EXPIRATION_TIME=2592000
+    links:
+      - memcached:memcached
+    command:
+      - gunicorn
+      - --paste
+      - config.ini
+      - -w
+      - '4'
+      - -b
+      - 0.0.0.0
+    ports:
+      - 8000:8000
+    labels:
+      io.rancher.container.pull_image: always
+
+  memcached:
+    image: memcached
+    restart: always
+    ports:
+      - "11211:11211"
+    hostname: citedby-memcached

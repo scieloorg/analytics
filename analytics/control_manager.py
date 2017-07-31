@@ -1,4 +1,5 @@
 # coding: utf-8
+import os
 import datetime
 
 from pyramid.settings import aslist
@@ -179,8 +180,14 @@ def base_data_manager(wrapped):
         data = get_data_manager(collection_code, journal_code, document_code, range_start, range_end)
         data['locale'] = request.session.get('_LOCALE_', request.locale_name)
         data['under_development'] = [i for i in aslist(request.registry.settings.get('under_development', '')) if i != under_development]
-        data['google_analytics_code'] = request.registry.settings.get('google_analytics_code', None)
-        data['google_analytics_sample_rate'] = request.registry.settings.get('google_analytics_sample_rate', '100')
+        data['google_analytics_code'] = os.environ.get(
+            'GOOGLE_ANALYTICS_CODE',
+            request.registry.settings.get('google_analytics_code', None)
+        )
+        data['google_analytics_sample_rate'] = os.environ.get(
+            'GOOGLE_ANALYTICS_SAMPLE_RATE',
+            request.registry.settings.get('google_analytics_sample_rate', '100')
+        )
         data['subject_areas'] = request.stats.publication.list_subject_areas(data['selected_code'], data['selected_collection_code'])
         data['languages'] = [(i, choices.ISO_639_1.get(i.upper(), 'undefined')) for i in request.stats.publication.list_languages(data['selected_code'], data['selected_collection_code'])]
         data['publication_years'] = request.stats.publication.list_publication_years(data['selected_code'], data['selected_collection_code'])
