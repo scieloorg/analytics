@@ -14,7 +14,7 @@
     <script src="/static/jquery-1.11.1/jquery-1.11.1.min.js"></script>
     <script src="/static/jquery-ui-1.11.4/jquery-ui.min.js"></script>
     <script type="text/javascript">var switchTo5x=true;</script>
-    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript" src="/static/sharethis/buttons.js"></script>
     <script type="text/javascript">stLight.options({publisher: "1eab5827-c9f3-406e-a65d-b1fdf08ae141", doNotHash: true, doNotCopy: true, hashAddressBar: false, onhover: false});</script>
     <script src="/static/clipboard/clipboard.min.js"></script>
     <script src="/static/anchorjs/anchor.min.js"></script>
