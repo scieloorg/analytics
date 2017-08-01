@@ -198,7 +198,7 @@ class ControllerTest(unittest.TestCase):
                             "y": 0.735
                         }
                     ],
-                    "name": "five_year_impact_factor"
+                    "name": "Fator de impacto 5 anos"
                 },
                 {
                     "data": [
@@ -227,7 +227,7 @@ class ControllerTest(unittest.TestCase):
                             "y": 0.729
                         }
                     ],
-                    "name": "journal_impact_factor"
+                    "name": "Fator de impacto 2 anos"
                 },
                 {
                     "data": [
@@ -256,7 +256,7 @@ class ControllerTest(unittest.TestCase):
                             "y": 0.616
                         }
                     ],
-                    "name": "impact_factor_without_journal_self_cites"
+                    "name": "Fator de impacto 2 anos, sem auto cita\u00e7\u00e3o"
                 }
             ]
         }
