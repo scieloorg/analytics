@@ -8,7 +8,7 @@
 <script language="javascript">
     $("#loading_lifetime").show();
     $(document).ready(function() {
-        var url =  "/ajx/accesses/lifetime?code=${selected_code}&collection=${selected_collection_code}&range_start=${range_start}&range_end=${range_end}&callback=?";
+        var url =  "${request.route_url('accesses_lifetime')}?code=${selected_code}&collection=${selected_collection_code}&range_start=${range_start}&range_end=${range_end}&callback=?";
         $.getJSON(url,  function(data) {
             for (item in data) {
                 % if selected_journal:

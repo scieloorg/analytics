@@ -36,7 +36,7 @@ test_requires = []
 
 setup(
     name="analytics",
-    version='1.29.0',
+    version='1.31.0',
     description="A analytics frontend for SciELO usage and publication statistics",
     author="SciELO",
     author_email="scielo-dev@googlegroups.com",
