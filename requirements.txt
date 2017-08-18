@@ -10,9 +10,9 @@ pylibmc==1.5.0
 Babel==2.0
 scieloh5m5==1.10.4
 xylose==1.24.0
-citedbyapi==1.5.0
+citedbyapi==1.5.1
 accessstatsapi==1.2.0
-publicationstatsapi==1.1.0
+publicationstatsapi==1.2.0
 articlemetaapi==1.14.19
 scielojcr==1.2.0
 altmetric==1.0.0

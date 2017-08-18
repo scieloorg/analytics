@@ -50,6 +50,7 @@ def main(global_config, **settings):
     config.add_route('publication_journal_licenses', '/ajx/publication/journal/licenses')
     config.add_route('publication_journal_subject_areas', '/ajx/publication/journal/subject_areas')
     config.add_route('publication_journal_status', '/ajx/publication/journal/status')
+    config.add_route('publication_journal_status_detailde', '/ajx/publication/journal/status_detailde')
     config.add_route('publication_article_citable_documents', '/ajx/publication/citabledocuments')
     config.add_route('publication_article_web', '/w/publication/article')
     config.add_route('publication_article_web_by_publication_year', '/w/publication/article_by_publication_year')

@@ -9,6 +9,7 @@ from articlemeta.client import ThriftClient as ArticleMetaThriftClient
 from citedby.client import ThriftClient as CitedbyThriftClient
 from accessstats.client import ThriftClient as AccessStatsThriftClient
 from publicationstats.client import ThriftClient as PublicationStatsThriftClient
+from publicationstats import queries as PublicationStatsQueries
 from citedby import custom_query
 from altmetric import Altmetric, AltmetricHTTPException
 
@@ -99,10 +100,10 @@ class ServerError(Exception):
 class Stats(object):
 
     def __init__(self, articlemeta_host, publicationstats_host, accessstats_host, bibliometrics_host):
-        self.articlemeta = ArticleMeta(articlemeta_host)
-        self.publication = PublicationStats(publicationstats_host)
-        self.access = AccessStats(accessstats_host)
-        self.bibliometrics = BibliometricsStats(bibliometrics_host)
+        self.articlemeta = ArticleMeta()
+        self.publication = PublicationStats()
+        self.access = AccessStats()
+        self.bibliometrics = BibliometricsStats()
 
 
     @property
@@ -1458,6 +1459,12 @@ class PublicationStats(PublicationStatsThriftClient):
             return {'total': query_result['aggregations'][field]['value']}
         except:
             return None
+
+    def journals_status_detailde(self, collection):
+
+        stats = PublicationStatsQueries.journals_status(collection)
+
+        return stats
 
     @cache_region.cache_on_arguments()
     def collection_size(self, code, collection, field, py_range, sa_scope, la_scope, raw=False):

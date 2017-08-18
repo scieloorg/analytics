@@ -9,7 +9,6 @@ from citedby.custom_query import journal_titles
 
 cache_region = make_region(name='views_ajax_cache')
 
-
 @view_config(route_name='bibliometrics_document_received_citations', request_method='GET', renderer='jsonp')
 @base_data_manager
 def bibliometrics_document_received_citations(request):
@@ -229,9 +228,18 @@ def publication_journal_status(request):
 
     data = request.data_manager
 
-    data_chart = request.stats.publication.general('journal', 'status', data['selected_code'], data['selected_collection_code'], sa_scope=data['sa_scope'])
+    result = request.stats.publication.general('journal', 'status', data['selected_code'], data['selected_collection_code'], sa_scope=data['sa_scope'])
 
-    return request.chartsconfig.publication_journal_status(data_chart)
+    return request.chartsconfig.publication_journal_status(result)
+
+
+@view_config(route_name='publication_journal_status_detailde', request_method='GET', renderer='jsonp')
+@base_data_manager
+def publication_journal_status_detailde(request):
+
+    data = request.data_manager
+
+    return request.stats.publication.journals_status_detailde(data['selected_collection_code'])
 
 
 @view_config(route_name='publication_journal_year', request_method='GET', renderer='jsonp')
