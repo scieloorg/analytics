@@ -4,7 +4,7 @@
 <%block name="central_container">
     <h3>${_(u'Composição da coleção')}</h3>
     <div class="row container-fluid">
-        <div class="col-md-4">
+        <div class="col-md-3">
           <%include file="publication_size_journals.mako"/>
           <div class="panel panel-info">
             <div class="panel-heading">
@@ -37,7 +37,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
           <%include file="publication_size_citations.mako"/>
           <div class="panel panel-info">
             <div class="panel-heading">
