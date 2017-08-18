@@ -26,8 +26,8 @@ install_requires = [
     'xylose>=1.24.0',
     'articlemetaapi>=1.14.19',
     'accessstatsapi>=1.2.0',
-    'publicationstatsapi>=1.1.0',
-    'citedbyapi>=1.5.0',
+    'publicationstatsapi>=1.2.0',
+    'citedbyapi>=1.5.1',
     'scielojcr>=1.2.0',
     'altmetric>=1.0.0'
     ]
@@ -36,7 +36,7 @@ test_requires = []
 
 setup(
     name="analytics",
-    version='1.31.0',
+    version='1.32.0',
     description="A analytics frontend for SciELO usage and publication statistics",
     author="SciELO",
     author_email="scielo-dev@googlegroups.com",
@@ -58,7 +58,7 @@ setup(
     dependency_links=[
         "git+https://github.com/scieloorg/thriftpy-wrap@0.1.1#egg=thriftpywrap"
     ],
-    message_extractors = {
+    message_extractors={
         'analytics': [
             ('**.py', 'python', None),
             ('templates/**.html', 'mako', None),
