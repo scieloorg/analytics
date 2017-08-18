@@ -12,10 +12,10 @@
             </h1>      
         </div>
         <div class="col-md-8">
-            <h6><small id="size_issn_current"></small> ativo</h6> 
-            <h6><small id="size_issn_inprogress"></small> em progresso</h6> 
-            <h6><small id="size_issn_suspended"></small> suspenso</h6> 
-            <h6><small id="size_issn_deceased"></small> descontinuado</h6> 
+            <h6>${_(u'ativo')} <small id="size_issn_current"></small></h6> 
+            <h6>${_(u'em progresso')} <small id="size_issn_inprogress"></small></h6> 
+            <h6>${_(u'suspenso')} <small id="size_issn_suspended"></small></h6> 
+            <h6>${_(u'descontinuado')} <small id="size_issn_deceased"></small></h6> 
         </div>
     </div>
 </div>

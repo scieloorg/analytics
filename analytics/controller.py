@@ -1460,6 +1460,7 @@ class PublicationStats(PublicationStatsThriftClient):
         except:
             return None
 
+    @cache_region.cache_on_arguments()
     def journals_status_detailde(self, collection):
 
         stats = PublicationStatsQueries.journals_status(collection)
