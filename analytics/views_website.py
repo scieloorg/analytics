@@ -268,7 +268,7 @@ def reports(request):
     data = request.data_manager
     data['page'] = 'reports'
 
-    tabsurl = 'http://static.scielo.org/tabs/tabs_network.zip'
+    tabsurl = 'https://static.scielo.org/tabs/tabs_network.zip'
     rd = requests.head(tabsurl).headers
     contentlength = Decimal(rd.get('content-length', 0))/Decimal(1024000)
     data['tabs'] = [
@@ -285,7 +285,7 @@ def reports(request):
     for collection in data['collections']:
         coll_code = 'bra' if collection == 'scl' else collection
         tabsfilename = 'tabs_%s.zip' % coll_code
-        tabsurl = 'http://static.scielo.org/tabs/%s' % tabsfilename
+        tabsurl = 'https://static.scielo.org/tabs/%s' % tabsfilename
         rd = requests.head(tabsurl).headers
         contentlength = Decimal(rd.get('content-length', 0))/Decimal(1024000)
         lastmodified = rd.get('last-modified', 'undefined')
