@@ -11,6 +11,7 @@ WORKDIR /app
 
 RUN pip install --upgrade pip
 RUN pip install gunicorn
+RUN pip install --upgrade deps/scielojcr-1.3.0-py2.py3-none-any.whl
 
 ENV ANALYTICS_SETTINGS_FILE=/app/config.ini
 
