@@ -27,7 +27,7 @@ install_requires = [
     'articlemetaapi>=1.14.19',
     'accessstatsapi>=1.2.0',
     'publicationstatsapi>=1.2.0',
-    'citedbyapi>=1.5.1',
+    'citedbyapi>=1.6.0',
     'scielojcr>=1.2.0',
     'altmetric>=1.0.0'
     ]
