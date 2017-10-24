@@ -10,3 +10,4 @@ script:
   - python setup.py test
 before_script:
   - cp ./development.ini-TEMPLATE ./config.ini
+  - pip install --upgrade deps/scielojcr-1.3.0-py2.py3-none-any.whl
