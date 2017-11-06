@@ -177,7 +177,7 @@ class Stats(object):
             for citing_year in publication_year['reference_publication_year']['buckets']:
                 pcy[publication_year['key']][citing_year['key']] = citing_year['doc_count']
 
-        for year in cit_docs.items():
+        for year in cit_docs:
             cit_docs[year]['fi'] = []
             cit_docs[year]['fi_citations'] = []
             cit_docs[year]['fi_documents'] = []
