@@ -507,26 +507,6 @@ class ChartsConfig(object):
 
         return {'options': chart}
 
-    def publication_journal_status(self, data):
-
-        chart = self.highchart
-        chart['chart']['type'] = 'column'
-        chart['title'] = {'text': self._(u'Distribuição de periódicos por situação atual de publicação no SciELO')}
-        chart['xAxis'] = {
-            'categories': data['categories'],
-            'title': {'text': self._(u'Situação da publicação')}
-            }
-        chart['legend'] = {'enabled': False}
-        chart['series'] = data['series']
-        chart['plotOptions'] = {'series': {'colorByPoint': True}}
-        chart['yAxis']['title'] = {'text': self._(u'Número de periódicos')}
-        chart['tooltip'] = {
-            'headerFormat': '',
-            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'Situação da publicação') + ' <strong>{point.category}</strong><br>' + self._(u'Periódicos') + ': <strong>{point.y}</strong>'
-        }
-
-        return {'options': chart}
-
     def publication_journal_year(self, data):
 
         chart = self.highchart

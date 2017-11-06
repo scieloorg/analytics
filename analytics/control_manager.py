@@ -8,7 +8,7 @@ from dogpile.cache import make_region
 
 from analytics import utils
 from analytics import choices
-import re
+
 
 cache_region = make_region(name='control_manager')
 
@@ -129,7 +129,7 @@ def base_data_manager(wrapped):
 
         @cache_region.cache_on_arguments()
         def get_data_manager(collection, journal, document, range_start, range_end):
-            code = document or journal or collection or code
+            code = document or journal or collection
             data = {}
 
             xylose_doc = request.stats.articlemeta.document(document, collection) if document else None
@@ -196,7 +196,7 @@ def base_data_manager(wrapped):
         py = '-'.join([data['publication_years'][0], data['publication_years'][-1]])
         data['py_range'] = request.session.get('py_range', py).split('-')
         data['sa_scope'] = request.session.get('sa_scope', data['subject_areas'])
-        data['la_scope'] = request.session.get('la_scope', [k for k, v in data['languages']])
+        data['la_scope'] = request.session.get('la_scope', [k for k,v in data['languages']])
         data['content_scope'] = 'document' if data['selected_document_code'] else 'journal' if data['selected_journal_code'] else 'collection' if data['selected_collection_code'] else 'network'
         data['share_this_url'] = current_url(request.url, data)
 

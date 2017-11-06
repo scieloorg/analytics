@@ -63,7 +63,7 @@ def construct_aggs(aggs, size=0):
             field: {
                 "terms": {
                     "field": field,
-                    "size": 0
+                    "size": size
                 },
                 "aggs": {
                     "access_total": {
@@ -177,7 +177,7 @@ class Stats(object):
             for citing_year in publication_year['reference_publication_year']['buckets']:
                 pcy[publication_year['key']][citing_year['key']] = citing_year['doc_count']
 
-        for year, content in cit_docs.items():
+        for year in cit_docs.items():
             cit_docs[year]['fi'] = []
             cit_docs[year]['fi_citations'] = []
             cit_docs[year]['fi_documents'] = []
@@ -267,9 +267,7 @@ class Stats(object):
 
         return data
 
-    def citing_half_life(self, issn, collection, titles):
-
-        # query_result = self.bibliometrics.received_citations_by_publication_year(issn, titles, raw=True)
+    def citing_half_life(self, issn, titles):
 
         query_result = self.bibliometrics.cited_and_citing_years(issn, titles, raw=True)
 
@@ -344,9 +342,6 @@ class BibliometricsStats(CitedbyThriftClient):
     def jcr(self, issn, raw=False):
 
         data = jcrindicators.get_indicators(issn) or {}
-
-        if raw:
-            return data
 
         return data
 
@@ -479,7 +474,7 @@ class BibliometricsStats(CitedbyThriftClient):
 
         return self._compute_jcr_eigen_factor(data)
 
-    def document_received_citations(self, document, py_range=None):
+    def document_received_citations(self, document):
 
         try:
             data = json.loads(self.client.citedby_pid(document))
@@ -564,8 +559,6 @@ class BibliometricsStats(CitedbyThriftClient):
 
     def cited_and_citing_years_document_list(self, issn, titles, cited_year, citing_year, raw=False):
 
-        end = datetime.now()
-
         query_result = self.cited_and_citing_years(
             issn,
             titles,
@@ -581,8 +574,6 @@ class BibliometricsStats(CitedbyThriftClient):
 
     @cache_region.cache_on_arguments()
     def cited_and_citing_years_heat(self, issn, titles, raw=False):
-
-        end = datetime.now()
 
         query_result = self.cited_and_citing_years(
             issn,
