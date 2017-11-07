@@ -22,9 +22,9 @@ install_requires = [
     'Babel>=2.0',
     'dogpile.cache>=0.5.6',
     'pylibmc>=1.5.0',
-    'scieloh5m5>=1.10.4',
-    'xylose>=1.24.0',
-    'articlemetaapi>=1.14.19',
+    'scieloh5m5>=1.11.0',
+    'xylose>=1.30.0',
+    'articlemetaapi>=1.23.0',
     'accessstatsapi>=1.2.0',
     'publicationstatsapi>=1.2.0',
     'citedbyapi>=1.8.0',
@@ -36,7 +36,7 @@ test_requires = []
 
 setup(
     name="analytics",
-    version='1.32.0',
+    version='1.33.0',
     description="A analytics frontend for SciELO usage and publication statistics",
     author="SciELO",
     author_email="scielo-dev@googlegroups.com",
