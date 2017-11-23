@@ -27,7 +27,7 @@ install_requires = [
     'articlemetaapi>=1.24.0',
     'accessstatsapi>=1.2.0',
     'publicationstatsapi>=1.2.0',
-    'citedbyapi>=1.11.0',
+    'citedbyapi>=1.11.1',
     'scielojcr>=1.2.0',
     'altmetric>=1.0.0'
     ]
@@ -36,7 +36,7 @@ test_requires = []
 
 setup(
     name="analytics",
-    version='1.35.0',
+    version='1.36.0',
     description="A analytics frontend for SciELO usage and publication statistics",
     author="SciELO",
     author_email="scielo-dev@googlegroups.com",
