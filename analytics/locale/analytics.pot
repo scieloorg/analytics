@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: analytics 1.32.0\n"
+"Project-Id-Version: analytics 1.36.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-08-18 15:53-0300\n"
+"POT-Creation-Date: 2017-12-06 16:45-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -138,10 +138,10 @@ msgstr ""
 #: analytics/charts_config.py:287 analytics/charts_config.py:414
 #: analytics/charts_config.py:423 analytics/charts_config.py:438
 #: analytics/charts_config.py:446 analytics/charts_config.py:494
-#: analytics/charts_config.py:503 analytics/charts_config.py:582
-#: analytics/charts_config.py:592 analytics/charts_config.py:634
-#: analytics/charts_config.py:643 analytics/charts_config.py:684
-#: analytics/charts_config.py:692 analytics/charts_config.py:808
+#: analytics/charts_config.py:503 analytics/charts_config.py:562
+#: analytics/charts_config.py:572 analytics/charts_config.py:614
+#: analytics/charts_config.py:623 analytics/charts_config.py:664
+#: analytics/charts_config.py:672 analytics/charts_config.py:788
 #: analytics/templates/website/central_container_for_article_filters.mako:13
 #: analytics/templates/website/central_container_for_bibliometric_filters.mako:13
 msgid "Ano de publicação"
@@ -163,10 +163,10 @@ msgstr ""
 #: analytics/charts_config.py:324 analytics/charts_config.py:341
 #: analytics/charts_config.py:388 analytics/charts_config.py:412
 #: analytics/charts_config.py:441 analytics/charts_config.py:467
-#: analytics/charts_config.py:492 analytics/charts_config.py:560
-#: analytics/charts_config.py:580 analytics/charts_config.py:588
-#: analytics/charts_config.py:611 analytics/charts_config.py:632
-#: analytics/charts_config.py:682 analytics/charts_config.py:711
+#: analytics/charts_config.py:492 analytics/charts_config.py:540
+#: analytics/charts_config.py:560 analytics/charts_config.py:568
+#: analytics/charts_config.py:591 analytics/charts_config.py:612
+#: analytics/charts_config.py:662 analytics/charts_config.py:691
 msgid "Número de documentos"
 msgstr ""
 
@@ -203,8 +203,8 @@ msgstr ""
 
 #: analytics/charts_config.py:359 analytics/charts_config.py:391
 #: analytics/charts_config.py:446 analytics/charts_config.py:470
-#: analytics/charts_config.py:563 analytics/charts_config.py:614
-#: analytics/charts_config.py:714
+#: analytics/charts_config.py:543 analytics/charts_config.py:594
+#: analytics/charts_config.py:694
 msgid "Documentos"
 msgstr ""
 
@@ -237,132 +237,129 @@ msgstr ""
 msgid "Distribuição de idiomas dos documentos por ano de publicação"
 msgstr ""
 
-#: analytics/charts_config.py:514 analytics/charts_config.py:654
-msgid "Distribuição de periódicos por situação atual de publicação no SciELO"
+#: analytics/charts_config.py:514
+msgid "Distribuição de periódicos por ano de inclusão no SciELO"
 msgstr ""
 
-#: analytics/charts_config.py:517 analytics/charts_config.py:525
-#: analytics/charts_config.py:657 analytics/charts_config.py:665
-msgid "Situação da publicação"
+#: analytics/charts_config.py:515 analytics/charts_config.py:523
+msgid "Ano de inclusão"
 msgstr ""
 
-#: analytics/charts_config.py:522 analytics/charts_config.py:538
-#: analytics/charts_config.py:662 analytics/charts_config.py:731
-#: analytics/charts_config.py:751
+#: analytics/charts_config.py:518 analytics/charts_config.py:642
+#: analytics/charts_config.py:711 analytics/charts_config.py:731
 msgid "Número de periódicos"
 msgstr ""
 
-#: analytics/charts_config.py:525 analytics/charts_config.py:543
-#: analytics/charts_config.py:665 analytics/charts_config.py:734
-#: analytics/charts_config.py:754
+#: analytics/charts_config.py:523 analytics/charts_config.py:645
+#: analytics/charts_config.py:714 analytics/charts_config.py:734
 #: analytics/templates/website/navbar_collection.mako:10
 #: analytics/templates/website/navbar_journal.mako:10
 msgid "Periódicos"
 msgstr ""
 
-#: analytics/charts_config.py:534
-msgid "Distribuição de periódicos por ano de inclusão no SciELO"
-msgstr ""
-
-#: analytics/charts_config.py:535 analytics/charts_config.py:543
-msgid "Ano de inclusão"
-msgstr ""
-
-#: analytics/charts_config.py:552
+#: analytics/charts_config.py:532
 msgid "Distribuição de área temática dos documentos"
 msgstr ""
 
-#: analytics/charts_config.py:555 analytics/charts_config.py:726
+#: analytics/charts_config.py:535 analytics/charts_config.py:706
 msgid "Areas temáticas"
 msgstr ""
 
-#: analytics/charts_config.py:563 analytics/charts_config.py:734
+#: analytics/charts_config.py:543 analytics/charts_config.py:714
 #: analytics/templates/website/central_container_for_article_filters.mako:30
 #: analytics/templates/website/central_container_for_journal_filters.mako:13
 msgid "Área temática"
 msgstr ""
 
-#: analytics/charts_config.py:572
+#: analytics/charts_config.py:552
 msgid "Distribuição de área temática dos documentos por ano de publicação"
 msgstr ""
 
-#: analytics/charts_config.py:603
+#: analytics/charts_config.py:583
 msgid "Distribuição por tipo de documento"
 msgstr ""
 
-#: analytics/charts_config.py:606
+#: analytics/charts_config.py:586
 #: analytics/templates/website/publication_article.mako:43
 #: analytics/templates/website/publication_article_by_publication_year.mako:43
 msgid "Tipos de documentos"
 msgstr ""
 
-#: analytics/charts_config.py:614
+#: analytics/charts_config.py:594
 msgid "Tipo de documento"
 msgstr ""
 
-#: analytics/charts_config.py:624
+#: analytics/charts_config.py:604
 msgid "Distribuição de tipos de documentos por ano de publicação"
 msgstr ""
 
-#: analytics/charts_config.py:674
+#: analytics/charts_config.py:634
+msgid "Distribuição de periódicos por situação atual de publicação no SciELO"
+msgstr ""
+
+#: analytics/charts_config.py:637 analytics/charts_config.py:645
+msgid "Situação da publicação"
+msgstr ""
+
+#: analytics/charts_config.py:654
 msgid "Distribuição de licenças de uso por ano de publicação"
 msgstr ""
 
-#: analytics/charts_config.py:703
+#: analytics/charts_config.py:683
 msgid "Distribuição de licença de uso dos documentos"
 msgstr ""
 
-#: analytics/charts_config.py:706 analytics/charts_config.py:746
+#: analytics/charts_config.py:686 analytics/charts_config.py:726
 #: analytics/templates/website/publication_article.mako:5
 #: analytics/templates/website/publication_article_by_publication_year.mako:5
 msgid "Licenças de uso"
 msgstr ""
 
-#: analytics/charts_config.py:714 analytics/charts_config.py:754
+#: analytics/charts_config.py:694 analytics/charts_config.py:734
 msgid "Licença"
 msgstr ""
 
-#: analytics/charts_config.py:723
+#: analytics/charts_config.py:703
 msgid "Distribuição de área temática dos periódicos"
 msgstr ""
 
-#: analytics/charts_config.py:743
+#: analytics/charts_config.py:723
 msgid "Distribuição de licença de uso dos periódicos"
 msgstr ""
 
-#: analytics/charts_config.py:762
+#: analytics/charts_config.py:742
 msgid "Total de acessos por ano e mês"
 msgstr ""
 
-#: analytics/charts_config.py:770 analytics/charts_config.py:805
+#: analytics/charts_config.py:750 analytics/charts_config.py:785
 #: analytics/templates/website/navbar_collection.mako:7
 #: analytics/templates/website/navbar_document.mako:7
 #: analytics/templates/website/navbar_journal.mako:7
 msgid "Acessos"
 msgstr ""
 
-#: analytics/charts_config.py:776
+#: analytics/charts_config.py:756
 msgid "Acessos em"
 msgstr ""
 
-#: analytics/charts_config.py:787
+#: analytics/charts_config.py:767
 msgid "Total de accessos por tipo de documento"
 msgstr ""
 
-#: analytics/charts_config.py:791
+#: analytics/charts_config.py:771
 #, python-format
 msgid "%s acessos a documentos do tipo %s"
 msgstr ""
 
-#: analytics/charts_config.py:803
+#: analytics/charts_config.py:783
 msgid "Vida útil de artigos por número de acessos em"
 msgstr ""
 
-#: analytics/charts_config.py:812
+#: analytics/charts_config.py:792
 msgid "Ano de referência"
 msgstr ""
 
-#: analytics/charts_config.py:812
+#: analytics/charts_config.py:792
 #, python-format
 msgid "%s acessos aos documentos do ano %s"
 msgstr ""
@@ -402,7 +399,7 @@ msgstr ""
 #: analytics/templates/website/publication_size_citations.mako:6
 #: analytics/templates/website/publication_size_documents.mako:6
 #: analytics/templates/website/publication_size_issues.mako:6
-#: analytics/templates/website/publication_size_journals.mako:8
+#: analytics/templates/website/publication_size_journals.mako:6
 msgid "loading"
 msgstr ""
 
@@ -1245,9 +1242,11 @@ msgstr ""
 msgid "Formas de citação do periódico"
 msgstr ""
 
-#: analytics/templates/website/navbar_collection.mako:38
-#: analytics/templates/website/navbar_document.mako:19
-#: analytics/templates/website/navbar_journal.mako:40
+#: analytics/templates/website/navbar_common_links.mako:3
+msgid "Visualização"
+msgstr ""
+
+#: analytics/templates/website/navbar_common_links.mako:6
 msgid "Relatórios"
 msgstr ""
 
@@ -1407,6 +1406,22 @@ msgstr ""
 msgid "Citações recebidas, concedidas e auto citações"
 msgstr ""
 
+#: analytics/templates/website/publication_journal.mako:5
+msgid "Licenças de uso dos periódicos"
+msgstr ""
+
+#: analytics/templates/website/publication_journal.mako:10
+msgid "Áreas temáticas dos periódicos"
+msgstr ""
+
+#: analytics/templates/website/publication_journal.mako:15
+msgid "Ano de inclusão de periódicos"
+msgstr ""
+
+#: analytics/templates/website/publication_journal.mako:19
+msgid "Situação de publicação dos periódicos"
+msgstr ""
+
 #: analytics/templates/website/publication_journal_licenses.mako:17
 msgid ""
 "Este gráfico apresenta o número de periódicos por licença de uso adotada. Os "
@@ -1490,24 +1505,8 @@ msgstr ""
 msgid "fascículos"
 msgstr ""
 
-#: analytics/templates/website/publication_size_journals.mako:11
+#: analytics/templates/website/publication_size_journals.mako:10
 msgid "periódicos"
-msgstr ""
-
-#: analytics/templates/website/publication_size_journals.mako:15
-msgid "ativo"
-msgstr ""
-
-#: analytics/templates/website/publication_size_journals.mako:16
-msgid "em progresso"
-msgstr ""
-
-#: analytics/templates/website/publication_size_journals.mako:17
-msgid "suspenso"
-msgstr ""
-
-#: analytics/templates/website/publication_size_journals.mako:18
-msgid "descontinuado"
 msgstr ""
 
 #: analytics/templates/website/reports.mako:5

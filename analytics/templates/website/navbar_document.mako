@@ -15,10 +15,5 @@
       <li><a href="${request.route_url('bibliometrics_document_list_received_citations')}">${_(u'Received citations')}</a></li>
     </ul>
   </li>
-  <li class="${'active' if page == 'reports' else ''}">
-    <a href="${request.route_url('reports')}">${_(u'Relatórios')}</a>
-  </li>
-  <li class="${'active' if page == 'faq' else ''}">
-    <a href="${request.route_url('faq_web')}">FAQ</a>
-  </li>
+  <%include file="navbar_common_links.mako"/>
 </ul>

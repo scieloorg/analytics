@@ -111,7 +111,7 @@ def main(global_config, **settings):
         )
     ))
 
-    if 'memcached_host' in settings:
+    if memcached_host:
         cache_config = {}
         cache_config['expiration_time'] = int(memcached_expiration_time)  # a month cache
         cache_config['arguments'] = {'url': memcached_host, 'binary': True}
