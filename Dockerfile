@@ -15,4 +15,5 @@ RUN pip install --upgrade deps/scielojcr-1.3.0-py2.py3-none-any.whl
 
 ENV ANALYTICS_SETTINGS_FILE=/app/config.ini
 
+RUN python setup.py compile_catalog
 RUN python setup.py install
