@@ -69,7 +69,7 @@
                 <h3 class="panel-title">${_(u'Sobre o gráfico')}</h3>
               </div>
               <div class="panel-body">
-                  ${_(u'Este gráfico apresenta os indices H5 e M5 do Google Scholar. Os idicadores são fornecidos anualmente pelo Google Scholar. A ausência de indicadores para um periódico ou para um período de um periódico pode ocorrer caso esses dados não tenham sido fornecidos pelo Google Scholar. Ao clicar na série, você será direcionado para o site do Google Scholar.')}
+                  ${_(u'Este gráfico apresenta os indices H5 e M5 do Google Scholar. Os indicadores são fornecidos anualmente pelo Google Scholar. A ausência de indicadores para um periódico ou para um período de um periódico pode ocorrer caso esses dados não tenham sido fornecidos pelo Google Scholar. Ao clicar na série, você será direcionado para o site do Google Scholar.')}
               </div>
             </div>
           </div>

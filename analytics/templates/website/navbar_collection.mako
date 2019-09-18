@@ -32,6 +32,7 @@
       <li><a href="${request.route_url('bibliometrics_list_granted_web')}">${_(u'Citações concedidas por periódicos')}</a></li>
       <li><a href="${request.route_url('bibliometrics_list_received_web')}">${_(u'Citações recebidas por periódicos')}</a></li>
       <li><a href="${request.route_url('bibliometrics_list_citing_forms_web')}">${_(u'Formas de citação do periódico')}</a></li>
+      <li><a href="${request.route_url('bibliometrics_list_general_indicators_web')}">${_(u'Indicadores Gerais')}</a></li>
     </ul>
   </li>
   <li class="${'active' if page == 'reports' else ''}">
