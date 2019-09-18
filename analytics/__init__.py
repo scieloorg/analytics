@@ -76,6 +76,7 @@ def main(global_config, **settings):
     config.add_route('bibliometrics_list_citing_forms_web', '/w/bibliometrics/list/citing_forms')
     config.add_route('bibliometrics_list_impact_factor_web', '/w/bibliometrics/list/impact_factor')
     config.add_route('bibliometrics_list_citing_half_life_web', '/w/bibliometrics/list/citing_half_life')
+    config.add_route('bibliometrics_list_general_indicators_web', '/w/bibliometrics/list/general_indicators')
     config.add_route('bibliometrics_journal_cited_and_citing_years_heat_web', '/w/bibliometrics/journal/cited_and_citing_years_heat')
     config.add_route('bibliometrics_journal_cited_and_citing_years_heat', '/ajx/bibliometrics/journal/cited_and_citing_years_heat')
     config.add_route('bibliometrics_journal_received_self_and_granted_citation_chart', '/ajx/bibliometrics/journal/received_self_and_granted_citation_chart')
