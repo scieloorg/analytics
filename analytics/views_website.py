@@ -149,6 +149,15 @@ def bibliometrics_list_citing_half_life(request):
     return data
 
 
+@view_config(route_name='bibliometrics_list_general_indicators_web', renderer='templates/website/bibliometrics_list_general_indicators.mako')
+@base_data_manager
+def bibliometrics_list_general_indicators(request):
+    data = request.data_manager
+    data['page'] = 'bibliometrics'
+
+    return data
+
+
 @view_config(route_name='bibliometrics_list_citing_forms_web', renderer='templates/website/bibliometrics_list_citing_forms.mako')
 @base_data_manager
 def bibliometrics_list_citing_forms(request):
