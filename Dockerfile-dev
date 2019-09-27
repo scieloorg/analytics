@@ -5,7 +5,7 @@ MAINTAINER tecnologia@scielo.org
 RUN apt-get update && apt-get install -y libmemcached-dev
 
 COPY . /app
-COPY production.ini-TEMPLATE /app/config.ini
+COPY development.ini-TEMPLATE /app/config.ini
 
 WORKDIR /app
 
