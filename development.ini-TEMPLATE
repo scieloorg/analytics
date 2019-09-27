@@ -20,8 +20,8 @@ pyramid.includes = pyramid_debugtoolbar
 altmetrics_user = 
 altmetrics_key = 
 
-memcached_host = memcached
-memcached_expiration_time =3600
+# memcached_host = memcached
+# memcached_expiration_time =3600
 
 google_analytics_code = 
 google_analytics_sample_rate = 100
