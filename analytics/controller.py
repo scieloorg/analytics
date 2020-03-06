@@ -22,6 +22,7 @@ CITABLE_DOCUMENT_TYPES = (
     u'article-commentary',
     u'brief-report',
     u'case-report',
+    u'data-article',
     u'rapid-communication',
     u'research-article',
     u'review-article'
@@ -105,7 +106,6 @@ class Stats(object):
         self.access = AccessStats()
         self.bibliometrics = BibliometricsStats()
 
-
     @property
     def _(self):
         return self.request.translate
@@ -116,15 +116,19 @@ class Stats(object):
         joined_data = {}
 
         for item in self_citations['aggregations']['publication_year']['buckets']:
-            joined_data.setdefault(item['key'], {'self_citation': 0, 'granted_citation': 0, 'received_citation': 0})
+            joined_data.setdefault(
+                item['key'], {'self_citation': 0, 'granted_citation': 0, 'received_citation': 0})
             joined_data[item['key']]['self_citation'] = item['doc_count']
 
         for item in granted_citations['aggregations']['publication_year']['buckets']:
-            joined_data.setdefault(item['key'], {'self_citation': 0, 'granted_citation': 0, 'received_citation': 0})
-            joined_data[item['key']]['granted_citation'] = item['citations']['value']
+            joined_data.setdefault(
+                item['key'], {'self_citation': 0, 'granted_citation': 0, 'received_citation': 0})
+            joined_data[item['key']
+                        ]['granted_citation'] = item['citations']['value']
 
         for item in received_citations['aggregations']['publication_year']['buckets']:
-            joined_data.setdefault(item['key'], {'self_citation': 0, 'granted_citation': 0, 'received_citation': 0})
+            joined_data.setdefault(
+                item['key'], {'self_citation': 0, 'granted_citation': 0, 'received_citation': 0})
             joined_data[item['key']]['received_citation'] = item['doc_count']
 
         data = {
@@ -155,9 +159,12 @@ class Stats(object):
 
     def received_self_and_granted_citation_chart(self, issn, collection, titles, py_range=None):
 
-        self_citations = self.bibliometrics.self_citations(issn, titles, py_range=py_range, raw=True)
-        granted_citations = self.publication.granted_citations_by_year(issn, collection, py_range=py_range, raw=True)
-        received_citations = self.bibliometrics.received_citations_by_year(issn, titles, py_range=py_range, raw=True)
+        self_citations = self.bibliometrics.self_citations(
+            issn, titles, py_range=py_range, raw=True)
+        granted_citations = self.publication.granted_citations_by_year(
+            issn, collection, py_range=py_range, raw=True)
+        received_citations = self.bibliometrics.received_citations_by_year(
+            issn, titles, py_range=py_range, raw=True)
 
         return self._compute_received_self_and_granted_citation_chart(self_citations, granted_citations, received_citations)
 
@@ -169,13 +176,15 @@ class Stats(object):
 
         cit_docs = {}
         for pub_year in citable_docs['aggregations']['publication_year']['buckets']:
-            cit_docs.setdefault(pub_year['key'], {'citable_docs': pub_year['citable_documents']['doc_count']})
+            cit_docs.setdefault(
+                pub_year['key'], {'citable_docs': pub_year['citable_documents']['doc_count']})
 
         pcy = {}
         for publication_year in pub_citing_years['aggregations']['publication_year']['buckets']:
             pcy.setdefault(publication_year['key'], {})
             for citing_year in publication_year['reference_publication_year']['buckets']:
-                pcy[publication_year['key']][citing_year['key']] = citing_year['doc_count']
+                pcy[publication_year['key']][citing_year['key']
+                                             ] = citing_year['doc_count']
 
         for year in cit_docs:
             cit_docs[year]['fi'] = []
@@ -183,14 +192,17 @@ class Stats(object):
             cit_docs[year]['fi_documents'] = []
 
             for i in range(int(year), int(year)-6, -1):
-                cit_docs[year]['fi_citations'].append(float(pcy.get(year, {}).get(str(i), 0)))
-                cit_docs[year]['fi_documents'].append(float(cit_docs.get(str(i), {'citable_docs': 0})['citable_docs']))
+                cit_docs[year]['fi_citations'].append(
+                    float(pcy.get(year, {}).get(str(i), 0)))
+                cit_docs[year]['fi_documents'].append(
+                    float(cit_docs.get(str(i), {'citable_docs': 0})['citable_docs']))
 
             for i in range(0, 6):
                 first = 1 if i > 0 else 0
                 last = i+1
                 try:
-                    cit_docs[year]['fi'].append(sum(cit_docs[year]['fi_citations'][first:last])/sum(cit_docs[year]['fi_documents'][first:last]))
+                    cit_docs[year]['fi'].append(sum(
+                        cit_docs[year]['fi_citations'][first:last])/sum(cit_docs[year]['fi_documents'][first:last]))
                 except:
                     cit_docs[year]['fi'].append(0)
 
@@ -199,9 +211,11 @@ class Stats(object):
     @cache_region.cache_on_arguments()
     def impact_factor(self, issn, collection, titles, py_range=None):
 
-        pub_citing_years = self.bibliometrics.cited_and_citing_years(issn, titles, py_range=py_range, raw=True)
+        pub_citing_years = self.bibliometrics.cited_and_citing_years(
+            issn, titles, py_range=py_range, raw=True)
 
-        citable_docs = self.publication.citable_documents(issn, collection, py_range=py_range, raw=True)
+        citable_docs = self.publication.citable_documents(
+            issn, collection, py_range=py_range, raw=True)
 
         return self._compute_impact_factor(pub_citing_years, citable_docs)
 
@@ -226,7 +240,8 @@ class Stats(object):
 
     def impact_factor_chart(self, issn, collection, titles, py_range=None):
 
-        query_result = self.impact_factor(issn, collection, titles, py_range=py_range)
+        query_result = self.impact_factor(
+            issn, collection, titles, py_range=py_range)
 
         return self._compute_impact_factor_chart(query_result)
 
@@ -248,8 +263,10 @@ class Stats(object):
                 accumulated_citations += bucket['doc_count']
                 data[base_year]['data'][year] = {}
                 data[base_year]['data'][year]['citations'] = bucket['doc_count']
-                data[base_year]['data'][year]['percentage'] =  (float(bucket['doc_count']) / total_citations) * 100
-                data[base_year]['data'][year]['accumulated_percentage'] = (float(accumulated_citations) / total_citations) * 100
+                data[base_year]['data'][year]['percentage'] = (
+                    float(bucket['doc_count']) / total_citations) * 100
+                data[base_year]['data'][year]['accumulated_percentage'] = (
+                    float(accumulated_citations) / total_citations) * 100
                 if data[base_year]['data'][year]['accumulated_percentage'] >= 50 and 'year' not in data[base_year]['half_life']:
                     data[base_year]['half_life']['year'] = year
 
@@ -257,19 +274,25 @@ class Stats(object):
             half_life_year = int(data[publication_year]['half_life']['year'])
 
             for i in range(int(publication_year), int(sorted(item['data'])[0]) - 1, -1):
-                data[publication_year]['data'].setdefault(str(i), {'percentage': 0, 'citations': 0, 'accumulated_percentage': 0})
+                data[publication_year]['data'].setdefault(
+                    str(i), {'percentage': 0, 'citations': 0, 'accumulated_percentage': 0})
                 if i < int(publication_year) and data[publication_year]['data'][str(i)]['citations'] == 0:
-                    data[publication_year]['data'][str(i)]['accumulated_percentage'] = data[publication_year]['data'][str(i+1)]['accumulated_percentage']
+                    data[publication_year]['data'][str(
+                        i)]['accumulated_percentage'] = data[publication_year]['data'][str(i+1)]['accumulated_percentage']
 
-            previous_percentage = data[publication_year]['data'].get(str(half_life_year + 1), {'accumulated_percentage': 0})['accumulated_percentage']
-            half_life_percentage = data[publication_year]['data'][str(half_life_year)]['accumulated_percentage']
-            data[publication_year]['half_life']['value'] = (int(publication_year) - half_life_year) + ((50 - previous_percentage)/(half_life_percentage - previous_percentage))
+            previous_percentage = data[publication_year]['data'].get(
+                str(half_life_year + 1), {'accumulated_percentage': 0})['accumulated_percentage']
+            half_life_percentage = data[publication_year]['data'][str(
+                half_life_year)]['accumulated_percentage']
+            data[publication_year]['half_life']['value'] = (int(publication_year) - half_life_year) + (
+                (50 - previous_percentage)/(half_life_percentage - previous_percentage))
 
         return data
 
     def citing_half_life(self, issn, titles):
 
-        query_result = self.bibliometrics.cited_and_citing_years(issn, titles, raw=True)
+        query_result = self.bibliometrics.cited_and_citing_years(
+            issn, titles, raw=True)
 
         return self._compute_citing_half_life(query_result)
 
@@ -368,7 +391,8 @@ class BibliometricsStats(CitedbyThriftClient):
         for year, data in sorted(data.items()):
             categories.append(year)
             five_year_impact_factor["data"].append(
-                {'y': float(data['five_year_impact_factor']) if data['five_year_impact_factor'] else None}
+                {'y': float(data['five_year_impact_factor'])
+                 if data['five_year_impact_factor'] else None}
             )
             journal_impact_factor["data"].append(
                 {'y': float(data['journal_impact_factor']) if data['journal_impact_factor'] else None})
@@ -400,7 +424,8 @@ class BibliometricsStats(CitedbyThriftClient):
         for year, data in sorted(data.items()):
             categories.append(year)
             average_impact_factor_percentile["data"].append(
-                {'y': float(data['average_journal_impact_factor_percentile']) if data['average_journal_impact_factor_percentile'] else None}
+                {'y': float(data['average_journal_impact_factor_percentile'])
+                 if data['average_journal_impact_factor_percentile'] else None}
             )
 
         series.append(average_impact_factor_percentile)
@@ -426,7 +451,8 @@ class BibliometricsStats(CitedbyThriftClient):
         for year, data in sorted(data.items()):
             categories.append(year)
             total_cites["data"].append(
-                {'y': float(data['total_cites']) if data['total_cites'] else None}
+                {'y': float(data['total_cites'])
+                 if data['total_cites'] else None}
             )
 
         series.append(total_cites)
@@ -457,10 +483,12 @@ class BibliometricsStats(CitedbyThriftClient):
         for year, data in sorted(data.items()):
             categories.append(year)
             normalized_eigenfactor["data"].append(
-                {'y': float(data['normalized_eigenfactor']) if data['normalized_eigenfactor'] else None}
+                {'y': float(data['normalized_eigenfactor'])
+                 if data['normalized_eigenfactor'] else None}
             )
             eigenfactor_score["data"].append(
-                {'y': float(data['eigenfactor_score']) if data['eigenfactor_score'] else None}
+                {'y': float(data['eigenfactor_score'])
+                 if data['eigenfactor_score'] else None}
             )
 
         series.append(normalized_eigenfactor)
@@ -525,7 +553,8 @@ class BibliometricsStats(CitedbyThriftClient):
                     continue
 
                 data['categories_y'].add(yitem['key'])
-                temp_dict[xitem['key']].setdefault(yitem['key'], yitem['doc_count'])
+                temp_dict[xitem['key']].setdefault(
+                    yitem['key'], yitem['doc_count'])
 
         data['categories_x'] = sorted(data['categories_x'])
         data['categories_y'] = sorted(data['categories_y'])
@@ -534,24 +563,30 @@ class BibliometricsStats(CitedbyThriftClient):
         for itemx in data['categories_x']:
             y = 0
             for itemy in data['categories_y']:
-                data['series'].append([x, y, temp_dict.get(itemx, {}).get(itemy, 0)])
+                data['series'].append(
+                    [x, y, temp_dict.get(itemx, {}).get(itemy, 0)])
                 y += 1
             x += 1
 
         for item in query_result['hits']['hits']:
             fitem = {}
-            citing_first_author = item['_source'].get('first_author', {'surname': '', 'given_names': ''})
+            citing_first_author = item['_source'].get(
+                'first_author', {'surname': '', 'given_names': ''})
 
             fitem['citing_pid'] = item['_source'].get('code', '')
             fitem['citing_collection'] = item['_source'].get('collection', '')
             fitem['citing_title'] = item['_source'].get('titles', [''])[0]
-            fitem['citing_publication_year'] = item['_source'].get('publication_year', '')
+            fitem['citing_publication_year'] = item['_source'].get(
+                'publication_year', '')
             fitem['citing_source'] = item['_source'].get('source', '')
-            fitem['citing_first_author'] = ' '.join([citing_first_author.get('surname', ''), citing_first_author.get('given_names', '')])
+            fitem['citing_first_author'] = ' '.join([citing_first_author.get(
+                'surname', ''), citing_first_author.get('given_names', '')])
             fitem['cited_title'] = item['_source'].get('reference_title', '')
             fitem['cited_source'] = item['_source'].get('reference_source', '')
-            fitem['cited_publication_year'] = item['_source'].get('reference_publication_year', '')
-            fitem['cited_first_author'] = item['_source'].get('reference_first_author', [''])[0]
+            fitem['cited_publication_year'] = item['_source'].get(
+                'reference_publication_year', '')
+            fitem['cited_first_author'] = item['_source'].get(
+                'reference_first_author', [''])[0]
 
             data['citing_list'].append(fitem)
 
@@ -584,7 +619,6 @@ class BibliometricsStats(CitedbyThriftClient):
         computed = self._compute_cited_and_citing_years_heat(query_result)
 
         return query_result if raw is True else computed
-
 
     @staticmethod
     def _compute_cited_and_citing_years(query_result):
@@ -1105,7 +1139,8 @@ class BibliometricsStats(CitedbyThriftClient):
             do periódico, quanto este template existir.
         """
 
-        custom_queries = set([utils.clean_string(i) for i in custom_query.journal_titles.load(issn).get('must_not', [])])
+        custom_queries = set([utils.clean_string(
+            i) for i in custom_query.journal_titles.load(issn).get('must_not', [])])
 
         for item in custom_queries:
 
@@ -1126,8 +1161,10 @@ class BibliometricsStats(CitedbyThriftClient):
             do periódico, quanto este template existir.
         """
 
-        custom_queries = custom_query.journal_titles.load(issn).get('should', [])
-        titles = [{'title': i} for i in titles if i not in [x['title'] for x in custom_queries]]
+        custom_queries = custom_query.journal_titles.load(
+            issn).get('should', [])
+        titles = [{'title': i} for i in titles if i not in [x['title']
+                                                            for x in custom_queries]]
         titles.extend(custom_queries)
 
         for item in titles:
@@ -1256,7 +1293,8 @@ class PublicationStats(PublicationStatsThriftClient):
             ('size', '0'),
         ]
 
-        query_result = self.search('article', json.dumps(body), query_parameters)
+        query_result = self.search(
+            'article', json.dumps(body), query_parameters)
 
         computed = self._compute_granted_citations_by_year(query_result)
 
@@ -1284,7 +1322,8 @@ class PublicationStats(PublicationStatsThriftClient):
         for bucket in query_result['aggregations'][field]['buckets']:
             categories.append(bucket['key'])
             if field in ['publication_year', 'included_at_year']:
-                documents['data'].append([utils.mktime(int(bucket['key'])), int(bucket['doc_count'])])
+                documents['data'].append(
+                    [utils.mktime(int(bucket['key'])), int(bucket['doc_count'])])
             else:
                 documents['data'].append(int(bucket['doc_count']))
 
@@ -1302,9 +1341,11 @@ class PublicationStats(PublicationStatsThriftClient):
         [u'Health Sciences', u'Agricultural Sciences', u'Human Sciences']
         """
 
-        result = self.general('article', 'subject_areas', code, collection, size=0, raw=True)
+        result = self.general('article', 'subject_areas',
+                              code, collection, size=0, raw=True)
 
-        subject_areas = [i['key'] for i in result['aggregations']['subject_areas']['buckets']]
+        subject_areas = [i['key']
+                         for i in result['aggregations']['subject_areas']['buckets']]
 
         return subject_areas
 
@@ -1318,9 +1359,11 @@ class PublicationStats(PublicationStatsThriftClient):
         [u'PT', u'ES', u'EN']
         """
 
-        result = self.general('article', 'languages', code, collection, size=0, raw=True)
+        result = self.general('article', 'languages', code,
+                              collection, size=0, raw=True)
 
-        languages = [i['key'] for i in result['aggregations']['languages']['buckets']]
+        languages = [i['key']
+                     for i in result['aggregations']['languages']['buckets']]
 
         return languages
 
@@ -1334,9 +1377,11 @@ class PublicationStats(PublicationStatsThriftClient):
         [u'2015', u'2016', u'2017']
         """
 
-        result = self.general('article', 'publication_year', code, collection, size=0, raw=True)
+        result = self.general('article', 'publication_year',
+                              code, collection, size=0, raw=True)
 
-        publication_year = sorted([i['key'] for i in result['aggregations']['publication_year']['buckets']])
+        publication_year = sorted(
+            [i['key'] for i in result['aggregations']['publication_year']['buckets']])
 
         return publication_year
 
@@ -1462,7 +1507,8 @@ class PublicationStats(PublicationStatsThriftClient):
     def collection_size(self, code, collection, field, py_range, sa_scope, la_scope, raw=False):
 
         if field not in ['issue', 'issn', 'citations', 'documents']:
-            raise ValueError('Expected values for field: [issue, issn, citations, documents]')
+            raise ValueError(
+                'Expected values for field: [issue, issn, citations, documents]')
 
         body = {"query": {"filtered": {}}}
 
@@ -1532,7 +1578,8 @@ class PublicationStats(PublicationStatsThriftClient):
                 }
             }
 
-        query_result = self.search('article', json.dumps(body), query_parameters)
+        query_result = self.search(
+            'article', json.dumps(body), query_parameters)
 
         computed = self._compute_collection_size(query_result, field)
 
@@ -1555,7 +1602,8 @@ class PublicationStats(PublicationStatsThriftClient):
         navigator_series = []
 
         for bucket in query_result['aggregations']['publication_year']['buckets'][::-1]:
-            amount = float(bucket['citable_documents']['doc_count']) + float(bucket['not_citable_documents']['doc_count'])
+            amount = float(bucket['citable_documents']['doc_count']) + \
+                float(bucket['not_citable_documents']['doc_count'])
             year = utils.mktime(int(bucket['key']))
             navigator_series.append([year, amount])
             series[0]["data"].append({
@@ -1663,7 +1711,8 @@ class PublicationStats(PublicationStatsThriftClient):
             ('size', '0'),
         ]
 
-        query_result = self.search('article', json.dumps(body), query_parameters)
+        query_result = self.search(
+            'article', json.dumps(body), query_parameters)
 
         computed = self._compute_citable_documents(query_result)
 
@@ -1671,7 +1720,8 @@ class PublicationStats(PublicationStatsThriftClient):
 
     @cache_region.cache_on_arguments()
     def affiliations_by_publication_year(self, code, collection, py_range, sa_scope, la_scope, raw=False):
-        result = self.by_publication_year(code, collection, 'aff_countries', py_range, sa_scope,la_scope, raw)
+        result = self.by_publication_year(
+            code, collection, 'aff_countries', py_range, sa_scope, la_scope, raw)
 
         return result
 
@@ -1688,7 +1738,8 @@ class PublicationStats(PublicationStatsThriftClient):
     @cache_region.cache_on_arguments()
     def languages_by_publication_year(self, code, collection, py_range, sa_scope, la_scope, raw=False):
 
-        result = self.by_publication_year(code, collection, 'languages', py_range, sa_scope, la_scope, raw)
+        result = self.by_publication_year(
+            code, collection, 'languages', py_range, sa_scope, la_scope, raw)
 
         return result
 
@@ -1824,7 +1875,8 @@ class PublicationStats(PublicationStatsThriftClient):
             ('size', '0')
         ]
 
-        query_result = self.search('article', json.dumps(body), query_parameters)
+        query_result = self.search(
+            'article', json.dumps(body), query_parameters)
 
         computed = self._compute_by_publication_year(query_result, field)
 
@@ -1838,7 +1890,8 @@ class ArticleMeta(ArticleMetaThriftClient):
         try:
             return self._certified_collections
         except AttributeError:
-            self._certified_collections = {i.acronym: {'name': i.name, 'domain': i.domain} for i in self.collections() if i.has_analytics}
+            self._certified_collections = {i.acronym: {
+                'name': i.name, 'domain': i.domain} for i in self.collections() if i.has_analytics}
 
         return self._certified_collections
 
@@ -1887,11 +1940,16 @@ class AccessStats(AccessStatsThriftClient):
             item = {}
             item['issn'] = bucket['key']
             item['title'] = bucket['journal_title']['buckets'][0]['key']
-            item['html'] = int(bucket['journal_title']['buckets'][0]['access_html']['value'])
-            item['pdf'] = int(bucket['journal_title']['buckets'][0]['access_pdf']['value'])
-            item['epdf'] = int(bucket['journal_title']['buckets'][0]['access_epdf']['value'])
-            item['abstract'] = int(bucket['journal_title']['buckets'][0]['access_abstract']['value'])
-            item['total'] = int(bucket['journal_title']['buckets'][0]['access_total']['value'])
+            item['html'] = int(bucket['journal_title']
+                               ['buckets'][0]['access_html']['value'])
+            item['pdf'] = int(bucket['journal_title']
+                              ['buckets'][0]['access_pdf']['value'])
+            item['epdf'] = int(bucket['journal_title']
+                               ['buckets'][0]['access_epdf']['value'])
+            item['abstract'] = int(bucket['journal_title']
+                                   ['buckets'][0]['access_abstract']['value'])
+            item['total'] = int(bucket['journal_title']
+                                ['buckets'][0]['access_total']['value'])
 
             data.append(item)
 
@@ -2043,11 +2101,16 @@ class AccessStats(AccessStatsThriftClient):
             item = {}
             item['issue'] = bucket['key']
             item['title'] = bucket['issue_title']['buckets'][0]['key']
-            item['html'] = int(bucket['issue_title']['buckets'][0]['access_html']['value'])
-            item['pdf'] = int(bucket['issue_title']['buckets'][0]['access_pdf']['value'])
-            item['epdf'] = int(bucket['issue_title']['buckets'][0]['access_epdf']['value'])
-            item['abstract'] = int(bucket['issue_title']['buckets'][0]['access_abstract']['value'])
-            item['total'] = int(bucket['issue_title']['buckets'][0]['access_total']['value'])
+            item['html'] = int(bucket['issue_title']['buckets']
+                               [0]['access_html']['value'])
+            item['pdf'] = int(bucket['issue_title']['buckets']
+                              [0]['access_pdf']['value'])
+            item['epdf'] = int(bucket['issue_title']['buckets']
+                               [0]['access_epdf']['value'])
+            item['abstract'] = int(bucket['issue_title']
+                                   ['buckets'][0]['access_abstract']['value'])
+            item['total'] = int(bucket['issue_title']
+                                ['buckets'][0]['access_total']['value'])
 
             data.append(item)
 
@@ -2199,11 +2262,16 @@ class AccessStats(AccessStatsThriftClient):
             item = {}
             item['pid'] = bucket['key']
             item['title'] = bucket['document_title']['buckets'][0]['key']
-            item['html'] = int(bucket['document_title']['buckets'][0]['access_html']['value'])
-            item['pdf'] = int(bucket['document_title']['buckets'][0]['access_pdf']['value'])
-            item['epdf'] = int(bucket['document_title']['buckets'][0]['access_epdf']['value'])
-            item['abstract'] = int(bucket['document_title']['buckets'][0]['access_abstract']['value'])
-            item['total'] = int(bucket['document_title']['buckets'][0]['access_total']['value'])
+            item['html'] = int(bucket['document_title']
+                               ['buckets'][0]['access_html']['value'])
+            item['pdf'] = int(bucket['document_title']
+                              ['buckets'][0]['access_pdf']['value'])
+            item['epdf'] = int(bucket['document_title']
+                               ['buckets'][0]['access_epdf']['value'])
+            item['abstract'] = int(bucket['document_title']
+                                   ['buckets'][0]['access_abstract']['value'])
+            item['total'] = int(bucket['document_title']
+                                ['buckets'][0]['access_total']['value'])
 
             data.append(item)
 
@@ -2479,7 +2547,8 @@ class AccessStats(AccessStatsThriftClient):
         for bucket_access_year in query_result['aggregations']['access_year']['buckets']:
             access_total = {'name': bucket_access_year['key'], 'data': []}
             for bucket_access_total in bucket_access_year['publication_year']['buckets']:
-                access_total['data'].append([utils.mktime(int(bucket_access_total['key'])), int(bucket_access_total['access_total']['value'])])
+                access_total['data'].append([utils.mktime(int(bucket_access_total['key'])), int(
+                    bucket_access_total['access_total']['value'])])
 
             charts.append({
                 'series': [access_total]
@@ -2618,12 +2687,17 @@ class AccessStats(AccessStatsThriftClient):
         abstract = {'name': 'abstract', 'data': []}
         epdf = {'name': 'epdf', 'data': []}
         for bucket in query_result['aggregations']['access_date']['buckets']:
-            amount = int(bucket['access_html']['value']) + int(bucket['access_pdf']['value']) + int(bucket['access_abstract']['value']) + int(bucket['access_epdf']['value'])
+            amount = int(bucket['access_html']['value']) + int(bucket['access_pdf']['value']) + int(
+                bucket['access_abstract']['value']) + int(bucket['access_epdf']['value'])
             navigator_series.append([bucket['key'], amount])
-            html['data'].append([bucket['key'], int(bucket['access_html']['value'])])
-            pdf['data'].append([bucket['key'], int(bucket['access_pdf']['value'])])
-            abstract['data'].append([bucket['key'], int(bucket['access_abstract']['value'])])
-            epdf['data'].append([bucket['key'], int(bucket['access_epdf']['value'])])
+            html['data'].append(
+                [bucket['key'], int(bucket['access_html']['value'])])
+            pdf['data'].append(
+                [bucket['key'], int(bucket['access_pdf']['value'])])
+            abstract['data'].append(
+                [bucket['key'], int(bucket['access_abstract']['value'])])
+            epdf['data'].append(
+                [bucket['key'], int(bucket['access_epdf']['value'])])
 
         series.append(html)
         series.append(pdf)
@@ -2771,7 +2845,8 @@ class AccessStats(AccessStatsThriftClient):
                 if not int(yitem['key']) >= 1900 or not int(yitem['key']) <= datetime.now().year:
                     continue
                 data['categories_y'].add(yitem['key'])
-                temp_dict[xitem['key']].setdefault(yitem['key'], yitem['access_total']['value'])
+                temp_dict[xitem['key']].setdefault(
+                    yitem['key'], yitem['access_total']['value'])
 
         data['categories_x'] = sorted(data['categories_x'])
         data['categories_y'] = sorted(data['categories_y'])
@@ -2780,7 +2855,8 @@ class AccessStats(AccessStatsThriftClient):
         for itemx in data['categories_x']:
             y = 0
             for itemy in data['categories_y']:
-                data['series'].append([x, y, temp_dict.get(itemx, {}).get(itemy, 0)])
+                data['series'].append(
+                    [x, y, temp_dict.get(itemx, {}).get(itemy, 0)])
                 y += 1
             x += 1
 
