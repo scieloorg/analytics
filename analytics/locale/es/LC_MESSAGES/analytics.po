@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Analytics\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-09-18 12:50+0000\n"
+"POT-Creation-Date: 2020-03-16 11:19+0000\n"
 "PO-Revision-Date: 2017-07-28 14:37+0000\n"
 "Last-Translator: fabiobatalha <fabiobatalha@gmail.com>\n"
 "Language: es\n"
@@ -782,16 +782,16 @@ msgid ""
 "Este gráfico apresenta a distribuição de documentos citáveis e não "
 "citáveis relacionados ao periódico selecionado. De acordo com as regras "
 "de contagem do SciELO, documentos citáveis devem ser do tipo \"Research "
-"Article\", \"Review Article\", \"Case Report\", \"Brief Report\", \"Rapid"
-" Communication\" e \"Article Commentary\". Os demais tipos de documentos "
-"são considerados não citáveis."
+"Article\", \"Review Article\", \"Data Article\", \"Case Report\", \"Brief"
+" Report\", \"Rapid Communication\" e \"Article Commentary\". Os demais "
+"tipos de documentos são considerados não citáveis."
 msgstr ""
 "Esta gráfica muestra la distribución de documentos citables y non "
 "citables relacionados al periódico seleccionado. De acuerdo con las "
-"reglas de cuenta de citas de SciELO, los documentos citables son de los "
-"tipos Research Article, Review Article, Case Report, Brief Report, Rapid "
-"Communication y Article Commentary. Los demas tipos de documentos no don "
-"tomados en cuenta."
+"regras de cuenta de citas de SciELO, los documentos citables son del tipo"
+" \"Research Article\", \"Review Article\", \"Data Article\", \"Case "
+"Report\", \"Brief Report\", \"Rapid Communication\" y \"Article "
+"Commentary\". Los demas tipos de documentos no son considerados citables."
 
 #: analytics/templates/website/bibliometrics_journal.mako:60
 msgid "Google H5M5"
@@ -1039,109 +1039,109 @@ msgstr "porcentaje"
 msgid "percentagem acumulado"
 msgstr "porcentaje acumulado"
 
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:5
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:8
 msgid "Indicadores Bibliométricos da Rede SciELO"
 msgstr "Indicadores Bibliométricos de la Red SciELO"
 
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:6
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:9
 msgid "Periodicidade de atualização:"
 msgstr "Periodicidad de actualización:"
 
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:6
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:9
 msgid " anual"
 msgstr " anual"
 
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:13
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:16
 msgid "Indicadores de Publicação"
 msgstr "Indicadores de Publicación"
 
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:19
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:22
 msgid "Numeros da Rede SciELO por:"
 msgstr "Números de la Red SciELO por:"
 
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:21
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:28
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:54
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:24
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:31
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:57
 msgid "Ano de publicação: "
 msgstr "Año de publicación: "
 
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:22
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:29
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:35
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:25
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:32
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:38
 msgid "Periódico: "
 msgstr "Revista: "
 
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:23
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:31
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:36
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:55
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:26
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:34
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:39
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:58
 msgid "Assunto: "
 msgstr "Área: "
 
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:24
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:27
 msgid "País de afiliação do autor: "
 msgstr "País de afiliación del autor: "
 
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:26
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:29
 msgid "País de Afiliação do Autor por: "
 msgstr "País de Afiliación del Autor por: "
 
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:30
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:33
 msgid "País de publicação da revista: "
 msgstr "País de publicación de la revista: "
 
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:33
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:36
 msgid "Número de Co-autores por: "
 msgstr "Número de Co-autores por: "
 
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:46
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:49
 msgid "Indicadores de Coleção"
 msgstr "Indicadores de la Colección"
 
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:52
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:55
 msgid "Periódico por:"
 msgstr "Revista por:"
 
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:56
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:59
 msgid "Indicadores gerais: "
 msgstr "Indicadores generales: "
 
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:66
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:69
 msgid "Indicadores de Citação"
 msgstr "Indicadores de Citación"
 
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:72
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:75
 msgid "Ano de Citação por:"
 msgstr "Año de Citación por:"
 
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:74
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:79
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:84
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:90
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:77
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:82
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:87
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:93
 msgid "Idade do documento citado: "
 msgstr "Edad del documento citado: "
 
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:75
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:80
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:85
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:91
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:78
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:83
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:88
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:94
 msgid "Tipo de documento citado: "
 msgstr "Tipo de documento citado: "
 
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:77
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:80
 msgid "Periódico Citante por:"
 msgstr "Revista Citante por:"
 
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:82
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:85
 msgid "Assunto do Periódico Citante por:"
 msgstr "Área de la Revista Citante por:"
 
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:86
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:92
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:89
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:95
 msgid "Periódico SciELO citado: "
 msgstr "Revista SciELO citada: "
 
-#: analytics/templates/website/bibliometrics_list_general_indicators.mako:88
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:91
 msgid "País de Afiliação do Autor Citante por:"
 msgstr "País de Afiliación del Autor Citante por:"
 
@@ -1163,15 +1163,15 @@ msgstr "documentos publicados en"
 msgid ""
 "Aqui são considerados apenas os documentos citáveis. De acordo com as "
 "regras de contagem do SciELO, documentos citáveis devem ser do tipo "
-"Research Article, Review Article, Case Report, Brief Report, Rapid "
-"Communication e Article Commentary. Os demais tipos de documentos são "
-"considerados não citáveis."
+"Research Article, Review Article, Data Article, Case Report, Brief "
+"Report, Rapid Communication e Article Commentary. Os demais tipos de "
+"documentos são considerados não citáveis."
 msgstr ""
-"Esta gráfica muestra la distribución de documentos citables relacionados "
-"al periódico seleccionado. De acuerdo con las reglas de cuenta de citas "
-"de SciELO, los documentos citables son de los tipos Research Article, "
-"Review Article, Case Report, Brief Report, Rapid Communication y Article "
-"Commentary. Los demas tipos de documentos no don tomados en cuenta."
+"Aquí solo se consideran documentos citables. De acuerdo con las reglas de"
+" conteo de SciELO, los documentos citables deben ser del tipo Research "
+"Article, Review Article, Data Article, Case Report, Brief Report, Rapid "
+"Communication y Article Commentary. Los otros tipos de documentos se "
+"consideran no citables."
 
 #: analytics/templates/website/bibliometrics_list_impact_factor.mako:49
 msgid "2 ano"
@@ -1430,9 +1430,11 @@ msgstr "Formas de citación de la revista"
 msgid "Indicadores Gerais"
 msgstr "Indicadores Generales"
 
-#: analytics/templates/website/navbar_collection.mako:39
-#: analytics/templates/website/navbar_document.mako:19
-#: analytics/templates/website/navbar_journal.mako:41
+#: analytics/templates/website/navbar_common_links.mako:3
+msgid "Visualização"
+msgstr ""
+
+#: analytics/templates/website/navbar_common_links.mako:6
 msgid "Relatórios"
 msgstr "Informes"
 
