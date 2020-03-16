@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Analytics\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-03-10 19:10+0000\n"
+"POT-Creation-Date: 2020-03-16 11:19+0000\n"
 "PO-Revision-Date: 2017-07-28 14:37+0000\n"
 "Last-Translator: fabiobatalha <fabiobatalha@gmail.com>\n"
 "Language: pt\n"
@@ -19,421 +19,421 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.1\n"
 
-#: /app/analytics/charts_config.py:25
+#: analytics/charts_config.py:25
 msgid "Fonte: SciELO.org"
 msgstr "Fonte: SciELO.org"
 
-#: /app/analytics/charts_config.py:58
+#: analytics/charts_config.py:58
 msgid "Ano de acesso aos documentos"
 msgstr "Ano de acesso aos documentos"
 
-#: /app/analytics/charts_config.py:59
+#: analytics/charts_config.py:59
 msgid "Ano de publicação de documentos"
 msgstr "Ano de publicação de documentos"
 
-#: /app/analytics/charts_config.py:91
+#: analytics/charts_config.py:91
 msgid "Ano de publicação de documentos do periódico. (citados)"
 msgstr "Ano de publicação de documentos do periódico. (citados)"
 
-#: /app/analytics/charts_config.py:92
+#: analytics/charts_config.py:92
 msgid "Ano de publicação dos documentos da Rede ScIELO. (citantes)"
 msgstr "Ano de publicação dos documentos da Rede ScIELO. (citantes)"
 
-#: /app/analytics/charts_config.py:100
-#: /app/analytics/templates/website/bibliometrics_journal_jcr.mako:28
+#: analytics/charts_config.py:100
+#: analytics/templates/website/bibliometrics_journal_jcr.mako:28
 msgid "Fator de impacto (Média de percentil)"
 msgstr ""
 
-#: /app/analytics/charts_config.py:103 /app/analytics/charts_config.py:112
+#: analytics/charts_config.py:103 analytics/charts_config.py:112
 msgid "Média de percentil"
 msgstr ""
 
-#: /app/analytics/charts_config.py:113 /app/analytics/charts_config.py:135
-#: /app/analytics/charts_config.py:157 /app/analytics/charts_config.py:179
-#: /app/analytics/charts_config.py:202 /app/analytics/charts_config.py:229
+#: analytics/charts_config.py:113 analytics/charts_config.py:135
+#: analytics/charts_config.py:157 analytics/charts_config.py:179
+#: analytics/charts_config.py:202 analytics/charts_config.py:229
 msgid "Ano base"
 msgstr "Ano base"
 
-#: /app/analytics/charts_config.py:122 /app/analytics/charts_config.py:125
-#: /app/analytics/charts_config.py:134
+#: analytics/charts_config.py:122 analytics/charts_config.py:125
+#: analytics/charts_config.py:134
 msgid "Eigen Factor JCR"
 msgstr ""
 
-#: /app/analytics/charts_config.py:144 /app/analytics/charts_config.py:147
-#: /app/analytics/charts_config.py:156
+#: analytics/charts_config.py:144 analytics/charts_config.py:147
+#: analytics/charts_config.py:156
 msgid "Received Citations JCR"
 msgstr ""
 
-#: /app/analytics/charts_config.py:166 /app/analytics/charts_config.py:169
-#: /app/analytics/charts_config.py:178
+#: analytics/charts_config.py:166 analytics/charts_config.py:169
+#: analytics/charts_config.py:178
 msgid "Fator de impacto JCR"
 msgstr "Fator de impacto JCR"
 
-#: /app/analytics/charts_config.py:188
+#: analytics/charts_config.py:188
 msgid "Fonte: Google Scholar"
 msgstr "Fonte: Google Scholar"
 
-#: /app/analytics/charts_config.py:189 /app/analytics/charts_config.py:192
-#: /app/analytics/charts_config.py:201
+#: analytics/charts_config.py:189 analytics/charts_config.py:192
+#: analytics/charts_config.py:201
 msgid "Métricas H5M5"
 msgstr "Métricas H5M5"
 
-#: /app/analytics/charts_config.py:211
+#: analytics/charts_config.py:211
 msgid "imediatez"
 msgstr "imediatez"
 
-#: /app/analytics/charts_config.py:212
-#: /app/analytics/templates/website/access_datepicker.mako:11
-#: /app/analytics/templates/website/bibliometrics_list_impact_factor.mako:48
+#: analytics/charts_config.py:212
+#: analytics/templates/website/access_datepicker.mako:11
+#: analytics/templates/website/bibliometrics_list_impact_factor.mako:48
 msgid "1 ano"
 msgstr "1 ano"
 
-#: /app/analytics/charts_config.py:213
-#: /app/analytics/templates/website/access_datepicker.mako:10
+#: analytics/charts_config.py:213
+#: analytics/templates/website/access_datepicker.mako:10
 msgid "2 anos"
 msgstr "2 anos"
 
-#: /app/analytics/charts_config.py:214
-#: /app/analytics/templates/website/access_datepicker.mako:9
+#: analytics/charts_config.py:214
+#: analytics/templates/website/access_datepicker.mako:9
 msgid "3 anos"
 msgstr "3 anos"
 
-#: /app/analytics/charts_config.py:215
+#: analytics/charts_config.py:215
 msgid "4 anos"
 msgstr "4 anos"
 
-#: /app/analytics/charts_config.py:216
+#: analytics/charts_config.py:216
 msgid "5 anos"
 msgstr "5 anos"
 
-#: /app/analytics/charts_config.py:223
+#: analytics/charts_config.py:223
 msgid "Impacto SciELO em 1, 2, 3, 4, 5 anos e Índice de Imediatez"
 msgstr "Impacto SciELO em 1, 2, 3, 4, 5 anos e Índice de Imediatez"
 
-#: /app/analytics/charts_config.py:226 /app/analytics/charts_config.py:228
-#: /app/analytics/templates/website/bibliometrics_journal.mako:23
-#: /app/analytics/templates/website/bibliometrics_list_impact_factor.mako:33
+#: analytics/charts_config.py:226 analytics/charts_config.py:228
+#: analytics/templates/website/bibliometrics_journal.mako:23
+#: analytics/templates/website/bibliometrics_list_impact_factor.mako:33
 msgid "Impacto SciELO"
 msgstr "Impacto SciELO"
 
-#: /app/analytics/charts_config.py:237
+#: analytics/charts_config.py:237
 msgid "Auto citação"
 msgstr "Auto citação"
 
-#: /app/analytics/charts_config.py:237
+#: analytics/charts_config.py:237
 msgid "Citações concedidas"
 msgstr "Citações concedidas"
 
-#: /app/analytics/charts_config.py:237
+#: analytics/charts_config.py:237
 msgid "Citações recebidas"
 msgstr "Citações recebidas"
 
-#: /app/analytics/charts_config.py:244
+#: analytics/charts_config.py:244
 msgid "Distribuição de citações concedidas, recebidas e auto citações"
 msgstr "Distribuição de citações concedidas, recebidas e auto citações"
 
-#: /app/analytics/charts_config.py:251
+#: analytics/charts_config.py:251
 msgid "Número de citações"
 msgstr "Número de citações"
 
-#: /app/analytics/charts_config.py:256 /app/analytics/charts_config.py:273
-#: /app/analytics/charts_config.py:287 /app/analytics/charts_config.py:414
-#: /app/analytics/charts_config.py:423 /app/analytics/charts_config.py:438
-#: /app/analytics/charts_config.py:446 /app/analytics/charts_config.py:494
-#: /app/analytics/charts_config.py:503 /app/analytics/charts_config.py:562
-#: /app/analytics/charts_config.py:572 /app/analytics/charts_config.py:614
-#: /app/analytics/charts_config.py:623 /app/analytics/charts_config.py:664
-#: /app/analytics/charts_config.py:672 /app/analytics/charts_config.py:788
-#: /app/analytics/templates/website/central_container_for_article_filters.mako:13
-#: /app/analytics/templates/website/central_container_for_bibliometric_filters.mako:13
+#: analytics/charts_config.py:256 analytics/charts_config.py:273
+#: analytics/charts_config.py:287 analytics/charts_config.py:414
+#: analytics/charts_config.py:423 analytics/charts_config.py:438
+#: analytics/charts_config.py:446 analytics/charts_config.py:494
+#: analytics/charts_config.py:503 analytics/charts_config.py:562
+#: analytics/charts_config.py:572 analytics/charts_config.py:614
+#: analytics/charts_config.py:623 analytics/charts_config.py:664
+#: analytics/charts_config.py:672 analytics/charts_config.py:788
+#: analytics/templates/website/central_container_for_article_filters.mako:13
+#: analytics/templates/website/central_container_for_bibliometric_filters.mako:13
 msgid "Ano de publicação"
 msgstr "Ano de publicação"
 
-#: /app/analytics/charts_config.py:265
+#: analytics/charts_config.py:265
 msgid "Documentos citáveis"
 msgstr "Documentos citáveis"
 
-#: /app/analytics/charts_config.py:265
+#: analytics/charts_config.py:265
 msgid "Documentos não citáveis"
 msgstr "Documentos não citáveis"
 
-#: /app/analytics/charts_config.py:272
+#: analytics/charts_config.py:272
 msgid "Distribuição de documentos citáveis e não citáveis"
 msgstr "Distribuição de documentos citáveis e não citáveis"
 
-#: /app/analytics/charts_config.py:281 /app/analytics/charts_config.py:305
-#: /app/analytics/charts_config.py:324 /app/analytics/charts_config.py:341
-#: /app/analytics/charts_config.py:388 /app/analytics/charts_config.py:412
-#: /app/analytics/charts_config.py:441 /app/analytics/charts_config.py:467
-#: /app/analytics/charts_config.py:492 /app/analytics/charts_config.py:540
-#: /app/analytics/charts_config.py:560 /app/analytics/charts_config.py:568
-#: /app/analytics/charts_config.py:591 /app/analytics/charts_config.py:612
-#: /app/analytics/charts_config.py:662 /app/analytics/charts_config.py:691
+#: analytics/charts_config.py:281 analytics/charts_config.py:305
+#: analytics/charts_config.py:324 analytics/charts_config.py:341
+#: analytics/charts_config.py:388 analytics/charts_config.py:412
+#: analytics/charts_config.py:441 analytics/charts_config.py:467
+#: analytics/charts_config.py:492 analytics/charts_config.py:540
+#: analytics/charts_config.py:560 analytics/charts_config.py:568
+#: analytics/charts_config.py:591 analytics/charts_config.py:612
+#: analytics/charts_config.py:662 analytics/charts_config.py:691
 msgid "Número de documentos"
 msgstr "Número de documentos"
 
-#: /app/analytics/charts_config.py:298
+#: analytics/charts_config.py:298
 msgid "Distribuição de número de referências bibliográficas dos documentos"
 msgstr "Distribuição de número de referências bibliográficas dos documentos"
 
-#: /app/analytics/charts_config.py:301
+#: analytics/charts_config.py:301
 msgid "Referências bibliográficas"
 msgstr "Referências bibliográficas"
 
-#: /app/analytics/charts_config.py:308
+#: analytics/charts_config.py:308
 #, python-format
 msgid "%s documentos com %s referências bibliográficas"
 msgstr "%s documentos com %s referências bibliográficas"
 
-#: /app/analytics/charts_config.py:317
+#: analytics/charts_config.py:317
 msgid "Distribuição de número de autores dos documentos"
 msgstr "Distribuição de número de autores dos documentos"
 
-#: /app/analytics/charts_config.py:320
-#: /app/analytics/templates/website/publication_article.mako:133
+#: analytics/charts_config.py:320
+#: analytics/templates/website/publication_article.mako:133
 msgid "Número de autores"
 msgstr "Número de autores"
 
-#: /app/analytics/charts_config.py:327
+#: analytics/charts_config.py:327
 #, python-format
 msgid "%s documentos com %s autores"
 msgstr "%s documentos com %s autores"
 
-#: /app/analytics/charts_config.py:338 /app/analytics/charts_config.py:380
+#: analytics/charts_config.py:338 analytics/charts_config.py:380
 msgid "Distribuição de países de afiliação dos autores"
 msgstr "Distribuição de países de afiliação dos autores"
 
-#: /app/analytics/charts_config.py:359 /app/analytics/charts_config.py:391
-#: /app/analytics/charts_config.py:446 /app/analytics/charts_config.py:470
-#: /app/analytics/charts_config.py:543 /app/analytics/charts_config.py:594
-#: /app/analytics/charts_config.py:694
+#: analytics/charts_config.py:359 analytics/charts_config.py:391
+#: analytics/charts_config.py:446 analytics/charts_config.py:470
+#: analytics/charts_config.py:543 analytics/charts_config.py:594
+#: analytics/charts_config.py:694
 msgid "Documentos"
 msgstr "Documentos"
 
-#: /app/analytics/charts_config.py:368 /app/analytics/charts_config.py:383
-#: /app/analytics/charts_config.py:391
+#: analytics/charts_config.py:368 analytics/charts_config.py:383
+#: analytics/charts_config.py:391
 msgid "País de afiliação"
 msgstr "País de afiliação"
 
-#: /app/analytics/charts_config.py:404
+#: analytics/charts_config.py:404
 msgid "Distribuição de países de afiliação dos autores por ano de publicação"
 msgstr "Distribuição de países de afiliação dos autores por ano de publicação"
 
-#: /app/analytics/charts_config.py:437
+#: analytics/charts_config.py:437
 msgid "Distribuição de ano de publicação dos documentos"
 msgstr "Distribuição de ano de publicação dos documentos"
 
-#: /app/analytics/charts_config.py:459
+#: analytics/charts_config.py:459
 msgid "Distribuição de idiomas dos documentos"
 msgstr "Distribuição de idiomas dos documentos"
 
-#: /app/analytics/charts_config.py:462
+#: analytics/charts_config.py:462
 msgid "Idiomas de publicação"
 msgstr "Idiomas de publicação"
 
-#: /app/analytics/charts_config.py:470
+#: analytics/charts_config.py:470
 msgid "Idioma do documento"
 msgstr "Idioma do documento"
 
-#: /app/analytics/charts_config.py:484
+#: analytics/charts_config.py:484
 msgid "Distribuição de idiomas dos documentos por ano de publicação"
 msgstr "Distribuição de idiomas dos documentos por ano de publicação"
 
-#: /app/analytics/charts_config.py:514
+#: analytics/charts_config.py:514
 msgid "Distribuição de periódicos por ano de inclusão no SciELO"
 msgstr "Distribuição de periódicos por ano de inclusão no SciELO"
 
-#: /app/analytics/charts_config.py:515 /app/analytics/charts_config.py:523
+#: analytics/charts_config.py:515 analytics/charts_config.py:523
 msgid "Ano de inclusão"
 msgstr "Ano de inclusão"
 
-#: /app/analytics/charts_config.py:518 /app/analytics/charts_config.py:642
-#: /app/analytics/charts_config.py:711 /app/analytics/charts_config.py:731
+#: analytics/charts_config.py:518 analytics/charts_config.py:642
+#: analytics/charts_config.py:711 analytics/charts_config.py:731
 msgid "Número de periódicos"
 msgstr "Número de periódicos"
 
-#: /app/analytics/charts_config.py:523 /app/analytics/charts_config.py:645
-#: /app/analytics/charts_config.py:714 /app/analytics/charts_config.py:734
-#: /app/analytics/templates/website/navbar_collection.mako:10
-#: /app/analytics/templates/website/navbar_journal.mako:10
+#: analytics/charts_config.py:523 analytics/charts_config.py:645
+#: analytics/charts_config.py:714 analytics/charts_config.py:734
+#: analytics/templates/website/navbar_collection.mako:10
+#: analytics/templates/website/navbar_journal.mako:10
 msgid "Periódicos"
 msgstr "Periódicos"
 
-#: /app/analytics/charts_config.py:532
+#: analytics/charts_config.py:532
 msgid "Distribuição de área temática dos documentos"
 msgstr "Distribuição de área temática dos documentos"
 
-#: /app/analytics/charts_config.py:535 /app/analytics/charts_config.py:706
+#: analytics/charts_config.py:535 analytics/charts_config.py:706
 msgid "Areas temáticas"
 msgstr "Areas temáticas"
 
-#: /app/analytics/charts_config.py:543 /app/analytics/charts_config.py:714
-#: /app/analytics/templates/website/central_container_for_article_filters.mako:30
-#: /app/analytics/templates/website/central_container_for_journal_filters.mako:13
+#: analytics/charts_config.py:543 analytics/charts_config.py:714
+#: analytics/templates/website/central_container_for_article_filters.mako:30
+#: analytics/templates/website/central_container_for_journal_filters.mako:13
 msgid "Área temática"
 msgstr "Área temática"
 
-#: /app/analytics/charts_config.py:552
+#: analytics/charts_config.py:552
 msgid "Distribuição de área temática dos documentos por ano de publicação"
 msgstr "Distribuição de área temática dos documentos por ano de publicação"
 
-#: /app/analytics/charts_config.py:583
+#: analytics/charts_config.py:583
 msgid "Distribuição por tipo de documento"
 msgstr "Distribuição por tipo de documento"
 
-#: /app/analytics/charts_config.py:586
-#: /app/analytics/templates/website/publication_article.mako:43
-#: /app/analytics/templates/website/publication_article_by_publication_year.mako:43
+#: analytics/charts_config.py:586
+#: analytics/templates/website/publication_article.mako:43
+#: analytics/templates/website/publication_article_by_publication_year.mako:43
 msgid "Tipos de documentos"
 msgstr "Tipos de documentos"
 
-#: /app/analytics/charts_config.py:594
+#: analytics/charts_config.py:594
 msgid "Tipo de documento"
 msgstr "Tipo de documento"
 
-#: /app/analytics/charts_config.py:604
+#: analytics/charts_config.py:604
 msgid "Distribuição de tipos de documentos por ano de publicação"
 msgstr "Distribuição de tipos de documentos por ano de publicação"
 
-#: /app/analytics/charts_config.py:634
+#: analytics/charts_config.py:634
 msgid "Distribuição de periódicos por situação atual de publicação no SciELO"
 msgstr "Distribuição de periódicos por situação atual de publicação no SciELO"
 
-#: /app/analytics/charts_config.py:637 /app/analytics/charts_config.py:645
+#: analytics/charts_config.py:637 analytics/charts_config.py:645
 msgid "Situação da publicação"
 msgstr "Situação da publicação"
 
-#: /app/analytics/charts_config.py:654
+#: analytics/charts_config.py:654
 msgid "Distribuição de licenças de uso por ano de publicação"
 msgstr "Distribuição de licenças de uso por ano de publicação"
 
-#: /app/analytics/charts_config.py:683
+#: analytics/charts_config.py:683
 msgid "Distribuição de licença de uso dos documentos"
 msgstr "Distribuição de licença de uso dos documentos"
 
-#: /app/analytics/charts_config.py:686 /app/analytics/charts_config.py:726
-#: /app/analytics/templates/website/publication_article.mako:5
-#: /app/analytics/templates/website/publication_article_by_publication_year.mako:5
+#: analytics/charts_config.py:686 analytics/charts_config.py:726
+#: analytics/templates/website/publication_article.mako:5
+#: analytics/templates/website/publication_article_by_publication_year.mako:5
 msgid "Licenças de uso"
 msgstr "Licenças de uso"
 
-#: /app/analytics/charts_config.py:694 /app/analytics/charts_config.py:734
+#: analytics/charts_config.py:694 analytics/charts_config.py:734
 msgid "Licença"
 msgstr "Licença"
 
-#: /app/analytics/charts_config.py:703
+#: analytics/charts_config.py:703
 msgid "Distribuição de área temática dos periódicos"
 msgstr "Distribuição de área temática dos periódicos"
 
-#: /app/analytics/charts_config.py:723
+#: analytics/charts_config.py:723
 msgid "Distribuição de licença de uso dos periódicos"
 msgstr "Distribuição de licença de uso dos periódicos"
 
-#: /app/analytics/charts_config.py:742
+#: analytics/charts_config.py:742
 msgid "Total de acessos por ano e mês"
 msgstr "Total de acessos por ano e mês"
 
-#: /app/analytics/charts_config.py:750 /app/analytics/charts_config.py:785
-#: /app/analytics/templates/website/navbar_collection.mako:7
-#: /app/analytics/templates/website/navbar_document.mako:7
-#: /app/analytics/templates/website/navbar_journal.mako:7
+#: analytics/charts_config.py:750 analytics/charts_config.py:785
+#: analytics/templates/website/navbar_collection.mako:7
+#: analytics/templates/website/navbar_document.mako:7
+#: analytics/templates/website/navbar_journal.mako:7
 msgid "Acessos"
 msgstr "Acessos"
 
-#: /app/analytics/charts_config.py:756
+#: analytics/charts_config.py:756
 msgid "Acessos em"
 msgstr "Acessos em"
 
-#: /app/analytics/charts_config.py:767
+#: analytics/charts_config.py:767
 msgid "Total de accessos por tipo de documento"
 msgstr "Total de accessos por tipo de documento"
 
-#: /app/analytics/charts_config.py:771
+#: analytics/charts_config.py:771
 #, python-format
 msgid "%s acessos a documentos do tipo %s"
 msgstr "%s acessos a documentos do tipo %s"
 
-#: /app/analytics/charts_config.py:783
+#: analytics/charts_config.py:783
 msgid "Vida útil de artigos por número de acessos em"
 msgstr "Vida útil de artigos por número de acessos em"
 
-#: /app/analytics/charts_config.py:792
+#: analytics/charts_config.py:792
 msgid "Ano de referência"
 msgstr "Ano de referência"
 
-#: /app/analytics/charts_config.py:792
+#: analytics/charts_config.py:792
 #, python-format
 msgid "%s acessos aos documentos do ano %s"
 msgstr "%s acessos aos documentos do ano %s"
 
-#: /app/analytics/templates/website/access_by_document_type.mako:6
-#: /app/analytics/templates/website/access_by_month_and_year.mako:5
-#: /app/analytics/templates/website/access_lifetime.mako:6
-#: /app/analytics/templates/website/accesses_heat_chart.mako:5
-#: /app/analytics/templates/website/bibliometrics_document_received_citations.mako:6
-#: /app/analytics/templates/website/bibliometrics_journal_h5m5.mako:5
-#: /app/analytics/templates/website/bibliometrics_journal_impact_factor_chart.mako:5
-#: /app/analytics/templates/website/bibliometrics_journal_jcr_average_impact_factor_percentile.mako:5
-#: /app/analytics/templates/website/bibliometrics_journal_jcr_eigen_factor.mako:5
-#: /app/analytics/templates/website/bibliometrics_journal_jcr_impact_factor.mako:5
-#: /app/analytics/templates/website/bibliometrics_journal_jcr_received_citations.mako:5
-#: /app/analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:5
-#: /app/analytics/templates/website/bibliometrics_journal_received_self_and_granted_citation_chart.mako:5
-#: /app/analytics/templates/website/publication_article_affiliations.mako:5
-#: /app/analytics/templates/website/publication_article_affiliations_map.mako:5
-#: /app/analytics/templates/website/publication_article_affiliations_publication_year.mako:5
-#: /app/analytics/templates/website/publication_article_authors.mako:5
-#: /app/analytics/templates/website/publication_article_citable_documents.mako:5
-#: /app/analytics/templates/website/publication_article_document_type.mako:5
-#: /app/analytics/templates/website/publication_article_document_type_publication_year.mako:5
-#: /app/analytics/templates/website/publication_article_languages.mako:5
-#: /app/analytics/templates/website/publication_article_languages_publication_year.mako:5
-#: /app/analytics/templates/website/publication_article_licenses.mako:5
-#: /app/analytics/templates/website/publication_article_licenses_publication_year.mako:5
-#: /app/analytics/templates/website/publication_article_references.mako:5
-#: /app/analytics/templates/website/publication_article_subject_areas.mako:6
-#: /app/analytics/templates/website/publication_article_subject_areas_publication_year.mako:6
-#: /app/analytics/templates/website/publication_article_year.mako:5
-#: /app/analytics/templates/website/publication_journal_licenses.mako:7
-#: /app/analytics/templates/website/publication_journal_status.mako:7
-#: /app/analytics/templates/website/publication_journal_subject_areas.mako:7
-#: /app/analytics/templates/website/publication_journal_year.mako:7
-#: /app/analytics/templates/website/publication_size_citations.mako:6
-#: /app/analytics/templates/website/publication_size_documents.mako:6
-#: /app/analytics/templates/website/publication_size_issues.mako:6
-#: /app/analytics/templates/website/publication_size_journals.mako:6
+#: analytics/templates/website/access_by_document_type.mako:6
+#: analytics/templates/website/access_by_month_and_year.mako:5
+#: analytics/templates/website/access_lifetime.mako:6
+#: analytics/templates/website/accesses_heat_chart.mako:5
+#: analytics/templates/website/bibliometrics_document_received_citations.mako:6
+#: analytics/templates/website/bibliometrics_journal_h5m5.mako:5
+#: analytics/templates/website/bibliometrics_journal_impact_factor_chart.mako:5
+#: analytics/templates/website/bibliometrics_journal_jcr_average_impact_factor_percentile.mako:5
+#: analytics/templates/website/bibliometrics_journal_jcr_eigen_factor.mako:5
+#: analytics/templates/website/bibliometrics_journal_jcr_impact_factor.mako:5
+#: analytics/templates/website/bibliometrics_journal_jcr_received_citations.mako:5
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:5
+#: analytics/templates/website/bibliometrics_journal_received_self_and_granted_citation_chart.mako:5
+#: analytics/templates/website/publication_article_affiliations.mako:5
+#: analytics/templates/website/publication_article_affiliations_map.mako:5
+#: analytics/templates/website/publication_article_affiliations_publication_year.mako:5
+#: analytics/templates/website/publication_article_authors.mako:5
+#: analytics/templates/website/publication_article_citable_documents.mako:5
+#: analytics/templates/website/publication_article_document_type.mako:5
+#: analytics/templates/website/publication_article_document_type_publication_year.mako:5
+#: analytics/templates/website/publication_article_languages.mako:5
+#: analytics/templates/website/publication_article_languages_publication_year.mako:5
+#: analytics/templates/website/publication_article_licenses.mako:5
+#: analytics/templates/website/publication_article_licenses_publication_year.mako:5
+#: analytics/templates/website/publication_article_references.mako:5
+#: analytics/templates/website/publication_article_subject_areas.mako:6
+#: analytics/templates/website/publication_article_subject_areas_publication_year.mako:6
+#: analytics/templates/website/publication_article_year.mako:5
+#: analytics/templates/website/publication_journal_licenses.mako:7
+#: analytics/templates/website/publication_journal_status.mako:7
+#: analytics/templates/website/publication_journal_subject_areas.mako:7
+#: analytics/templates/website/publication_journal_year.mako:7
+#: analytics/templates/website/publication_size_citations.mako:6
+#: analytics/templates/website/publication_size_documents.mako:6
+#: analytics/templates/website/publication_size_issues.mako:6
+#: analytics/templates/website/publication_size_journals.mako:6
 msgid "loading"
 msgstr "loading"
 
-#: /app/analytics/templates/website/access_datepicker.mako:5
+#: analytics/templates/website/access_datepicker.mako:5
 msgid "Período"
 msgstr "Período"
 
-#: /app/analytics/templates/website/access_datepicker.mako:9
+#: analytics/templates/website/access_datepicker.mako:9
 msgid "acessos nos últimos 36 meses"
 msgstr "acessos nos últimos 36 meses"
 
-#: /app/analytics/templates/website/access_datepicker.mako:10
+#: analytics/templates/website/access_datepicker.mako:10
 msgid "acessos nos últimos 24 meses"
 msgstr "acessos nos últimos 24 meses"
 
-#: /app/analytics/templates/website/access_datepicker.mako:11
+#: analytics/templates/website/access_datepicker.mako:11
 msgid "acessos nos últimos 12 meses"
 msgstr "acessos nos últimos 12 meses"
 
-#: /app/analytics/templates/website/access_datepicker.mako:12
+#: analytics/templates/website/access_datepicker.mako:12
 msgid "todos acessos disponíveis"
 msgstr "todos acessos disponíveis"
 
-#: /app/analytics/templates/website/access_datepicker.mako:12
+#: analytics/templates/website/access_datepicker.mako:12
 msgid "tudo"
 msgstr "tudo"
 
-#: /app/analytics/templates/website/access_datepicker.mako:14
+#: analytics/templates/website/access_datepicker.mako:14
 msgid "Seletor de período de acessos"
 msgstr "Seletor de período de acessos"
 
-#: /app/analytics/templates/website/access_datepicker.mako:14
+#: analytics/templates/website/access_datepicker.mako:14
 msgid ""
 "Utilize o campo com datas para selecionar um período customizado para "
 "recuperação dos dados de acesso. Você pode também selecionar o período de"
@@ -445,96 +445,96 @@ msgstr ""
 " 1, 2 e 3 anos, através dos links rápidos ou todos os acessos disponíveis"
 " selecionando tudo."
 
-#: /app/analytics/templates/website/access_list_articles.mako:6
+#: analytics/templates/website/access_list_articles.mako:6
 msgid "Top 100 artigos por número de acessos"
 msgstr "Top 100 artigos por número de acessos"
 
-#: /app/analytics/templates/website/access_list_articles.mako:9
+#: analytics/templates/website/access_list_articles.mako:9
 msgid "artigo"
 msgstr "artigo"
 
-#: /app/analytics/templates/website/access_list_articles.mako:13
-#: /app/analytics/templates/website/access_list_issues.mako:13
-#: /app/analytics/templates/website/access_list_journals.mako:13
+#: analytics/templates/website/access_list_articles.mako:13
+#: analytics/templates/website/access_list_issues.mako:13
+#: analytics/templates/website/access_list_journals.mako:13
 msgid "resumo"
 msgstr "resumo"
 
-#: /app/analytics/templates/website/access_list_articles.mako:14
-#: /app/analytics/templates/website/access_list_issues.mako:14
-#: /app/analytics/templates/website/access_list_journals.mako:14
-#: /app/analytics/templates/website/bibliometrics_list_citing_forms.mako:26
-#: /app/analytics/templates/website/bibliometrics_list_citing_forms.mako:43
-#: /app/analytics/templates/website/bibliometrics_list_granted.mako:19
-#: /app/analytics/templates/website/bibliometrics_list_granted.mako:30
-#: /app/analytics/templates/website/bibliometrics_list_impact_factor.mako:41
-#: /app/analytics/templates/website/bibliometrics_list_impact_factor.mako:47
-#: /app/analytics/templates/website/bibliometrics_list_received.mako:26
-#: /app/analytics/templates/website/bibliometrics_list_received.mako:37
+#: analytics/templates/website/access_list_articles.mako:14
+#: analytics/templates/website/access_list_issues.mako:14
+#: analytics/templates/website/access_list_journals.mako:14
+#: analytics/templates/website/bibliometrics_list_citing_forms.mako:26
+#: analytics/templates/website/bibliometrics_list_citing_forms.mako:43
+#: analytics/templates/website/bibliometrics_list_granted.mako:19
+#: analytics/templates/website/bibliometrics_list_granted.mako:30
+#: analytics/templates/website/bibliometrics_list_impact_factor.mako:41
+#: analytics/templates/website/bibliometrics_list_impact_factor.mako:47
+#: analytics/templates/website/bibliometrics_list_received.mako:26
+#: analytics/templates/website/bibliometrics_list_received.mako:37
 msgid "total"
 msgstr "total"
 
-#: /app/analytics/templates/website/access_list_issues.mako:6
+#: analytics/templates/website/access_list_issues.mako:6
 msgid "Top 100 fascículos por número de acessos"
 msgstr "Top 100 fascículos por número de acessos"
 
-#: /app/analytics/templates/website/access_list_issues.mako:9
-#: /app/analytics/templates/website/access_list_journals.mako:9
-#: /app/analytics/templates/website/bibliometrics_document_list_received_citations.mako:10
-#: /app/analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:44
-#: /app/analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:47
+#: analytics/templates/website/access_list_issues.mako:9
+#: analytics/templates/website/access_list_journals.mako:9
+#: analytics/templates/website/bibliometrics_document_list_received_citations.mako:10
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:44
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:47
 msgid "periódico"
 msgstr "periódico"
 
-#: /app/analytics/templates/website/access_list_journals.mako:6
+#: analytics/templates/website/access_list_journals.mako:6
 msgid "Acessos aos documentos por periódicos"
 msgstr "Acessos aos documentos por periódicos"
 
-#: /app/analytics/templates/website/accesses.mako:6
+#: analytics/templates/website/accesses.mako:6
 msgid "Gráfico da evolução de acessos aos documentos"
 msgstr "Gráfico da evolução de acessos aos documentos"
 
-#: /app/analytics/templates/website/accesses.mako:12
+#: analytics/templates/website/accesses.mako:12
 msgid "Gráfico de calor de acessos"
 msgstr "Gráfico de calor de acessos"
 
-#: /app/analytics/templates/website/accesses.mako:18
+#: analytics/templates/website/accesses.mako:18
 msgid "Gráfico de tempo de vida de documentos através do número de acessos"
 msgstr "Gráfico de tempo de vida de documentos através do número de acessos"
 
-#: /app/analytics/templates/website/accesses_heat_chart.mako:15
+#: analytics/templates/website/accesses_heat_chart.mako:15
 msgid "Acessos aos documentos"
 msgstr "Acessos aos documentos"
 
-#: /app/analytics/templates/website/accesses_heat_chart.mako:19
+#: analytics/templates/website/accesses_heat_chart.mako:19
 msgid "Documentos publicados em"
 msgstr "Documentos publicados em"
 
-#: /app/analytics/templates/website/accesses_heat_chart.mako:19
+#: analytics/templates/website/accesses_heat_chart.mako:19
 msgid "tiveram"
 msgstr "tiveram"
 
-#: /app/analytics/templates/website/accesses_heat_chart.mako:19
+#: analytics/templates/website/accesses_heat_chart.mako:19
 msgid "acessos em"
 msgstr "acessos em"
 
-#: /app/analytics/templates/website/base.mako:6
+#: analytics/templates/website/base.mako:6
 msgid "SciELO Estatísticas"
 msgstr "SciELO Estatísticas"
 
-#: /app/analytics/templates/website/base.mako:30
+#: analytics/templates/website/base.mako:30
 msgid "Coleções"
 msgstr "Coleções"
 
-#: /app/analytics/templates/website/base.mako:38
-#: /app/analytics/templates/website/journal_selector_modal.mako:7
+#: analytics/templates/website/base.mako:38
+#: analytics/templates/website/journal_selector_modal.mako:7
 msgid "selecionar periódico"
 msgstr "selecionar periódico"
 
-#: /app/analytics/templates/website/base.mako:91
+#: analytics/templates/website/base.mako:91
 msgid "Ferramenta em desenvolvimento disponível em versão Beta Test."
 msgstr "Ferramenta em desenvolvimento disponível em versão Beta Test."
 
-#: /app/analytics/templates/website/base.mako:93
+#: analytics/templates/website/base.mako:93
 msgid ""
 "Esta ferramenta esta em desenvolvimento e foi publicada com o objetivo de"
 " realizar testes de uso e performance. Todos os indicadores carregados "
@@ -546,214 +546,214 @@ msgstr ""
 "são reais e estão sendo atualizados e inseridos gradativamente. Problemas"
 " de lentidão e indisponibilidade do serviços são esperados nesta fase."
 
-#: /app/analytics/templates/website/base.mako:114
+#: analytics/templates/website/base.mako:114
 msgid "Ajuda"
 msgstr "Ajuda"
 
-#: /app/analytics/templates/website/base.mako:116
+#: analytics/templates/website/base.mako:116
 msgid "Reportar error"
 msgstr "Reportar error"
 
-#: /app/analytics/templates/website/base.mako:117
+#: analytics/templates/website/base.mako:117
 msgid "Lista de discussão"
 msgstr "Lista de discussão"
 
-#: /app/analytics/templates/website/base.mako:121
+#: analytics/templates/website/base.mako:121
 msgid "Desenvolvimento"
 msgstr "Desenvolvimento"
 
-#: /app/analytics/templates/website/base.mako:124
+#: analytics/templates/website/base.mako:124
 msgid "Lista de desenvolvimento"
 msgstr "Lista de desenvolvimento"
 
-#: /app/analytics/templates/website/base.mako:168
+#: analytics/templates/website/base.mako:168
 msgid "Janeiro"
 msgstr "Janeiro"
 
-#: /app/analytics/templates/website/base.mako:168
+#: analytics/templates/website/base.mako:168
 msgid "Fevereiro"
 msgstr "Fevereiro"
 
-#: /app/analytics/templates/website/base.mako:168
+#: analytics/templates/website/base.mako:168
 msgid "Março"
 msgstr "Março"
 
-#: /app/analytics/templates/website/base.mako:168
+#: analytics/templates/website/base.mako:168
 msgid "Abril"
 msgstr "Abril"
 
-#: /app/analytics/templates/website/base.mako:168
+#: analytics/templates/website/base.mako:168
 msgid "Maio"
 msgstr "Maio"
 
-#: /app/analytics/templates/website/base.mako:168
+#: analytics/templates/website/base.mako:168
 msgid "Junho"
 msgstr "Junho"
 
-#: /app/analytics/templates/website/base.mako:168
+#: analytics/templates/website/base.mako:168
 msgid "Julho"
 msgstr "Julho"
 
-#: /app/analytics/templates/website/base.mako:168
+#: analytics/templates/website/base.mako:168
 msgid "Agosto"
 msgstr "Agosto"
 
-#: /app/analytics/templates/website/base.mako:168
+#: analytics/templates/website/base.mako:168
 msgid "Setembro"
 msgstr "Setembro"
 
-#: /app/analytics/templates/website/base.mako:168
+#: analytics/templates/website/base.mako:168
 msgid "Outubro"
 msgstr "Outubro"
 
-#: /app/analytics/templates/website/base.mako:168
+#: analytics/templates/website/base.mako:168
 msgid "Novembro"
 msgstr "Novembro"
 
-#: /app/analytics/templates/website/base.mako:168
+#: analytics/templates/website/base.mako:168
 msgid "Dezembro"
 msgstr "Dezembro"
 
-#: /app/analytics/templates/website/base.mako:169
+#: analytics/templates/website/base.mako:169
 msgid "Jan"
 msgstr "Jan"
 
-#: /app/analytics/templates/website/base.mako:169
+#: analytics/templates/website/base.mako:169
 msgid "Fev"
 msgstr "Fev"
 
-#: /app/analytics/templates/website/base.mako:169
+#: analytics/templates/website/base.mako:169
 msgid "Mar"
 msgstr "Mar"
 
-#: /app/analytics/templates/website/base.mako:169
+#: analytics/templates/website/base.mako:169
 msgid "Abr"
 msgstr "Abr"
 
-#: /app/analytics/templates/website/base.mako:169
+#: analytics/templates/website/base.mako:169
 msgid "Mai"
 msgstr "Mai"
 
-#: /app/analytics/templates/website/base.mako:169
+#: analytics/templates/website/base.mako:169
 msgid "Jun"
 msgstr "Jun"
 
-#: /app/analytics/templates/website/base.mako:169
+#: analytics/templates/website/base.mako:169
 msgid "Jul"
 msgstr "Jul"
 
-#: /app/analytics/templates/website/base.mako:169
+#: analytics/templates/website/base.mako:169
 msgid "Ago"
 msgstr "Ago"
 
-#: /app/analytics/templates/website/base.mako:169
+#: analytics/templates/website/base.mako:169
 msgid "Set"
 msgstr "Set"
 
-#: /app/analytics/templates/website/base.mako:169
+#: analytics/templates/website/base.mako:169
 msgid "Out"
 msgstr "Out"
 
-#: /app/analytics/templates/website/base.mako:169
+#: analytics/templates/website/base.mako:169
 msgid "Nov"
 msgstr "Nov"
 
-#: /app/analytics/templates/website/base.mako:169
+#: analytics/templates/website/base.mako:169
 msgid "Dez"
 msgstr "Dez"
 
-#: /app/analytics/templates/website/bibliometrics_document_altmetrics.mako:7
+#: analytics/templates/website/bibliometrics_document_altmetrics.mako:7
 msgid "altmetrics"
 msgstr "altmetrics"
 
-#: /app/analytics/templates/website/bibliometrics_document_list_received_citations.mako:6
-#: /app/analytics/templates/website/bibliometrics_journal_jcr.mako:30
+#: analytics/templates/website/bibliometrics_document_list_received_citations.mako:6
+#: analytics/templates/website/bibliometrics_journal_jcr.mako:30
 msgid "Citações Recebidas"
 msgstr "Citações Recebidas"
 
-#: /app/analytics/templates/website/bibliometrics_document_list_received_citations.mako:9
-#: /app/analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:45
-#: /app/analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:48
+#: analytics/templates/website/bibliometrics_document_list_received_citations.mako:9
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:45
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:48
 msgid "ano de publicação"
 msgstr "ano de publicação"
 
-#: /app/analytics/templates/website/bibliometrics_document_list_received_citations.mako:11
+#: analytics/templates/website/bibliometrics_document_list_received_citations.mako:11
 msgid "primeiro autor"
 msgstr "primeiro autor"
 
-#: /app/analytics/templates/website/bibliometrics_document_list_received_citations.mako:12
+#: analytics/templates/website/bibliometrics_document_list_received_citations.mako:12
 msgid "título do documento"
 msgstr "título do documento"
 
-#: /app/analytics/templates/website/bibliometrics_document_received_citations.mako:9
+#: analytics/templates/website/bibliometrics_document_received_citations.mako:9
 msgid "citações recebidas"
 msgstr "citações recebidas"
 
-#: /app/analytics/templates/website/bibliometrics_journal.mako:8
-#: /app/analytics/templates/website/bibliometrics_journal_altmetric.mako:8
-#: /app/analytics/templates/website/bibliometrics_journal_jcr.mako:8
-#: /app/analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:8
-#: /app/analytics/templates/website/bibliometrics_list_citing_forms.mako:8
-#: /app/analytics/templates/website/bibliometrics_list_citing_half_life.mako:8
-#: /app/analytics/templates/website/bibliometrics_list_granted.mako:8
-#: /app/analytics/templates/website/bibliometrics_list_impact_factor.mako:8
-#: /app/analytics/templates/website/bibliometrics_list_received.mako:8
+#: analytics/templates/website/bibliometrics_journal.mako:8
+#: analytics/templates/website/bibliometrics_journal_altmetric.mako:8
+#: analytics/templates/website/bibliometrics_journal_jcr.mako:8
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:8
+#: analytics/templates/website/bibliometrics_list_citing_forms.mako:8
+#: analytics/templates/website/bibliometrics_list_citing_half_life.mako:8
+#: analytics/templates/website/bibliometrics_list_granted.mako:8
+#: analytics/templates/website/bibliometrics_list_impact_factor.mako:8
+#: analytics/templates/website/bibliometrics_list_received.mako:8
 msgid "Atenção"
 msgstr "Atenção"
 
-#: /app/analytics/templates/website/bibliometrics_journal.mako:11
-#: /app/analytics/templates/website/bibliometrics_journal_altmetric.mako:11
-#: /app/analytics/templates/website/bibliometrics_journal_jcr.mako:11
-#: /app/analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:11
-#: /app/analytics/templates/website/bibliometrics_list_citing_forms.mako:11
-#: /app/analytics/templates/website/bibliometrics_list_citing_half_life.mako:11
-#: /app/analytics/templates/website/bibliometrics_list_granted.mako:11
-#: /app/analytics/templates/website/bibliometrics_list_impact_factor.mako:11
-#: /app/analytics/templates/website/bibliometrics_list_received.mako:11
+#: analytics/templates/website/bibliometrics_journal.mako:11
+#: analytics/templates/website/bibliometrics_journal_altmetric.mako:11
+#: analytics/templates/website/bibliometrics_journal_jcr.mako:11
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:11
+#: analytics/templates/website/bibliometrics_list_citing_forms.mako:11
+#: analytics/templates/website/bibliometrics_list_citing_half_life.mako:11
+#: analytics/templates/website/bibliometrics_list_granted.mako:11
+#: analytics/templates/website/bibliometrics_list_impact_factor.mako:11
+#: analytics/templates/website/bibliometrics_list_received.mako:11
 msgid "É necessário selecionar um periódico para dados bibliométricos."
 msgstr "É necessário selecionar um periódico para dados bibliométricos."
 
-#: /app/analytics/templates/website/bibliometrics_journal.mako:20
-#: /app/analytics/templates/website/bibliometrics_list_citing_forms.mako:19
-#: /app/analytics/templates/website/bibliometrics_list_citing_half_life.mako:19
-#: /app/analytics/templates/website/bibliometrics_list_impact_factor.mako:19
-#: /app/analytics/templates/website/bibliometrics_list_received.mako:19
-#: /app/analytics/templates/website/central_container_for_article_filters.mako:16
-#: /app/analytics/templates/website/central_container_for_article_filters.mako:33
-#: /app/analytics/templates/website/central_container_for_article_filters.mako:52
-#: /app/analytics/templates/website/central_container_for_bibliometric_filters.mako:16
-#: /app/analytics/templates/website/central_container_for_journal_filters.mako:16
+#: analytics/templates/website/bibliometrics_journal.mako:20
+#: analytics/templates/website/bibliometrics_list_citing_forms.mako:19
+#: analytics/templates/website/bibliometrics_list_citing_half_life.mako:19
+#: analytics/templates/website/bibliometrics_list_impact_factor.mako:19
+#: analytics/templates/website/bibliometrics_list_received.mako:19
+#: analytics/templates/website/central_container_for_article_filters.mako:16
+#: analytics/templates/website/central_container_for_article_filters.mako:33
+#: analytics/templates/website/central_container_for_article_filters.mako:52
+#: analytics/templates/website/central_container_for_bibliometric_filters.mako:16
+#: analytics/templates/website/central_container_for_journal_filters.mako:16
 msgid "aplicar"
 msgstr "aplicar"
 
-#: /app/analytics/templates/website/bibliometrics_journal.mako:32
-#: /app/analytics/templates/website/bibliometrics_journal.mako:51
-#: /app/analytics/templates/website/bibliometrics_journal.mako:69
-#: /app/analytics/templates/website/bibliometrics_journal.mako:87
-#: /app/analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:24
-#: /app/analytics/templates/website/publication_article.mako:14
-#: /app/analytics/templates/website/publication_article.mako:33
-#: /app/analytics/templates/website/publication_article.mako:52
-#: /app/analytics/templates/website/publication_article.mako:70
-#: /app/analytics/templates/website/publication_article.mako:88
-#: /app/analytics/templates/website/publication_article.mako:106
-#: /app/analytics/templates/website/publication_article.mako:124
-#: /app/analytics/templates/website/publication_article.mako:142
-#: /app/analytics/templates/website/publication_article.mako:160
-#: /app/analytics/templates/website/publication_article_by_publication_year.mako:14
-#: /app/analytics/templates/website/publication_article_by_publication_year.mako:33
-#: /app/analytics/templates/website/publication_article_by_publication_year.mako:52
-#: /app/analytics/templates/website/publication_article_by_publication_year.mako:70
-#: /app/analytics/templates/website/publication_article_by_publication_year.mako:88
-#: /app/analytics/templates/website/publication_article_by_publication_year.mako:106
-#: /app/analytics/templates/website/publication_journal_licenses.mako:14
-#: /app/analytics/templates/website/publication_journal_status.mako:14
-#: /app/analytics/templates/website/publication_journal_subject_areas.mako:14
-#: /app/analytics/templates/website/publication_journal_year.mako:14
+#: analytics/templates/website/bibliometrics_journal.mako:32
+#: analytics/templates/website/bibliometrics_journal.mako:51
+#: analytics/templates/website/bibliometrics_journal.mako:69
+#: analytics/templates/website/bibliometrics_journal.mako:87
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:24
+#: analytics/templates/website/publication_article.mako:14
+#: analytics/templates/website/publication_article.mako:33
+#: analytics/templates/website/publication_article.mako:52
+#: analytics/templates/website/publication_article.mako:70
+#: analytics/templates/website/publication_article.mako:88
+#: analytics/templates/website/publication_article.mako:106
+#: analytics/templates/website/publication_article.mako:124
+#: analytics/templates/website/publication_article.mako:142
+#: analytics/templates/website/publication_article.mako:160
+#: analytics/templates/website/publication_article_by_publication_year.mako:14
+#: analytics/templates/website/publication_article_by_publication_year.mako:33
+#: analytics/templates/website/publication_article_by_publication_year.mako:52
+#: analytics/templates/website/publication_article_by_publication_year.mako:70
+#: analytics/templates/website/publication_article_by_publication_year.mako:88
+#: analytics/templates/website/publication_article_by_publication_year.mako:106
+#: analytics/templates/website/publication_journal_licenses.mako:14
+#: analytics/templates/website/publication_journal_status.mako:14
+#: analytics/templates/website/publication_journal_subject_areas.mako:14
+#: analytics/templates/website/publication_journal_year.mako:14
 msgid "Sobre o gráfico"
 msgstr "Sobre o gráfico"
 
-#: /app/analytics/templates/website/bibliometrics_journal.mako:35
+#: analytics/templates/website/bibliometrics_journal.mako:35
 msgid ""
 "Este gráfico apresenta a o fator de impacto do periódico selecionado "
 "considerando os períodos de imediatez, além de períodos de 1 a 5 anos. A "
@@ -765,32 +765,32 @@ msgstr ""
 "linha de 2 anos equivale ao fator de impacto de periódicos da Thomson "
 "Reuters"
 
-#: /app/analytics/templates/website/bibliometrics_journal.mako:42
+#: analytics/templates/website/bibliometrics_journal.mako:42
 msgid "Documentos citáveis e não citáveis"
 msgstr "Documentos citáveis e não citáveis"
 
-#: /app/analytics/templates/website/bibliometrics_journal.mako:54
-#: /app/analytics/templates/website/publication_article_by_publication_year.mako:109
+#: analytics/templates/website/bibliometrics_journal.mako:54
+#: analytics/templates/website/publication_article_by_publication_year.mako:109
 msgid ""
 "Este gráfico apresenta a distribuição de documentos citáveis e não "
 "citáveis relacionados ao periódico selecionado. De acordo com as regras "
 "de contagem do SciELO, documentos citáveis devem ser do tipo \"Research "
-"Article\", \"Review Article\", \"Data-Article\", \"Case Report\", \"Brief"
+"Article\", \"Review Article\", \"Data Article\", \"Case Report\", \"Brief"
 " Report\", \"Rapid Communication\" e \"Article Commentary\". Os demais "
 "tipos de documentos são considerados não citáveis."
 msgstr ""
 "Este gráfico apresenta a distribuição de documentos citáveis e não "
 "citáveis relacionados ao periódico selecionado. De acordo com as regras "
 "de contagem do SciELO, documentos citáveis devem ser do tipo \"Research "
-"Article\", \"Review Article\", \"Data-Article\", \"Case Report\", \"Brief"
+"Article\", \"Review Article\", \"Data Article\", \"Case Report\", \"Brief"
 " Report\", \"Rapid Communication\" e \"Article Commentary\". Os demais "
 "tipos de documentos são considerados não citáveis."
 
-#: /app/analytics/templates/website/bibliometrics_journal.mako:60
+#: analytics/templates/website/bibliometrics_journal.mako:60
 msgid "Google H5M5"
 msgstr "Google H5M5"
 
-#: /app/analytics/templates/website/bibliometrics_journal.mako:72
+#: analytics/templates/website/bibliometrics_journal.mako:72
 msgid ""
 "Este gráfico apresenta os indices H5 e M5 do Google Scholar. Os "
 "indicadores são fornecidos anualmente pelo Google Scholar. A ausência de "
@@ -804,11 +804,11 @@ msgstr ""
 "ocorrer caso esses dados não tenham sido fornecidos pelo Google Scholar. "
 "Ao clicar na série, você será direcionado para o site do Google Scholar."
 
-#: /app/analytics/templates/website/bibliometrics_journal.mako:78
+#: analytics/templates/website/bibliometrics_journal.mako:78
 msgid "Citações concedidas, recebidas e auto citação"
 msgstr "Citações concedidas, recebidas e auto citação"
 
-#: /app/analytics/templates/website/bibliometrics_journal.mako:90
+#: analytics/templates/website/bibliometrics_journal.mako:90
 msgid ""
 "Este gráfico apresenta o número de citações concedidas, recebidas e auto "
 "citações do periódico selecionado, os dados estão distribuidos por ano de"
@@ -818,106 +818,106 @@ msgstr ""
 "citações do periódico selecionado, os dados estão distribuidos por ano de"
 " publicação."
 
-#: /app/analytics/templates/website/bibliometrics_journal_altmetric.mako:15
-#: /app/analytics/templates/website/navbar_journal.mako:27
+#: analytics/templates/website/bibliometrics_journal_altmetric.mako:15
+#: analytics/templates/website/navbar_journal.mako:27
 msgid "Indicadores Altmetric"
 msgstr "Indicadores Altmetric"
 
-#: /app/analytics/templates/website/bibliometrics_journal_altmetric.mako:20
+#: analytics/templates/website/bibliometrics_journal_altmetric.mako:20
 msgid "Não há indicadores Altmetric para este periódico"
 msgstr "Não há indicadores Altmetric para este periódico"
 
-#: /app/analytics/templates/website/bibliometrics_journal_altmetric.mako:31
+#: analytics/templates/website/bibliometrics_journal_altmetric.mako:31
 msgid "Não há indicadores Altmetric para este periódico neste timeframe"
 msgstr "Não há indicadores Altmetric para este periódico neste timeframe"
 
-#: /app/analytics/templates/website/bibliometrics_journal_altmetric.mako:41
+#: analytics/templates/website/bibliometrics_journal_altmetric.mako:41
 msgid "Posts"
 msgstr "Posts"
 
-#: /app/analytics/templates/website/bibliometrics_journal_altmetric.mako:48
+#: analytics/templates/website/bibliometrics_journal_altmetric.mako:48
 msgid "Soma de pontuação"
 msgstr "Soma de pontuação"
 
-#: /app/analytics/templates/website/bibliometrics_journal_altmetric.mako:55
+#: analytics/templates/website/bibliometrics_journal_altmetric.mako:55
 msgid "Mediana de pontuação"
 msgstr "Mediana de pontuação"
 
-#: /app/analytics/templates/website/bibliometrics_journal_altmetric.mako:62
+#: analytics/templates/website/bibliometrics_journal_altmetric.mako:62
 msgid "Soma de pontuação no timeframe"
 msgstr "Soma de pontuação no timeframe"
 
-#: /app/analytics/templates/website/bibliometrics_journal_altmetric.mako:69
+#: analytics/templates/website/bibliometrics_journal_altmetric.mako:69
 msgid "Mediana de pontuação no timeframe"
 msgstr "Mediana de pontuação no timeframe"
 
-#: /app/analytics/templates/website/bibliometrics_journal_jcr.mako:15
-#: /app/analytics/templates/website/navbar_journal.mako:28
+#: analytics/templates/website/bibliometrics_journal_jcr.mako:15
+#: analytics/templates/website/navbar_journal.mako:28
 msgid "Indicadores JCR"
 msgstr "Indicadores JCR"
 
-#: /app/analytics/templates/website/bibliometrics_journal_jcr.mako:16
+#: analytics/templates/website/bibliometrics_journal_jcr.mako:16
 msgid "Dados extraídos em: "
 msgstr ""
 
-#: /app/analytics/templates/website/bibliometrics_journal_jcr.mako:21
+#: analytics/templates/website/bibliometrics_journal_jcr.mako:21
 msgid "Não há indicadores JCR para este periódico"
 msgstr "Não há indicadores JCR para este periódico"
 
-#: /app/analytics/templates/website/bibliometrics_journal_jcr.mako:26
+#: analytics/templates/website/bibliometrics_journal_jcr.mako:26
 msgid "Fator de impacto"
 msgstr "Fator de impacto"
 
-#: /app/analytics/templates/website/bibliometrics_journal_jcr.mako:32
+#: analytics/templates/website/bibliometrics_journal_jcr.mako:32
 msgid "Eigen Factor"
 msgstr ""
 
-#: /app/analytics/templates/website/bibliometrics_journal_jcr.mako:34
+#: analytics/templates/website/bibliometrics_journal_jcr.mako:34
 msgid "Dados de todos os anos"
 msgstr "Dados de todos os anos"
 
-#: /app/analytics/templates/website/bibliometrics_journal_jcr.mako:42
+#: analytics/templates/website/bibliometrics_journal_jcr.mako:42
 msgid "Total de citações"
 msgstr "Total de citações"
 
-#: /app/analytics/templates/website/bibliometrics_journal_jcr.mako:49
+#: analytics/templates/website/bibliometrics_journal_jcr.mako:49
 msgid "FI 2 anos"
 msgstr "FI 2 anos"
 
-#: /app/analytics/templates/website/bibliometrics_journal_jcr.mako:56
+#: analytics/templates/website/bibliometrics_journal_jcr.mako:56
 msgid "FI 2 anos sem auto citações"
 msgstr "FI 2 anos sem auto citações"
 
-#: /app/analytics/templates/website/bibliometrics_journal_jcr.mako:63
+#: analytics/templates/website/bibliometrics_journal_jcr.mako:63
 msgid "FI 5 anos"
 msgstr "FI 5 anos"
 
-#: /app/analytics/templates/website/bibliometrics_journal_jcr.mako:70
+#: analytics/templates/website/bibliometrics_journal_jcr.mako:70
 msgid "Indice de imediatez"
 msgstr "Indice de imediatez"
 
-#: /app/analytics/templates/website/bibliometrics_journal_jcr.mako:77
+#: analytics/templates/website/bibliometrics_journal_jcr.mako:77
 msgid "Vida média de citações"
 msgstr "Vida média de citações"
 
-#: /app/analytics/templates/website/bibliometrics_journal_jcr.mako:84
+#: analytics/templates/website/bibliometrics_journal_jcr.mako:84
 msgid "Eigen Factor normalizado"
 msgstr "Eigen Factor normalizado"
 
-#: /app/analytics/templates/website/bibliometrics_journal_jcr.mako:91
+#: analytics/templates/website/bibliometrics_journal_jcr.mako:91
 msgid "Percentíl de média de fator de FI de periódico"
 msgstr "Percentíl de média de fator de FI de periódico"
 
-#: /app/analytics/templates/website/bibliometrics_journal_jcr.mako:98
+#: analytics/templates/website/bibliometrics_journal_jcr.mako:98
 msgid "Porcentagem de artigos em itens citáveis"
 msgstr "Porcentagem de artigos em itens citáveis"
 
-#: /app/analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:15
-#: /app/analytics/templates/website/navbar_journal.mako:29
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:15
+#: analytics/templates/website/navbar_journal.mako:29
 msgid "Gráfico de calor de citações recebidas"
 msgstr "Gráfico de calor de citações recebidas"
 
-#: /app/analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:27
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:27
 msgid ""
 "Este gráfico apresenta o número de citações recebidas por um determinado "
 "periódico. O corpus de citações corresponde a todas as coleções da Rede "
@@ -927,294 +927,294 @@ msgstr ""
 "periódico. O corpus de citações corresponde a todas as coleções da Rede "
 "SciELO, coleções Temáticas e Independentes."
 
-#: /app/analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:33
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:33
 msgid "Lista de citações para o eixo selecionado"
 msgstr "Lista de citações para o eixo selecionado"
 
-#: /app/analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:39
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:39
 msgid "Citante"
 msgstr "Citante"
 
-#: /app/analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:40
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:40
 msgid "Citado"
 msgstr "Citado"
 
-#: /app/analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:43
-#: /app/analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:46
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:43
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:46
 msgid "documento"
 msgstr "documento"
 
-#: /app/analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:62
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat.mako:62
 msgid "Selecione um eixo x/y para obter a lista de citações para o período."
 msgstr "Selecione um eixo x/y para obter a lista de citações para o período."
 
-#: /app/analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:15
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:15
 msgid "Citações recebidas pelo periódico"
 msgstr "Citações recebidas pelo periódico"
 
-#: /app/analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:19
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:19
 msgid "Documentos da Rede SciELO publicados em"
 msgstr "Documentos da Rede SciELO publicados em"
 
-#: /app/analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:19
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:19
 msgid "citaram"
 msgstr "citaram"
 
-#: /app/analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:19
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:19
 msgid "vezes os documentos do periódico"
 msgstr "vezes os documentos do periódico"
 
-#: /app/analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:19
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:19
 msgid "publicados em"
 msgstr "publicados em"
 
-#: /app/analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:19
+#: analytics/templates/website/bibliometrics_journal_received_citations_heat_chart.mako:19
 msgid "Clique no ponto para ver a lista de artigos."
 msgstr "Clique no ponto para ver a lista de artigos."
 
-#: /app/analytics/templates/website/bibliometrics_list_citing_forms.mako:22
+#: analytics/templates/website/bibliometrics_list_citing_forms.mako:22
 msgid "Formas de citação encontrada para o periódico selecionado"
 msgstr "Formas de citação encontrada para o periódico selecionado"
 
-#: /app/analytics/templates/website/bibliometrics_list_citing_forms.mako:25
-#: /app/analytics/templates/website/bibliometrics_list_granted.mako:18
-#: /app/analytics/templates/website/bibliometrics_list_received.mako:25
+#: analytics/templates/website/bibliometrics_list_citing_forms.mako:25
+#: analytics/templates/website/bibliometrics_list_granted.mako:18
+#: analytics/templates/website/bibliometrics_list_received.mako:25
 msgid "título"
 msgstr "título"
 
-#: /app/analytics/templates/website/bibliometrics_list_citing_forms.mako:27
+#: analytics/templates/website/bibliometrics_list_citing_forms.mako:27
 msgid "ações"
 msgstr "ações"
 
-#: /app/analytics/templates/website/bibliometrics_list_citing_forms.mako:37
+#: analytics/templates/website/bibliometrics_list_citing_forms.mako:37
 msgid "reportar erro"
 msgstr "reportar erro"
 
-#: /app/analytics/templates/website/bibliometrics_list_citing_forms.mako:49
-#: /app/analytics/templates/website/bibliometrics_list_granted.mako:35
-#: /app/analytics/templates/website/bibliometrics_list_received.mako:42
+#: analytics/templates/website/bibliometrics_list_citing_forms.mako:49
+#: analytics/templates/website/bibliometrics_list_granted.mako:35
+#: analytics/templates/website/bibliometrics_list_received.mako:42
 msgid "sem resultados"
 msgstr "sem resultados"
 
-#: /app/analytics/templates/website/bibliometrics_list_citing_half_life.mako:22
-#: /app/analytics/templates/website/navbar_collection.mako:30
-#: /app/analytics/templates/website/navbar_journal.mako:32
+#: analytics/templates/website/bibliometrics_list_citing_half_life.mako:22
+#: analytics/templates/website/navbar_collection.mako:30
+#: analytics/templates/website/navbar_journal.mako:32
 msgid "Vida media da citação"
 msgstr "Vida media da citação"
 
-#: /app/analytics/templates/website/bibliometrics_list_citing_half_life.mako:32
-#: /app/analytics/templates/website/bibliometrics_list_impact_factor.mako:29
+#: analytics/templates/website/bibliometrics_list_citing_half_life.mako:32
+#: analytics/templates/website/bibliometrics_list_impact_factor.mako:29
 msgid "citações em"
 msgstr "citações em"
 
-#: /app/analytics/templates/website/bibliometrics_list_citing_half_life.mako:32
-#: /app/analytics/templates/website/bibliometrics_list_impact_factor.mako:29
+#: analytics/templates/website/bibliometrics_list_citing_half_life.mako:32
+#: analytics/templates/website/bibliometrics_list_impact_factor.mako:29
 msgid "para publicações de"
 msgstr "para publicações de"
 
-#: /app/analytics/templates/website/bibliometrics_list_citing_half_life.mako:33
+#: analytics/templates/website/bibliometrics_list_citing_half_life.mako:33
 msgid "Citação total"
 msgstr "Citação total"
 
-#: /app/analytics/templates/website/bibliometrics_list_citing_half_life.mako:34
+#: analytics/templates/website/bibliometrics_list_citing_half_life.mako:34
 msgid "Vida media"
 msgstr "Vida media"
 
-#: /app/analytics/templates/website/bibliometrics_list_citing_half_life.mako:48
+#: analytics/templates/website/bibliometrics_list_citing_half_life.mako:48
 msgid "citações"
 msgstr "citações"
 
-#: /app/analytics/templates/website/bibliometrics_list_citing_half_life.mako:57
+#: analytics/templates/website/bibliometrics_list_citing_half_life.mako:57
 msgid "percentagem"
 msgstr "percentagem"
 
-#: /app/analytics/templates/website/bibliometrics_list_citing_half_life.mako:66
+#: analytics/templates/website/bibliometrics_list_citing_half_life.mako:66
 msgid "percentagem acumulado"
 msgstr "percentagem acumulado"
 
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:8
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:8
 msgid "Indicadores Bibliométricos da Rede SciELO"
 msgstr "Indicadores Bibliométricos da Rede SciELO"
 
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:9
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:9
 msgid "Periodicidade de atualização:"
 msgstr "Periodicidade de atualização:"
 
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:9
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:9
 msgid " anual"
 msgstr " anual"
 
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:16
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:16
 msgid "Indicadores de Publicação"
 msgstr "Indicadores de Publicação"
 
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:22
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:22
 msgid "Numeros da Rede SciELO por:"
 msgstr "Numeros da Rede SciELO por:"
 
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:24
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:31
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:57
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:24
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:31
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:57
 msgid "Ano de publicação: "
 msgstr "Ano de publicação: "
 
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:25
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:32
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:38
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:25
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:32
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:38
 msgid "Periódico: "
 msgstr "Periódico: "
 
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:26
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:34
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:39
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:58
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:26
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:34
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:39
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:58
 msgid "Assunto: "
 msgstr "Assunto: "
 
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:27
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:27
 msgid "País de afiliação do autor: "
 msgstr "País de afiliação do autor: "
 
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:29
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:29
 msgid "País de Afiliação do Autor por: "
 msgstr "País de Afiliação do Autor por: "
 
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:33
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:33
 msgid "País de publicação da revista: "
 msgstr "País de publicação da revista: "
 
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:36
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:36
 msgid "Número de Co-autores por: "
 msgstr "Número de Co-autores por: "
 
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:49
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:49
 msgid "Indicadores de Coleção"
 msgstr "Indicadores de Coleção"
 
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:55
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:55
 msgid "Periódico por:"
 msgstr "Periódico por:"
 
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:59
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:59
 msgid "Indicadores gerais: "
 msgstr "Indicadores gerais: "
 
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:69
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:69
 msgid "Indicadores de Citação"
 msgstr "Indicadores de Citação"
 
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:75
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:75
 msgid "Ano de Citação por:"
 msgstr "Ano de Citação por:"
 
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:77
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:82
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:87
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:93
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:77
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:82
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:87
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:93
 msgid "Idade do documento citado: "
 msgstr "Idade do documento citado: "
 
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:78
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:83
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:88
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:94
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:78
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:83
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:88
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:94
 msgid "Tipo de documento citado: "
 msgstr "Tipo de documento citado: "
 
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:80
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:80
 msgid "Periódico Citante por:"
 msgstr "Periódico Citante por:"
 
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:85
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:85
 msgid "Assunto do Periódico Citante por:"
 msgstr "Assunto do Periódico Citante por:"
 
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:89
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:95
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:89
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:95
 msgid "Periódico SciELO citado: "
 msgstr "Periódico SciELO citado: "
 
-#: /app/analytics/templates/website/bibliometrics_list_general_indicators.mako:91
+#: analytics/templates/website/bibliometrics_list_general_indicators.mako:91
 msgid "País de Afiliação do Autor Citante por:"
 msgstr "País de Afiliação do Autor Citante por:"
 
-#: /app/analytics/templates/website/bibliometrics_list_granted.mako:15
+#: analytics/templates/website/bibliometrics_list_granted.mako:15
 msgid "Citações concedidas por periódico"
 msgstr "Citações concedidas por periódico"
 
-#: /app/analytics/templates/website/bibliometrics_list_impact_factor.mako:22
-#: /app/analytics/templates/website/navbar_collection.mako:29
-#: /app/analytics/templates/website/navbar_journal.mako:31
+#: analytics/templates/website/bibliometrics_list_impact_factor.mako:22
+#: analytics/templates/website/navbar_collection.mako:29
+#: analytics/templates/website/navbar_journal.mako:31
 msgid "Impacto SciELO em 1, 2, 3, 4 e 5 anos"
 msgstr "Impacto SciELO em 1, 2, 3, 4 e 5 anos"
 
-#: /app/analytics/templates/website/bibliometrics_list_impact_factor.mako:30
+#: analytics/templates/website/bibliometrics_list_impact_factor.mako:30
 msgid "documentos publicados em"
 msgstr "documentos publicados em"
 
-#: /app/analytics/templates/website/bibliometrics_list_impact_factor.mako:31
+#: analytics/templates/website/bibliometrics_list_impact_factor.mako:31
 msgid ""
 "Aqui são considerados apenas os documentos citáveis. De acordo com as "
 "regras de contagem do SciELO, documentos citáveis devem ser do tipo "
-"Research Article, Review Article, Data-Article, Case Report, Brief "
+"Research Article, Review Article, Data Article, Case Report, Brief "
 "Report, Rapid Communication e Article Commentary. Os demais tipos de "
 "documentos são considerados não citáveis."
 msgstr ""
 "Aqui são considerados apenas os documentos citáveis. De acordo com as "
 "regras de contagem do SciELO, documentos citáveis devem ser do tipo "
-"Research Article, Review Article, Data-Article, Case Report, Brief "
+"Research Article, Review Article, Data Article, Case Report, Brief "
 "Report, Rapid Communication e Article Commentary. Os demais tipos de "
 "documentos são considerados não citáveis."
 
-#: /app/analytics/templates/website/bibliometrics_list_impact_factor.mako:49
+#: analytics/templates/website/bibliometrics_list_impact_factor.mako:49
 msgid "2 ano"
 msgstr "2 ano"
 
-#: /app/analytics/templates/website/bibliometrics_list_impact_factor.mako:50
+#: analytics/templates/website/bibliometrics_list_impact_factor.mako:50
 msgid "3 ano"
 msgstr "3 ano"
 
-#: /app/analytics/templates/website/bibliometrics_list_impact_factor.mako:51
+#: analytics/templates/website/bibliometrics_list_impact_factor.mako:51
 msgid "4 ano"
 msgstr "4 ano"
 
-#: /app/analytics/templates/website/bibliometrics_list_impact_factor.mako:52
+#: analytics/templates/website/bibliometrics_list_impact_factor.mako:52
 msgid "5 ano"
 msgstr "5 ano"
 
-#: /app/analytics/templates/website/bibliometrics_list_received.mako:22
-#: /app/analytics/templates/website/navbar_collection.mako:33
-#: /app/analytics/templates/website/navbar_journal.mako:35
+#: analytics/templates/website/bibliometrics_list_received.mako:22
+#: analytics/templates/website/navbar_collection.mako:33
+#: analytics/templates/website/navbar_journal.mako:35
 msgid "Citações recebidas por periódicos"
 msgstr "Citações recebidas por periódicos"
 
-#: /app/analytics/templates/website/central_container_for_article_filters.mako:8
-#: /app/analytics/templates/website/central_container_for_bibliometric_filters.mako:8
+#: analytics/templates/website/central_container_for_article_filters.mako:8
+#: analytics/templates/website/central_container_for_bibliometric_filters.mako:8
 msgid "Filtros para documentos"
 msgstr "Filtros para documentos"
 
-#: /app/analytics/templates/website/central_container_for_article_filters.mako:22
-#: /app/analytics/templates/website/central_container_for_bibliometric_filters.mako:22
+#: analytics/templates/website/central_container_for_article_filters.mako:22
+#: analytics/templates/website/central_container_for_bibliometric_filters.mako:22
 msgid "período"
 msgstr "período"
 
-#: /app/analytics/templates/website/central_container_for_article_filters.mako:49
+#: analytics/templates/website/central_container_for_article_filters.mako:49
 msgid "Idioma"
 msgstr "Idioma"
 
-#: /app/analytics/templates/website/central_container_for_journal_filters.mako:8
+#: analytics/templates/website/central_container_for_journal_filters.mako:8
 msgid "Filtros para periódicos"
 msgstr "Filtros para periódicos"
 
-#: /app/analytics/templates/website/faq.mako:5
+#: analytics/templates/website/faq.mako:5
 msgid "Perguntas Frequentes (Acessos)"
 msgstr "Perguntas Frequentes (Acessos)"
 
-#: /app/analytics/templates/website/faq.mako:7
+#: analytics/templates/website/faq.mako:7
 msgid "Por que algumas coleções não possuem estatísticas de acesso?"
 msgstr "Por que algumas coleções não possuem estatísticas de acesso?"
 
-#: /app/analytics/templates/website/faq.mako:8
+#: analytics/templates/website/faq.mako:8
 msgid ""
 "Para que os dados de acessos sejam computados é necessário que os logs de"
 " acessos sejam enviados para processamento. A ausência de estatísticas de"
@@ -1224,11 +1224,11 @@ msgstr ""
 " acessos sejam enviados para processamento. A ausência de estatísticas de"
 " acessos deve ser verificada com a coordenação de cada coleção SciELO."
 
-#: /app/analytics/templates/website/faq.mako:11
+#: analytics/templates/website/faq.mako:11
 msgid "Por que algumas coleções possuem acessos computados para um período maior?"
 msgstr "Por que algumas coleções possuem acessos computados para um período maior?"
 
-#: /app/analytics/templates/website/faq.mako:12
+#: analytics/templates/website/faq.mako:12
 msgid ""
 "O período disponível de cada uma das coleções depende do período "
 "disponível dos logs de acessos de cada uma das coleções. Este projeto se "
@@ -1240,12 +1240,12 @@ msgstr ""
 "compromete a computar os dados de acessos à partir de 2012, desde que os "
 "logs sejam devidamente fornecidos pelas coleções."
 
-#: /app/analytics/templates/website/faq.mako:15
-#: /app/analytics/templates/website/faq.mako:36
+#: analytics/templates/website/faq.mako:15
+#: analytics/templates/website/faq.mako:36
 msgid "O que esta sendo contabilizado?"
 msgstr "O que esta sendo contabilizado?"
 
-#: /app/analytics/templates/website/faq.mako:16
+#: analytics/templates/website/faq.mako:16
 msgid ""
 "Estão sendo contabilizados e classificados os acessos ao texto completo "
 "em HTML, PDF e EPDF (ReadCube), além dos acessos a páginas de resumo do "
@@ -1255,7 +1255,7 @@ msgstr ""
 "em HTML, PDF e EPDF (ReadCube), além dos acessos a páginas de resumo do "
 "artigo."
 
-#: /app/analytics/templates/website/faq.mako:19
+#: analytics/templates/website/faq.mako:19
 msgid ""
 "Porque os indicadores desta ferramenta são diferentes dos fornecidos em "
 "outras ferramentas SciELO?"
@@ -1263,7 +1263,7 @@ msgstr ""
 "Porque os indicadores desta ferramenta são diferentes dos fornecidos em "
 "outras ferramentas SciELO?"
 
-#: /app/analytics/templates/website/faq.mako:21
+#: analytics/templates/website/faq.mako:21
 msgid ""
 "Algumas ferramentas SciELO pode ainda estar utilizando os serviços "
 "antigos de estatísticas de acessos."
@@ -1271,7 +1271,7 @@ msgstr ""
 "Algumas ferramentas SciELO pode ainda estar utilizando os serviços "
 "antigos de estatísticas de acessos."
 
-#: /app/analytics/templates/website/faq.mako:22
+#: analytics/templates/website/faq.mako:22
 msgid ""
 "A contagem de acessos desta ferramenta difere em diversos aspéctos das "
 "ferramentas antigas."
@@ -1279,7 +1279,7 @@ msgstr ""
 "A contagem de acessos desta ferramenta difere em diversos aspéctos das "
 "ferramentas antigas."
 
-#: /app/analytics/templates/website/faq.mako:23
+#: analytics/templates/website/faq.mako:23
 msgid ""
 "Algumas ferramentas possuem um delta de atualização diferenciado dos "
 "indicadores de acessos."
@@ -1287,24 +1287,24 @@ msgstr ""
 "Algumas ferramentas possuem um delta de atualização diferenciado dos "
 "indicadores de acessos."
 
-#: /app/analytics/templates/website/faq.mako:27
-#: /app/analytics/templates/website/faq.mako:40
+#: analytics/templates/website/faq.mako:27
+#: analytics/templates/website/faq.mako:40
 msgid "Qual a periodicidade de atualização dos indicadores?"
 msgstr "Qual a periodicidade de atualização dos indicadores?"
 
-#: /app/analytics/templates/website/faq.mako:28
+#: analytics/templates/website/faq.mako:28
 msgid "Mensal"
 msgstr "Mensal"
 
-#: /app/analytics/templates/website/faq.mako:30
+#: analytics/templates/website/faq.mako:30
 msgid "Perguntas Frequentes (Publicação)"
 msgstr "Perguntas Frequentes (Publicação)"
 
-#: /app/analytics/templates/website/faq.mako:32
+#: analytics/templates/website/faq.mako:32
 msgid "Porque algumas coleções possuem dados desatualizados?"
 msgstr "Porque algumas coleções possuem dados desatualizados?"
 
-#: /app/analytics/templates/website/faq.mako:33
+#: analytics/templates/website/faq.mako:33
 msgid ""
 "A atualização de dados depende de processos que envolvem cada uma das "
 "coleções certificadas do SciELO. A atualização destes indicadores esta "
@@ -1316,7 +1316,7 @@ msgstr ""
 "diretamente ligada a condução adequada desses processos por cada uma das "
 "coleções."
 
-#: /app/analytics/templates/website/faq.mako:37
+#: analytics/templates/website/faq.mako:37
 msgid ""
 "Estão sendo contabilizados indicadores de publicação das coleções com "
 "base nos metadados fornecidos durante todo o processo de publicação de um"
@@ -1328,110 +1328,110 @@ msgstr ""
 " documento no SciELO. A qualidade desses indicadores esta diretamente "
 "ligada a qualidade dos processos implementados por cada uma das coleções."
 
-#: /app/analytics/templates/website/faq.mako:41
+#: analytics/templates/website/faq.mako:41
 msgid "Semanal"
 msgstr "Semanal"
 
-#: /app/analytics/templates/website/home_collection.mako:7
-#: /app/analytics/templates/website/home_journal.mako:7
-#: /app/analytics/templates/website/home_network.mako:7
-#: /app/analytics/templates/website/navbar_collection.mako:18
-#: /app/analytics/templates/website/navbar_journal.mako:18
-#: /app/analytics/templates/website/publication_size.mako:5
+#: analytics/templates/website/home_collection.mako:7
+#: analytics/templates/website/home_journal.mako:7
+#: analytics/templates/website/home_network.mako:7
+#: analytics/templates/website/navbar_collection.mako:18
+#: analytics/templates/website/navbar_journal.mako:18
+#: analytics/templates/website/publication_size.mako:5
 msgid "Composição da coleção"
 msgstr "Composição da coleção"
 
-#: /app/analytics/templates/website/home_collection.mako:24
-#: /app/analytics/templates/website/home_document.mako:21
-#: /app/analytics/templates/website/home_journal.mako:21
-#: /app/analytics/templates/website/home_network.mako:24
-#: /app/analytics/templates/website/navbar_collection.mako:9
-#: /app/analytics/templates/website/navbar_collection.mako:27
-#: /app/analytics/templates/website/navbar_document.mako:9
-#: /app/analytics/templates/website/navbar_journal.mako:9
-#: /app/analytics/templates/website/navbar_journal.mako:26
+#: analytics/templates/website/home_collection.mako:24
+#: analytics/templates/website/home_document.mako:21
+#: analytics/templates/website/home_journal.mako:21
+#: analytics/templates/website/home_network.mako:24
+#: analytics/templates/website/navbar_collection.mako:9
+#: analytics/templates/website/navbar_collection.mako:27
+#: analytics/templates/website/navbar_document.mako:9
+#: analytics/templates/website/navbar_journal.mako:9
+#: analytics/templates/website/navbar_journal.mako:26
 msgid "Gráficos"
 msgstr "Gráficos"
 
-#: /app/analytics/templates/website/home_document.mako:7
+#: analytics/templates/website/home_document.mako:7
 msgid "Indicadores do documento"
 msgstr "Indicadores do documento"
 
-#: /app/analytics/templates/website/journal_selector_modal.mako:6
+#: analytics/templates/website/journal_selector_modal.mako:6
 msgid "fechar"
 msgstr "fechar"
 
-#: /app/analytics/templates/website/journal_selector_modal.mako:11
+#: analytics/templates/website/journal_selector_modal.mako:11
 msgid "selecionar um periódico"
 msgstr "selecionar um periódico"
 
-#: /app/analytics/templates/website/journal_selector_modal.mako:20
+#: analytics/templates/website/journal_selector_modal.mako:20
 msgid "selecionar"
 msgstr "selecionar"
 
-#: /app/analytics/templates/website/navbar_collection.mako:11
-#: /app/analytics/templates/website/navbar_journal.mako:11
+#: analytics/templates/website/navbar_collection.mako:11
+#: analytics/templates/website/navbar_journal.mako:11
 msgid "Top 100 Issues"
 msgstr "Top 100 Issues"
 
-#: /app/analytics/templates/website/navbar_collection.mako:12
-#: /app/analytics/templates/website/navbar_journal.mako:12
+#: analytics/templates/website/navbar_collection.mako:12
+#: analytics/templates/website/navbar_journal.mako:12
 msgid "Top 100 Artigos"
 msgstr "Top 100 Artigos"
 
-#: /app/analytics/templates/website/navbar_collection.mako:16
-#: /app/analytics/templates/website/navbar_journal.mako:16
+#: analytics/templates/website/navbar_collection.mako:16
+#: analytics/templates/website/navbar_journal.mako:16
 msgid "Publicação"
 msgstr "Publicação"
 
-#: /app/analytics/templates/website/navbar_collection.mako:19
-#: /app/analytics/templates/website/navbar_journal.mako:19
+#: analytics/templates/website/navbar_collection.mako:19
+#: analytics/templates/website/navbar_journal.mako:19
 msgid "Gráficos de documentos"
 msgstr "Gráficos de documentos"
 
-#: /app/analytics/templates/website/navbar_collection.mako:20
-#: /app/analytics/templates/website/navbar_journal.mako:20
+#: analytics/templates/website/navbar_collection.mako:20
+#: analytics/templates/website/navbar_journal.mako:20
 msgid "Gráficos de documentos por ano de publicação"
 msgstr "Gráficos de documentos por ano de publicação"
 
-#: /app/analytics/templates/website/navbar_collection.mako:21
+#: analytics/templates/website/navbar_collection.mako:21
 msgid "Gráficos de periódicos"
 msgstr "Gráficos de periódicos"
 
-#: /app/analytics/templates/website/navbar_collection.mako:25
-#: /app/analytics/templates/website/navbar_document.mako:13
-#: /app/analytics/templates/website/navbar_journal.mako:24
+#: analytics/templates/website/navbar_collection.mako:25
+#: analytics/templates/website/navbar_document.mako:13
+#: analytics/templates/website/navbar_journal.mako:24
 msgid "Bibliometria"
 msgstr "Bibliometria"
 
-#: /app/analytics/templates/website/navbar_collection.mako:32
-#: /app/analytics/templates/website/navbar_journal.mako:34
+#: analytics/templates/website/navbar_collection.mako:32
+#: analytics/templates/website/navbar_journal.mako:34
 msgid "Citações concedidas por periódicos"
 msgstr "Citações concedidas por periódicos"
 
-#: /app/analytics/templates/website/navbar_collection.mako:34
-#: /app/analytics/templates/website/navbar_journal.mako:36
+#: analytics/templates/website/navbar_collection.mako:34
+#: analytics/templates/website/navbar_journal.mako:36
 msgid "Formas de citação do periódico"
 msgstr "Formas de citação do periódico"
 
-#: /app/analytics/templates/website/navbar_collection.mako:35
-#: /app/analytics/templates/website/navbar_journal.mako:37
+#: analytics/templates/website/navbar_collection.mako:35
+#: analytics/templates/website/navbar_journal.mako:37
 msgid "Indicadores Gerais"
 msgstr "Indicadores Gerais"
 
-#: /app/analytics/templates/website/navbar_common_links.mako:3
+#: analytics/templates/website/navbar_common_links.mako:3
 msgid "Visualização"
 msgstr ""
 
-#: /app/analytics/templates/website/navbar_common_links.mako:6
+#: analytics/templates/website/navbar_common_links.mako:6
 msgid "Relatórios"
 msgstr "Relatórios"
 
-#: /app/analytics/templates/website/navbar_document.mako:15
+#: analytics/templates/website/navbar_document.mako:15
 msgid "Received citations"
 msgstr "Received citations"
 
-#: /app/analytics/templates/website/publication_article.mako:17
+#: analytics/templates/website/publication_article.mako:17
 msgid ""
 "Este gráfico apresenta a distribuição de documentos por licença de uso. "
 "Os números são relacionados a coleção ou ao periódico quando um periódico"
@@ -1445,12 +1445,12 @@ msgstr ""
 "dependem da adoção da coleção ou periódico selecionado de licenças de uso"
 " creative commons."
 
-#: /app/analytics/templates/website/publication_article.mako:24
-#: /app/analytics/templates/website/publication_article_by_publication_year.mako:24
+#: analytics/templates/website/publication_article.mako:24
+#: analytics/templates/website/publication_article_by_publication_year.mako:24
 msgid "Áreas temáticas"
 msgstr "Áreas temáticas"
 
-#: /app/analytics/templates/website/publication_article.mako:36
+#: analytics/templates/website/publication_article.mako:36
 msgid ""
 "Este gráfico apresenta o total de documentos publicados por área de "
 "atuação. Os números são relacionados a coleção ou ao periódico quando um "
@@ -1472,7 +1472,7 @@ msgstr ""
 " parte de mais de uma área de atuação. Este gráfico é recomendado para "
 "extração de indicadores de Coleção."
 
-#: /app/analytics/templates/website/publication_article.mako:55
+#: analytics/templates/website/publication_article.mako:55
 msgid ""
 "Este gráfico apresenta o total de documentos por tipo de documento. Os "
 "números são relacionados a coleção ou ao periódico quando um periódico é "
@@ -1484,12 +1484,12 @@ msgstr ""
 "selecionado. Os tipos de documento são os tipos utilizandos no SciELO "
 "Citation Index e documentados no SciELO Publishing Schema."
 
-#: /app/analytics/templates/website/publication_article.mako:61
-#: /app/analytics/templates/website/publication_article_by_publication_year.mako:61
+#: analytics/templates/website/publication_article.mako:61
+#: analytics/templates/website/publication_article_by_publication_year.mako:61
 msgid "Idiomas dos documentos"
 msgstr "Idiomas dos documentos"
 
-#: /app/analytics/templates/website/publication_article.mako:73
+#: analytics/templates/website/publication_article.mako:73
 msgid ""
 "Este gráfico apresenta o total de documentos por idioma de publicação. Os"
 " números são relacionados a coleção ou ao periódico quando um periódico é"
@@ -1503,11 +1503,11 @@ msgstr ""
 " considerados como totais de publicações da coleção uma vez que um "
 "documento pode ser publicado em mais de um idioma."
 
-#: /app/analytics/templates/website/publication_article.mako:79
+#: analytics/templates/website/publication_article.mako:79
 msgid "Anos de publicação"
 msgstr "Anos de publicação"
 
-#: /app/analytics/templates/website/publication_article.mako:91
+#: analytics/templates/website/publication_article.mako:91
 msgid ""
 "Este gráfico apresenta o total de documentos publicados por ano de "
 "publicação. Os números são relacionados a coleção ou ao periódico quando "
@@ -1517,12 +1517,12 @@ msgstr ""
 "publicação. Os números são relacionados a coleção ou ao periódico quando "
 "um periódico é selecionado."
 
-#: /app/analytics/templates/website/publication_article.mako:97
-#: /app/analytics/templates/website/publication_article_by_publication_year.mako:79
+#: analytics/templates/website/publication_article.mako:97
+#: analytics/templates/website/publication_article_by_publication_year.mako:79
 msgid "Países de afiliação"
 msgstr "Países de afiliação"
 
-#: /app/analytics/templates/website/publication_article.mako:109
+#: analytics/templates/website/publication_article.mako:109
 msgid ""
 "Este gráfico apresenta o total de documentos por país de afiliação dos "
 "autores. Os valores totais de documentos deste gráfico não podem ser "
@@ -1534,11 +1534,11 @@ msgstr ""
 "considerados como totais de publicações da coleção uma vez que um "
 "documento pode ter mais um país de afiliação."
 
-#: /app/analytics/templates/website/publication_article.mako:115
+#: analytics/templates/website/publication_article.mako:115
 msgid "Mapa de países de afiliação"
 msgstr "Mapa de países de afiliação"
 
-#: /app/analytics/templates/website/publication_article.mako:127
+#: analytics/templates/website/publication_article.mako:127
 msgid ""
 "Este mapa apresenta o total de documentos por país de afiliação dos "
 "autores. Os valores totais de documentos deste mapa não podem ser "
@@ -1550,7 +1550,7 @@ msgstr ""
 "considerados como totais de publicações da coleção uma vez que um "
 "documento pode ter mais um país de afiliação."
 
-#: /app/analytics/templates/website/publication_article.mako:145
+#: analytics/templates/website/publication_article.mako:145
 msgid ""
 "Este gráfico apresenta a distribuição de documentos por número de "
 "autores. Os números são relacionados a coleção ou ao periódico quando um "
@@ -1560,11 +1560,11 @@ msgstr ""
 "autores. Os números são relacionados a coleção ou ao periódico quando um "
 "periódico é selecionado."
 
-#: /app/analytics/templates/website/publication_article.mako:151
+#: analytics/templates/website/publication_article.mako:151
 msgid "Número de referências bibliográficas"
 msgstr "Número de referências bibliográficas"
 
-#: /app/analytics/templates/website/publication_article.mako:163
+#: analytics/templates/website/publication_article.mako:163
 msgid ""
 "Este gráfico apresenta a distribuição de documentos por número de "
 "referências bibliográficas. Os números são relacionados a coleção ou ao "
@@ -1574,7 +1574,7 @@ msgstr ""
 "referências bibliográficas. Os números são relacionados a coleção ou ao "
 "periódico quando um periódico é selecionado."
 
-#: /app/analytics/templates/website/publication_article_by_publication_year.mako:17
+#: analytics/templates/website/publication_article_by_publication_year.mako:17
 msgid ""
 "Este gráfico apresenta a distribuição de documentos por licença de uso e "
 "ano de publicação. Os números são relacionados a coleção ou ao periódico "
@@ -1588,7 +1588,7 @@ msgstr ""
 "licença de uso dependem da adoção da coleção ou periódico selecionado de "
 "licenças de uso creative commons."
 
-#: /app/analytics/templates/website/publication_article_by_publication_year.mako:36
+#: analytics/templates/website/publication_article_by_publication_year.mako:36
 msgid ""
 "Este gráfico apresenta a distribuição de documentos por área de atuação e"
 " ano de publicação. Os números são relacionados a coleção ou ao periódico"
@@ -1606,7 +1606,7 @@ msgstr ""
 "atuação. Este gráfico é recomendado para extração de indicadores de "
 "Coleção."
 
-#: /app/analytics/templates/website/publication_article_by_publication_year.mako:55
+#: analytics/templates/website/publication_article_by_publication_year.mako:55
 msgid ""
 "Este gráfico apresenta a distribuição de documentos por tipo de "
 "publicação e ano de publicação. Os números são relacionados a coleção ou "
@@ -1616,7 +1616,7 @@ msgstr ""
 "publicação e ano de publicação. Os números são relacionados a coleção ou "
 "ao periódico quando um periódico é selecionado."
 
-#: /app/analytics/templates/website/publication_article_by_publication_year.mako:73
+#: analytics/templates/website/publication_article_by_publication_year.mako:73
 msgid ""
 "Este gráfico apresenta a distribuição de documentos por idioma de "
 "publicação e ano de publicação. Os números são relacionados a coleção ou "
@@ -1632,7 +1632,7 @@ msgstr ""
 "publicações da coleção uma vez que um documento pode ser publicado em "
 "mais de um idioma."
 
-#: /app/analytics/templates/website/publication_article_by_publication_year.mako:91
+#: analytics/templates/website/publication_article_by_publication_year.mako:91
 msgid ""
 "Este gráfico apresenta a distribuição de documentos por país de afiliação"
 " dos autores e ano de publicação. Os números são relacionados a coleção "
@@ -1648,27 +1648,27 @@ msgstr ""
 "publicações da coleção uma vez que um documento pode ser publicado por "
 "mais de um país de afiliação."
 
-#: /app/analytics/templates/website/publication_article_by_publication_year.mako:97
+#: analytics/templates/website/publication_article_by_publication_year.mako:97
 msgid "Citações recebidas, concedidas e auto citações"
 msgstr "Citações recebidas, concedidas e auto citações"
 
-#: /app/analytics/templates/website/publication_journal.mako:5
+#: analytics/templates/website/publication_journal.mako:5
 msgid "Licenças de uso dos periódicos"
 msgstr ""
 
-#: /app/analytics/templates/website/publication_journal.mako:10
+#: analytics/templates/website/publication_journal.mako:10
 msgid "Áreas temáticas dos periódicos"
 msgstr ""
 
-#: /app/analytics/templates/website/publication_journal.mako:15
+#: analytics/templates/website/publication_journal.mako:15
 msgid "Ano de inclusão de periódicos"
 msgstr ""
 
-#: /app/analytics/templates/website/publication_journal.mako:19
+#: analytics/templates/website/publication_journal.mako:19
 msgid "Situação de publicação dos periódicos"
 msgstr ""
 
-#: /app/analytics/templates/website/publication_journal_licenses.mako:17
+#: analytics/templates/website/publication_journal_licenses.mako:17
 msgid ""
 "Este gráfico apresenta o número de periódicos por licença de uso adotada."
 " Os valores totais de periódicos deste gráfico não podem ser considerados"
@@ -1682,7 +1682,7 @@ msgstr ""
 " de uma área de atuação. Este gráfico é recomendado para extração de "
 "indicadores de Coleção."
 
-#: /app/analytics/templates/website/publication_journal_status.mako:17
+#: analytics/templates/website/publication_journal_status.mako:17
 msgid ""
 "Este gráfico apresenta o número de periódicos por status da publicação no"
 " SciELO. O status considerado neste grafíco é o status vigente do "
@@ -1696,7 +1696,7 @@ msgstr ""
 "existência do periódico nas bases SciELO. Este gráfico é recomendado para"
 " extração de indicadores de Coleção."
 
-#: /app/analytics/templates/website/publication_journal_subject_areas.mako:17
+#: analytics/templates/website/publication_journal_subject_areas.mako:17
 msgid ""
 "Este gráfico apresenta o número de periódicos por área de atuação. Este "
 "gráfico é recomendado para extração de indicadores de Coleção. As áreas "
@@ -1718,7 +1718,7 @@ msgstr ""
 "atuação. Este gráfico é recomendado para extração de indicadores de "
 "Coleção."
 
-#: /app/analytics/templates/website/publication_journal_year.mako:17
+#: analytics/templates/website/publication_journal_year.mako:17
 msgid ""
 "Este gráfico apresenta o número periódicos por ano de inclusão no SciELO."
 " Este gráfico é recomendado para extração de indicadores de Coleção."
@@ -1726,14 +1726,14 @@ msgstr ""
 "Este gráfico apresenta o número periódicos por ano de inclusão no SciELO."
 " Este gráfico é recomendado para extração de indicadores de Coleção."
 
-#: /app/analytics/templates/website/publication_size.mako:11
-#: /app/analytics/templates/website/publication_size.mako:22
-#: /app/analytics/templates/website/publication_size.mako:33
-#: /app/analytics/templates/website/publication_size.mako:44
+#: analytics/templates/website/publication_size.mako:11
+#: analytics/templates/website/publication_size.mako:22
+#: analytics/templates/website/publication_size.mako:33
+#: analytics/templates/website/publication_size.mako:44
 msgid "Sobre os números"
 msgstr "Sobre os números"
 
-#: /app/analytics/templates/website/publication_size.mako:14
+#: analytics/templates/website/publication_size.mako:14
 msgid ""
 "Os números acima correspondem aos periódicos com pelo menos 1 fascículo e"
 " artigo publicados. Os números são relacionados a coleção ou ao periódico"
@@ -1743,7 +1743,7 @@ msgstr ""
 " artigo publicados. Os números são relacionados a coleção ou ao periódico"
 " quando um periódico é selecionado na barra superior do site."
 
-#: /app/analytics/templates/website/publication_size.mako:25
+#: analytics/templates/website/publication_size.mako:25
 msgid ""
 "Os números acima correspondem aos fascículos com pelo menos 1 artigo "
 "publicado. Os números são relacionados a coleção ou ao periódico quando "
@@ -1753,7 +1753,7 @@ msgstr ""
 "publicado. Os números são relacionados a coleção ou ao periódico quando "
 "um periódico é selecionado na barra superior do site."
 
-#: /app/analytics/templates/website/publication_size.mako:36
+#: analytics/templates/website/publication_size.mako:36
 msgid ""
 "Os números a cima correspondem ao número de documentos publicados. Os "
 "números são relacionados a coleção ou ao periódico quando um periódico é "
@@ -1763,7 +1763,7 @@ msgstr ""
 "números são relacionados a coleção ou ao periódico quando um periódico é "
 "selecionado na barra superior do site."
 
-#: /app/analytics/templates/website/publication_size.mako:47
+#: analytics/templates/website/publication_size.mako:47
 msgid ""
 "Os números acima correspondem ao número das referências bibliográficas "
 "citadas nos documentos publicados. Os números são relacionados a coleção "
@@ -1775,27 +1775,27 @@ msgstr ""
 "ou ao periódico quando um periódico é selecionado na barra superior do "
 "site."
 
-#: /app/analytics/templates/website/publication_size_citations.mako:9
+#: analytics/templates/website/publication_size_citations.mako:9
 msgid "referências"
 msgstr "referências"
 
-#: /app/analytics/templates/website/publication_size_documents.mako:9
+#: analytics/templates/website/publication_size_documents.mako:9
 msgid "documentos"
 msgstr "documentos"
 
-#: /app/analytics/templates/website/publication_size_issues.mako:9
+#: analytics/templates/website/publication_size_issues.mako:9
 msgid "fascículos"
 msgstr "fascículos"
 
-#: /app/analytics/templates/website/publication_size_journals.mako:10
+#: analytics/templates/website/publication_size_journals.mako:10
 msgid "periódicos"
 msgstr "periódicos"
 
-#: /app/analytics/templates/website/reports.mako:5
+#: analytics/templates/website/reports.mako:5
 msgid "Tabulações"
 msgstr "Tabulações"
 
-#: /app/analytics/templates/website/reports.mako:7
+#: analytics/templates/website/reports.mako:7
 msgid ""
 "O SciELO fornece algumas tabulações pré-formatadas com alguns dos "
 "metadados utilizados para produção dos indicadores presentes nesta "
@@ -1807,51 +1807,50 @@ msgstr ""
 "ferramenta. Qualquer interessado pode fazer o download e produzir "
 "análises bibliométricas de acordo com suas necessidade."
 
-#: /app/analytics/templates/website/reports.mako:10
+#: analytics/templates/website/reports.mako:10
 msgid "Para mais informações sobre as catacterísticas de cada tabulação, acessar"
 msgstr "Para mais informações sobre as catacterísticas de cada tabulação, acessar"
 
-#: /app/analytics/templates/website/reports.mako:16
+#: analytics/templates/website/reports.mako:16
 msgid "nome do arquivo"
 msgstr "nome do arquivo"
 
-#: /app/analytics/templates/website/reports.mako:17
+#: analytics/templates/website/reports.mako:17
 msgid "periodicidade de atualização"
 msgstr "periodicidade de atualização"
 
-#: /app/analytics/templates/website/reports.mako:17
+#: analytics/templates/website/reports.mako:17
 msgid "mensal"
 msgstr "mensal"
 
-#: /app/analytics/templates/website/reports.mako:18
+#: analytics/templates/website/reports.mako:18
 msgid "tamanho do arquivo"
 msgstr "tamanho do arquivo"
 
-#: /app/analytics/templates/website/reports.mako:19
+#: analytics/templates/website/reports.mako:19
 msgid "conjunto de caracteres"
 msgstr "conjunto de caracteres"
 
-#: /app/analytics/templates/website/reports.mako:20
+#: analytics/templates/website/reports.mako:20
 msgid "última atualização"
 msgstr "última atualização"
 
-#: /app/analytics/templates/website/reports.mako:23
+#: analytics/templates/website/reports.mako:23
 msgid "arquivo não disponível para esta coleção"
 msgstr "arquivo não disponível para esta coleção"
 
-#: /app/analytics/templates/website/share.mako:8
+#: analytics/templates/website/share.mako:8
 msgid "compartilhar por email"
 msgstr "compartilhar por email"
 
-#: /app/analytics/templates/website/share.mako:10
+#: analytics/templates/website/share.mako:10
 msgid "compartilhar no Facebook"
 msgstr "compartilhar no Facebook"
 
-#: /app/analytics/templates/website/share.mako:13
+#: analytics/templates/website/share.mako:13
 msgid "compartilhar no Twitter"
 msgstr "compartilhar no Twitter"
 
-#: /app/analytics/templates/website/share.mako:16
+#: analytics/templates/website/share.mako:16
 msgid "compartilhar no LinkedIn"
 msgstr "compartilhar no LinkedIn"
-
