@@ -1,4 +1,4 @@
-requests==2.11.1
+requests==2.19.1
 cython==0.22
 thriftpy==0.3.1
 pyramid==1.5.7
@@ -16,4 +16,3 @@ publicationstatsapi==1.2.0
 articlemetaapi==1.14.19
 altmetric==1.0.0
 -e git+https://github.com/scieloorg/thriftpy-wrap@0.1.1#egg=thriftpywrap
--e git+https://github.com/scieloorg/analytics@1.29.0#egg=analytics
