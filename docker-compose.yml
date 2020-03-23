@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+    memcached:
+        image: memcached
+        restart: always
+    webapp:
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        user: nobody
+        restart: always
+        depends_on:
+            - memcached
+        ports:
+            - "8000:8000"
