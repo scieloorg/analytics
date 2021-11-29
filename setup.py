@@ -1,38 +1,37 @@
 #!/usr/bin/env python
 import os
 
-from setuptools import setup, find_packages
+from setuptools import setup
 
 here = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(here, 'README.rst')) as f:
+with open(os.path.join(here, 'README.md')) as f:
     README = f.read()
 with open(os.path.join(here, 'CHANGES.txt')) as f:
     CHANGES = f.read()
 
 install_requires = [
-    'requests>=2.11.1',
-    'cython>=0.22',
-    'thriftpy==0.3.1',
-    'thriftpywrap',
-    'pyramid>=1.5.7',
+    'requests',
+    'cython',
+    'thriftpy',
+    'pyramid',
     'pyramid_chameleon',
     'pyramid_mako',
     'pyramid_debugtoolbar',
     'waitress',
-    'Babel>=2.0',
-    'dogpile.cache>=0.5.6',
-    'pylibmc>=1.5.0',
-    'scieloh5m5>=1.11.0',
-    'xylose>=1.31.0',
-    'articlemetaapi>=1.24.0',
-    'accessstatsapi>=1.2.0',
-    'publicationstatsapi>=1.2.0',
-    'citedbyapi>=1.11.1',
-    'scielojcr>=1.2.0',
-    'altmetric>=1.0.0'
+    'Babel',
+    'dogpile.cache',
+    'pylibmc',
+    'scieloh5m5',
+    'xylose',
+    'articlemetaapi',
+    'accessstatsapi',
+    'publicationstatsapi',
+    'citedbyapi',
+    'scielojcr',
+    'altmetric'
     ]
 
-test_requires = []
+test_requires = ["nose>=1.0", "coverage"]
 
 setup(
     name="analytics",
@@ -68,7 +67,6 @@ setup(
     },
     include_package_data=True,
     zip_safe=False,
-    setup_requires=["nose>=1.0", "coverage"],
     tests_require=test_requires,
     install_requires=install_requires,
     test_suite="nose.collector",
