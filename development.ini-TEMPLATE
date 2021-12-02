@@ -15,15 +15,15 @@ pyramid.includes = pyramid_debugtoolbar
 
 # By default, the toolbar only appears for clients from IP addresses
 # '127.0.0.1' and '::1'.
-# debugtoolbar.hosts = 127.0.0.1 ::1
+debugtoolbar.hosts = 127.0.0.1 ::1
 
-altmetrics_user = 
-altmetrics_key = 
+altmetrics_user =
+altmetrics_key =
 
-# memcached_host = memcached
-# memcached_expiration_time =3600
+memcached_host = memcached
+memcached_expiration_time = 3600
 
-google_analytics_code = 
+google_analytics_code =
 google_analytics_sample_rate = 100
 
 ###

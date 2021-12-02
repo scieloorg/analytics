@@ -13,9 +13,9 @@ pyramid.debug_routematch = false
 pyramid.default_locale_name = en
 
 memcached_host = memcached
-memcached_expiration_time =3600
+memcached_expiration_time = 3600
 
-google_analytics_code = 
+google_analytics_code =
 google_analytics_sample_rate = 100
 
 ###

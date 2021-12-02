@@ -1,8 +1,6 @@
 FROM python:3.5.2
 ENV PYTHONUNBUFFERED 1
 
-MAINTAINER tecnologia@scielo.org
-
 RUN apt-get update && apt-get install -y libmemcached-dev
 
 COPY . /app
