@@ -1,5 +1,5 @@
 -e git+https://github.com/scieloorg/thriftpy-wrap@0.1.1#egg=thriftpywrap
-requests==2.19.1
+requests==2.20.0
 cython==0.22
 thriftpy==0.3.1
 pyramid==1.5.7
