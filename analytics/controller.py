@@ -98,14 +98,101 @@ class ServerError(Exception):
         return repr(self.message)
 
 
+def _handle_nbr_collection(collection):
+    return 'scl' if collection == 'nbr' else collection
+
+
+class AccessStatsProxy(object):
+    def __init__(self, instance):
+        self.instance = instance
+
+    def access_by_month_and_year(self, selected_code, selected_collection_code, py_range, sa_scope, la_scope, range_start, range_end):
+        return self.instance.access_by_month_and_year(selected_code, _handle_nbr_collection(selected_collection_code), py_range, sa_scope, la_scope, range_start, range_end)
+
+    def access_by_document_type(self, selected_code, selected_collection_code, py_range, sa_scope, la_scope, range_start, range_end):
+        return self.instance.access_by_document_type(selected_code, _handle_nbr_collection(selected_collection_code), py_range, sa_scope, la_scope, range_start, range_end)
+
+    def access_lifetime(self, selected_code, selected_collection_code, py_range, sa_scope, la_scope, range_start, range_end):
+        return self.instance.access_lifetime(selected_code, _handle_nbr_collection(selected_collection_code), py_range, sa_scope, la_scope, range_start, range_end)
+
+    def access_heat(self, selected_code, selected_collection_code, py_range, sa_scope, la_scope, range_start, range_end):
+        return self.instance.access_heat(selected_code, _handle_nbr_collection(selected_collection_code), py_range, sa_scope, la_scope, range_start, range_end)
+
+    def list_journals(self, selected_code, selected_collection_code, py_range, sa_scope, la_scope, range_start, range_end):
+        return self.instance.list_journals(selected_code, _handle_nbr_collection(selected_collection_code), py_range, sa_scope, la_scope, range_start, range_end)
+
+    def list_issues(self, selected_code, selected_collection_code, py_range, sa_scope, la_scope, range_start, range_end):
+        return self.instance.list_issues(selected_code, _handle_nbr_collection(selected_collection_code), py_range, sa_scope, la_scope, range_start, range_end)
+
+    def list_articles(self, selected_code, selected_collection_code, py_range, sa_scope, la_scope, range_start, range_end):
+        return self.instance.list_articles(selected_code, _handle_nbr_collection(selected_collection_code), py_range, sa_scope, la_scope, range_start, range_end)
+
+
+class ArticleMetaProxy(object):
+    def __init__(self, instance):
+        self.instance = instance
+
+    def certified_collections(self):
+        return self.instance.certified_collections()
+
+    def collections_journals(self, collection=None):
+        return self.instance.collections_journals(_handle_nbr_collection(collection))
+
+
+class PublicationStatsProxy(object):
+    def __init__(self, instance):
+        self.instance = instance    
+
+    def granted_citations_by_year(self, code, collection, py_range=None, raw=False):
+        return self.instance.granted_citations_by_year(code, _handle_nbr_collection(collection), py_range=None, raw=False)
+
+    def list_subject_areas(self, code, collection):
+        return self.instance.list_subject_areas(code, _handle_nbr_collection(collection))
+
+    def list_languages(self, code, collection):
+        return self.instance.list_languages(code, _handle_nbr_collection(collection))
+
+    def list_publication_years(self, code, collection):
+        return self.instance.list_publication_years(code, _handle_nbr_collection(collection))
+
+    def general(self, index, field, code, collection, py_range=None, sa_scope=None, la_scope=None, size=0, sort_term=None, raw=False):
+        return self.instance.general(index, field, code, _handle_nbr_collection(collection), py_range=None, sa_scope=None, la_scope=None, size=0, sort_term=None, raw=False)
+
+    def journals_status_detailde(self, collection):
+        return self.instance.journals_status_detailde(_handle_nbr_collection(collection))
+
+    def collection_size(self, code, collection, field, py_range, sa_scope, la_scope, raw=False):
+        return self.instance.collection_size(code, _handle_nbr_collection(collection), field, py_range, sa_scope, la_scope, raw=False)
+
+    def citable_documents(self, code, collection, py_range=None, raw=False):
+        return self.instance.citable_documents(code, _handle_nbr_collection(collection), py_range=None, raw=False)
+
+    def affiliations_by_publication_year(self, code, collection, py_range, sa_scope, la_scope, raw=False):
+        return self.instance.affiliations_by_publication_year(code, _handle_nbr_collection(collection), py_range, sa_scope, la_scope, raw=False)
+
+    def subject_areas_by_publication_year(self, code, collection, py_range, sa_scope, la_scope, raw=False):
+        return self.instance.subject_areas_by_publication_year(code, _handle_nbr_collection(collection), py_range, sa_scope, la_scope, raw=False)
+
+    def document_type_by_publication_year(self, code, collection, py_range, sa_scope, la_scope, raw=False):
+        return self.instance.document_type_by_publication_year(code, _handle_nbr_collection(collection), py_range, sa_scope, la_scope, raw=False)
+
+    def languages_by_publication_year(self, code, collection, py_range, sa_scope, la_scope, raw=False):
+        return self.instance.languages_by_publication_year(code, _handle_nbr_collection(collection), py_range, sa_scope, la_scope, raw=False)
+
+    def lincenses_by_publication_year(self, code, collection, py_range, sa_scope, la_scope, raw=False):
+        return self.instance.lincenses_by_publication_year(code, _handle_nbr_collection(collection), py_range, sa_scope, la_scope, raw=False)
+
+    def by_publication_year(self, code, collection, field, py_range, sa_scope, la_scope, raw=False):
+        return self.instance.by_publication_year(code, _handle_nbr_collection(collection), field, py_range, sa_scope, la_scope, raw=False)
+
+
 class Stats(object):
 
     def __init__(self, articlemeta_host, publicationstats_host, accessstats_host, bibliometrics_host):
-        self.articlemeta = ArticleMeta()
-        self.publication = PublicationStats()
-        self.access = AccessStats()
+        self.articlemeta = ArticleMetaProxy(ArticleMeta())
+        self.publication = PublicationStatsProxy(PublicationStats())
+        self.access = AccessStatsProxy(AccessStats())
         self.bibliometrics = BibliometricsStats()
-
 
     @property
     def _(self):

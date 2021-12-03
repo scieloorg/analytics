@@ -149,8 +149,9 @@ def base_data_manager(wrapped):
             y2 = today - datetime.timedelta(365*2)
             y1 = today - datetime.timedelta(365*1)
 
+            data['collections'] = collections
+            data = add_old_scielo_br(change_scielo_br_acron(data))
             data.update({
-                'collections': collections,
                 'selected_code': code,
                 'selected_journal': selected_journal,
                 'selected_journal_code': selected_journal_code,
@@ -201,9 +202,18 @@ def base_data_manager(wrapped):
         data['share_this_url'] = current_url(request.url, data)
 
         setattr(request, 'data_manager', data)
-
+        
         return wrapped(request, *arg, **kwargs)
 
     wrapper.__doc__ = wrapped.__doc__
 
     return wrapper
+
+
+def change_scielo_br_acron(data_manager):
+    data_manager['collections']['nbr'] = data_manager['collections'].pop('scl')
+    return data_manager
+
+def add_old_scielo_br(data_manager):
+    data_manager['collections']['scl'] = {'name': 'Brasil (classic site)', 'domain': 'old.scielo.br'}
+    return data_manager
