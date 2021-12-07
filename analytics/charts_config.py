@@ -181,6 +181,29 @@ class ChartsConfig(object):
 
         return {'options': chart}
 
+    def usage_title_report(self, data):
+        chart = self.highchart
+
+        chart['credits'] = {'href': 'https://usage.apis.scielo.br','text': self._(u'Fonte: SciELO SUSHI API')}
+
+        chart['title'] = {'text': self._(u'Métricas COUNTER Release 5')}
+        chart['series'] = data['series']
+        chart['legend'] = {'enabled': True}
+        chart['yAxis']['title'] = {'text': self._(u'Métricas')}
+        chart['yAxis']['opposite'] = False
+        chart['xAxis'] = {'type': 'datetime'}
+        chart['rangeSelector'] = {'enabled': False}
+
+        chart['tooltip'] = {
+            'shared': True,
+            'useHTML': True,
+            'headerFormat': self._(u'Acessos em') + ' <strong>{point.x:%B %Y}</strong><table style="width: 100%; border-top: 1px solid #CCC;">',
+            'pointFormat': u'<tr><td><span style="color:{point.color}">\u25CF</span> {series.name}: </td><td style="text-align: right"><strong>{point.y}</strong></td></tr>',
+            'footerFormat': '</table>'
+        }
+
+        return {'options': chart}
+
     def bibliometrics_google_h5m5(self, data):
 
         chart = self.highchart
