@@ -2921,3 +2921,22 @@ class UsageStats():
         ms_unix_epoch = int(fmt_date.timestamp() * 1000)
 
         return ms_unix_epoch
+    def get_title_report(self, issn, collection, begin_date, end_date, granularity='monthly', title_report_code='tr_j1'):
+        url_tr = urllib.parse.urljoin(self.base_url, 'reports/%s' % title_report_code)
+
+        params = {
+            'issn': issn,
+            'collection': collection,
+            'begin_date': begin_date,
+            'end_date': end_date,
+            'granularity': granularity,
+        }
+
+        response = requests.get(
+            url=url_tr,
+            params=params
+        )
+
+        if response.status_code == 200:
+            if title_report_code == 'tr_j1':
+                return self._get_tr_j1_chart(response.json())
