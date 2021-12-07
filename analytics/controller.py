@@ -1,6 +1,9 @@
 # coding: utf-8
 import json
-from datetime import datetime, timedelta
+import requests
+import urllib.parse
+
+from datetime import date, datetime, timedelta
 
 from dogpile.cache import make_region
 from scieloh5m5 import h5m5
@@ -105,6 +108,7 @@ class Stats(object):
         self.publication = PublicationStats()
         self.access = AccessStats()
         self.bibliometrics = BibliometricsStats()
+        self.usage = UsageStats(usage_api_host)
 
 
     @property
