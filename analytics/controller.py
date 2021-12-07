@@ -2907,6 +2907,17 @@ class AccessStats(AccessStatsThriftClient):
         computed = self._compute_access_heat(query_result)
 
         return query_result if raw else computed
+
+
 class UsageStats():
     def __init__(self, usage_api_base_url=None):
         self.base_url = usage_api_base_url or 'http://usage.apis.scielo.org/'
+
+
+    def _format_date(self, date):
+        fmt_date = datetime.strptime(date, '%Y-%m-%d')
+        fmt_date = fmt_date.replace(day = 1)
+
+        ms_unix_epoch = int(fmt_date.timestamp() * 1000)
+
+        return ms_unix_epoch
