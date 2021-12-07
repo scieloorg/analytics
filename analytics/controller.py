@@ -103,7 +103,7 @@ class ServerError(Exception):
 
 class Stats(object):
 
-    def __init__(self, articlemeta_host, publicationstats_host, accessstats_host, bibliometrics_host):
+    def __init__(self, articlemeta_host, publicationstats_host, accessstats_host, bibliometrics_host, usage_api_host):
         self.articlemeta = ArticleMeta()
         self.publication = PublicationStats()
         self.access = AccessStats()

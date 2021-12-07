@@ -23,7 +23,7 @@ def main(global_config, **settings):
             settings.get('articlemeta', None),
             settings.get('publicationstats', None),
             settings.get('accessstats', None),
-            settings.get('citedby', None)
+            settings.get('citedby', None),
             settings.get('usage', None),
         )
 
