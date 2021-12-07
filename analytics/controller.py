@@ -2907,3 +2907,6 @@ class AccessStats(AccessStatsThriftClient):
         computed = self._compute_access_heat(query_result)
 
         return query_result if raw else computed
+class UsageStats():
+    def __init__(self, usage_api_base_url=None):
+        self.base_url = usage_api_base_url or 'http://usage.apis.scielo.org/'
