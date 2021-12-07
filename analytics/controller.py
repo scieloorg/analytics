@@ -2921,6 +2921,35 @@ class UsageStats():
         ms_unix_epoch = int(fmt_date.timestamp() * 1000)
 
         return ms_unix_epoch
+
+
+    def _get_tr_j1_chart(self, json_results):
+        serie_total_requests = []
+        serie_unique_requests = []
+
+        for i in json_results.get('Report_Items', []):
+            for p in i.get('Performance', []):
+                p_metric_label = p.get('Instance', {}).get('Metric_Type', '')
+                p_metric_value = p.get('Instance', {}).get('Count', 0)
+                p_period_begin = p.get('Period', {}).get('Begin_Date', '')
+
+                fmt_date = self._format_date(p_period_begin)
+
+                if p_metric_label  == 'Total_Item_Requests':
+                    serie_total_requests.append([fmt_date, int(p_metric_value)])
+                elif p_metric_label == 'Unique_Item_Requests':
+                    serie_unique_requests.append([fmt_date, int(p_metric_value)])
+
+        chart_data = {
+            'series': [
+                {'data': serie_total_requests, 'name': 'Total Item Requests',},
+                {'data': serie_unique_requests, 'name': 'Unique Item Requests',}
+            ],
+        }
+
+        return chart_data
+
+
     def get_title_report(self, issn, collection, begin_date, end_date, granularity='monthly', title_report_code='tr_j1'):
         url_tr = urllib.parse.urljoin(self.base_url, 'reports/%s' % title_report_code)
 
