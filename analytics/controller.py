@@ -1,6 +1,9 @@
 # coding: utf-8
 import json
-from datetime import datetime, timedelta
+import requests
+import urllib.parse
+
+from datetime import date, datetime, timedelta
 
 from dogpile.cache import make_region
 from scieloh5m5 import h5m5
@@ -100,11 +103,12 @@ class ServerError(Exception):
 
 class Stats(object):
 
-    def __init__(self, articlemeta_host, publicationstats_host, accessstats_host, bibliometrics_host):
+    def __init__(self, articlemeta_host, publicationstats_host, accessstats_host, bibliometrics_host, usage_api_host):
         self.articlemeta = ArticleMeta()
         self.publication = PublicationStats()
         self.access = AccessStats()
         self.bibliometrics = BibliometricsStats()
+        self.usage = UsageStats(usage_api_host)
 
 
     @property
@@ -2903,3 +2907,65 @@ class AccessStats(AccessStatsThriftClient):
         computed = self._compute_access_heat(query_result)
 
         return query_result if raw else computed
+
+
+class UsageStats():
+    def __init__(self, usage_api_base_url=None):
+        self.base_url = usage_api_base_url or 'http://usage.apis.scielo.org/'
+
+
+    def _format_date(self, date):
+        fmt_date = datetime.strptime(date, '%Y-%m-%d')
+        fmt_date = fmt_date.replace(day = 1)
+
+        ms_unix_epoch = int(fmt_date.timestamp() * 1000)
+
+        return ms_unix_epoch
+
+
+    def _get_tr_j1_chart(self, json_results):
+        serie_total_requests = []
+        serie_unique_requests = []
+
+        for i in json_results.get('Report_Items', []):
+            for p in i.get('Performance', []):
+                p_metric_label = p.get('Instance', {}).get('Metric_Type', '')
+                p_metric_value = p.get('Instance', {}).get('Count', 0)
+                p_period_begin = p.get('Period', {}).get('Begin_Date', '')
+
+                fmt_date = self._format_date(p_period_begin)
+
+                if p_metric_label  == 'Total_Item_Requests':
+                    serie_total_requests.append([fmt_date, int(p_metric_value)])
+                elif p_metric_label == 'Unique_Item_Requests':
+                    serie_unique_requests.append([fmt_date, int(p_metric_value)])
+
+        chart_data = {
+            'series': [
+                {'data': serie_total_requests, 'name': 'Total Item Requests',},
+                {'data': serie_unique_requests, 'name': 'Unique Item Requests',}
+            ],
+        }
+
+        return chart_data
+
+
+    def get_title_report(self, issn, collection, begin_date, end_date, granularity='monthly', title_report_code='tr_j1'):
+        url_tr = urllib.parse.urljoin(self.base_url, 'reports/%s' % title_report_code)
+
+        params = {
+            'issn': issn,
+            'collection': collection,
+            'begin_date': begin_date,
+            'end_date': end_date,
+            'granularity': granularity,
+        }
+
+        response = requests.get(
+            url=url_tr,
+            params=params
+        )
+
+        if response.status_code == 200:
+            if title_report_code == 'tr_j1':
+                return self._get_tr_j1_chart(response.json())

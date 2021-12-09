@@ -24,19 +24,21 @@ Docker Compose:
 
 ### Integrações
 
-O analytics é um aplicação que faz a integração de 4 serviços:
+O analytics é um aplicação que faz a integração de 5 serviços:
 
 * Article Meta: https://github.com/scieloorg/articles_meta
 * Publication Stats: https://github.com/scieloorg/publication_stats
 * Access Stats: https://github.com/scieloorg/access_stats
 * Bibliometrics: https://github.com/scieloorg/bibliometrics
+* SUSHI API: https://github.com/scieloorg/scielo-sushi-api
 
-Para realizar o uso do analytics é necessário ter as seguintes conexões **Thrift**:
+Para realizar o uso do analytics é necessário ter as conexões **Thrift** dos quatro primeiros serviços listados a seguir e uma conexão com a SUSHI API (que não possui **Thrift**):
 
 * Article Meta: articlemeta.scielo.org:11621
 * Publication Stats: publication.scielo.org:11620
 * Access Stats: ratchet.scielo.org:11660
 * Bibliometric Stats: Utiliza a conexão do Article Meta
+* SUSHI API: usage.apis.scielo.org
 
 É **importante** testar previamente se o host que está utilizando para fazer a instalação da aplicação está com conectividade para esses endereços e portas, para isso utilize o utilitário **telnet**.
 

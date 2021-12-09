@@ -28,6 +28,11 @@
         </div>
     </div>
     <div class="row container-fluid" style="margin-top: 100px;">
+        <div class="col-md-12">
+            <%include file="usage_tr_j1.mako"/>
+        </div>
+    </div>
+    <div class="row container-fluid" style="margin-top: 100px;">
         <div class="col-md-6">
             <%include file="access_by_month_and_year.mako"/>
         </div>

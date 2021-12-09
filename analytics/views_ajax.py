@@ -72,6 +72,27 @@ def bibliometrics_journal_google_h5m5_chart(request):
     return request.chartsconfig.bibliometrics_google_h5m5(data)
 
 
+@view_config(route_name='usage_title_report_chart', request_method='GET', renderer='jsonp')
+@base_data_manager
+def usage_title_report_chart(request):
+
+    data = request.data_manager
+
+    range_start = request.GET.get('range_start', None)
+    range_end = request.GET.get('range_end', None)
+    title_report_code = request.GET.get('title_report_code', 'tr_j1')
+
+    data_chart = request.stats.usage.get_title_report(
+        issn = data['selected_code'],
+        collection = data['selected_collection_code'],
+        begin_date = range_start,
+        end_date = range_end,
+        title_report_code = title_report_code,
+    )
+
+    return request.chartsconfig.usage_title_report(data_chart)
+
+
 @view_config(route_name='bibliometrics_journal_cited_and_citing_years_heat', request_method='GET', renderer='jsonp')
 @base_data_manager
 def bibliometrics_journal_cited_and_citing_years_heat(request):
