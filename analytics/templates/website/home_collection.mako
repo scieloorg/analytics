@@ -23,6 +23,9 @@
         <div class="row">
             <h3>${_(u'Gráficos')}</h3>
         </div>
+        <div class="col-md-12">
+            <%include file="usage_cr_j1.mako"/>
+        </div>
         <div class="col-md-6">
             <%include file="access_by_month_and_year.mako"/>
         </div>
