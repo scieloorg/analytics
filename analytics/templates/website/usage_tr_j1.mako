@@ -8,7 +8,7 @@
 <script language="javascript">
     $("#loading_usage_tr_j1_chart").show();
     $(document).ready(function() {
-        var url =  "${request.route_url('usage_title_report_chart')}?code=${selected_code}&collection=${selected_collection_code}&range_start=${range_start}&range_end=${range_end}&py_range=${'-'.join(py_range)}&callback=?";
+        var url =  "${request.route_url('usage_report_chart')}?api_version=v2&report_code=tr_j1&code=${selected_code}&collection=${selected_collection_code}&range_start=${range_start}&range_end=${range_end}&callback=?";
 
         $.getJSON(url,  function(data) {
             % if selected_journal:
