@@ -72,25 +72,29 @@ def bibliometrics_journal_google_h5m5_chart(request):
     return request.chartsconfig.bibliometrics_google_h5m5(data)
 
 
-@view_config(route_name='usage_title_report_chart', request_method='GET', renderer='jsonp')
+@view_config(route_name='usage_report_chart', request_method='GET', renderer='jsonp')
 @base_data_manager
-def usage_title_report_chart(request):
+def usage_report_chart(request):
 
     data = request.data_manager
 
+    api_version = request.GET.get('api_version', 'v2')
     range_start = request.GET.get('range_start', None)
     range_end = request.GET.get('range_end', None)
-    title_report_code = request.GET.get('title_report_code', 'tr_j1')
+    report_code = request.GET.get('report_code', 'tr_j1')
+    selected_code = data['selected_code']
+    selected_collection_code = data['selected_collection_code']
 
-    data_chart = request.stats.usage.get_title_report(
-        issn = data['selected_code'],
-        collection = data['selected_collection_code'],
+    data_chart = request.stats.usage.get_usage_report(
+        issn = selected_code,
+        collection = selected_collection_code,
         begin_date = range_start,
         end_date = range_end,
-        title_report_code = title_report_code,
+        report_code = report_code,
+        api_version = api_version,
     )
 
-    return request.chartsconfig.usage_title_report(data_chart)
+    return request.chartsconfig.usage_report(data_chart)
 
 
 @view_config(route_name='bibliometrics_journal_cited_and_citing_years_heat', request_method='GET', renderer='jsonp')
