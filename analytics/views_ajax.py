@@ -78,6 +78,7 @@ def usage_report_chart(request):
 
     data = request.data_manager
 
+    api_version = request.GET.get('api_version', 'v2')
     range_start = request.GET.get('range_start', None)
     range_end = request.GET.get('range_end', None)
     title_report_code = request.GET.get('title_report_code', 'tr_j1')
@@ -88,6 +89,7 @@ def usage_report_chart(request):
         begin_date = range_start,
         end_date = range_end,
         title_report_code = title_report_code,
+        api_version = api_version,
     )
 
     return request.chartsconfig.usage_title_report(data_chart)
