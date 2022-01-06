@@ -2960,9 +2960,8 @@ class UsageStats():
 
         return chart_data
 
-
-    def get_title_report(self, issn, collection, begin_date, end_date, granularity='monthly', title_report_code='tr_j1'):
-        url_tr = urllib.parse.urljoin(self.base_url, 'reports/%s' % title_report_code)
+    def get_usage_report(self, issn, collection, begin_date, end_date, granularity='monthly', report_code='tr_j1', api_version='v2'):
+        url_tr = urllib.parse.urljoin(self.base_url, 'reports/%s' % report_code)
 
         params = {
             'issn': issn,
@@ -2970,7 +2969,10 @@ class UsageStats():
             'begin_date': begin_date,
             'end_date': end_date,
             'granularity': granularity,
+            'api': api_version,
         }
+
+        self._clean_params_according_to_report(params, report_code)
 
         response = requests.get(
             url=url_tr,
@@ -2978,5 +2980,5 @@ class UsageStats():
         )
 
         if response.status_code == 200:
-            if title_report_code == 'tr_j1':
-                return self._get_tr_j1_chart(response.json())
+            if report_code in ('cr_j1', 'tr_j1'):
+                return self._get_j1_chart(response.json())
