@@ -3,7 +3,7 @@ import json
 import requests
 import urllib.parse
 
-from datetime import date, datetime, timedelta
+from datetime import datetime, timedelta
 
 from dogpile.cache import make_region
 from scieloh5m5 import h5m5
@@ -109,7 +109,6 @@ class Stats(object):
         self.access = AccessStats()
         self.bibliometrics = BibliometricsStats()
         self.usage = UsageStats(usage_api_host)
-
 
     @property
     def _(self):
@@ -2913,7 +2912,6 @@ class UsageStats():
     def __init__(self, usage_api_base_url=None):
         self.base_url = usage_api_base_url or 'http://usage.apis.scielo.org/'
 
-
     def _format_date(self, date):
         fmt_date = datetime.strptime(date, '%Y-%m-%d')
         fmt_date = fmt_date.replace(day = 1)
@@ -2922,8 +2920,21 @@ class UsageStats():
 
         return ms_unix_epoch
 
+    def _clean_params_according_to_report(self, params, report_code):
+        attrs_to_remove = set()
+        
+        if report_code == 'cr_j1':
+            attrs_to_remove = ('issn', 'pid',)
+        elif report_code == 'ir_a1':
+            attrs_to_remove = ('issn',)
+        elif report_code == 'tr_j1':
+            attrs_to_remove = ('pid',)
 
-    def _get_tr_j1_chart(self, json_results):
+        for attr in attrs_to_remove:
+            if attr in params:
+                del params[attr]
+
+    def _get_j1_chart(self, json_results):
         serie_total_requests = []
         serie_unique_requests = []
 
