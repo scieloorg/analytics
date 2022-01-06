@@ -72,9 +72,9 @@ def bibliometrics_journal_google_h5m5_chart(request):
     return request.chartsconfig.bibliometrics_google_h5m5(data)
 
 
-@view_config(route_name='usage_title_report_chart', request_method='GET', renderer='jsonp')
+@view_config(route_name='usage_report_chart', request_method='GET', renderer='jsonp')
 @base_data_manager
-def usage_title_report_chart(request):
+def usage_report_chart(request):
 
     data = request.data_manager
 
