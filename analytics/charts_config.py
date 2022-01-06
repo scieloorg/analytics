@@ -181,19 +181,17 @@ class ChartsConfig(object):
 
         return {'options': chart}
 
-    def usage_title_report(self, data):
+    def usage_report(self, data):
         chart = self.highchart
 
         chart['credits'] = {'href': 'https://usage.apis.scielo.br','text': self._(u'Fonte: SciELO SUSHI API')}
-
-        chart['title'] = {'text': self._(u'Métricas COUNTER Release 5')}
+        chart['title'] = {'text': self._(u'Total de acessos por ano e mês (API SUSHI)')}
         chart['series'] = data['series']
         chart['legend'] = {'enabled': True}
         chart['yAxis']['title'] = {'text': self._(u'Métricas')}
         chart['yAxis']['opposite'] = False
         chart['xAxis'] = {'type': 'datetime'}
         chart['rangeSelector'] = {'enabled': False}
-
         chart['tooltip'] = {
             'shared': True,
             'useHTML': True,
