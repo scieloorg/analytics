@@ -27,19 +27,28 @@
             <%include file="publication_article_citable_documents.mako"/>
         </div>
     </div>
+
+    ## Garante que seja apresentado somente o gráfico do Sushi para a coleção
+    ## Brasil
+    % if selected_collection_code == 'scl':
+        <div class="row container-fluid" style="margin-top: 100px;">
+            <div class="col-md-12">
+                <%include file="usage_tr_j1.mako"/>
+            </div>
+        </div>
+    % else:
+        <div class="row container-fluid" style="margin-top: 100px;">
+            <div class="col-md-12">
+                <%include file="access_by_month_and_year.mako"/>
+            </div>
+        </div>
+    % endif
     <div class="row container-fluid" style="margin-top: 100px;">
         <div class="col-md-12">
-            <%include file="usage_tr_j1.mako"/>
-        </div>
-    </div>
-    <div class="row container-fluid" style="margin-top: 100px;">
-        <div class="col-md-6">
-            <%include file="access_by_month_and_year.mako"/>
-        </div>
-        <div class="col-md-6">
             <%include file="publication_article_affiliations_map.mako"/>
         </div>
     </div>
+
     <div class="row container-fluid" style="margin-top: 100px;">
         <div class="col-md-12">
             <%include file="bibliometrics_journal_received_citations_heat_chart.mako"/>
