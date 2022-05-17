@@ -58,7 +58,9 @@
   </ul>
 
   <h2>Descrição dos métodos utilizados para gerar os dados das tabelas disponibilizadas</h2>
-  <p>As tabelas disponibilizadas nesta página utilizam como fonte de dados as referências citadas nos artigos publicados nos periódicos da Rede SciELO. Na prática isso significa que todas as referências são processadas e tratadas para permitir a correta associação entre um título citado e seu respectivo código ISSN-L. Esse tratamento implica em eliminar acentos e transformar para caixa-alta os títulos citados. Também são eliminados caracteres especiais como aspas, parenteses, entre outros.</p>
+  <p>As tabelas disponibilizadas nesta página utilizam como fonte de dados as referências citadas nos artigos publicados nos periódicos da Rede SciELO. Na prática isso significa que todas as referências são processadas e tratadas para permitir a correta associação entre um título citado e seu respectivo código ISSN-L. Esse tratamento implica em eliminar acentos e transformar para caixa-alta os títulos citados. Também são eliminados caracteres especiais como aspas, parenteses, entre outros. As sessões seguintes descrevem os detalhes relacionados a cada uma das cinco tabelas.</p>
+
+  <h3>1. Citações concedidas</h3>
 
   <p>O arquivo de citações concedidas possui as seguintes colunas: "ISSN", "Title" e "Total citations granted". Cada linha nesse arquivo é um periódico citado e a última coluna representa o número de citações que ocorreram (isto é, quantas vezes o periódico selecionado no menu superior citou o periódico que consta na linha do arquivo). Nas situações em que a coluna que representa o código ISSN estiver vazia, significa que não foi possível identificar esse código para o título citado. A seguir é apresentado um exemplo fictício para o arquivo de citações concedidas pelo periódico "Revista de Microbiologia" (ISSN 0001-3714).</p>
 
@@ -84,6 +86,7 @@
     </tbody>
   </table>
 
+  <h3>2. Citações recebidas</h3>
   <p>Já o arquivo de citações recebidas é único, isto é, é o mesmo para todas as coleções e periódicos selecionados. Trata-se de um arquivo composto pelas seguintes colunas: "Title", "Collection", "ISSNs", "1941", "1942", ..., "2020", "2021", "2022", "2023" e "Total citations received". Cada linha representa um periódico da Rede SciELO. As colunas de "1941" a "2022" representam os anos em que as citações foram recebidas. A última coluna representa o total de citações recebidas pelo periódico no período entre 1941 e 2023. A seguir é apresentado um exemplo fictício.</p>
 
   <table class="table table-striped table-bordered">
@@ -126,6 +129,7 @@
     </tbody>
   </table>
 
+  <h3>3. Formas citadas</h3>
   <p>Para verificar como os periódicos têm sido citados nos registros de citação, o arquivo de formas citadas pode ser consultado. Nele a forma com que cada periódico é citado é apresentada por ordem de frequência. Assim, para cada periódico, as primeiras linhas indicam as formas mais comuns que os autores tem grafado os títulos do periódico. No arquivo disponibilizado há as seguintes colunas: "Standardized title", "Title" e "Frequency". A primeira coluna representa o título padronizado pelos algoritmos de correção do método SciELO. A última representa o número de vezes que esse título foi citado nessa grafia. A seguir é apresentado um exemplo fictício para a Revista de Administração de Empresas (ISSN 0034-7590).</p>
 
   <table class="table table-striped table-bordered">
@@ -186,6 +190,7 @@
     </tbody>
   </table>
 
+  <h3>4. Lista de PIDs</h3>
   <p>Também é possível verificar que documentos da Rede SciELO citaram os periódicos. Para isso, pode-se acessar o arquivo de lista de PIDs que contém todos os códigos identificadores que citaram o periódico analisado. Nesse arquivo há duas colunas, a saber: "Collection" e "PID". Este último é um campo que, em conjunto com o acrônimo da coleção, identifica um arquivo na Rede SciELO. Um exemplo fictício é apresentado a seguir para a Revista Brasileira de Gestão Urbana (ISSN 2175-3369).</p>
 
   <table class="table table-striped table-bordered">
@@ -228,6 +233,7 @@
     </tbody>
   </table>
 
+  <h3>5. Lista de registros corrigidos</h3>
   <p>O arquivo mais detalhado que está disponibilizado nesse página é o que apresenta os métodos de correção utilizados para associar cada registro de citação a um periódico. Nesse arquivo há as seguintes colunas: "Collection", "Cited ISSN-L", "Citing PID", "Citing year", "Reference PID", "Cited year", "Cited journal" e "Correction method". Por meio dele é possível identificar que documento ("Collection" e "PID") citou o periódico analisado ("Cited ISSN-L" ou "Cited journal") e quando essa citação foi realizada ("Citing year").<p>
 
   <p>Também é possível observar qual foi o método utilizado para associar o título do periódico citado ao ISSN-L. Na situação mais simples, o título do periódico citado é associado ao seu respectivo código ISSN-L de forma exata, isto é, todos os caracteres grafados no registro da citação correspondem a um dos títulos oficiais, sem homônimos. Na situação mais complexa, o título é associado por meio de métodos e bases de correção que consideram o ano e volume indicados no registro da citação. A tabela apresenta a seguir ilustra um exemplo fictício para registros de citação da Revista Acta Cirúrgica Brasileira (ISSN 0102-8650).</p>
