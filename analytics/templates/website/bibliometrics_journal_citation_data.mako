@@ -22,7 +22,7 @@
     <li><b>${_(u'Nome do arquivo')}:</b> <a href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/journal_citations_granted_count/${selected_collection_code}_${selected_journal_code}.csv">citations_granted_${selected_collection_code}_${selected_journal_code}.csv</a></li>
     <li><b>${_(u'Periodicidade de atualização')}:</b> ${_(u'Trimestral')}</li>
     <li><b>${_(u'Última atualização')}:</b> 20/05/2022</li>
-    <li><b>${_(u'Separador de colunas')}:</b> ${_(u'Barra vertical')}/li>
+    <li><b>${_(u'Separador de colunas')}:</b> ${_(u'Barra vertical')}</li>
   </ul>
 
   <h3>2. Citações recebidas</h3>
