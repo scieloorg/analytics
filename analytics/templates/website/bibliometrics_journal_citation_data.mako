@@ -234,9 +234,7 @@
   </table>
 
   <h3>5. Lista de registros corrigidos</h3>
-  <p>O arquivo mais detalhado que está disponibilizado nesse página é o que apresenta os métodos de correção utilizados para associar cada registro de citação a um periódico. Nesse arquivo há as seguintes colunas: "Collection", "Cited ISSN-L", "Citing PID", "Citing year", "Reference PID", "Cited year", "Cited journal" e "Correction method". Por meio dele é possível identificar que documento ("Collection" e "PID") citou o periódico analisado ("Cited ISSN-L" ou "Cited journal") e quando essa citação foi realizada ("Citing year").<p>
-
-  <p>Também é possível observar qual foi o método utilizado para associar o título do periódico citado ao ISSN-L. Na situação mais simples, o título do periódico citado é associado ao seu respectivo código ISSN-L de forma exata, isto é, todos os caracteres grafados no registro da citação correspondem a um dos títulos oficiais, sem homônimos. Na situação mais complexa, o título é associado por meio de métodos e bases de correção que consideram o ano e volume indicados no registro da citação. A tabela apresenta a seguir ilustra um exemplo fictício para registros de citação da Revista Acta Cirúrgica Brasileira (ISSN 0102-8650).</p>
+  <p>O arquivo mais detalhado que está disponibilizado nesse página é o que apresenta os métodos de correção utilizados para associar cada registro de citação a um periódico. Nesse arquivo há as seguintes colunas: "Collection", "Cited ISSN-L", "Citing PID", "Citing year", "Reference PID", "Cited year", "Cited journal" e "Correction method". Por meio dele é possível identificar que documento ("Collection" e "PID") citou o periódico analisado ("Cited ISSN-L" ou "Cited journal") e quando essa citação foi realizada ("Citing year"). A tabela apresenta a seguir ilustra um exemplo fictício para registros de citação da Revista Acta Cirúrgica Brasileira (ISSN 0102-8650).<p>
 
   <table class="table table-striped table-bordered">
     <caption>Métodos de correção</caption>
@@ -261,7 +259,7 @@
         <td>S0025-7680200800020000500008</td>
         <td>2006</td>
         <td>Acta Cir Bras</td>
-        <td>success: exact match occurred through title-issnl correction base</td>
+        <td>0</td>
       </tr>
       <tr>
         <td>arg</td>
@@ -271,7 +269,7 @@
         <td>S1851-300X200800010000500001</td>
         <td>2006</td>
         <td>Acta Cir Bras</td>
-        <td>success: exact match occurred through title-issnl correction base</td>
+        <td>0</td>
       </tr>
       <tr>
         <td>arg</td>
@@ -281,7 +279,7 @@
         <td>S1852-4834201200030000600021</td>
         <td>2006</td>
         <td>Acta Cirurgica Brasileira.</td>
-        <td>success: exact match occurred with more than one ISSN and it was possible to decide which one is the correct through year-volume correction base</td>
+        <td>1</td>
       </tr>
       <tr>
         <td>scl</td>
@@ -291,7 +289,7 @@
         <td>S0102-695X201000020001100007</td>
         <td>2000</td>
         <td>Acta Cirurgica Bras</td>
-        <td>success: fuzzy match occurred and was validated through year-volume correction base</td>
+        <td>3</td>
       </tr>
       <tr>
         <td>scl</td>
@@ -301,7 +299,73 @@
         <td>S0100-879X200400070000300018</td>
         <td>2001</td>
         <td>Acta Cirúrgica Brasileira</td>
-        <td>success: exact match occured with more than one ISSN and it was possible to decide which one is the correct through year-volume-inferred correction base</td>
+        <td>4</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Também é possível observar qual foi o método utilizado para associar o título do periódico citado ao ISSN-L (vide o valor numérico que consta na última coluna da tabela apresentada anteriormente). Na situação mais simples, o título do periódico citado é associado ao seu respectivo código ISSN-L de forma exata, isto é, todos os caracteres grafados no registro da citação correspondem a um dos títulos oficiais, sem homônimos. Na situação mais complexa, o título é associado por meio de métodos e bases de correção que consideram o ano e volume indicados no registro da citação. A tabela apresentada a seguir contém uma descrição do significado de cada código numérico.</p>
+
+  <table class="table table-striped table-bordered">
+    <caption>Significado de códigos de correção</caption>
+    <thead>
+      <tr>
+        <th>Result code</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>0</td>
+        <td>Success: exact match occurred through title-issnl correction base</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Success: exact match occurred with more than one ISSN and it was possible to decide which one is the correct through year-volume correction base</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Success: exact match occured with more than one ISSN and it was possible to decide which one is the correct through year-volume-inferred correction base</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Success: fuzzy match occurred and was validated through year-volume correction base</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Success: fuzzy match occurred and was validated through year-volume-inferred correction base</td>
+      </tr>
+      <tr>
+        <td>50</td>
+        <td>Error: exact match occurred with more than one ISSN, but it was not possible to decide which one is the correct</td>
+      </tr>
+      <tr>
+        <td>51</td>
+        <td>Error: fuzzy match occurred but was not validated</td>
+      </tr>
+      <tr>
+        <td>70</td>
+        <td>Error: exact and fuzzy matches did not occur - journal title was not found in the correction bases</td>
+      </tr>
+      <tr>
+        <td>80</td>
+        <td>Error: exact match occurred with more than one ISSN, but it was not possible to decide which one is the correct - cited year is empty or invalid</td>
+      </tr>
+      <tr>
+        <td>81</td>
+        <td>Error: it was not possible to conduct fuzzy match due to insuficient data - cited year is empty or invalid</td>
+      </tr>
+      <tr>
+        <td>82</td>
+        <td>Error: it was not possible to match - journal title is empty</td>
+      </tr>
+      <tr>
+        <td>90</td>
+        <td>Not conducted: matching was not conducted - get crossref metadata informing the existing doi</td>
+      </tr>
+      <tr>
+        <td>91</td>
+        <td>Not conducted: fuzzy matching was not coducted due to parameter indication - inform the parameter use_fuzzy to activate this method</td>
       </tr>
     </tbody>
   </table>
