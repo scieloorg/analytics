@@ -315,58 +315,31 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>0</td>
-        <td>Success: exact match occurred through title-issnl correction base</td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>Success: exact match occurred with more than one ISSN and it was possible to decide which one is the correct through year-volume correction base</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Success: exact match occured with more than one ISSN and it was possible to decide which one is the correct through year-volume-inferred correction base</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Success: fuzzy match occurred and was validated through year-volume correction base</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>Success: fuzzy match occurred and was validated through year-volume-inferred correction base</td>
-      </tr>
-      <tr>
-        <td>50</td>
-        <td>Error: exact match occurred with more than one ISSN, but it was not possible to decide which one is the correct</td>
-      </tr>
-      <tr>
-        <td>51</td>
-        <td>Error: fuzzy match occurred but was not validated</td>
-      </tr>
-      <tr>
-        <td>70</td>
-        <td>Error: exact and fuzzy matches did not occur - journal title was not found in the correction bases</td>
-      </tr>
-      <tr>
-        <td>80</td>
-        <td>Error: exact match occurred with more than one ISSN, but it was not possible to decide which one is the correct - cited year is empty or invalid</td>
-      </tr>
-      <tr>
-        <td>81</td>
-        <td>Error: it was not possible to conduct fuzzy match due to insuficient data - cited year is empty or invalid</td>
-      </tr>
-      <tr>
-        <td>82</td>
-        <td>Error: it was not possible to match - journal title is empty</td>
-      </tr>
-      <tr>
-        <td>90</td>
-        <td>Not conducted: matching was not conducted - get crossref metadata informing the existing doi</td>
-      </tr>
-      <tr>
-        <td>91</td>
-        <td>Not conducted: fuzzy matching was not coducted due to parameter indication - inform the parameter use_fuzzy to activate this method</td>
-      </tr>
+      <tr><td>0</td><td>Sucesso</td><td>Ocorreu associação exata do título por meio de base de correção "Título para ISSN-L"</td></tr>
+      <tr><td>1</td><td>Sucesso</td><td>Ocorreu associação exata do título com mais de um ISSN-L e foi possível decidir qual é o correto por meio de base de dados "TÍtulo-Ano-Volume para ISSN-L"</td></tr>
+      <tr><td>2</td><td>Sucesso</td><td>Ocorreu associação exata do título com mais de um ISSN-L e foi possível decidir qual é o correto por meio de base de dados "TÍtulo-Ano-Volume para ISSN-L" e volume inferido</td></tr>
+      <tr><td>3</td><td>Sucesso</td><td>Ocorreu associação exata do título com mais de um ISSN-L e foi possível decidir qual é o correto por meio de base artificial de dados "TÍtulo-Ano-Volume para ISSN-L"</td></tr>
+      <tr><td>4</td><td>Sucesso</td><td>Ocorreu associação exata do título com mais de um ISSN-L e foi possível decidir qual é o correto por meio de base artificial de dados "TÍtulo-Ano-Volume para ISSN-L" e volume inferido</td></tr>
+      <tr><td>11</td><td>Sucesso</td><td>Ocorreu associação aproximada do título com um ou mais códigos ISSN-L e foi possível decidir qual é o correto por meio de base de dados "TÍtulo-Ano-Volume para ISSN-L"</td></tr>
+      <tr><td>12</td><td>Sucesso</td><td>Ocorreu associação aproximada do título com um ou mais códigos ISSN-L e foi possível decidir qual é o correto por meio de base de dados "TÍtulo-Ano-Volume para ISSN-L" e volume inferido</td></tr>
+      <tr><td>13</td><td>Sucesso</td><td>Ocorreu associação aproximada do título com um ou mais códigos ISSN-L e foi possível decidir qual é o correto por meio de base artificial de dados "TÍtulo-Ano-Volume para ISSN-L"</td></tr>
+      <tr><td>14</td><td>Sucesso</td><td>Ocorreu associação aproximada do título com um ou mais códigos ISSN-L e foi possível decidir qual é o correto por meio de base artificial de dados "TÍtulo-Ano-Volume para ISSN-L" e volume inferido</td></tr>
+      <tr><td>519</td><td>Erro</td><td>Ocorreu associação exata do título, mas não foi possível decidir qual é o ISSN-L correto usando a base de dados "Título-Ano-Volume"</td></tr>
+      <tr><td>529</td><td>Erro</td><td>Ocorreu associação exata do título, mas não foi possível decidir qual é o ISSN-L correto usando a base de dados "Título-Ano-Volume" e volume inferido</td></tr>
+      <tr><td>539</td><td>Erro</td><td>Ocorreu associação exata do título, mas não foi possível decidir qual é o ISSN-L correto usando a base artificial de dados "Título-Ano-Volume"</td></tr>
+      <tr><td>549</td><td>Erro</td><td>Ocorreu associação exata do título, mas não foi possível decidir qual é o ISSN-L correto usando a base artificial de dados "Título-Ano-Volume" e volume inferido</td></tr>
+      <tr><td>619</td><td>Erro</td><td>Ocorreu associação aproximada do título, mas não foi possível decidir qual é o ISSN-L correto usando a base de dados "Título-Ano-Volume"</td></tr>
+      <tr><td>629</td><td>Erro</td><td>Ocorreu associação aproximada do título, mas não foi possível decidir qual é o ISSN-L correto usando a base de dados "Título-Ano-Volume" e volume inferido</td></tr>
+      <tr><td>639</td><td>Erro</td><td>Ocorreu associação aproximada do título, mas não foi possível decidir qual é o ISSN-L correto usando a base artificial de dados "Título-Ano-Volume"</td></tr>
+      <tr><td>649</td><td>Erro</td><td>Ocorreu associação aproximada do título, mas não foi possível decidir qual é o ISSN-L correto usando a base artificial de dados "Título-Ano-Volume" e volume inferido</td></tr>
+      <tr><td>500</td><td>Erro</td><td>Ocorreu associação exata do título com mais de um código ISSN-L, mas nenhuma base foi capaz de decidir qual é o correto</td></tr>
+      <tr><td>600</td><td>Erro</td><td>Ocorreu associação aproximada do título com um ou mais códigos ISSN-L, mas nenhuma base foi capaz de validar qual é o correto</td></tr>
+      <tr><td>70</td><td>Erro</td><td>Título não foi encontrado nas bases de dados</td></tr>
+      <tr><td>80</td><td>Erro</td><td>Ocorreu associação exata do título com mais de um ISSN-L, mas não foi possível decidir qual é o correto, pois o ano informado é inválido</td></tr>
+      <tr><td>81</td><td>Erro</td><td>Ocorreu associação aproximada do título com mais de um ISSN-L, mas não foi possível decidir qual é o correto, pois o ano informado é inválido</td></tr>
+      <tr><td>82</td><td>Erro</td><td>O título não foi informado</td></tr>
+      <tr><td>90</td><td>Ignorado</td><td>Não foi realizada tentativa de associar o título a um ISSN-L, pois existe código DOI</td></tr>
+      <tr><td>91</td><td>Ignorado</td><td>Não foi realizada tentativa de associação de título aproximada devido à indicação do usuário</td></tr>
     </tbody>
   </table>
 </div>
