@@ -69,8 +69,8 @@
     <thead>
       <tr>
         <th>ISSN</th>
-        <th>Title</th>
-        <th>Total citations granted</th>
+        <th>Título</th>
+        <th>Total de citações concedidas</th>
       </tr>
     </thead>
     <tbody>
@@ -93,12 +93,12 @@
     <caption>Citações recebidas</caption>
     <thead>
       <tr>
-        <th>Title</th>
-        <th>Collection</th>
+        <th>Título</th>
+        <th>Coleção</th>
         <th>ISSNs</th>
         <th>2020</th>
         <th>2021</th>
-        <th>Total citations received</th>
+        <th>Total de citações recebidas</th>
       </tr>
     </thead>
     <tbody>
@@ -136,9 +136,9 @@
     <caption>Formas citadas</caption>
     <thead>
       <tr>
-        <th>Title Standardized</th>
-        <th>Title</th>
-        <th>Frequency</th>
+        <th>Título padronizado</th>
+        <th>Título citado</th>
+        <th>Frequência</th>
       </tr>
     </thead>
     <tbody>
@@ -197,8 +197,8 @@
     <caption>Documentos citantes</caption>
     <thead>
       <tr>
-        <th>PID and acronym</th>
-        <th>Citing document year</th>
+        <th>PID e acrônimo de coleção</th>
+        <th>Ano do documento citante</th>
       </tr>
     </thead>
     <tbody>
@@ -240,14 +240,14 @@
     <caption>Métodos de correção</caption>
     <thead>
       <tr>
-        <th>Collection</th>
-        <th>Cited ISSN-L</th>
-        <th>Citing PID</th>
-        <th>Citing year</th>
-        <th>Reference PID</th>
-        <th>Cited year</th>
-        <th>Cited journal</th>
-        <th>Correction method</th>
+        <th>Coleção</th>
+        <th>ISSN-L citado</th>
+        <th>PID do documento citante</th>
+        <th>Ano do documento citante</th>
+        <th>PID da referência citada</th>
+        <th>Ano da citação</th>
+        <th>Titulo citado</th>
+        <th>Código do método de correção</th>
       </tr>
     </thead>
     <tbody>
@@ -310,8 +310,9 @@
     <caption>Significado de códigos de correção</caption>
     <thead>
       <tr>
-        <th>Result code</th>
-        <th>Description</th>
+        <th>Código</th>
+        <th>Estado</th>
+        <th>Descrição</th>
       </tr>
     </thead>
     <tbody>
