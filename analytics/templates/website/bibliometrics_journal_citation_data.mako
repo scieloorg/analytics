@@ -93,7 +93,7 @@
   </table>
 
   <h3>2. Citações recebidas</h3>
-  <p>Já o arquivo de citações recebidas é único, isto é, é o mesmo para todas as coleções e periódicos selecionados. Trata-se de um arquivo composto pelas seguintes colunas: "Título", "Coleção", "ISSNs", "1941", "1942", ..., "2020", "2021", "2022", "2023" e "Total de citações recebidas". Cada linha representa um periódico da Rede SciELO. As colunas de "1941" a "2022" representam os anos em que as citações foram recebidas. A última coluna representa o total de citações recebidas pelo periódico no período entre 1941 e 2023. A seguir é apresentado um exemplo fictício de tabela de citações recebidas.</p>
+  <p>Já o arquivo de citações recebidas é único, isto é, é o mesmo para todas as coleções e periódicos selecionados. Trata-se de um arquivo composto pelas seguintes colunas: "Título", "Coleção", "ISSNs", "1941", "1942", ..., "2020", "2021", "2022", "2023" e "Citações recebidas". Cada linha representa um periódico da Rede SciELO. As colunas de "1941" a "2022" representam os anos em que as citações foram recebidas. A última coluna representa o total de citações recebidas pelo periódico no período entre 1941 e 2023. A seguir é apresentado um exemplo fictício de tabela de citações recebidas.</p>
 
   <table class="table table-striped table-bordered">
     <caption>Citações recebidas</caption>
