@@ -76,7 +76,7 @@
       <tr>
         <th>ISSN</th>
         <th>Título</th>
-        <th>Total de citações concedidas</th>
+        <th>Citações concedidas</th>
       </tr>
     </thead>
     <tbody>
@@ -104,7 +104,7 @@
         <th>ISSNs</th>
         <th>2020</th>
         <th>2021</th>
-        <th>Total de citações recebidas</th>
+        <th>Citações recebidas</th>
       </tr>
     </thead>
     <tbody>
