@@ -68,7 +68,7 @@
 
   <h3>1. Citações concedidas</h3>
 
-  <p>O arquivo de citações concedidas possui as seguintes colunas: "ISSN", "Título" e "Total de citações concedidas". Cada linha nesse arquivo é um periódico citado e a última coluna representa o número de citações que ocorreram (isto é, quantas vezes o periódico selecionado no menu superior citou o periódico que consta na linha do arquivo). Nas situações em que a coluna que representa o código ISSN estiver vazia, significa que não foi possível identificar esse código para o título citado. A seguir é apresentado um exemplo fictício para o arquivo de citações concedidas pelo periódico "Revista de Microbiologia" (ISSN 0001-3714).</p>
+  <p>O arquivo de citações concedidas possui as seguintes colunas: "ISSN", "Título" e "Citações concedidas". Cada linha nesse arquivo registra um periódico citado e a última coluna representa o número de citações que lhe foram concedidas (isto é, quantas vezes o periódico selecionado no menu superior citou o periódico que consta na linha do arquivo). Nas situações em que a coluna que representa o código ISSN estiver vazia, significa que não foi possível identificar esse código para o título citado. A seguir é apresentado um exemplo fictício para o arquivo de citações concedidas pelo periódico "Revista de Microbiologia" (ISSN 0001-3714).</p>
 
   <table class="table table-striped table-bordered">
     <caption>Citações concedidas</caption>
