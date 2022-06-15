@@ -3,7 +3,7 @@
 
 <%block name="central_container">
 <div class="col-md-8">
-  <h1>${_(u'Dados de citação')}</h1>
+  <h1>${_(u'Dados de citações')}</h1>
 
   <p>${_(u'O módulo Analytics do SciELO fornece para cada periódico um conjunto de tabelas no formato CSV com o número de citações recebidas de periódicos da Rede SciELO e número de citações concedidas a outros periódicos sem restrição. São consideradas somente citações de periódicos a cada periódico.')}</p>
   
