@@ -18,35 +18,24 @@
   <div class="col-md-8">
     <h1>${_(u'Dados de citações')}</h1>
 
-  <p>${_(u'São fornecidas também documentação sobre o processo computacional.')}</p>
+    <p>${_(u'O módulo Analytics do SciELO fornece para cada periódico um conjunto de tabelas no formato CSV com o número de citações recebidas de periódicos da Rede SciELO e número de citações concedidas a outros periódicos sem restrição. São consideradas somente citações de periódicos a cada periódico.')}</p>
+    
+    <p>${_(u'Essas tabelas são resultado de um processo computacional que transforma para códigos ISSN os títulos (em conjunto com outros dados) grafados nas referências citadas nos artigos da Rede SciELO. Esse processo é uma evolução daquele previamente existente e permitiu atualizar as contagens de citações para todos os periódicos.')}</p>
 
-  <p>${_(u'Ao todo são disponibilizadas cinco tabelas (arquivos em formato tabular):')}</p>
+    <p>${_(u'É fornecida também documentação sobre o processo computacional.')}</p>
 
-  <ol>
-    <li><b>Citações concedidas</b>: número de citações concedidas pelo periódico, por ano</li>
-    <li><b>Citações recebidas</b>: número de citações recebidas pelo periódico, por ano</li>
-    <li><b>Formas citadas</b>: título citado e número de vezes que foi identificado</li>
-    <li><b>Lista de PIDs citantes</b>: códigos identificadores dos documentos citantes</li>
-    <li><b>Lista de registros corrigidos</b>: métodos de transformação de títulos para códigos ISSN</li>
-  </ol>
+    <p>${_(u'Ao todo são disponibilizadas cinco tabelas (arquivos em formato tabular) para cada periódico e ano:')}</p>
 
-  <p>${_(u'Veja no final desta página os detalhes relacionados a cada tabela disponibilizada.')}</p>
+    <ol>
+      <li><b>Citações concedidas</b>: número de citações concedidas pelo periódico</li>
+      <li><b>Citações recebidas</b>: número de citações recebidas pelo periódico</li>
+      <li><b>Formas citadas</b>: título citado do periódico e número de vezes que foi identificado</li>
+      <li><b>Lista de códigos de documentos citantes</b>: códigos identificadores dos documentos que citaram o periódico</li>
+      <li><b>Lista de registros padronizados</b>: registros padronizados que citaram o periódico</li>
+    </ol>
 
-  <h3>1. Citações concedidas</h3>
-  <ul>
-    <li><b>${_(u'Nome do arquivo')}:</b> <a href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/journal_citations_granted_count/${selected_collection_code}_${selected_journal_code}.csv">citations_granted_${selected_collection_code}_${selected_journal_code}.csv</a></li>
-    <li><b>${_(u'Periodicidade de atualização')}:</b> ${_(u'Trimestral')}</li>
-    <li><b>${_(u'Última atualização')}:</b> 20/05/2022</li>
-    <li><b>${_(u'Separador de colunas')}:</b> ${_(u'Barra vertical')}</li>
-  </ul>
+    <p>${_(u'Veja no final desta página os detalhes relacionados a cada tabela disponibilizada.')}</p>
 
-  <h3>2. Citações recebidas</h3>
-  <ul>
-    <li><b>${_(u'Nome do arquivo')}:</b> <a href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/journal_citations_received_count.csv">citations_received.csv</a></li>
-    <li><b>${_(u'Periodicidade de atualização')}:</b> ${_(u'Trimestral')}</li>
-    <li><b>${_(u'Última atualização')}:</b> 20/05/2022</li>
-    <li><b>${_(u'Separador de colunas')}:</b> ${_(u'Barra vertical')}</li>
-  </ul>
 
   <h3>3. Formas citadas</h3>
   <ul>
