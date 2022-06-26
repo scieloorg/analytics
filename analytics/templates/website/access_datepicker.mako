@@ -1,5 +1,5 @@
 ## coding: utf-8
-<div class="row container-fluid" style="padding-left: 30px;">
+<div class="row container-fluid">
   <form class="form-inline">
     <div class="form-group">
       <label class="sr-only" for="exampleInputAmount">${_(u'Período')}</label>
@@ -9,7 +9,7 @@
         <div class="input-group-addon"><a href="?range_start=${y3}&amp;range_end=${today}" data-toggle="tooltip" data-placement="bottom" title="${_(u'acessos nos últimos 36 meses')}">${_(u'3 anos')}</a></div>
         <div class="input-group-addon"><a href="?range_start=${y2}&amp;range_end=${today}" data-toggle="tooltip" data-placement="bottom" title="${_(u'acessos nos últimos 24 meses')}">${_(u'2 anos')}</a></div>
         <div class="input-group-addon"><a href="?range_start=${y1}&amp;range_end=${today}" data-toggle="tooltip" data-placement="bottom" title="${_(u'acessos nos últimos 12 meses')}">${_(u'1 ano')}</a></div>
-        <div class="input-group-addon"><a href="?range_start=0&amp;range_end=${today}" data-toggle="tooltip" data-placement="bottom" title="${_(u'todos acessos disponíveis')}">${_(u'tudo')}</a></div>
+        <div class="input-group-addon"><a href="?range_start=1998-01-01&amp;range_end=${today}" data-toggle="tooltip" data-placement="bottom" title="${_(u'todos acessos disponíveis')}">${_(u'tudo')}</a></div>
         <div class="input-group-addon">
           <span class="glyphicon glyphicon-question-sign" data-toggle="popover" data-container="body" data-placement="bottom" title="${_(u'Seletor de período de acessos')}" data-content="${_(u'Utilize o campo com datas para selecionar um período customizado para recuperação dos dados de acesso. Você pode também selecionar o período de 1, 2 e 3 anos, através dos links rápidos ou todos os acessos disponíveis selecionando tudo.')}"></span>
         </div>

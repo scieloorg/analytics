@@ -6,7 +6,11 @@
   <h3>${_(u'Gráfico da evolução de acessos aos documentos')}</h3>
   <center>
     <div class="chart">
-      <%include file="access_by_month_and_year.mako"/>
+      % if selected_journal_code:  
+        <%include file="usage_tr_j1.mako"/>
+      % else:
+        <%include file="usage_cr_j1.mako"/>
+      % endif
     </div>
   </center>
   <h3>${_(u'Gráfico de calor de acessos')}</h3>
