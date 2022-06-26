@@ -385,6 +385,10 @@ def bibliometrics_journal_citation_data_web(request):
     data = request.data_manager
     data['page'] = 'bibliometrics_journal_citation_data'
 
+    last_year = (datetime.now() - timedelta(days=365)).strftime('%Y')
+    selected_year = request.GET.get('selected_year', '')
+    data['selected_year'] = selected_year if selected_year.isdigit() else last_year
+
     return data
 
 
