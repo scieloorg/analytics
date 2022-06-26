@@ -40,36 +40,35 @@
       ${_(u'Os dados resumidos de citações recebidas e concedidas de todos os periódicos podem ser obtidos em:')} <a href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/citatons_received.csv">citations_received.csv</a> e <a href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/citatons_granted.csv">citations_granted.csv</a>.
     </p>
 
-  <h3>3. Formas citadas</h3>
-  <ul>
-    <li><b>${_(u'Nome do arquivo')}:</b> <a href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/journal_cited_forms/${selected_collection_code}_${selected_journal_code}.csv">cited_forms_${selected_collection_code}_${selected_journal_code}.csv</a></li>
-    <li><b>${_(u'Periodicidade de atualização')}:</b> ${_(u'Trimestral')}</li>
-    <li><b>${_(u'Última atualização')}:</b> 20/05/2022</li>
-    <li><b>${_(u'Separador de colunas')}:</b> ${_(u'Barra vertical')}</li>
-  </ul>
+    <p>${_(u'Os dados detalhados de todos os anos para o periódico selecionado podem ser obtidos em:')} <a href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/zips/${selected_journal_code}.zip">${selected_journal_code}.zip</a></p>
 
-  <h3>4. Lista de PIDs</h3>
-  <ul>
-    <li><b>${_(u'Nome do arquivo')}:</b> <a href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/journal_citations_received_citing_pids/${selected_collection_code}_${selected_journal_code}.csv">citing_pids_${selected_collection_code}_${selected_journal_code}.csv</a></li>
-    <li><b>${_(u'Periodicidade de atualização')}:</b> ${_(u'Trimestral')}</li>
-    <li><b>${_(u'Última atualização')}:</b> 20/05/2022</li>
-    <li><b>${_(u'Separador de colunas')}:</b> ${_(u'Barra vertical')}</li>
-  </ul>
+    <p>${_(u'Para obter os dados detalhados do periódico selecionado para um ano específico, indique esse ano no menu seguinte e acesse os endereços disponibilizados nas listas 1-5.')}</p>
 
-  <h3>5. Lista de registros corrigidos</h3>
-  <ul>
-    <li><b>${_(u'Nome do arquivo')}:</b> <a href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/journal_citations_correction_methods/${selected_collection_code}_${selected_journal_code}.csv">correction_methods_${selected_collection_code}_${selected_journal_code}.csv</a></li>
-    <li><b>${_(u'Periodicidade de atualização')}:</b> ${_(u'Trimestral')}</li>
-    <li><b>${_(u'Última atualização')}:</b> 20/05/2022</li>
-    <li><b>${_(u'Separador de colunas')}:</b> ${_(u'Barra vertical')}</li>
-  </ul>
+    <%include file="bibliometrics_datepicker.mako"/>
 
-  <h2>Descrição dos métodos utilizados para gerar os dados das tabelas disponibilizadas</h2>
-  <p>As tabelas disponibilizadas nesta página utilizam como fonte de dados as referências citadas nos artigos publicados nos periódicos da Rede SciELO. Na prática isso significa que todas as referências são processadas e tratadas para permitir a correta associação entre um título citado e seu respectivo código ISSN-L. Esse tratamento implica em eliminar acentos e transformar para caixa-alta os títulos citados. Também são eliminados caracteres especiais como aspas, parenteses, entre outros. As sessões seguintes descrevem os detalhes relacionados a cada uma das cinco tabelas.</p>
+    <h3>1. Citações concedidas</h3>
+    <ul>
+      <li><b>${_(u'Nome do arquivo')}:</b> <a id="link_citations_granted_count" href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/${selected_journal_code}/${selected_journal_code}_citations_granted_count_${selected_year}.csv">${selected_journal_code}_citations_granted_count_${selected_year}.csv</a></li>
+      <li><b>${_(u'Periodicidade de atualização')}:</b> ${_(u'Trimestral')}</li>
+      <li><b>${_(u'Última atualização')}:</b> 24/06/2022</li>
+      <li><b>${_(u'Separador de colunas')}:</b> ${_(u'Vírgula')}</li>
+    </ul>
 
-  <h3>1. Citações concedidas</h3>
+    <h3>2. Citações recebidas</h3>
+    <ul>
+      <li><b>${_(u'Nome do arquivo')}:</b> <a id="link_citations_received_count" href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/${selected_journal_code}/${selected_journal_code}_citations_received_count_${selected_year}.csv">${selected_journal_code}_citations_received_count_${selected_year}.csv</a></li>
+      <li><b>${_(u'Periodicidade de atualização')}:</b> ${_(u'Trimestral')}</li>
+      <li><b>${_(u'Última atualização')}:</b> 24/06/2022</li>
+      <li><b>${_(u'Separador de colunas')}:</b> ${_(u'Vírgula')}</li>
+    </ul>
 
-  <p>O arquivo de citações concedidas possui as seguintes colunas: "ISSN", "Título" e "Citações concedidas". Cada linha nesse arquivo registra um periódico citado e a última coluna representa o número de citações que lhe foram concedidas (isto é, quantas vezes o periódico selecionado no menu superior citou o periódico que consta na linha do arquivo). Nas situações em que a coluna que representa o código ISSN estiver vazia, significa que não foi possível identificar esse código para o título citado. A seguir é apresentado um exemplo fictício para o arquivo de citações concedidas pelo periódico "Revista de Microbiologia" (ISSN 0001-3714).</p>
+    <h3>3. Formas citadas</h3>
+    <ul>
+      <li><b>${_(u'Nome do arquivo')}:</b> <a id="link_citations_received_cited_forms" href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/${selected_journal_code}/${selected_journal_code}_citations_received_cited_forms_${selected_year}.csv">${selected_journal_code}_citations_received_cited_forms_${selected_year}.csv</a></li>
+      <li><b>${_(u'Periodicidade de atualização')}:</b> ${_(u'Trimestral')}</li>
+      <li><b>${_(u'Última atualização')}:</b> 24/06/2022</li>
+      <li><b>${_(u'Separador de colunas')}:</b> ${_(u'Vírgula')}</li>
+    </ul>
 
   <table class="table table-striped table-bordered">
     <caption>Citações concedidas</caption>
