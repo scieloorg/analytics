@@ -379,6 +379,16 @@ def accesses(request):
 
     return data
 
+
+@view_config(route_name='accesses_journal_usage_data_web', renderer='templates/website/accesses_journal_usage_data.mako')
+@base_data_manager
+def accesses_journal_usage_data_web(request):
+    data = request.data_manager
+    data['page'] = 'accesses_journal_usage_data'
+
+    return data
+
+
 @view_config(route_name='bibliometrics_journal_citation_data_web', renderer='templates/website/bibliometrics_journal_citation_data.mako')
 @base_data_manager
 def bibliometrics_journal_citation_data_web(request):
