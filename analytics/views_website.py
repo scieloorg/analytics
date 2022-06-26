@@ -1,6 +1,6 @@
 #coding: utf-8
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from pyramid.view import view_config
 from dogpile.cache import make_region
