@@ -2938,8 +2938,8 @@ class UsageStats():
         serie_total_requests = []
         serie_unique_requests = []
 
-        for i in json_results.get('Report_Items', []):
-            for p in i.get('Performance', []):
+        for i in json_results.get('Report_Items', {}):
+            for p in i.get('Performance', {}):
                 p_metric_label = p.get('Instance', {}).get('Metric_Type', '')
                 p_metric_value = p.get('Instance', {}).get('Count', 0)
                 p_period_begin = p.get('Period', {}).get('Begin_Date', '')
@@ -2979,6 +2979,12 @@ class UsageStats():
             params=params
         )
 
-        if response.status_code == 200:
-            if report_code in ('cr_j1', 'tr_j1'):
-                return self._get_j1_chart(response.json())
+        try:
+            response.raise_for_status()
+        except requests.HTTPError:
+            ...
+
+        if response.status_code == 200 and report_code in ('cr_j1', 'tr_j1'):
+            return self._get_j1_chart(response.json())
+
+        return {}
