@@ -36,6 +36,9 @@
 
     <p>${_(u'Veja no final desta página os detalhes relacionados a cada tabela disponibilizada.')}</p>
 
+    <p>
+      ${_(u'Os dados resumidos de citações recebidas e concedidas de todos os periódicos podem ser obtidos em:')} <a href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/citatons_received.csv">citations_received.csv</a> e <a href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/citatons_granted.csv">citations_granted.csv</a>.
+    </p>
 
   <h3>3. Formas citadas</h3>
   <ul>
