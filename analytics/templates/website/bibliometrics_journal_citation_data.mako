@@ -37,7 +37,7 @@
     <p>${_(u'Veja no final desta página os detalhes relacionados a cada tabela disponibilizada.')}</p>
 
     <p>
-      ${_(u'Os dados resumidos de citações recebidas e concedidas de todos os periódicos podem ser obtidos em:')} <a href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/citatons_received.csv">citations_received.csv</a> e <a href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/citatons_granted.csv">citations_granted.csv</a>.
+      ${_(u'Os dados resumidos de citações recebidas e concedidas de todos os periódicos podem ser obtidos em:')} <a href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/citations_received.csv">citations_received.csv</a> e <a href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/citations_granted.csv">citations_granted.csv</a>.
     </p>
 
     <p>${_(u'Os dados detalhados de todos os anos para o periódico selecionado podem ser obtidos em:')} <a href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/zips/${selected_journal_code}.zip">${selected_journal_code}.zip</a></p>
