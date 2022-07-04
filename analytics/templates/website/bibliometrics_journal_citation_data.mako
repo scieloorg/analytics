@@ -149,31 +149,31 @@
       </thead>
       <tbody>
         <tr>
-          <td>1676-0603</td><td>BIOTA NEOTROPICA<td></td>203</td>
+          <td>1676-0603</td><td>BIOTA NEOTROPICA</td><td>203</td>
         </tr>
         <tr>
-          <td>0031-1049</td><td>PAPEIS AVULSOS DE ZOOLOGIA<td></td>36</td>
+          <td>0031-1049</td><td>PAPEIS AVULSOS DE ZOOLOGIA</td><td>36</td>
         </tr>
         <tr>
-          <td>0001-3765</td><td>ANAIS DA ACADEMIA BRASILEIRA DE CIENCIAS<td></td>34</td>
+          <td>0001-3765</td><td>ANAIS DA ACADEMIA BRASILEIRA DE CIENCIAS</td><td>34</td>
         </tr>
         <tr>
-          <td>1679-6225</td><td>NEOTROPICAL ICHTHYOLOGY<td></td>26</td>
+          <td>1679-6225</td><td>NEOTROPICAL ICHTHYOLOGY</td><td>26</td>
         </tr>
         <tr>
-          <td>0073-2877</td><td>HOEHNEA<td></td>18</td>
+          <td>0073-2877</td><td>HOEHNEA</td><td>18</td>
         </tr>
         <tr>
-          <td>1984-4670</td><td>ZOOLOGIA<td></td>17</td>
+          <td>1984-4670</td><td>ZOOLOGIA</td><td>17</td>
         </tr>
         <tr>
-          <td>0370-6583</td><td>RODRIGUESIA<td></td>16</td>
+          <td>0370-6583</td><td>RODRIGUESIA</td><td>16</td>
         </tr>
         <tr>
-          <td>0102-6712</td><td>ACTA LIMNOLOGICA BRASILIENSIA<td></td>14</td>
+          <td>0102-6712</td><td>ACTA LIMNOLOGICA BRASILIENSIA</td><td>14</td>
         </tr>
         <tr>
-          <td>1415-0980</td><td>FLORESTA E AMBIENTE<td></td>13</td>
+          <td>1415-0980</td><td>FLORESTA E AMBIENTE</td><td>13</td>
         </tr>
       </tbody>
     </table>
