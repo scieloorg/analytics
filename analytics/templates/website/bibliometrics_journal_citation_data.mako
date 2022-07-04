@@ -22,7 +22,7 @@
 
     <p>${_(u'O módulo Analytics do SciELO fornece para cada periódico um conjunto de tabelas no formato CSV com o número de citações recebidas de periódicos da Rede SciELO e número de citações concedidas a outros periódicos sem restrição. São consideradas somente citações de periódicos a cada periódico.')}</p>
     
-    <p>${_(u'Essas tabelas são resultado de um processo computacional que transforma para códigos ISSN os títulos (em conjunto com outros dados) grafados nas referências citadas nos artigos da Rede SciELO. Esse processo é uma evolução daquele previamente existente e permitiu atualizar as contagens de citações para todos os periódicos.')}</p>
+    <p>${_(u'Essas tabelas, disponibilizadas a partir de julho de 2022, são resultado de um processo computacional atualizado que transforma para códigos ISSN os títulos (em conjunto com outros dados) grafados nas referências citadas nos artigos da Rede SciELO. Esse processo é uma evolução daquele previamente existente e permitiu atualizar as contagens de citações para todos os periódicos.')}</p>
 
     <p>${_(u'É fornecida também documentação sobre o processo computacional.')}</p>
 
