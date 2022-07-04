@@ -93,7 +93,7 @@
 
     <h3>1. Citações concedidas</h3>
 
-    <p>O arquivo de citações concedidas possui as seguintes colunas: "ISSN", "Título" e "Citações concedidas". Cada linha nesse arquivo registra um periódico citado e a última coluna representa o número de citações que lhe foram concedidas (isto é, quantas vezes o periódico selecionado no menu superior citou o periódico que consta na linha do arquivo). Nas situações em que a coluna que representa o código ISSN estiver vazia, significa que não foi possível identificar esse código para o título citado. A seguir é apresentado um exemplo fictício para o arquivo de citações concedidas pelo periódico "Revista de Microbiologia" (ISSN 0001-3714).</p>
+    <p>O arquivo de citações concedidas possui as seguintes colunas: "ISSN", "Título" e "Citações concedidas". Cada linha nesse arquivo registra um periódico citado e a última coluna representa o número de citações que lhe foram concedidas (isto é, quantas vezes o periódico selecionado no menu superior citou o periódico que consta na linha do arquivo). Nas situações em que a coluna que representa o código ISSN estiver vazia, significa que não foi possível identificar esse código para o título citado. A seguir é apresentado um exemplo fictício para o arquivo de citações concedidas pelo periódico "Biota Neotropica" (ISSN 1676-0603).</p>
 
     <table class="table table-striped table-bordered">
       <caption>Citações concedidas</caption>
@@ -106,19 +106,37 @@
       </thead>
       <tbody>
         <tr>
-          <td>0001-3714</td><td>REVISTA DE MICROBIOLOGIA</td><td>37</td>
+          <td>1676-0603</td><td>BIOTA NEOTROPICA</td><td>203</td>
         </tr>
         <tr>
-          <td>0370-4106</td><td>REVISTA CHILENA DE PEDIATRIA</td><td>1</td>
+          <td>1175-5326</td><td>ZOOTAXA</td><td>158</td>
         </tr>
         <tr>
-          <td>0036-4665</td><td>REVISTA DO INSTITUTO DE MEDICINA TROPICAL DE SAO PAULO</td><td>3</td>
+          <td>1809-127X</td><td>CHECK LIST</td><td>121</td>
+        </tr>
+        <tr>
+          <td>1679-6225</td><td>NEOTROPICAL ICHTHYOLOGY</td><td>88</td>
+        </tr>
+        <tr>
+          <td>1932-6203</td><td>PLOS ONE</td><td>61</td>
+        </tr>
+        <tr>
+          <td>1519-6984</td><td>BRAZILIAN JOURNAL OF BIOLOGY</td><td>56</td>
+        </tr>
+        <tr>
+          <td>0006-3207</td><td>BIOLOGICAL CONSERVATION</td><td>54</td>
+        </tr>
+        <tr>
+          <td>0018-8158</td><td>HIDROBIOLOGIA SOFIA</td><td>50</td>
+        </tr>
+        <tr>
+          <td>0073-4721</td><td>IHERINGIA</td><td>44</td>
         </tr>
       </tbody>
     </table>
 
     <h3>2. Citações recebidas</h3>
-    <p>O arquivo de citações recebidas possui as seguintes colunas: "ISSN", "Título" e "Citações recebidas". Cada linha nesse arquivo registra um periódico citante e a última coluna representa o número de citações que o periódico concedeu (isto é, quantas vezes o periódico selecionado no menu superior foi citado pelo periódico que consta na linha do arquivo). A seguir é apresentado um exemplo fictício para o arquivo de citações recebidas pelo periódico "Revista de Microbiologia" (ISSN 0001-3714).</p>
+    <p>O arquivo de citações recebidas possui as seguintes colunas: "ISSN", "Título" e "Citações recebidas". Cada linha nesse arquivo registra um periódico citante e a última coluna representa o número de citações que o periódico concedeu (isto é, quantas vezes o periódico selecionado no menu superior foi citado pelo periódico que consta na linha do arquivo). A seguir é apresentado um exemplo fictício para o arquivo de citações recebidas pelo periódico "Biota Neotropica" (ISSN 1676-0603).</p>
 
     <table class="table table-striped table-bordered">
       <caption>Citações recebidas</caption>
@@ -131,19 +149,31 @@
       </thead>
       <tbody>
         <tr>
-          <td>0325-2957</td>
-          <td>ACTA BIOQUÍMICA CLÍNICA LATINOAMERICANA</td>
-          <td>85</td>
+          <td>1676-0603</td><td>BIOTA NEOTROPICA<td></td>203</td>
         </tr>
         <tr>
-          <td>0567-7513</td>
-          <td>ACTA GEOLÓGICA LILLOANA</td>
-          <td>25</td>
+          <td>0031-1049</td><td>PAPEIS AVULSOS DE ZOOLOGIA<td></td>36</td>
         </tr>
         <tr>
-          <td>0326-4815</td>
-          <td>ACTA ODONTOLÓGICA LATINOAMERICANA</td>
-          <td>14</td>
+          <td>0001-3765</td><td>ANAIS DA ACADEMIA BRASILEIRA DE CIENCIAS<td></td>34</td>
+        </tr>
+        <tr>
+          <td>1679-6225</td><td>NEOTROPICAL ICHTHYOLOGY<td></td>26</td>
+        </tr>
+        <tr>
+          <td>0073-2877</td><td>HOEHNEA<td></td>18</td>
+        </tr>
+        <tr>
+          <td>1984-4670</td><td>ZOOLOGIA<td></td>17</td>
+        </tr>
+        <tr>
+          <td>0370-6583</td><td>RODRIGUESIA<td></td>16</td>
+        </tr>
+        <tr>
+          <td>0102-6712</td><td>ACTA LIMNOLOGICA BRASILIENSIA<td></td>14</td>
+        </tr>
+        <tr>
+          <td>1415-0980</td><td>FLORESTA E AMBIENTE<td></td>13</td>
         </tr>
       </tbody>
     </table>
