@@ -39,10 +39,10 @@
     <p>${_(u'Veja no final desta página os detalhes relacionados a cada tabela disponibilizada.')}</p>
 
     <p>
-      ${_(u'Os dados resumidos de citações recebidas e concedidas de todos os periódicos podem ser obtidos em:')} <a href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/citations_received.csv">citations_received.csv</a> e <a href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/citations_granted.csv">citations_granted.csv</a>.
+      ${_(u'Os dados resumidos de citações recebidas e concedidas de todos os periódicos podem ser obtidos em:')} <a href="https://static.scielo.org/bibliometrics/citations_received.csv">citations_received.csv</a> e <a href="https://static.scielo.org/bibliometrics/citations_granted.csv">citations_granted.csv</a>.
     </p>
 
-    <p>${_(u'Os dados detalhados de todos os anos para o periódico selecionado podem ser obtidos em:')} <a href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/zips/${selected_journal_code}.zip">${selected_journal_code}.zip</a></p>
+    <p>${_(u'Os dados detalhados de todos os anos para o periódico selecionado podem ser obtidos em:')} <a href="https://static.scielo.org/bibliometrics/zips/${selected_journal_code}.zip">${selected_journal_code}.zip</a></p>
 
     <p>${_(u'Para obter os dados detalhados do periódico selecionado para um ano específico, indique esse ano no menu seguinte e acesse os endereços disponibilizados nas listas 1-5.')}</p>
 
@@ -50,7 +50,7 @@
 
     <h3>1. Citações concedidas</h3>
     <ul>
-      <li><b>${_(u'Nome do arquivo')}:</b> <a id="link_citations_granted_count" href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/${selected_journal_code}/${selected_journal_code}_citations_granted_count_${selected_year}.csv">${selected_journal_code}_citations_granted_count_${selected_year}.csv</a></li>
+      <li><b>${_(u'Nome do arquivo')}:</b> <a id="link_citations_granted_count" href="https://static.scielo.org/bibliometrics/${selected_journal_code}/${selected_journal_code}_citations_granted_count_${selected_year}.csv">${selected_journal_code}_citations_granted_count_${selected_year}.csv</a></li>
       <li><b>${_(u'Periodicidade de atualização')}:</b> ${_(u'Trimestral')}</li>
       <li><b>${_(u'Última atualização')}:</b> 24/06/2022</li>
       <li><b>${_(u'Separador de colunas')}:</b> ${_(u'Vírgula')}</li>
@@ -58,7 +58,7 @@
 
     <h3>2. Citações recebidas</h3>
     <ul>
-      <li><b>${_(u'Nome do arquivo')}:</b> <a id="link_citations_received_count" href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/${selected_journal_code}/${selected_journal_code}_citations_received_count_${selected_year}.csv">${selected_journal_code}_citations_received_count_${selected_year}.csv</a></li>
+      <li><b>${_(u'Nome do arquivo')}:</b> <a id="link_citations_received_count" href="https://static.scielo.org/bibliometrics/${selected_journal_code}/${selected_journal_code}_citations_received_count_${selected_year}.csv">${selected_journal_code}_citations_received_count_${selected_year}.csv</a></li>
       <li><b>${_(u'Periodicidade de atualização')}:</b> ${_(u'Trimestral')}</li>
       <li><b>${_(u'Última atualização')}:</b> 24/06/2022</li>
       <li><b>${_(u'Separador de colunas')}:</b> ${_(u'Vírgula')}</li>
@@ -66,7 +66,7 @@
 
     <h3>3. Formas citadas</h3>
     <ul>
-      <li><b>${_(u'Nome do arquivo')}:</b> <a id="link_citations_received_cited_forms" href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/${selected_journal_code}/${selected_journal_code}_citations_received_cited_forms_${selected_year}.csv">${selected_journal_code}_citations_received_cited_forms_${selected_year}.csv</a></li>
+      <li><b>${_(u'Nome do arquivo')}:</b> <a id="link_citations_received_cited_forms" href="https://static.scielo.org/bibliometrics/${selected_journal_code}/${selected_journal_code}_citations_received_cited_forms_${selected_year}.csv">${selected_journal_code}_citations_received_cited_forms_${selected_year}.csv</a></li>
       <li><b>${_(u'Periodicidade de atualização')}:</b> ${_(u'Trimestral')}</li>
       <li><b>${_(u'Última atualização')}:</b> 24/06/2022</li>
       <li><b>${_(u'Separador de colunas')}:</b> ${_(u'Vírgula')}</li>
@@ -74,7 +74,7 @@
 
     <h3>4. Lista de códigos de documentos citantes</h3>
     <ul>
-      <li><b>${_(u'Nome do arquivo')}:</b> <a id="link_citations_received_citing_pids" href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/${selected_journal_code}/${selected_journal_code}_citations_received_citing_pids_${selected_year}.csv">${selected_journal_code}_citations_received_citing_pids_${selected_year}.csv</a></li>
+      <li><b>${_(u'Nome do arquivo')}:</b> <a id="link_citations_received_citing_pids" href="https://static.scielo.org/bibliometrics/${selected_journal_code}/${selected_journal_code}_citations_received_citing_pids_${selected_year}.csv">${selected_journal_code}_citations_received_citing_pids_${selected_year}.csv</a></li>
       <li><b>${_(u'Periodicidade de atualização')}:</b> ${_(u'Trimestral')}</li>
       <li><b>${_(u'Última atualização')}:</b> 24/06/2022</li>
       <li><b>${_(u'Separador de colunas')}:</b> ${_(u'Vírgula')}</li>
@@ -82,7 +82,7 @@
 
     <h3>5. Lista de registros padronizados</h3>
     <ul>
-      <li><b>${_(u'Nome do arquivo')}:</b> <a id="link_citations_received_standardized" href="https://storage.googleapis.com/scielo-datalake-gold/bibliometrics/${selected_journal_code}/${selected_journal_code}_citations_received_standardized_${selected_year}.csv">${selected_journal_code}_citations_received_standardized_${selected_year}.csv</a></li>
+      <li><b>${_(u'Nome do arquivo')}:</b> <a id="link_citations_received_standardized" href="https://static.scielo.org/bibliometrics/${selected_journal_code}/${selected_journal_code}_citations_received_standardized_${selected_year}.csv">${selected_journal_code}_citations_received_standardized_${selected_year}.csv</a></li>
       <li><b>${_(u'Periodicidade de atualização')}:</b> ${_(u'Trimestral')}</li>
       <li><b>${_(u'Última atualização')}:</b> 24/06/2022</li>
       <li><b>${_(u'Separador de colunas')}:</b> ${_(u'Vírgula')}</li>
