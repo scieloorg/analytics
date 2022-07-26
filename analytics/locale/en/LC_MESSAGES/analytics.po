@@ -1443,8 +1443,7 @@ msgid ""
 "Ocorreu associação exata do título, mas não foi possível decidir qual é o"
 " ISSN-L correto usando a base artificial de dados \"Título-Ano-Volume\" e"
 " volume inferido"
-msgstr "
-An exact association with the title occurred, but it was not possible to decide which is the correct ISSN-L using the artificial database \"Title-Year-Volume\" and inferred volume"
+msgstr "An exact association with the title occurred, but it was not possible to decide which is the correct ISSN-L using the artificial database \"Title-Year-Volume\" and inferred volume"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:439
 msgid ""
