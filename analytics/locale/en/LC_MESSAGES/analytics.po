@@ -61,12 +61,12 @@ msgstr "Base year"
 #: analytics/charts_config.py:122 analytics/charts_config.py:125
 #: analytics/charts_config.py:134
 msgid "Eigen Factor JCR"
-msgstr ""
+msgstr "Eigen Factor JCR"
 
 #: analytics/charts_config.py:144 analytics/charts_config.py:147
 #: analytics/charts_config.py:156
 msgid "Received Citations JCR"
-msgstr ""
+msgstr "Received Citations JCR"
 
 #: analytics/charts_config.py:166 analytics/charts_config.py:169
 #: analytics/charts_config.py:178
@@ -75,15 +75,15 @@ msgstr "Impact factor JCR"
 
 #: analytics/charts_config.py:187
 msgid "Fonte: SciELO SUSHI API"
-msgstr ""
+msgstr "Source: SciELO SUSHI API"
 
 #: analytics/charts_config.py:188
 msgid "Total de acessos por ano e mês (API SUSHI)"
-msgstr ""
+msgstr "Total access per year and per month (API SUSHI)"
 
 #: analytics/charts_config.py:191
 msgid "Métricas"
-msgstr ""
+msgstr "Metrics"
 
 #: analytics/charts_config.py:198 analytics/charts_config.py:777
 msgid "Acessos em"
@@ -562,56 +562,56 @@ msgstr "Warning"
 msgid ""
 "É necessário selecionar um periódico para visualizar os relatórios de "
 "acesso disponíveis."
-msgstr ""
+msgstr "You need to select a journal to view available access reports."
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:19
 #: analytics/templates/website/navbar_journal.mako:9
 msgid "Dados de acessos"
-msgstr ""
+msgstr "Access data"
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:21
 msgid ""
 "O módulo Analytics do SciELO fornece para cada periódico um conjunto de "
 "tabelas em formato TSV ou JSON com métricas de acesso."
-msgstr ""
+msgstr "The SciELO Analytics Module provides for each journal a set of TSV or JSON format tables with access metrics."
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:23
 msgid ""
 "Essas tabelas são resultado de um processo computacional baseado no "
 "método COUNTER Release 5 e são disponibilizadas por meio da SciELO SUSHI "
 "API."
-msgstr ""
+msgstr "These tables are the result of a computer process based on the COUNTER Release 5 method and are made available through SciELO SUSHI API."
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:25
 msgid "Para mais informações acerca desse método, acesse"
-msgstr ""
+msgstr "For more information about this method, access"
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:25
 msgid "a documentação oficial da SciELO SUSHI API"
-msgstr ""
+msgstr "the official documentation of the SciELO SUSHI API"
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:27
 msgid "Ao todo são disponibilizadas seis tabelas (arquivos em formato tabular)."
-msgstr ""
+msgstr "In total, six tables are available (tabular files)."
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:29
 msgid ""
 "Escolha um período e acesse os endereços indicados na coluna \"Links\" da"
 " tabela seguinte para obter os relatórios de acesso."
-msgstr ""
+msgstr "Choose a period and access the addresses indicated in the \"Links\" column of the following table to get the access reports."
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:36
 msgid "Nome"
-msgstr ""
+msgstr "Name"
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:37
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:422
 msgid "Descrição"
-msgstr ""
+msgstr "Description"
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:38
 msgid "Links"
-msgstr ""
+msgstr "Links"
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:43
 msgid "Title Report J1"
@@ -619,7 +619,7 @@ msgstr ""
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:44
 msgid "Acessos mensais"
-msgstr ""
+msgstr "Monthly accesses"
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:50
 msgid "Language Report J1"
@@ -627,7 +627,7 @@ msgstr ""
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:51
 msgid "Acessos mensais agregados por idioma de documento"
-msgstr ""
+msgstr "Monthly accesses added by document language"
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:57
 msgid "Language Report J4"
@@ -635,7 +635,7 @@ msgstr ""
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:58
 msgid "Acessos mensais agregados por ano de publicação e idioma de documento"
-msgstr ""
+msgstr "Monthly accesses aggregate per year of publication and document language"
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:64
 msgid "Geolocation Report J1"
@@ -643,7 +643,7 @@ msgstr ""
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:65
 msgid "Acessos mensais agregados por país de origem de acesso"
-msgstr ""
+msgstr "Monthly accesses aggregated by country of access origin"
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:71
 msgid "Geolocation Report J4"
@@ -653,7 +653,7 @@ msgstr ""
 msgid ""
 "Acessos mensais agregados por país de origem de acesso e ano de "
 "publicação de documento"
-msgstr ""
+msgstr "Monthly accesses aggregated by country of access origin and year of document publication"
 
 #: analytics/templates/website/base.mako:6
 msgid "SciELO Estatísticas"
@@ -802,7 +802,7 @@ msgstr "Dic"
 
 #: analytics/templates/website/bibliometrics_datepicker.mako:12
 msgid "Citações realizadas no ano selecionado"
-msgstr ""
+msgstr "Citations made in the selected year"
 
 #: analytics/templates/website/bibliometrics_datepicker.mako:12
 #: analytics/templates/website/bibliometrics_journal.mako:20
@@ -820,13 +820,13 @@ msgstr "apply"
 
 #: analytics/templates/website/bibliometrics_datepicker.mako:15
 msgid "Seletor de ano de citações"
-msgstr ""
+msgstr "Citation year selector"
 
 #: analytics/templates/website/bibliometrics_datepicker.mako:15
 msgid ""
 "Utilize o campo para selecionar o ano das citações e clique em aplicar "
 "para atualizar os links."
-msgstr ""
+msgstr "Use the field to select the citation year and click apply to update the links."
 
 #: analytics/templates/website/bibliometrics_document_altmetrics.mako:7
 msgid "altmetrics"
@@ -994,16 +994,16 @@ msgstr "Score median at this timeframe"
 msgid ""
 "É necessário selecionar um periódico para visualizar os relatórios de "
 "citações disponíveis."
-msgstr ""
+msgstr "You need to select a journal to view available citations reports."
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:19
 #: analytics/templates/website/navbar_journal.mako:27
 msgid "Dados de citações"
-msgstr ""
+msgstr "Citation data"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:21
 msgid "Antes de usar Dados de citações selecione um periódico."
-msgstr ""
+msgstr "Select a journal before using Citation data"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:23
 msgid ""
@@ -1012,7 +1012,7 @@ msgid ""
 "da Rede SciELO e número de citações concedidas a outros periódicos sem "
 "restrição. São consideradas somente citações de periódicos a cada "
 "periódico."
-msgstr ""
+msgstr "The SciELO Analytics Module provides for each journal a set of tables in CSV format with the number of citations received from SciELO network journals and the number of citations granted to other unrestricted journals. Only citations from journals to each journal are considered."
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:25
 msgid ""
@@ -1022,79 +1022,79 @@ msgid ""
 "citadas nos artigos da Rede SciELO. Esse processo é uma evolução daquele "
 "previamente existente e permitiu atualizar as contagens de citações para "
 "todos os periódicos."
-msgstr ""
+msgstr "These tables, available from July 2022, are the result of an updated computer process that transforms into ISSN codes the titles (in conjunction with other data) spelled in the references cited in the articles of the SciELO Network. This process is an evolution of that previously existing and allowed to update citation counts to all journals."
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:27
 msgid "É fornecida também documentação sobre o processo computacional."
-msgstr ""
+msgstr "Documentation on the computer process is also provided."
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:29
 msgid ""
 "Ao todo são disponibilizadas cinco tabelas (arquivos em formato tabular) "
 "para cada periódico e ano:"
-msgstr ""
+msgstr "In total, five tables (files in tabular format) are available for each journal and year:"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:32
 msgid "número de citações concedidas pelo periódico"
-msgstr ""
+msgstr "number of citations granted by the journal"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:33
 msgid "número de citações recebidas pelo periódico"
-msgstr ""
+msgstr "number of citations received by the journal "
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:34
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:67
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:181
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:185
 msgid "Formas citadas"
-msgstr ""
+msgstr "Cited forms"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:34
 msgid "título citado do periódico e número de vezes que foi identificado"
-msgstr ""
+msgstr "title of the journal cited and number of times it was identified"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:35
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:75
 msgid "Lista de códigos de documentos citantes"
-msgstr ""
+msgstr "List of citing document codes"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:35
 msgid "códigos identificadores dos documentos que citaram o periódico"
-msgstr ""
+msgstr "codes identifying the documents that cited the journal"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:36
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:83
 msgid "Lista de registros padronizados"
-msgstr ""
+msgstr "List of standard records"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:36
 msgid "registros padronizados que citaram o periódico"
-msgstr ""
+msgstr "standardized records that cited the journal"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:39
 msgid ""
 "Veja no final desta página os detalhes relacionados a cada tabela "
 "disponibilizada."
-msgstr ""
+msgstr "See at the end of this page the details related to each table available."
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:42
 msgid ""
 "Os dados resumidos de citações recebidas e concedidas de todos os "
 "periódicos podem ser obtidos em:"
-msgstr ""
+msgstr "Summary data of citations received and granted from all journals can be obtained from:"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:45
 msgid ""
 "Os dados detalhados de todos os anos para o periódico selecionado podem "
 "ser obtidos em:"
-msgstr ""
+msgstr "Detailed data for every year of the selected journal can be obtained from:"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:47
 msgid ""
 "Para obter os dados detalhados do periódico selecionado para um ano "
 "específico, indique esse ano no menu seguinte e acesse os endereços "
 "disponibilizados nas listas 1-5."
-msgstr ""
+msgstr "To obtain the detailed data of the selected journal for a specific year, indicate that year in the following menu and access the addresses provided in lists 1-5."
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:53
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:61
@@ -1102,7 +1102,7 @@ msgstr ""
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:77
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:85
 msgid "Nome do arquivo"
-msgstr ""
+msgstr "File name"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:54
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:62
@@ -1110,7 +1110,7 @@ msgstr ""
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:78
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:86
 msgid "Periodicidade de atualização"
-msgstr ""
+msgstr "Update periodicity"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:54
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:62
@@ -1118,7 +1118,7 @@ msgstr ""
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:78
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:86
 msgid "Trimestral"
-msgstr ""
+msgstr "Quarterly"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:55
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:63
@@ -1126,7 +1126,7 @@ msgstr ""
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:79
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:87
 msgid "Última atualização"
-msgstr ""
+msgstr "Last update"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:56
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:64
@@ -1134,7 +1134,7 @@ msgstr ""
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:80
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:88
 msgid "Separador de colunas"
-msgstr ""
+msgstr "Column separator"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:56
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:64
@@ -1142,13 +1142,13 @@ msgstr ""
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:80
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:88
 msgid "Vírgula"
-msgstr ""
+msgstr "Comma"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:91
 msgid ""
 "Descrição dos métodos utilizados para gerar os dados das tabelas "
 "disponibilizadas"
-msgstr ""
+msgstr "Description of the methods used to generate the data of the available tables"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:92
 msgid ""
@@ -1161,7 +1161,7 @@ msgid ""
 "caracteres especiais como aspas, parenteses, entre outros. As sessões "
 "seguintes descrevem os detalhes relacionados a cada uma das cinco "
 "tabelas."
-msgstr ""
+msgstr "The tables available on this page use as a data source the references mentioned in the articles published in SciELO network journals. In practice this means that all references are processed and treated to allow the correct association between a title cited and its respective ISSN-L code. This treatment implies in eliminating accents and transforming the titles cited in all uppercase. Special characters such as quotes and parentheses, among others, are also eliminated. The following sessions describe the details related to each of the five tables."
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:96
 msgid ""
@@ -1174,18 +1174,18 @@ msgid ""
 "significa que não foi possível identificar esse código para o título "
 "citado. A seguir é apresentado um exemplo fictício para o arquivo de "
 "citações concedidas pelo periódico \"Biota Neotropica\" (ISSN 1676-0603)."
-msgstr ""
+msgstr "The granted citations file has the following columns: \"ISSN\", \"Title\" and \"Citations granted\". Each line in this file records a cited journal and the last column represents the number of citations granted to it (i.e., how many times the journal selected in the upper menu cited the journal in the file line). In situations where the column representing the ISSN code is empty, it means that it was not possible to identify this code for the title cited. The following is a fictitious example for the citation file granted by the journal \"Biota Neotropica"\ (ISSN 1676-0603)."
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:102
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:145
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:311
 msgid "ISSN"
-msgstr ""
+msgstr "ISSN"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:103
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:146
 msgid "Título"
-msgstr ""
+msgstr "Title"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:139
 msgid ""
@@ -1196,7 +1196,7 @@ msgid ""
 "menu superior foi citado pelo periódico que consta na linha do arquivo). "
 "A seguir é apresentado um exemplo fictício para o arquivo de citações "
 "recebidas pelo periódico \"Biota Neotropica\" (ISSN 1676-0603)."
-msgstr ""
+msgstr "The received citation file has the following columns: \"ISSN\", \"Title\" and \"Citations Received\". Each line in this file records a citing journal and the last column represents the number of citations that the journal granted (i.e., how many times the selected journal in the upper menu has been cited by the journal in the file line). The following is a fictitious example for the citation file received by the journal \"Biota Neotropica"\ (ISSN 1676-0603)."
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:182
 msgid ""
@@ -1211,24 +1211,24 @@ msgid ""
 "SciELO. A última representa o número de vezes que esse título foi citado "
 "nessa grafia. A seguir é apresentado um exemplo fictício para a Revista "
 "de Administração de Empresas (ISSN 0034-7590)."
-msgstr ""
+msgstr "To verify how the journals have been cited in the citation records, the citation forms file can be consulted. In it the way each journal is cited is presented by frequency order. Thus, for each journal, the first lines indicate the most common forms that the authors have spelled the journal titles (for the year analyzed). In the file made available the following columns are present: \"Standardized title\", \"Cited title\" and \"Frequency\". The first column represents the standardized title by the SciELO method correction algorithms. The last column represents the number of times this title was cited in this spelling. The following is a fictitious example for the journal Revista de Adminsitração de Empresas (ISSN 0034-7590)."
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:188
 msgid "Título citado"
-msgstr ""
+msgstr "Title cited"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:189
 msgid "Título padronizado"
-msgstr ""
+msgstr "Standardized title"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:190
 msgid "Frequência"
-msgstr ""
+msgstr "Frequency"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:242
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:246
 msgid "Documentos citantes"
-msgstr ""
+msgstr "Citing documents"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:243
 msgid ""
@@ -1241,24 +1241,24 @@ msgid ""
 " representam um documento único na Rede SciELO. Um exemplo fictício é "
 "apresentado a seguir para a Revista Brasileira de Gestão Urbana (ISSN "
 "2175-3369)."
-msgstr ""
+msgstr "It is also possible to verify that Documents from the SciELO network quoted the journals. To do this, you can access the PIDS list file that contains all identifying codes that cited the analyzed journal. In this file there are two columns, namely: \ "PID and acronym of collection \" and \ "year of the quoting document \". The first column is formed by a document identifier and an acronym of collection that together represent a unique document in the SciELO network. A fictional example is presented to the following to the Brazilian Journal of Urban Management (ISSN 2175-3369)."
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:249
 msgid "Código de documento citante"
-msgstr ""
+msgstr "Citing document code"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:250
 msgid "Coleção de documento citante"
-msgstr ""
+msgstr " Citing document collection"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:251
 msgid "Ano do documento citado"
-msgstr ""
+msgstr "Year of the cited document"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:303
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:307
 msgid "Registros padronizados"
-msgstr ""
+msgstr "Standardized records"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:304
 msgid ""
@@ -1272,35 +1272,35 @@ msgid ""
 "ou \"Título citado\"). A tabela seguinte apresenta um exemplo fictício "
 "para registros de citação da Revista de Administração de Empresas (ISSN "
 "0034-7590)."
-msgstr ""
+msgstr "The most detailed file that is made available on this page is the one that shows the standardized citation records. In this file the following columns are presented: \"Code of the citing collection\", \"ISSN\", \"Cited document code\", \"Cited reference code\", \ "Citation reference year\", \"Cited title\", \"Cited volume\" and \"Correction method code\". Through it it is possible to identify which document (\"Collection codes and citing document) cited the analyzed journal (\"ISSN\" or "\Cited title\"). The following table presents a fictitious example for citation records of the journal Revista de Administração de Empresas (ISSN 0034-7590)."
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:310
 msgid "Código da coleção citante"
-msgstr ""
+msgstr "Citing collection code"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:312
 msgid "Código do documento citante"
-msgstr ""
+msgstr "Citing document code"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:313
 msgid "Código da referência citada"
-msgstr ""
+msgstr "Citing reference code"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:314
 msgid "Ano da referência citação"
-msgstr ""
+msgstr "Year of the Citation Reference"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:315
 msgid "Titulo citado"
-msgstr ""
+msgstr "Cited title"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:316
 msgid "Volume citado"
-msgstr ""
+msgstr "Cited volume"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:317
 msgid "Código do método de correção"
-msgstr ""
+msgstr "Correction method code"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:414
 msgid ""
@@ -1314,19 +1314,19 @@ msgid ""
 "métodos e bases de correção que consideram o ano e volume indicados no "
 "registro da citação. A tabela seguinte apresenta uma descrição do "
 "significado de cada código de correção."
-msgstr ""
+msgstr "It is also possible to observe what was the method used to associate the title of the journal cited to the ISSN-L (see the numerical value in the last column of the previously presented table). In the simplest situation, the title of the cited journal is associated with its respective ISSN-L code exactly, i.e., all characters spelled in the citation record correspond to one of the official titles without homonyms. In the most complex situation, the title is associated with methods and correction bases that consider the year and volume indicated in the citation record. The following table presents a description of the meaning of each correction code."
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:417
 msgid "Significado de códigos de correção"
-msgstr ""
+msgstr "Meaning of correction codes"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:420
 msgid "Código"
-msgstr ""
+msgstr "Code"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:421
 msgid "Estado"
-msgstr ""
+msgstr "State"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:426
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:427
@@ -1338,69 +1338,69 @@ msgstr ""
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:433
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:434
 msgid "Sucesso"
-msgstr ""
+msgstr "Success"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:426
 msgid ""
 "Ocorreu associação exata do título por meio de base de correção \"Título "
 "para ISSN-L\""
-msgstr ""
+msgstr "There was an exact association of the title by means of correction base \"Title to ISSN-L\""
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:427
 msgid ""
 "Ocorreu associação exata do título com mais de um ISSN-L e foi possível "
 "decidir qual é o correto por meio de base de dados \"TÍtulo-Ano-Volume "
 "para ISSN-L\""
-msgstr ""
+msgstr "There was an exact association of the title with more than one ISSN-L and it was possible to decide which one is correct by means of the database \"Title-Year-Volume for ISSN-L\" "
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:428
 msgid ""
 "Ocorreu associação exata do título com mais de um ISSN-L e foi possível "
 "decidir qual é o correto por meio de base de dados \"TÍtulo-Ano-Volume "
 "para ISSN-L\" e volume inferido"
-msgstr ""
+msgstr "There was an exact association of the title with more than one ISSN-L and it was possible to decide which one is correct by means of the database \"Title-Year-volume for ISSN-L\" and inferred volume "
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:429
 msgid ""
 "Ocorreu associação exata do título com mais de um ISSN-L e foi possível "
 "decidir qual é o correto por meio de base artificial de dados \"TÍtulo-"
 "Ano-Volume para ISSN-L\""
-msgstr ""
+msgstr "There was an exact association of the title with more than one ISSN-L and it was possible to decide which one is correct through artificial data base \ "-ane-volume title to ISSN-L \""
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:430
 msgid ""
 "Ocorreu associação exata do título com mais de um ISSN-L e foi possível "
 "decidir qual é o correto por meio de base artificial de dados \"TÍtulo-"
 "Ano-Volume para ISSN-L\" e volume inferido"
-msgstr ""
+msgstr "There was an exact association of the title with more than one ISSN-L and it was possible to decide which one is correct by means of the artificial data base \"Title-Year-volume for ISSN-L\" and inferred volume"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:431
 msgid ""
 "Ocorreu associação aproximada do título com um ou mais códigos ISSN-L e "
 "foi possível decidir qual é o correto por meio de base de dados \"TÍtulo-"
 "Ano-Volume para ISSN-L\""
-msgstr ""
+msgstr "There was approximate association of the title with more than one ISSN-L and it was possible to decide which one is correct by means of the database \"Title-Year-volume for ISSN-L\" "
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:432
 msgid ""
 "Ocorreu associação aproximada do título com um ou mais códigos ISSN-L e "
 "foi possível decidir qual é o correto por meio de base de dados \"TÍtulo-"
 "Ano-Volume para ISSN-L\" e volume inferido"
-msgstr ""
+msgstr "There was an approximate association of the title with more than one ISSN-L and it was possible to decide which one is correct by means of the database \"Title-Year-volume for ISSN-L\" and inferred volume "
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:433
 msgid ""
 "Ocorreu associação aproximada do título com um ou mais códigos ISSN-L e "
 "foi possível decidir qual é o correto por meio de base artificial de "
 "dados \"TÍtulo-Ano-Volume para ISSN-L\""
-msgstr ""
+msgstr "There was an approximate association of the title with more than one ISSN-L and it was possible to decide which one is correct by means of the artificial data base \"Title-Year-volume for ISSN-L\""
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:434
 msgid ""
 "Ocorreu associação aproximada do título com um ou mais códigos ISSN-L e "
 "foi possível decidir qual é o correto por meio de base artificial de "
 "dados \"TÍtulo-Ano-Volume para ISSN-L\" e volume inferido"
-msgstr ""
+msgstr "There was an approximate association of the title with more than one ISSN-L and it was possible to decide which one is correct by means of the artificial data base \"Title-Year-volume for ISSN-L\" and inferred volume"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:435
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:436
@@ -1417,105 +1417,106 @@ msgstr ""
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:447
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:448
 msgid "Erro"
-msgstr ""
+msgstr "Mistake"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:435
 msgid ""
 "Ocorreu associação exata do título, mas não foi possível decidir qual é o"
 " ISSN-L correto usando a base de dados \"Título-Ano-Volume\""
-msgstr ""
+msgstr "An exact association with the title occurred, but it was not possible to decide which is the correct ISSN-L using the database \"Title-Year-Volume\""
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:436
 msgid ""
 "Ocorreu associação exata do título, mas não foi possível decidir qual é o"
 " ISSN-L correto usando a base de dados \"Título-Ano-Volume\" e volume "
 "inferido"
-msgstr ""
+msgstr "An exact association of the title occurred, but it was not possible to decide which is the correct ISSN-L using the database \"Title-Year-Volume\" and inferred volume"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:437
 msgid ""
 "Ocorreu associação exata do título, mas não foi possível decidir qual é o"
 " ISSN-L correto usando a base artificial de dados \"Título-Ano-Volume\""
-msgstr ""
+msgstr "An exact association with the title occurred, but it was not possible to decide which is the correct ISSN-L using the artificial database \"Title-Year-Volume\""
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:438
 msgid ""
 "Ocorreu associação exata do título, mas não foi possível decidir qual é o"
 " ISSN-L correto usando a base artificial de dados \"Título-Ano-Volume\" e"
 " volume inferido"
-msgstr ""
+msgstr "
+An exact association with the title occurred, but it was not possible to decide which is the correct ISSN-L using the artificial database \"Title-Year-Volume\" and inferred volume"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:439
 msgid ""
 "Ocorreu associação aproximada do título, mas não foi possível decidir "
 "qual é o ISSN-L correto usando a base de dados \"Título-Ano-Volume\""
-msgstr ""
+msgstr "An approximate association of the title occurred, but it was not possible to decide which is the correct ISSN-L using the database \"Title-Year-Volume\""
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:440
 msgid ""
 "Ocorreu associação aproximada do título, mas não foi possível decidir "
 "qual é o ISSN-L correto usando a base de dados \"Título-Ano-Volume\" e "
 "volume inferido"
-msgstr ""
+msgstr "An approximate association of the title occurred, but it was not possible to decide which is the correct ISSN-L using the database \"Title-Year-Volume\" and inferred volume"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:441
 msgid ""
 "Ocorreu associação aproximada do título, mas não foi possível decidir "
 "qual é o ISSN-L correto usando a base artificial de dados \"Título-Ano-"
 "Volume\""
-msgstr ""
+msgstr "An exact association of the title occurred, but it was not possible to decide which is the correct ISSN-L using the database \"Title-Year-Volume\" and inferred volume"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:442
 msgid ""
 "Ocorreu associação aproximada do título, mas não foi possível decidir "
 "qual é o ISSN-L correto usando a base artificial de dados \"Título-Ano-"
 "Volume\" e volume inferido"
-msgstr ""
+msgstr "An approximate association of the title occurred, but it was not possible to decide which is the correct ISSN-L using the artificial database \"Title-Year-Volume\" and inferred volume"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:443
 msgid ""
 "Ocorreu associação exata do título com mais de um código ISSN-L, mas "
 "nenhuma base foi capaz de decidir qual é o correto"
-msgstr ""
+msgstr "There was an exact association of the title with more than one ISSN-L code, but no database was able to decide which one is the correct"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:444
 msgid ""
 "Ocorreu associação aproximada do título com um ou mais códigos ISSN-L, "
 "mas nenhuma base foi capaz de validar qual é o correto"
-msgstr ""
+msgstr "There was approximate association of the title with one or more ISSN-L codes, but no database was able to validate which one is the correct"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:446
 msgid ""
 "Ocorreu associação exata do título com mais de um ISSN-L, mas não foi "
 "possível decidir qual é o correto, pois o ano informado é inválido"
-msgstr ""
+msgstr "There was an exact association of the title with more than one ISSN-L, but it was not possible to decide which one is correct, because the informed year is invalid"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:447
 msgid ""
 "Ocorreu associação aproximada do título com mais de um ISSN-L, mas não "
 "foi possível decidir qual é o correto, pois o ano informado é inválido"
-msgstr ""
+msgstr "There was an approximate association of the title with more than one ISSN-L, but it was not possible to decide which one is correct, because the informed year is invalid"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:448
 msgid "O título não foi informado"
-msgstr ""
+msgstr "The title was not informed"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:449
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:450
 msgid "Ignorado"
-msgstr ""
+msgstr "Ignored"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:449
 msgid ""
 "Não foi realizada tentativa de associar o título a um ISSN-L, pois existe"
 " código DOI"
-msgstr ""
+msgstr "No attempt was made to associate the title with an ISSN-L, as there is a DOI code"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:450
 msgid ""
 "Não foi realizada tentativa de associação de título aproximada devido à "
 "indicação do usuário"
-msgstr ""
+msgstr "Approximate title association attempt was not made due to user indication"
 
 #: analytics/templates/website/bibliometrics_journal_jcr.mako:15
 #: analytics/templates/website/navbar_journal.mako:30
@@ -1536,7 +1537,7 @@ msgstr "Impact factor"
 
 #: analytics/templates/website/bibliometrics_journal_jcr.mako:32
 msgid "Eigen Factor"
-msgstr ""
+msgstr "Eigen Factor"
 
 #: analytics/templates/website/bibliometrics_journal_jcr.mako:34
 msgid "Dados de todos os anos"
@@ -2084,7 +2085,7 @@ msgstr "General Indicators"
 
 #: analytics/templates/website/navbar_common_links.mako:3
 msgid "Visualização"
-msgstr ""
+msgstr "Visualization"
 
 #: analytics/templates/website/navbar_common_links.mako:6
 msgid "Relatórios"
