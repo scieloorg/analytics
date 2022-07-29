@@ -33,43 +33,43 @@
       <table class="table table-striped table-bordered" style="margin-top:20px;">
         <thead>
           <tr>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th>Links</th>
+            <th>${_(u'Nome')}</th>
+            <th>${_(u'Descrição')}</th>
+            <th>${_(u'Links')}</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Title Report J1</td>
-            <td>Acessos mensais</td>
+            <td>${_(u'Title Report J1')}</td>
+            <td>${_(u'Acessos mensais')}</td>
             <td>
               <a target="_blank" href="http://usage.apis.scielo.org/reports/tr_j1?begin_date=${range_start}&end_date=${range_end}&issn=${selected_journal_code}&fmt=tsv&api=v2&collection=${selected_collection_code}">Tabular</a> | <a target="_blank" href="http://usage.apis.scielo.org/reports/tr_j1?begin_date=${range_start}&end_date=${range_end}&issn=${selected_journal_code}&fmt=json&api=v2&collection=${selected_collection_code}">JSON</a>
             </td>
           </tr>
           <tr>
-            <td>Language Report J1</td>
-            <td>Acessos mensais agregados por idioma de documento</td>
+            <td>${_(u'Language Report J1')}</td>
+            <td>${_(u'Acessos mensais agregados por idioma de documento')}</td>
             <td>
               <a target="_blank" href="http://usage.apis.scielo.org/reports/lr_j1?begin_date=${range_start}&end_date=${range_end}&issn=${selected_journal_code}&fmt=tsv&api=v2&collection=${selected_collection_code}">Tabular</a> | <a target="_blank" href="http://usage.apis.scielo.org/reports/lr_j1?begin_date=${range_start}&end_date=${range_end}&issn=${selected_journal_code}&fmt=json&api=v2&collection=${selected_collection_code}">JSON</a>
               </td>
           </tr>
           <tr>
-            <td>Language Report J4</td>
-            <td>Acessos mensais agregados por ano de publicação e idioma de documento</td>
+            <td>${_(u'Language Report J4')}</td>
+            <td>${_(u'Acessos mensais agregados por ano de publicação e idioma de documento')}</td>
             <td>
               <a target="_blank" href="http://usage.apis.scielo.org/reports/lr_j4?begin_date=${range_start}&end_date=${range_end}&issn=${selected_journal_code}&fmt=tsv&api=v2&collection=${selected_collection_code}">Tabular</a> | <a target="_blank" href="http://usage.apis.scielo.org/reports/lr_j4?begin_date=${range_start}&end_date=${range_end}&issn=${selected_journal_code}&fmt=json&api=v2&collection=${selected_collection_code}">JSON</a>
             </td>
           </tr>
           <tr>
-            <td>Geolocation Report J1</td>
-            <td>Acessos mensais agregados por país de origem de acesso</td>
+            <td>${_(u'Geolocation Report J1')}</td>
+            <td>${_(u'Acessos mensais agregados por país de origem de acesso')}</td>
             <td>
               <a target="_blank" href="http://usage.apis.scielo.org/reports/gr_j1?begin_date=${range_start}&end_date=${range_end}&issn=${selected_journal_code}&fmt=tsv&api=v2&collection=${selected_collection_code}">Tabular</a> | <a target="_blank" href="http://usage.apis.scielo.org/reports/gr_j1?begin_date=${range_start}&end_date=${range_end}&issn=${selected_journal_code}&fmt=json&api=v2&collection=${selected_collection_code}">JSON</a>
             </td>
           </tr>
           <tr>
-            <td>Geolocation Report J4</td>
-            <td>Acessos mensais agregados por país de origem de acesso e ano de publicação de documento</td>
+            <td>${_(u'Geolocation Report J4')}</td>
+            <td>${_(u'Acessos mensais agregados por país de origem de acesso e ano de publicação de documento')}</td>
             <td>
               <a target="_blank" href="http://usage.apis.scielo.org/reports/gr_j4?begin_date=${range_start}&end_date=${range_end}&issn=${selected_journal_code}&fmt=tsv&api=v2&collection=${selected_collection_code}">Tabular</a> | <a target="_blank" href="http://usage.apis.scielo.org/reports/gr_j4?begin_date=${range_start}&end_date=${range_end}&issn=${selected_journal_code}&fmt=json&api=v2&collection=${selected_collection_code}">JSON</a>
             </td>
