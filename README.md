@@ -50,10 +50,30 @@ Caso a conexão seja estabelecida é que o host esta com acesso na porta do serv
 
 ### Executando a aplicação (desenvolvimento)
 
-```shell
-docker-compose -f docker-compose-dev.yml build --no-cache
+Na primeira execução fazer uma cópia do arquivo `development.ini-TEMPLATE`
 
+```shell
+cp development.ini-TEMPLATE development.ini
+
+```
+
+Construir do container
+```shell
+
+docker-compose -f docker-compose-dev.yml build --no-cache
+```
+
+Iniciar o container
+```shell
 docker-compose -f docker-compose-dev.yml up
 ```
 
+Conectar-se a VPN SciELO
+
 Acessar a interface web: http://0.0.0.0:8000
+
+### Alterando a aplicação (desenvolvimento)
+
+Cada vez que for editar/corrigir algo na aplicação, repetir os passos:
+
+Construir o container (verificar se sua conexão com Internet está ok); Iniciar o container; Conectar-se a VPN SciELO e Acessar a interface web.
