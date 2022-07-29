@@ -1005,7 +1005,7 @@ msgstr "Es necesario seleccionar una revista para ver los informes de citas disp
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:19
 #: analytics/templates/website/navbar_journal.mako:27
 msgid "Dados de citações"
-msgstr "Datos de citas."
+msgstr "Datos de citas"
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:21
 msgid "Antes de usar Dados de citações selecione um periódico."
@@ -1202,7 +1202,7 @@ msgid ""
 "menu superior foi citado pelo periódico que consta na linha do arquivo). "
 "A seguir é apresentado um exemplo fictício para o arquivo de citações "
 "recebidas pelo periódico \"Biota Neotropica\" (ISSN 1676-0603)."
-msgstr "El archivo de citas recibidas contiene las siguientes columnas: \"ISSN\", \"Título\" y \"Citas recibidas\". Cada línea de ese archivo registra una revista citante y la última columna representa el número de citas que la revista concedió (es decir, cuántas veces la revista seleccionada en el menú superior fue citada por la revista que consta en la línea del archivo). A continuación, se muestra un ejemplo ficticio para el archivo de citas recibidas por la revista \Biota Neotropica\" (ISSN 1676-0603). "
+msgstr "El archivo de citas recibidas contiene las siguientes columnas: \"ISSN\", \"Título\" y \"Citas recibidas\". Cada línea de ese archivo registra una revista citante y la última columna representa el número de citas que la revista concedió (es decir, cuántas veces la revista seleccionada en el menú superior fue citada por la revista que consta en la línea del archivo). A continuación, se muestra un ejemplo ficticio para el archivo de citas recibidas por la revista \Biota Neotropica\" (ISSN 1676-0603)."
 
 #: analytics/templates/website/bibliometrics_journal_citation_data.mako:182
 msgid ""
