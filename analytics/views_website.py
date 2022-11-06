@@ -310,66 +310,6 @@ def reports(request):
     return data
 
 
-@view_config(route_name='accesses_list_journals_web', renderer='templates/website/access_list_journals.mako')
-@base_data_manager
-def accesses_list_journals(request):
-
-    data = request.data_manager
-    data['page'] = 'accesses'
-
-    data['aclist'] = request.stats.access.list_journals(
-        data['selected_code'],
-        data['selected_collection_code'],
-        data['py_range'],
-        data['sa_scope'],
-        data['la_scope'],
-        data['range_start'],
-        data['range_end']
-    )
-
-    return data
-
-
-@view_config(route_name='accesses_list_issues_web', renderer='templates/website/access_list_issues.mako')
-@base_data_manager
-def accesses_list_issues(request):
-
-    data = request.data_manager
-    data['page'] = 'accesses'
-
-    data['aclist'] = request.stats.access.list_issues(
-        data['selected_code'],
-        data['selected_collection_code'],
-        data['py_range'],
-        data['sa_scope'],
-        data['la_scope'],
-        data['range_start'],
-        data['range_end']
-    )
-
-    return data
-
-
-@view_config(route_name='accesses_list_articles_web', renderer='templates/website/access_list_articles.mako')
-@base_data_manager
-def accesses_list_articles(request):
-
-    data = request.data_manager
-    data['page'] = 'accesses'
-
-    data['aclist'] = request.stats.access.list_articles(
-        data['selected_code'],
-        data['selected_collection_code'],
-        data['py_range'],
-        data['sa_scope'],
-        data['la_scope'],
-        data['range_start'],
-        data['range_end']
-    )
-
-    return data
-
-
 @view_config(route_name='accesses_web', renderer='templates/website/accesses.mako')
 @base_data_manager
 def accesses(request):
@@ -401,15 +341,6 @@ def bibliometrics_journal_citation_data_web(request):
 
     return data
 
-
-@view_config(route_name='accesses_document_web', renderer='templates/website/accesses_document.mako')
-@base_data_manager
-def accesses_document(request):
-
-    data = request.data_manager
-    data['page'] = 'accesses'
-
-    return data
 
 @view_config(route_name='publication_size_web', renderer='templates/website/publication_size.mako')
 @base_data_manager
