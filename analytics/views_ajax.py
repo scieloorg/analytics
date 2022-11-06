@@ -431,15 +431,7 @@ def lifetime(request):
 
     return request.chartsconfig.lifetime(data_chart)
 
-@view_config(route_name='accesses_heat', request_method='GET', renderer='jsonp')
-@base_data_manager
-def accesses_heat(request):
 
-    data = request.data_manager
+#     return request.chartsconfig.lifetime(data_chart)
 
-    range_start = request.GET.get('range_start', None)
-    range_end = request.GET.get('range_end', None)
 
-    data = request.stats.access.access_heat(data['selected_code'], data['selected_collection_code'], data['py_range'], data['sa_scope'], data['la_scope'], range_start, range_end)
-
-    return request.chartsconfig.access_heat(data)
