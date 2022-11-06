@@ -13,12 +13,6 @@
       % endif
     </div>
   </center>
-  <h3>${_(u'Gráfico de tempo de vida de documentos através do número de acessos')}</h3>
-  <center>
-    <div class="chart">
-      <%include file="access_lifetime.mako"/>
-    </div>
-  </center>
 </%block>
 
 <%block name="extra_js">
