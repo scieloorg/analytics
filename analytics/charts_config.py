@@ -794,24 +794,4 @@ class ChartsConfig(object):
 
         return {'options': chart}
 
-    def lifetime(self, data):
 
-        charts = []
-        for item in data:
-            chart = self.highchart
-            chart['chart']['type'] = 'column'
-            chart['legend'] = {'enabled': False}
-            chart['title'] = {'text': self._(u'Vida útil de artigos por número de acessos em') + ' ' + item['series'][0]['name']}
-            chart['series'] = item['series']
-            chart['yAxis']['title'] = {'text': self._(u'Acessos') + u' ' + item['series'][0]['name']}
-            chart['yAxis']['opposite'] = False
-            chart['rangeSelector'] = {'enabled': False}
-            chart['xAxis'] = {'title': {'text': self._(u'Ano de publicação')}}
-            chart['tooltip'] = {
-                'shared': True,
-                'headerFormat': '',
-                'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'Ano de referência') + ' <strong>{series.name}</strong><br>' + self._(u'%s acessos aos documentos do ano %s' % ('<strong>{point.y}</strong>', '<strong>{point.category:%Y}</strong>'))
-            }
-            charts.append(chart)
-
-        return charts
