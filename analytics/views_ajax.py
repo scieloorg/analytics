@@ -388,31 +388,3 @@ def publication_size(request):
     data = request.stats.publication.collection_size(data['selected_code'], data['selected_collection_code'], field, data['py_range'], data['sa_scope'], data['la_scope'])
 
     return data
-
-
-@view_config(route_name='accesses_bymonthandyear', request_method='GET', renderer='jsonp')
-@base_data_manager
-def bymonthandyear(request):
-
-    data = request.data_manager
-
-    range_start = request.GET.get('range_start', None)
-    range_end = request.GET.get('range_end', None)
-
-    data_chart = request.stats.access.access_by_month_and_year(data['selected_code'], data['selected_collection_code'], data['py_range'], data['sa_scope'], data['la_scope'], range_start, range_end)
-
-    return request.chartsconfig.bymonthandyear(data_chart)
-
-
-@view_config(route_name='accesses_bydocumenttype', request_method='GET', renderer='jsonp')
-@base_data_manager
-def documenttype(request):
-
-    data = request.data_manager
-
-    range_start = request.GET.get('range_start', None)
-    range_end = request.GET.get('range_end', None)
-
-    data_chart = request.stats.access.access_by_document_type(data['selected_code'], data['selected_collection_code'], data['py_range'], data['sa_scope'], data['la_scope'], range_start, range_end)
-
-    return request.chartsconfig.documenttype(data_chart)
