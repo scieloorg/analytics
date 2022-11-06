@@ -5,7 +5,6 @@ from datetime import datetime, timedelta
 from pyramid.view import view_config
 from dogpile.cache import make_region
 from citedby.custom_query import journal_titles
-from scielojcr import jcrindicators
 
 from analytics.control_manager import base_data_manager
 
@@ -36,20 +35,6 @@ def bibliometrics_journal(request):
     return data
 
 
-@view_config(route_name='bibliometrics_journal_jcr', renderer='templates/website/bibliometrics_journal_jcr.mako')
-@base_data_manager
-def bibliometrics_journal_jcr(request):
-
-    data = request.data_manager
-    data['page'] = 'bibliometrics'
-
-    jcrind = request.stats.bibliometrics.jcr(issn=data['selected_journal_code'])
-
-    data['jcr'] = jcrind
-    data['jct_extraction_date'] = datetime.strptime(jcrindicators.UPDATE_INDICATORS, '%Y-%m-%d')
-
-    return data
-
 @view_config(route_name='bibliometrics_journal_altmetric', renderer='templates/website/bibliometrics_journal_altmetric.mako')
 @base_data_manager
 def bibliometrics_journal_altmetric(request):
@@ -60,91 +45,6 @@ def bibliometrics_journal_altmetric(request):
     altmetric = request.stats.bibliometrics.altmetric(issn=data['selected_journal_code'])
 
     data['altmetric'] = altmetric
-
-    return data
-
-@view_config(route_name='bibliometrics_journal_cited_and_citing_years_heat_web', renderer='templates/website/bibliometrics_journal_received_citations_heat.mako')
-@base_data_manager
-def bibliometrics_journal_cited_and_citing_years_heat_web(request):
-    data = request.data_manager
-    data['page'] = 'bibliometrics'
-    titles = request.GET.get('titles', None)
-    citing_year = request.GET.get('citing_year', None)
-    cited_year = request.GET.get('cited_year', None)
-
-    titles = titles.split('||') if titles else []
-
-    if data['selected_journal_code']:
-        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
-        titles.append(journal.title)
-        titles.append(journal.abbreviated_title)
-        titles.extend(x['title'] for x in journal_titles.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
-
-    data['blist'] = {}
-    data['titles'] = []
-    if titles and not len(titles) == 0:
-        forms = set([i.strip() for i in titles if i])
-        data['titles'] = u'||'.join(forms)
-
-    data['citing_list'] = []
-    if citing_year and cited_year:
-        citing_list = request.stats.bibliometrics.cited_and_citing_years_document_list(
-            data['selected_journal_code'],
-            titles,
-            citing_year=citing_year,
-            cited_year=cited_year
-        )
-
-        data['citing_list'] = citing_list.get('citing_list', 0)
-
-    return data
-
-@view_config(route_name='bibliometrics_list_impact_factor_web', renderer='templates/website/bibliometrics_list_impact_factor.mako')
-@base_data_manager
-def bibliometrics_list_impact_factor(request):
-    data = request.data_manager
-    data['page'] = 'bibliometrics'
-    titles = request.GET.get('titles', None)
-
-    titles = titles.split('||') if titles else []
-
-    if data['selected_journal_code']:
-        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
-        titles.append(journal.title)
-        titles.append(journal.abbreviated_title)
-        titles.extend(x['title'] for x in journal_titles.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
-
-    data['blist'] = {}
-    data['titles'] = []
-    if titles and not len(titles) == 0:
-        forms = set([i.strip() for i in titles if i])
-        data['blist'] = request.stats.impact_factor(data['selected_journal_code'], journal.collection_acronym, titles)
-        data['titles'] = u'||'.join(forms)
-
-    return data
-
-
-@view_config(route_name='bibliometrics_list_citing_half_life_web', renderer='templates/website/bibliometrics_list_citing_half_life.mako')
-@base_data_manager
-def bibliometrics_list_citing_half_life(request):
-    data = request.data_manager
-    data['page'] = 'bibliometrics'
-    titles = request.GET.get('titles', None)
-
-    titles = titles.split('||') if titles else []
-
-    if data['selected_journal_code']:
-        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
-        titles.append(journal.title)
-        titles.append(journal.abbreviated_title)
-        titles.extend(x['title'] for x in journal_titles.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
-
-    data['blist'] = {}
-    data['titles'] = []
-    if titles and not len(titles) == 0:
-        forms = set([i.strip() for i in titles if i])
-        data['blist'] = request.stats.citing_half_life(data['selected_journal_code'], journal.collection_acronym, titles)
-        data['titles'] = u'||'.join(forms)
 
     return data
 
