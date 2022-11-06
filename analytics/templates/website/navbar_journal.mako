@@ -8,9 +8,6 @@
     <ul class="dropdown-menu">
       <li><a href="${request.route_url('accesses_journal_usage_data_web')}">${_(u'Dados de acessos')}</a></li>
       <li><a href="${request.route_url('accesses_web')}">${_(u'Gráficos')}</a></li>
-      <li><a href="${request.route_url('accesses_list_journals_web')}">${_(u'Periódicos')}</a></li>
-      <li><a href="${request.route_url('accesses_list_issues_web')}">${_(u'Top 100 Issues')}</a></li>
-      <li><a href="${request.route_url('accesses_list_articles_web')}">${_(u'Top 100 Artigos')}</a></li>
     </ul>
   </li>
   <li class="${'active' if page == 'publication' else ''}">
