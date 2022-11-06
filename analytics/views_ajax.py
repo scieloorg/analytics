@@ -416,22 +416,3 @@ def documenttype(request):
     data_chart = request.stats.access.access_by_document_type(data['selected_code'], data['selected_collection_code'], data['py_range'], data['sa_scope'], data['la_scope'], range_start, range_end)
 
     return request.chartsconfig.documenttype(data_chart)
-
-
-@view_config(route_name='accesses_lifetime', request_method='GET', renderer='jsonp')
-@base_data_manager
-def lifetime(request):
-
-    data = request.data_manager
-
-    range_start = request.GET.get('range_start', None)
-    range_end = request.GET.get('range_end', None)
-
-    data_chart = request.stats.access.access_lifetime(data['selected_code'], data['selected_collection_code'], data['py_range'], data['sa_scope'], data['la_scope'], range_start, range_end)
-
-    return request.chartsconfig.lifetime(data_chart)
-
-
-#     return request.chartsconfig.lifetime(data_chart)
-
-
