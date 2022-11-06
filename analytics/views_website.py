@@ -1,6 +1,6 @@
 #coding: utf-8
 import requests
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from pyramid.view import view_config
 from dogpile.cache import make_region
@@ -154,81 +154,6 @@ def bibliometrics_list_citing_half_life(request):
 def bibliometrics_list_general_indicators(request):
     data = request.data_manager
     data['page'] = 'bibliometrics'
-
-    return data
-
-
-@view_config(route_name='bibliometrics_list_citing_forms_web', renderer='templates/website/bibliometrics_list_citing_forms.mako')
-@base_data_manager
-def bibliometrics_list_citing_forms(request):
-    data = request.data_manager
-    data['page'] = 'bibliometrics'
-    titles = request.GET.get('titles', None)
-
-    titles = titles.split('||') if titles else []
-
-    if data['selected_journal_code']:
-        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
-        titles.append(journal.title)
-        titles.append(journal.abbreviated_title)
-        titles.extend(x['title'] for x in journal_titles.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
-
-    data['blist'] = []
-    data['titles'] = []
-    if titles and not len(titles) == 0:
-        forms = set([i.strip() for i in titles if i])
-        data['blist'] = request.stats.bibliometrics.citing_forms(data['selected_journal_code'], forms, py_range=data['py_range'])
-        data['titles'] = u'||'.join(forms)
-
-    return data
-
-
-@view_config(route_name='bibliometrics_list_received_web', renderer='templates/website/bibliometrics_list_received.mako')
-@base_data_manager
-def bibliometrics_list_received(request):
-    data = request.data_manager
-    data['page'] = 'bibliometrics'
-    titles = request.GET.get('titles', None)
-
-    titles = titles.split('||') if titles else []
-
-    if data['selected_journal_code']:
-        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
-        titles.append(journal.title)
-        titles.append(journal.abbreviated_title)
-        titles.extend(x['title'] for x in journal_titles.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
-
-    data['blist'] = []
-    data['titles'] = []
-    if titles and not len(titles) == 0:
-        forms = set([i.strip() for i in titles if i])
-        data['blist'] = request.stats.bibliometrics.received_citations(data['selected_journal_code'], forms, py_range=data['py_range'])
-        data['titles'] = u'||'.join(forms)
-
-    return data
-
-
-@view_config(route_name='bibliometrics_list_granted_web', renderer='templates/website/bibliometrics_list_granted.mako')
-@base_data_manager
-def bibliometrics_list_granted(request):
-    data = request.data_manager
-    data['page'] = 'bibliometrics'
-
-    data['blist'] = []
-    if data['selected_journal_code']:
-        data['blist'] = request.stats.bibliometrics.granted_citations(
-            data['selected_journal_code'],
-            py_range=data['py_range'])
-
-    return data
-
-@view_config(route_name='bibliometrics_document_list_received_citations', renderer='templates/website/bibliometrics_document_list_received_citations.mako')
-@base_data_manager
-def bibliometrics_document_list_received_citations(request):
-    data = request.data_manager
-    data['page'] = 'bibliometrics'
-    data['citedby'] = request.stats.bibliometrics.document_received_citations(
-        request.data_manager.get('selected_document_code', 0))
 
     return data
 
