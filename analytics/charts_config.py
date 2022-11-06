@@ -26,40 +26,7 @@ class ChartsConfig(object):
         }
 
         return _highchart
-
-    # def access_heat(self, data):
-
-    #     chart = self.highchart
-
-    #     chart['chart']['type'] = 'heatmap'
-    #     chart['xAxis'] = {'categories': data['categories_x']}
-    #     chart['yAxis'] = {'categories': data['categories_y']}
-    #     chart['series'] = [{'data': data['series']}]
-    #     chart['colorAxis'] = {
-    #         "min": 0,
-    #         "minColor": '#FFFFFF',
-    #         "maxColor": '#003d99'
-
-    #     }
-    #     chart['legend'] = {
-    #         "align": "right",
-    #         "layout": "vertical",
-    #         "margin": 0,
-    #         "verticalAlign": 'top',
-    #         "y": 25,
-    #         "symbolHeight": 280
-    #     }
-
-    #     chart['plotOptions'] = {
-    #         "heatmap": {
-    #             "turboThreshold": len(data['series'])
-    #         }
-    #     }
-    #     chart['yAxis']['title'] = {'text': self._(u'Ano de acesso aos documentos')}
-    #     chart['xAxis']['title'] = {'text': self._(u'Ano de publicação de documentos')}
-
-    #     return {'options': chart}
-
+ 
     def bibliometrics_cited_and_citing_years_heat(self, data):
 
         chart = self.highchart
@@ -756,42 +723,3 @@ class ChartsConfig(object):
         }
 
         return {'options': chart}
-
-    def bymonthandyear(self, data):
-
-        chart = self.highchart
-        chart['title'] = {'text': self._(u'Total de acessos por ano e mês')}
-        chart['series'] = data['series']
-        chart['navigator'] = {
-            'series': {
-                'data': data['navigator_series']
-            }
-        }
-        chart['legend'] = {'enabled': True}
-        chart['yAxis']['title'] = {'text': self._(u'Acessos')}
-        chart['yAxis']['opposite'] = False
-        chart['rangeSelector'] = {'enabled': False}
-        chart['tooltip'] = {
-            'shared': True,
-            'useHTML': True,
-            'headerFormat': self._(u'Acessos em') + ' <strong>{point.x:%B %Y}</strong><table style="width: 100%; border-top: 1px solid #CCC;">',
-            'pointFormat': u'<tr><td><span style="color:{point.color}">\u25CF</span> {series.name}: </td><td style="text-align: right"><strong>{point.y}</strong></td></tr>',
-            'footerFormat': '</table>'
-        }
-
-        return {'options': chart}
-
-    def documenttype(self, data):
-
-        chart = self.highchart
-        chart['chart']['type'] = 'pie'
-        chart['title'] = {'text': self._('Total de accessos por tipo de documento')}
-        chart['series'] = data['series']
-        chart['tooltip'] = {
-            'headerFormat': '',
-            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> ' + self._(u'%s acessos a documentos do tipo %s' % ('<strong>{point.y}</strong> ({point.percentage:.0f}%)', '<strong>{point.name}</strong>'))
-        }
-
-        return {'options': chart}
-
-
