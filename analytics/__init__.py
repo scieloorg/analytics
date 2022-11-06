@@ -22,7 +22,6 @@ def main(global_config, **settings):
         return controller.Stats(
             settings.get('articlemeta', None),
             settings.get('publicationstats', None),
-            settings.get('accessstats', None),
             settings.get('citedby', None),
             settings.get('usage', None),
         )
@@ -37,14 +36,6 @@ def main(global_config, **settings):
     config.add_route('reports', '/w/reports')
     config.add_route('usage_report_chart', '/ajx/usage/usage_report_chart')
     config.add_route('accesses_web', '/w/accesses')
-    config.add_route('accesses_document_web', '/w/accesses/document')
-    config.add_route('accesses_list_journals_web', '/w/accesses/list/journals')
-    config.add_route('accesses_list_issues_web', '/w/accesses/list/issues')
-    config.add_route('accesses_list_articles_web', '/w/accesses/list/articles')
-    config.add_route('accesses_bydocumenttype', '/ajx/accesses/bydocumenttype')
-    config.add_route('accesses_bymonthandyear', '/ajx/accesses/bymonthandyear')
-    config.add_route('accesses_lifetime', '/ajx/accesses/lifetime')
-    config.add_route('accesses_heat', '/ajx/accesses/heat')
     config.add_route('accesses_journal_usage_data_web', '/w/accesses/journal/usage_data')
     config.add_route('publication_size_web', '/w/publication/size')
     config.add_route('publication_size', '/ajx/publication/size')

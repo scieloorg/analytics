@@ -24,9 +24,6 @@
             <h3>${_(u'Gráficos')}</h3>
         </div>
         <div class="col-md-6">
-            <%include file="access_by_month_and_year.mako"/>
-        </div>
-        <div class="col-md-6">
             <%include file="publication_article_affiliations_map.mako"/>
         </div>
     </div>
