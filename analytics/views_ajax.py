@@ -5,60 +5,8 @@ from dogpile.cache import make_region
 
 from analytics.control_manager import base_data_manager
 
-from citedby.custom_query import journal_titles
 
 cache_region = make_region(name='views_ajax_cache')
-
-@view_config(route_name='bibliometrics_document_received_citations', request_method='GET', renderer='jsonp')
-@base_data_manager
-def bibliometrics_document_received_citations(request):
-
-    data = request.data_manager
-    code = request.GET.get('code', '')
-
-    data = request.stats.bibliometrics.document_received_citations(code)
-
-    return data
-
-@view_config(route_name='bibliometrics_journal_jcr_eigen_factor_chart', request_method='GET', renderer='jsonp')
-@base_data_manager
-def bibliometrics_journal_jcr_eigen_factor_chart(request):
-
-    data = request.data_manager
-
-    data = request.stats.bibliometrics.jcr_eigen_factor(data['selected_journal_code'])
-
-    return request.chartsconfig.bibliometrics_jcr_eigen_factor(data)
-
-@view_config(route_name='bibliometrics_journal_jcr_received_citations_chart', request_method='GET', renderer='jsonp')
-@base_data_manager
-def bibliometrics_journal_jcr_received_citations_chart(request):
-
-    data = request.data_manager
-
-    data = request.stats.bibliometrics.jcr_received_citations(data['selected_journal_code'])
-
-    return request.chartsconfig.bibliometrics_jcr_received_citations(data)
-
-@view_config(route_name='bibliometrics_journal_jcr_average_impact_factor_percentile_chart', request_method='GET', renderer='jsonp')
-@base_data_manager
-def bibliometrics_journal_jcr_average_impact_factor_percentile_chart(request):
-
-    data = request.data_manager
-
-    data = request.stats.bibliometrics.jcr_average_impact_factor_percentile(data['selected_journal_code'])
-
-    return request.chartsconfig.bibliometrics_jcr_average_impact_factor_percentile(data)
-
-@view_config(route_name='bibliometrics_journal_jcr_impact_factor_chart', request_method='GET', renderer='jsonp')
-@base_data_manager
-def bibliometrics_journal_jcr_impact_factor_chart(request):
-
-    data = request.data_manager
-
-    data = request.stats.bibliometrics.jcr_impact_factor(data['selected_journal_code'])
-
-    return request.chartsconfig.bibliometrics_jcr_impact_factor(data)
 
 
 @view_config(route_name='bibliometrics_journal_google_h5m5_chart', request_method='GET', renderer='jsonp')
@@ -95,68 +43,6 @@ def usage_report_chart(request):
     )
 
     return request.chartsconfig.usage_report(data_chart)
-
-
-@view_config(route_name='bibliometrics_journal_cited_and_citing_years_heat', request_method='GET', renderer='jsonp')
-@base_data_manager
-def bibliometrics_journal_cited_and_citing_years_heat(request):
-
-    data = request.data_manager
-    titles = request.GET.get('titles', None)
-
-    titles = titles.split('||') if titles else []
-
-    if data['selected_journal_code']:
-        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
-        titles.append(journal.title)
-        titles.append(journal.abbreviated_title)
-        titles.extend(x['title'] for x in journal_titles.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
-
-    data = request.stats.bibliometrics.cited_and_citing_years_heat(
-        data['selected_journal_code'],
-        titles
-    )
-
-    return request.chartsconfig.bibliometrics_cited_and_citing_years_heat(data)
-
-@view_config(route_name='bibliometrics_journal_impact_factor_chart', request_method='GET', renderer='jsonp')
-@base_data_manager
-def bibliometrics_journal_impact_factor_chart(request):
-
-    data = request.data_manager
-    titles = request.GET.get('titles', None)
-
-    titles = titles.split('||') if titles else []
-
-    if data['selected_journal_code']:
-        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
-        titles.append(journal.title)
-        titles.append(journal.abbreviated_title)
-        titles.extend(x['title'] for x in journal_titles.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
-
-    data = request.stats.impact_factor_chart(data['selected_journal_code'], data['selected_collection_code'], titles, py_range=data['py_range'])
-
-    return request.chartsconfig.bibliometrics_impact_factor(data)
-
-
-@view_config(route_name='bibliometrics_journal_received_self_and_granted_citation_chart', request_method='GET', renderer='jsonp')
-@base_data_manager
-def bibliometrics_journal_received_self_and_granted_citation_chart(request):
-
-    data = request.data_manager
-    titles = request.GET.get('titles', None)
-
-    titles = titles.split('||') if titles else []
-
-    if data['selected_journal_code']:
-        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
-        titles.append(journal.title)
-        titles.append(journal.abbreviated_title)
-        titles.extend(x['title'] for x in journal_titles.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
-
-    data = request.stats.received_self_and_granted_citation_chart(data['selected_journal_code'], data['selected_collection_code'], titles, py_range=data['py_range'])
-
-    return request.chartsconfig.bibliometrics_journal_received_self_and_granted_citation_chart(data)
 
 
 @view_config(route_name='publication_article_references', request_method='GET', renderer='jsonp')
