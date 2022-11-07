@@ -9,6 +9,50 @@ from analytics.control_manager import base_data_manager
 cache_region = make_region(name='views_ajax_cache')
 
 
+@view_config(route_name='bibliometrics_journal_jcr_eigen_factor_chart', request_method='GET', renderer='jsonp')
+@base_data_manager
+def bibliometrics_journal_jcr_eigen_factor_chart(request):
+
+    data = request.data_manager
+
+    data = request.stats.bibliometrics.jcr_eigen_factor(data['selected_journal_code'])
+
+    return request.chartsconfig.bibliometrics_jcr_eigen_factor(data)
+
+
+@view_config(route_name='bibliometrics_journal_jcr_received_citations_chart', request_method='GET', renderer='jsonp')
+@base_data_manager
+def bibliometrics_journal_jcr_received_citations_chart(request):
+
+    data = request.data_manager
+
+    data = request.stats.bibliometrics.jcr_received_citations(data['selected_journal_code'])
+
+    return request.chartsconfig.bibliometrics_jcr_received_citations(data)
+
+
+@view_config(route_name='bibliometrics_journal_jcr_average_impact_factor_percentile_chart', request_method='GET', renderer='jsonp')
+@base_data_manager
+def bibliometrics_journal_jcr_average_impact_factor_percentile_chart(request):
+
+    data = request.data_manager
+
+    data = request.stats.bibliometrics.jcr_average_impact_factor_percentile(data['selected_journal_code'])
+
+    return request.chartsconfig.bibliometrics_jcr_average_impact_factor_percentile(data)
+
+
+@view_config(route_name='bibliometrics_journal_jcr_impact_factor_chart', request_method='GET', renderer='jsonp')
+@base_data_manager
+def bibliometrics_journal_jcr_impact_factor_chart(request):
+
+    data = request.data_manager
+
+    data = request.stats.bibliometrics.jcr_impact_factor(data['selected_journal_code'])
+
+    return request.chartsconfig.bibliometrics_jcr_impact_factor(data)
+
+
 @view_config(route_name='bibliometrics_journal_google_h5m5_chart', request_method='GET', renderer='jsonp')
 @base_data_manager
 def bibliometrics_journal_google_h5m5_chart(request):

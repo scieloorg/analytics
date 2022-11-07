@@ -27,6 +27,94 @@ class ChartsConfig(object):
 
         return _highchart
  
+    def bibliometrics_jcr_average_impact_factor_percentile(self, data):
+
+        chart = self.highchart
+
+        chart['title'] = {'text': self._(u'Fator de impacto (Média de percentil)')}
+        chart['xAxis'] = {'categories': data['categories']}
+        chart['series'] = data['series']
+        chart['yAxis']['title'] = {'text': self._(u'Média de percentil')}
+        chart['plotOptions'] = {
+            'line': {
+                'dataLabels': {
+                    'enabled': True
+                }
+            }
+        }
+        chart['tooltip'] = {
+            'headerFormat': self._(u'Média de percentil'),
+            'pointFormat': u'<br/><strong>'+self._(u'Ano base')+u'</strong>: {point.category}<br/><strong>{series.name}</strong>: {point.y}'
+        }
+
+        return {'options': chart}
+
+    def bibliometrics_jcr_eigen_factor(self, data):
+
+        chart = self.highchart
+
+        chart['title'] = {'text': self._(u'Eigen Factor JCR')}
+        chart['xAxis'] = {'categories': data['categories']}
+        chart['series'] = data['series']
+        chart['yAxis']['title'] = {'text': self._(u'Eigen Factor JCR')}
+        chart['plotOptions'] = {
+            'line': {
+                'dataLabels': {
+                    'enabled': True
+                }
+            }
+        }
+        chart['tooltip'] = {
+            'headerFormat': self._(u'Eigen Factor JCR'),
+            'pointFormat': u'<br/><strong>'+self._(u'Ano base')+u'</strong>: {point.category}<br/><strong>{series.name}</strong>: {point.y}'
+        }
+
+        return {'options': chart}
+
+    def bibliometrics_jcr_received_citations(self, data):
+
+        chart = self.highchart
+
+        chart['title'] = {'text': self._(u'Received Citations JCR')}
+        chart['xAxis'] = {'categories': data['categories']}
+        chart['series'] = data['series']
+        chart['yAxis']['title'] = {'text': self._(u'Received Citations JCR')}
+        chart['plotOptions'] = {
+            'line': {
+                'dataLabels': {
+                    'enabled': True
+                }
+            }
+        }
+        chart['tooltip'] = {
+            'headerFormat': self._(u'Received Citations JCR'),
+            'pointFormat': u'<br/><strong>'+self._(u'Ano base')+u'</strong>: {point.category}<br/><strong>{series.name}</strong>: {point.y}'
+        }
+
+        return {'options': chart}
+
+    def bibliometrics_jcr_impact_factor(self, data):
+
+        chart = self.highchart
+
+        chart['title'] = {'text': self._(u'Fator de impacto JCR')}
+        chart['xAxis'] = {'categories': data['categories']}
+        chart['series'] = data['series']
+        chart['yAxis']['title'] = {'text': self._(u'Fator de impacto JCR')}
+        chart['plotOptions'] = {
+            'line': {
+                'dataLabels': {
+                    'enabled': True
+                }
+            }
+        }
+        chart['tooltip'] = {
+            'headerFormat': self._(u'Fator de impacto JCR'),
+            'pointFormat': u'<br/><strong>'+self._(u'Ano base')+u'</strong>: {point.category}<br/><strong>{series.name}</strong>: {point.y}'
+        }
+
+        return {'options': chart}
+
     def usage_report(self, data):
         chart = self.highchart
 
