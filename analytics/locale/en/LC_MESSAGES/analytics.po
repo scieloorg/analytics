@@ -291,7 +291,7 @@ msgstr "Journals"
 
 #: analytics/charts_config.py:553
 msgid "Distribuição de área temática dos documentos"
-msgstr "Documents distribution by suject areas"
+msgstr "Documents distribution by subject areas"
 
 #: analytics/charts_config.py:556 analytics/charts_config.py:727
 msgid "Areas temáticas"

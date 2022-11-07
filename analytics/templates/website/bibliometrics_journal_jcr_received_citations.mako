@@ -9,7 +9,6 @@
     $("#loading_jcr_received_citations_chart").show();
     $(document).ready(function() {
         var url =  "${request.route_url('bibliometrics_journal_jcr_received_citations_chart')}?journal=${selected_code}&callback=?";
-
         $.getJSON(url,  function(data) {
             % if selected_journal:
                 data['options']['subtitle'] = {'text': '${selected_journal}'};

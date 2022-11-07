@@ -8,9 +8,6 @@
     <ul class="dropdown-menu">
       <li><a href="${request.route_url('accesses_journal_usage_data_web')}">${_(u'Dados de acessos')}</a></li>
       <li><a href="${request.route_url('accesses_web')}">${_(u'Gráficos')}</a></li>
-      <li><a href="${request.route_url('accesses_list_journals_web')}">${_(u'Periódicos')}</a></li>
-      <li><a href="${request.route_url('accesses_list_issues_web')}">${_(u'Top 100 Issues')}</a></li>
-      <li><a href="${request.route_url('accesses_list_articles_web')}">${_(u'Top 100 Artigos')}</a></li>
     </ul>
   </li>
   <li class="${'active' if page == 'publication' else ''}">
@@ -27,15 +24,6 @@
       <li><a href="${request.route_url('bibliometrics_journal_citation_data_web')}">${_(u'Dados de citações')}</a></li>
       <li><a href="${request.route_url('bibliometrics_journal_web')}">${_(u'Gráficos')}</a></li>
       <li><a href="${request.route_url('bibliometrics_journal_altmetric')}">${_(u'Indicadores Altmetric')}</a></li>
-      <li><a href="${request.route_url('bibliometrics_journal_jcr')}">${_(u'Indicadores JCR')}</a></li>
-      <li><a href="${request.route_url('bibliometrics_journal_cited_and_citing_years_heat_web')}">${_(u'Gráfico de calor de citações recebidas')}</a></li>
-      % if not 'bibliometrics' in under_development:
-        <li><a href="${request.route_url('bibliometrics_list_impact_factor_web')}">${_(u'Impacto SciELO em 1, 2, 3, 4 e 5 anos')}</a></li>
-        <li><a href="${request.route_url('bibliometrics_list_citing_half_life_web')}">${_(u'Vida media da citação')}</a></li>
-      % endif
-      <li><a href="${request.route_url('bibliometrics_list_granted_web')}">${_(u'Citações concedidas por periódicos')}</a></li>
-      <li><a href="${request.route_url('bibliometrics_list_received_web')}">${_(u'Citações recebidas por periódicos')}</a></li>
-      <li><a href="${request.route_url('bibliometrics_list_citing_forms_web')}">${_(u'Formas de citação do periódico')}</a></li>
       <li><a href="${request.route_url('bibliometrics_list_general_indicators_web')}">${_(u'Indicadores Gerais')}</a></li>
     </ul>
   </li>

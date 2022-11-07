@@ -5,60 +5,52 @@ from dogpile.cache import make_region
 
 from analytics.control_manager import base_data_manager
 
-from citedby.custom_query import journal_titles
 
 cache_region = make_region(name='views_ajax_cache')
 
-@view_config(route_name='bibliometrics_document_received_citations', request_method='GET', renderer='jsonp')
-@base_data_manager
-def bibliometrics_document_received_citations(request):
 
-    data = request.data_manager
-    code = request.GET.get('code', '')
+# @view_config(route_name='bibliometrics_journal_jcr_eigen_factor_chart', request_method='GET', renderer='jsonp')
+# @base_data_manager
+# def bibliometrics_journal_jcr_eigen_factor_chart(request):
 
-    data = request.stats.bibliometrics.document_received_citations(code)
+#     data = request.data_manager
 
-    return data
+#     data = request.stats.bibliometrics.jcr_eigen_factor(data['selected_journal_code'])
 
-@view_config(route_name='bibliometrics_journal_jcr_eigen_factor_chart', request_method='GET', renderer='jsonp')
-@base_data_manager
-def bibliometrics_journal_jcr_eigen_factor_chart(request):
+#     return request.chartsconfig.bibliometrics_jcr_eigen_factor(data)
 
-    data = request.data_manager
 
-    data = request.stats.bibliometrics.jcr_eigen_factor(data['selected_journal_code'])
+# @view_config(route_name='bibliometrics_journal_jcr_received_citations_chart', request_method='GET', renderer='jsonp')
+# @base_data_manager
+# def bibliometrics_journal_jcr_received_citations_chart(request):
 
-    return request.chartsconfig.bibliometrics_jcr_eigen_factor(data)
+#     data = request.data_manager
 
-@view_config(route_name='bibliometrics_journal_jcr_received_citations_chart', request_method='GET', renderer='jsonp')
-@base_data_manager
-def bibliometrics_journal_jcr_received_citations_chart(request):
+#     data = request.stats.bibliometrics.jcr_received_citations(data['selected_journal_code'])
 
-    data = request.data_manager
+#     return request.chartsconfig.bibliometrics_jcr_received_citations(data)
 
-    data = request.stats.bibliometrics.jcr_received_citations(data['selected_journal_code'])
 
-    return request.chartsconfig.bibliometrics_jcr_received_citations(data)
+# @view_config(route_name='bibliometrics_journal_jcr_average_impact_factor_percentile_chart', request_method='GET', renderer='jsonp')
+# @base_data_manager
+# def bibliometrics_journal_jcr_average_impact_factor_percentile_chart(request):
 
-@view_config(route_name='bibliometrics_journal_jcr_average_impact_factor_percentile_chart', request_method='GET', renderer='jsonp')
-@base_data_manager
-def bibliometrics_journal_jcr_average_impact_factor_percentile_chart(request):
+#     data = request.data_manager
 
-    data = request.data_manager
+#     data = request.stats.bibliometrics.jcr_average_impact_factor_percentile(data['selected_journal_code'])
 
-    data = request.stats.bibliometrics.jcr_average_impact_factor_percentile(data['selected_journal_code'])
+#     return request.chartsconfig.bibliometrics_jcr_average_impact_factor_percentile(data)
 
-    return request.chartsconfig.bibliometrics_jcr_average_impact_factor_percentile(data)
 
-@view_config(route_name='bibliometrics_journal_jcr_impact_factor_chart', request_method='GET', renderer='jsonp')
-@base_data_manager
-def bibliometrics_journal_jcr_impact_factor_chart(request):
+# @view_config(route_name='bibliometrics_journal_jcr_impact_factor_chart', request_method='GET', renderer='jsonp')
+# @base_data_manager
+# def bibliometrics_journal_jcr_impact_factor_chart(request):
 
-    data = request.data_manager
+#     data = request.data_manager
 
-    data = request.stats.bibliometrics.jcr_impact_factor(data['selected_journal_code'])
+#     data = request.stats.bibliometrics.jcr_impact_factor(data['selected_journal_code'])
 
-    return request.chartsconfig.bibliometrics_jcr_impact_factor(data)
+#     return request.chartsconfig.bibliometrics_jcr_impact_factor(data)
 
 
 @view_config(route_name='bibliometrics_journal_google_h5m5_chart', request_method='GET', renderer='jsonp')
@@ -95,68 +87,6 @@ def usage_report_chart(request):
     )
 
     return request.chartsconfig.usage_report(data_chart)
-
-
-@view_config(route_name='bibliometrics_journal_cited_and_citing_years_heat', request_method='GET', renderer='jsonp')
-@base_data_manager
-def bibliometrics_journal_cited_and_citing_years_heat(request):
-
-    data = request.data_manager
-    titles = request.GET.get('titles', None)
-
-    titles = titles.split('||') if titles else []
-
-    if data['selected_journal_code']:
-        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
-        titles.append(journal.title)
-        titles.append(journal.abbreviated_title)
-        titles.extend(x['title'] for x in journal_titles.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
-
-    data = request.stats.bibliometrics.cited_and_citing_years_heat(
-        data['selected_journal_code'],
-        titles
-    )
-
-    return request.chartsconfig.bibliometrics_cited_and_citing_years_heat(data)
-
-@view_config(route_name='bibliometrics_journal_impact_factor_chart', request_method='GET', renderer='jsonp')
-@base_data_manager
-def bibliometrics_journal_impact_factor_chart(request):
-
-    data = request.data_manager
-    titles = request.GET.get('titles', None)
-
-    titles = titles.split('||') if titles else []
-
-    if data['selected_journal_code']:
-        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
-        titles.append(journal.title)
-        titles.append(journal.abbreviated_title)
-        titles.extend(x['title'] for x in journal_titles.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
-
-    data = request.stats.impact_factor_chart(data['selected_journal_code'], data['selected_collection_code'], titles, py_range=data['py_range'])
-
-    return request.chartsconfig.bibliometrics_impact_factor(data)
-
-
-@view_config(route_name='bibliometrics_journal_received_self_and_granted_citation_chart', request_method='GET', renderer='jsonp')
-@base_data_manager
-def bibliometrics_journal_received_self_and_granted_citation_chart(request):
-
-    data = request.data_manager
-    titles = request.GET.get('titles', None)
-
-    titles = titles.split('||') if titles else []
-
-    if data['selected_journal_code']:
-        journal = request.stats.articlemeta.journal(code=data['selected_journal_code'])
-        titles.append(journal.title)
-        titles.append(journal.abbreviated_title)
-        titles.extend(x['title'] for x in journal_titles.load(data['selected_journal_code']).get('should', []) if x['title'] not in titles)
-
-    data = request.stats.received_self_and_granted_citation_chart(data['selected_journal_code'], data['selected_collection_code'], titles, py_range=data['py_range'])
-
-    return request.chartsconfig.bibliometrics_journal_received_self_and_granted_citation_chart(data)
 
 
 @view_config(route_name='publication_article_references', request_method='GET', renderer='jsonp')
@@ -388,58 +318,3 @@ def publication_size(request):
     data = request.stats.publication.collection_size(data['selected_code'], data['selected_collection_code'], field, data['py_range'], data['sa_scope'], data['la_scope'])
 
     return data
-
-
-@view_config(route_name='accesses_bymonthandyear', request_method='GET', renderer='jsonp')
-@base_data_manager
-def bymonthandyear(request):
-
-    data = request.data_manager
-
-    range_start = request.GET.get('range_start', None)
-    range_end = request.GET.get('range_end', None)
-
-    data_chart = request.stats.access.access_by_month_and_year(data['selected_code'], data['selected_collection_code'], data['py_range'], data['sa_scope'], data['la_scope'], range_start, range_end)
-
-    return request.chartsconfig.bymonthandyear(data_chart)
-
-
-@view_config(route_name='accesses_bydocumenttype', request_method='GET', renderer='jsonp')
-@base_data_manager
-def documenttype(request):
-
-    data = request.data_manager
-
-    range_start = request.GET.get('range_start', None)
-    range_end = request.GET.get('range_end', None)
-
-    data_chart = request.stats.access.access_by_document_type(data['selected_code'], data['selected_collection_code'], data['py_range'], data['sa_scope'], data['la_scope'], range_start, range_end)
-
-    return request.chartsconfig.documenttype(data_chart)
-
-
-@view_config(route_name='accesses_lifetime', request_method='GET', renderer='jsonp')
-@base_data_manager
-def lifetime(request):
-
-    data = request.data_manager
-
-    range_start = request.GET.get('range_start', None)
-    range_end = request.GET.get('range_end', None)
-
-    data_chart = request.stats.access.access_lifetime(data['selected_code'], data['selected_collection_code'], data['py_range'], data['sa_scope'], data['la_scope'], range_start, range_end)
-
-    return request.chartsconfig.lifetime(data_chart)
-
-@view_config(route_name='accesses_heat', request_method='GET', renderer='jsonp')
-@base_data_manager
-def accesses_heat(request):
-
-    data = request.data_manager
-
-    range_start = request.GET.get('range_start', None)
-    range_end = request.GET.get('range_end', None)
-
-    data = request.stats.access.access_heat(data['selected_code'], data['selected_collection_code'], data['py_range'], data['sa_scope'], data['la_scope'], range_start, range_end)
-
-    return request.chartsconfig.access_heat(data)
