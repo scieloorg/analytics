@@ -7,7 +7,7 @@ from datetime import datetime
 
 from dogpile.cache import make_region
 from scieloh5m5 import h5m5
-from scielojcr import jcrindicators
+# from scielojcr import jcrindicators
 from articlemeta.client import ThriftClient as ArticleMetaThriftClient
 from citedby.client import ThriftClient as CitedbyThriftClient
 from publicationstats.client import ThriftClient as PublicationStatsThriftClient
@@ -178,140 +178,140 @@ class BibliometricsStats(CitedbyThriftClient):
 
         return indicators
 
-    def jcr(self, issn, raw=False):
+    # def jcr(self, issn, raw=False):
 
-        data = jcrindicators.get_indicators(issn) or {}
+    #     data = jcrindicators.get_indicators(issn) or {}
 
-        return data
+    #     return data
 
-    def _compute_jcr_impact_factor(self, data):
+    # def _compute_jcr_impact_factor(self, data):
 
-        series = []
-        categories = []
+    #     series = []
+    #     categories = []
 
-        five_year_impact_factor = {
-            'name': 'Fator de impacto 5 anos',
-            'data': []
-        }
+    #     five_year_impact_factor = {
+    #         'name': 'Fator de impacto 5 anos',
+    #         'data': []
+    #     }
 
-        journal_impact_factor = {
-            'name': 'Fator de impacto 2 anos',
-            'data': []
-        }
+    #     journal_impact_factor = {
+    #         'name': 'Fator de impacto 2 anos',
+    #         'data': []
+    #     }
 
-        impact_factor_without_journal_self_cites = {
-            'name': 'Fator de impacto 2 anos, sem auto citação',
-            'data': []
-        }
+    #     impact_factor_without_journal_self_cites = {
+    #         'name': 'Fator de impacto 2 anos, sem auto citação',
+    #         'data': []
+    #     }
 
-        for year, data in sorted(data.items()):
-            categories.append(year)
-            five_year_impact_factor["data"].append(
-                {'y': float(data['five_year_impact_factor']) if data['five_year_impact_factor'] else None}
-            )
-            journal_impact_factor["data"].append(
-                {'y': float(data['journal_impact_factor']) if data['journal_impact_factor'] else None})
-            impact_factor_without_journal_self_cites["data"].append(
-                {'y': float(data['impact_factor_without_journal_self_cites']) if data['impact_factor_without_journal_self_cites'] else None})
+    #     for year, data in sorted(data.items()):
+    #         categories.append(year)
+    #         five_year_impact_factor["data"].append(
+    #             {'y': float(data['five_year_impact_factor']) if data['five_year_impact_factor'] else None}
+    #         )
+    #         journal_impact_factor["data"].append(
+    #             {'y': float(data['journal_impact_factor']) if data['journal_impact_factor'] else None})
+    #         impact_factor_without_journal_self_cites["data"].append(
+    #             {'y': float(data['impact_factor_without_journal_self_cites']) if data['impact_factor_without_journal_self_cites'] else None})
 
-        series.append(five_year_impact_factor)
-        series.append(journal_impact_factor)
-        series.append(impact_factor_without_journal_self_cites)
+    #     series.append(five_year_impact_factor)
+    #     series.append(journal_impact_factor)
+    #     series.append(impact_factor_without_journal_self_cites)
 
-        return {"series": series, "categories": categories}
+    #     return {"series": series, "categories": categories}
 
-    def jcr_impact_factor(self, issn):
+    # def jcr_impact_factor(self, issn):
 
-        data = self.jcr(issn)
+    #     data = self.jcr(issn)
 
-        return self._compute_jcr_impact_factor(data)
+    #     return self._compute_jcr_impact_factor(data)
 
-    def _compute_jcr_average_impact_factor_percentile(self, data):
+    # def _compute_jcr_average_impact_factor_percentile(self, data):
 
-        series = []
-        categories = []
+    #     series = []
+    #     categories = []
 
-        average_impact_factor_percentile = {
-            'name': 'Fator de impacto (Média de percentil)',
-            'data': []
-        }
+    #     average_impact_factor_percentile = {
+    #         'name': 'Fator de impacto (Média de percentil)',
+    #         'data': []
+    #     }
 
-        for year, data in sorted(data.items()):
-            categories.append(year)
-            average_impact_factor_percentile["data"].append(
-                {'y': float(data['average_journal_impact_factor_percentile']) if data['average_journal_impact_factor_percentile'] else None}
-            )
+    #     for year, data in sorted(data.items()):
+    #         categories.append(year)
+    #         average_impact_factor_percentile["data"].append(
+    #             {'y': float(data['average_journal_impact_factor_percentile']) if data['average_journal_impact_factor_percentile'] else None}
+    #         )
 
-        series.append(average_impact_factor_percentile)
+    #     series.append(average_impact_factor_percentile)
 
-        return {"series": series, "categories": categories}
+    #     return {"series": series, "categories": categories}
 
-    def jcr_average_impact_factor_percentile(self, issn):
+    # def jcr_average_impact_factor_percentile(self, issn):
 
-        data = self.jcr(issn)
+    #     data = self.jcr(issn)
 
-        return self._compute_jcr_average_impact_factor_percentile(data)
+    #     return self._compute_jcr_average_impact_factor_percentile(data)
 
-    def _compute_jcr_received_citations(self, data):
+    # def _compute_jcr_received_citations(self, data):
 
-        series = []
-        categories = []
+    #     series = []
+    #     categories = []
 
-        total_cites = {
-            'name': 'Total de citações recebidas no ano',
-            'data': []
-        }
+    #     total_cites = {
+    #         'name': 'Total de citações recebidas no ano',
+    #         'data': []
+    #     }
 
-        for year, data in sorted(data.items()):
-            categories.append(year)
-            total_cites["data"].append(
-                {'y': float(data['total_cites']) if data['total_cites'] else None}
-            )
+    #     for year, data in sorted(data.items()):
+    #         categories.append(year)
+    #         total_cites["data"].append(
+    #             {'y': float(data['total_cites']) if data['total_cites'] else None}
+    #         )
 
-        series.append(total_cites)
+    #     series.append(total_cites)
 
-        return {"series": series, "categories": categories}
+    #     return {"series": series, "categories": categories}
 
-    def jcr_received_citations(self, issn):
+    # def jcr_received_citations(self, issn):
 
-        data = self.jcr(issn)
+    #     data = self.jcr(issn)
 
-        return self._compute_jcr_received_citations(data)
+    #     return self._compute_jcr_received_citations(data)
 
-    def _compute_jcr_eigen_factor(self, data):
+    # def _compute_jcr_eigen_factor(self, data):
 
-        series = []
-        categories = []
+    #     series = []
+    #     categories = []
 
-        normalized_eigenfactor = {
-            'name': 'Eigen Factor normalizado',
-            'data': []
-        }
+    #     normalized_eigenfactor = {
+    #         'name': 'Eigen Factor normalizado',
+    #         'data': []
+    #     }
 
-        eigenfactor_score = {
-            'name': 'Pontuação Eigen Factor',
-            'data': []
-        }
+    #     eigenfactor_score = {
+    #         'name': 'Pontuação Eigen Factor',
+    #         'data': []
+    #     }
 
-        for year, data in sorted(data.items()):
-            categories.append(year)
-            normalized_eigenfactor["data"].append(
-                {'y': float(data['normalized_eigenfactor']) if data['normalized_eigenfactor'] else None}
-            )
-            eigenfactor_score["data"].append(
-                {'y': float(data['eigenfactor_score']) if data['eigenfactor_score'] else None}
-            )
+    #     for year, data in sorted(data.items()):
+    #         categories.append(year)
+    #         normalized_eigenfactor["data"].append(
+    #             {'y': float(data['normalized_eigenfactor']) if data['normalized_eigenfactor'] else None}
+    #         )
+    #         eigenfactor_score["data"].append(
+    #             {'y': float(data['eigenfactor_score']) if data['eigenfactor_score'] else None}
+    #         )
 
-        series.append(normalized_eigenfactor)
-        series.append(eigenfactor_score)
+    #     series.append(normalized_eigenfactor)
+    #     series.append(eigenfactor_score)
 
-        return {"series": series, "categories": categories}
+    #     return {"series": series, "categories": categories}
 
-    def jcr_eigen_factor(self, issn):
+    # def jcr_eigen_factor(self, issn):
 
-        data = self.jcr(issn)
+    #     data = self.jcr(issn)
 
-        return self._compute_jcr_eigen_factor(data)
+    #     return self._compute_jcr_eigen_factor(data)
 
     @staticmethod
     def _must_not_custom_query(issn):
