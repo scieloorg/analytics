@@ -24,7 +24,6 @@
       <li><a href="${request.route_url('bibliometrics_journal_citation_data_web')}">${_(u'Dados de citações')}</a></li>
       <li><a href="${request.route_url('bibliometrics_journal_web')}">${_(u'Gráficos')}</a></li>
       <li><a href="${request.route_url('bibliometrics_journal_altmetric')}">${_(u'Indicadores Altmetric')}</a></li>
-      <li><a href="${request.route_url('bibliometrics_journal_jcr')}">${_(u'Indicadores JCR')}</a></li>
       <li><a href="${request.route_url('bibliometrics_list_general_indicators_web')}">${_(u'Indicadores Gerais')}</a></li>
     </ul>
   </li>
