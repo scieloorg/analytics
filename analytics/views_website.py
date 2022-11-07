@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from pyramid.view import view_config
 from dogpile.cache import make_region
 from citedby.custom_query import journal_titles
-from scielojcr import jcrindicators
+# from scielojcr import jcrindicators
 
 from analytics.control_manager import base_data_manager
 
@@ -36,19 +36,19 @@ def bibliometrics_journal(request):
     return data
 
 
-@view_config(route_name='bibliometrics_journal_jcr', renderer='templates/website/bibliometrics_journal_jcr.mako')
-@base_data_manager
-def bibliometrics_journal_jcr(request):
+# @view_config(route_name='bibliometrics_journal_jcr', renderer='templates/website/bibliometrics_journal_jcr.mako')
+# @base_data_manager
+# def bibliometrics_journal_jcr(request):
 
-    data = request.data_manager
-    data['page'] = 'bibliometrics'
+#     data = request.data_manager
+#     data['page'] = 'bibliometrics'
 
-    jcrind = request.stats.bibliometrics.jcr(issn=data['selected_journal_code'])
+#     jcrind = request.stats.bibliometrics.jcr(issn=data['selected_journal_code'])
 
-    data['jcr'] = jcrind
-    data['jct_extraction_date'] = datetime.strptime(jcrindicators.UPDATE_INDICATORS, '%Y-%m-%d')
+#     data['jcr'] = jcrind
+#     data['jct_extraction_date'] = datetime.strptime(jcrindicators.UPDATE_INDICATORS, '%Y-%m-%d')
 
-    return data
+#     return data
 
 
 @view_config(route_name='bibliometrics_journal_altmetric', renderer='templates/website/bibliometrics_journal_altmetric.mako')
