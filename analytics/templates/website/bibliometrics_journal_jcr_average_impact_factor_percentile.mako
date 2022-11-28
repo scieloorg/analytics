@@ -9,7 +9,6 @@
     $("#loading_jcr_average_impact_factor_percentile_chart").show();
     $(document).ready(function() {
         var url =  "${request.route_url('bibliometrics_journal_jcr_average_impact_factor_percentile_chart')}?journal=${selected_code}&callback=?";
-
         $.getJSON(url,  function(data) {
             % if selected_journal:
                 data['options']['subtitle'] = {'text': '${selected_journal}'};

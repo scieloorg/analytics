@@ -9,7 +9,6 @@
     $("#loading_jcr_eigen_factor_chart").show();
     $(document).ready(function() {
         var url =  "${request.route_url('bibliometrics_journal_jcr_eigen_factor_chart')}?journal=${selected_code}&callback=?";
-
         $.getJSON(url,  function(data) {
             % if selected_journal:
                 data['options']['subtitle'] = {'text': '${selected_journal}'};
