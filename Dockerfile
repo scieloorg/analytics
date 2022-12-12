@@ -1,7 +1,10 @@
-FROM python:3.5.2
+FROM python:3.6
 ENV PYTHONUNBUFFERED 1
 
-RUN apt-get update && apt-get install -y libmemcached-dev
+
+RUN apt-get update
+RUN apt-key update
+RUN apt-get install --yes libmemcached-dev
 
 COPY . /app
 COPY production.ini-TEMPLATE /app/config.ini
