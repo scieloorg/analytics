@@ -986,19 +986,17 @@ class UsageStats():
 
 
 
-    def _clean_url_params(self, params, report_code):
-        attrs_to_remove = set([k for k, v in params.items() if v is None or v == ''])
-        
-        if report_code == 'cr_j1':
-            attrs_to_remove = attrs_to_remove.union(set(['issn', 'pid',]))
-        elif report_code == 'ir_a1':
-            attrs_to_remove = attrs_to_remove.union(set(['issn',]))
-        elif report_code == 'tr_j1':
-            attrs_to_remove = attrs_to_remove.union(set(['pid',]))
 
-        for attr in attrs_to_remove:
-            if attr in params:
-                del params[attr]
+
+
+
+
+
+
+
+
+
+
 
     def _title_report_to_chart_data(self, json_results):
         serie_total_requests = []
