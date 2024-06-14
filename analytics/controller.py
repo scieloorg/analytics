@@ -1128,7 +1128,8 @@ class UsageStats():
                 elif p_metric_label  == 'Total_Item_Requests':
                     i_res['total_item_requests'] += int(p_metric_value)
 
-            data.append(i_res)
+            if i_res['total_item_requests'] > 0:
+                data.append(i_res)
 
         return sorted(data, key=lambda x: x.get('total_item_requests', 0), reverse=True)
 
