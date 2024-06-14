@@ -119,7 +119,7 @@ class ChartsConfig(object):
         chart = self.highchart
 
         chart['credits'] = {'href': 'https://usage.apis.scielo.br','text': self._(u'Fonte: SciELO SUSHI API')}
-        chart['title'] = {'text': self._(u'Total de acessos por ano e mês (API SUSHI)')}
+        chart['title'] = {'text': self._(u'Total de acessos por ano e mês')}
         chart['series'] = data['series']
         chart['legend'] = {'enabled': True}
         chart['yAxis']['title'] = {'text': self._(u'Métricas')}

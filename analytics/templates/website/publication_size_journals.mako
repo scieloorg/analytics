@@ -3,11 +3,11 @@
     <h1 id="size_issn_value">
         <span id="loading_size_issn">
             <img src="/static/images/loading.gif" width="40px" />
-            <h5>${_(u'loading')}</h5>
+            <h5>${_(u'Carregando')}</h5>
         </span>  
         <br/>
         <small>
-            ${_(u'periódicos')}
+            ${_(u'Periódicos')}
             <a href="${request.route_url('publication_journal_web')}#situação-de-publicação-dos-periódicos"><span class="glyphicon glyphicon-plus-sign btn-lg"></span></a>
         </small>
     </h1>      

@@ -2,7 +2,7 @@
 <div id="document_type" style="width:100%; height:400px;">
     <span id="loading_document_type">
         <img src="/static/images/loading.gif" />
-        <h5>${_(u'loading')}</h5>
+        <h5>${_(u'Carregando')}</h5>
     </span>
 </div>
 <script language="javascript">

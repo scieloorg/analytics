@@ -12,7 +12,7 @@
   <li class="${'active' if page == 'bibliometrics' else ''}">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${_(u'Bibliometria')} <span class="caret"></span></a>
     <ul class="dropdown-menu">
-      <li><a href="${request.route_url('bibliometrics_document_list_received_citations')}">${_(u'Received citations')}</a></li>
+      <li><a href="${request.route_url('bibliometrics_document_list_received_citations')}">${_(u'Citações recebidas')}</a></li>
     </ul>
   </li>
   <%include file="navbar_common_links.mako"/>
