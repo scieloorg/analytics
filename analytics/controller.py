@@ -1130,6 +1130,147 @@ class UsageStats():
         return sorted(data, key=lambda x: x.get('total_item_requests', 0), reverse=True)
 
     def get_usage_report(self, issn, collection, begin_date, end_date, granularity='monthly', report_code='tr_j1', api_version='v2', target='chart'):
+        """ 
+        Obtém um Usage Report JSON da SciELO SUSHI API e retorna dados ou para gráfico ou para tabela.
+
+        Args:
+            issn (str): ISSN do periódico
+            collection (str): Nome da coleção da qual o relatório é solicitado.
+            begin_date (str): Data de início do período do relatório (YYYY-MM-DD).
+            end_date (str): Data de término do período do relatório (YYYY-MM-DD).
+            granularity (str): Granularidade dos dados do relatório (ex: 'monthly' ou 'totals').
+            report_code (str): Código do relatório a ser solicitado.
+            api_version (str): Versão da API SUSHI a ser utilizada.
+            target (str): Formato de retorno dos dados (ex: 'chart' ou 'table').
+        Returns: 
+            dict: Lista de dicionários formatados para visualização em gráfico (chart) ou table (table)
+        
+        Segue um exemplo de relatório obtido da SciELO SUSHI API que é convertido para lista de dicionários neste método:
+        {
+            "Exceptions": [],
+            "Report_Attributes": [
+                {
+                    "Name": "Attributes_To_Show",
+                    "Value": "Data_Type|Access_Method"
+                }
+            ],
+            "Report_Filters": [
+                {
+                    "Name": "Begin_Date",
+                    "Value": "2022-01-01"
+                },
+                {
+                    "Name": "End_Date",
+                    "Value": "2022-01-31"
+                }
+            ],
+            "Report_Header": {
+                "Created": "2024-06-14T21:16:29.834239",
+                "Created_By": "Scientific Electronic Library Online SUSHI API",
+                "Customer_ID": "",
+                "Institution_ID": [
+                    {
+                        "Type": "ISNI",
+                        "Value": ""
+                    }
+                ],
+                "Institution_Name": "",
+                "Release": 5,
+                "Report_ID": "tr_j1",
+                "Report_Name": "Journal Requests (Excluding OA_Gold)"
+            },
+            "Report_Items": [
+                {
+                    "Access_Method": "Regular",
+                    "Access_Type": "Open Access",
+                    "Data_Type": "Journal",
+                    "Item_ID": [
+                        {
+                            "Type": "Print_ISSN",
+                            "Value": "0102-7182"
+                        },
+                        {
+                            "Type": "Online_ISSN",
+                            "Value": "1807-0310"
+                        }
+                    ],
+                    "Performance": [
+                        {
+                            "Instance": {
+                                "Count": "78322",
+                                "Metric_Type": "Total_Item_Requests"
+                            },
+                            "Period": {
+                                "Begin_Date": "2022-01-01",
+                                "End_Date": "2022-01-31"
+                            }
+                        },
+                        {
+                            "Instance": {
+                                "Count": "73916",
+                                "Metric_Type": "Unique_Item_Requests"
+                            },
+                            "Period": {
+                                "Begin_Date": "2022-01-01",
+                                "End_Date": "2022-01-31"
+                            }
+                        }
+                    ],
+                    "Platform": "Scientific Electronic Library Online - Brasil",
+                    "Publisher": "Associação Brasileira de Psicologia Social",
+                    "Publisher_ID": [],
+                    "Section_Type": "Article",
+                    "Title": "Psicologia & Sociedade"
+                },
+                {
+                    "Access_Method": "Regular",
+                    "Access_Type": "Open Access",
+                    "Data_Type": "Journal",
+                    "Item_ID": [
+                        {
+                            "Type": "Print_ISSN",
+                            "Value": "0103-863X"
+                        },
+                        {
+                            "Type": "Online_ISSN",
+                            "Value": "1982-4327"
+                        }
+                    ],
+                    "Performance": [
+                        {
+                            "Instance": {
+                                "Count": "51534",
+                                "Metric_Type": "Total_Item_Requests"
+                            },
+                            "Period": {
+                                "Begin_Date": "2022-01-01",
+                                "End_Date": "2022-01-31"
+                            }
+                        },
+                        {
+                            "Instance": {
+                                "Count": "48403",
+                                "Metric_Type": "Unique_Item_Requests"
+                            },
+                            "Period": {
+                                "Begin_Date": "2022-01-01",
+                                "End_Date": "2022-01-31"
+                            }
+                        }
+                    ],
+                    "Platform": "Scientific Electronic Library Online - Brasil",
+                    "Publisher": "Universidade de São Paulo, Faculdade de Filosofia Ciências e Letras de Ribeirão Preto, Programa de Pós-Graduação em Psicologia",
+                    "Publisher_ID": [],
+                    "Section_Type": "Article",
+                    "Title": "Paidéia (Ribeirão Preto)"
+                },
+            ]
+        }
+        Args:
+
+        Returns:
+            dict: 
+        """
         url_report = urllib.parse.urljoin(self.base_url, 'reports/%s' % report_code)
 
         params = {
