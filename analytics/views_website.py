@@ -200,6 +200,7 @@ def accesses_list_journals_language(request):
 
     return data
 
+
 @view_config(route_name='accesses_journal_usage_data_web', renderer='templates/website/accesses_journal_usage_data.mako')
 @base_data_manager
 def accesses_journal_usage_data_web(request):

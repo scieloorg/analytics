@@ -17,6 +17,9 @@ from analytics import choices, utils, request_utils
 PAGE_SIZE = 20
 
 
+FETCH_DATA_TIMEOUT = 100
+
+
 CITABLE_DOCUMENT_TYPES = (
     u'article-commentary',
     u'brief-report',
