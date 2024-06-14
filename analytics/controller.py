@@ -1058,13 +1058,13 @@ class UsageStats():
         serie_total_requests = []
         serie_unique_requests = []
 
-        for i in json_results.get('Report_Items', [{},]):
-            for p in i.get('Performance', {}):
-                p_metric_label = p.get('Instance', {}).get('Metric_Type', '')
+        for i in json_results.get('Report_Items') or []:
+            for p in i.get('Performance') or {}:
+                p_metric_label = p.get('Instance', {}).get('Metric_Type')
                 p_metric_value = p.get('Instance', {}).get('Count', 0)
-                p_period_begin = p.get('Period', {}).get('Begin_Date', '')
+                p_period_begin = p.get('Period', {}).get('Begin_Date')
 
-                fmt_date = self._format_date(p_period_begin)
+                fmt_date = utils.convert_date_to_month_start_unix_ms(p_period_begin)
 
                 if p_metric_label  == 'Total_Item_Requests':
                     serie_total_requests.append([fmt_date, int(p_metric_value)])
@@ -1101,8 +1101,8 @@ class UsageStats():
         """
         data = []
 
-        for i in json_results.get('Report_Items', [{},]):
-            if i.get('Title') or '' == '':
+        for i in json_results.get('Report_Items') or []:
+            if (i.get('Title') or '') == '':
                 continue
 
             i_article_language = i.get('Article_Language') or ''
@@ -1117,7 +1117,7 @@ class UsageStats():
             i_res['issn'] = i_res.get('Print_ISSN') or i_res.get('Online_ISSN') or ''
             
             for p in i.get('Performance', {}):
-                p_metric_label = p.get('Instance', {}).get('Metric_Type', '')
+                p_metric_label = p.get('Instance', {}).get('Metric_Type')
                 p_metric_value = p.get('Instance', {}).get('Count', 0)
 
                 if p_metric_label == 'Unique_Item_Requests':
@@ -1282,12 +1282,15 @@ class UsageStats():
             'api': api_version,
         }
 
-        self._clean_url_params(params, report_code)
+        request_utils.clean_params_by_report(params, report_code)
 
-        response = requests.get(
-            url=url_report,
-            params=params
+        data = request_utils.fetch_data(
+            url_report,
+            params=params,
+            timeout=FETCH_DATA_TIMEOUT,            
         )
+        
+        return self._process_report_data(data, report_code, target)
 
         try:
             response.raise_for_status()
