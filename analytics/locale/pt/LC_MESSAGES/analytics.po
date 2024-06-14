@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-06-14 02:28+0000\n"
+"POT-Creation-Date: 2024-06-14 23:04+0000\n"
 "PO-Revision-Date: 2024-06-14 01:03+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: pt <LL@li.org>\n"
@@ -22,318 +22,318 @@ msgstr ""
 msgid "Fonte: SciELO.org"
 msgstr ""
 
-#: analytics/charts_config.py:33 analytics/charts_config.py:61
-#: build/lib/analytics/charts_config.py:33
-#: build/lib/analytics/charts_config.py:61
+#: analytics/charts_config.py:121 analytics/charts_config.py:145
+#: build/lib/analytics/charts_config.py:121
+#: build/lib/analytics/charts_config.py:145
 msgid "Fonte: SciELO SUSHI API"
 msgstr ""
 
-#: analytics/charts_config.py:34 build/lib/analytics/charts_config.py:34
+#: analytics/charts_config.py:122 build/lib/analytics/charts_config.py:122
 msgid "Total de acessos por ano e mês"
 msgstr ""
 
-#: analytics/charts_config.py:37 build/lib/analytics/charts_config.py:37
+#: analytics/charts_config.py:125 build/lib/analytics/charts_config.py:125
 msgid "Métricas"
 msgstr ""
 
-#: analytics/charts_config.py:44 build/lib/analytics/charts_config.py:44
+#: analytics/charts_config.py:132 build/lib/analytics/charts_config.py:132
 msgid "Acessos em"
 msgstr ""
 
-#: analytics/charts_config.py:62 build/lib/analytics/charts_config.py:62
+#: analytics/charts_config.py:146 build/lib/analytics/charts_config.py:146
 msgid "Acessos por país de origem"
 msgstr ""
 
-#: analytics/charts_config.py:65 analytics/charts_config.py:82
-#: build/lib/analytics/charts_config.py:65
-#: build/lib/analytics/charts_config.py:82
+#: analytics/charts_config.py:149 analytics/charts_config.py:166
+#: build/lib/analytics/charts_config.py:149
+#: build/lib/analytics/charts_config.py:166
 msgid "Total de acessos"
 msgstr ""
 
-#: analytics/charts_config.py:91 build/lib/analytics/charts_config.py:91
+#: analytics/charts_config.py:175 build/lib/analytics/charts_config.py:175
 msgid "País de origem de acesso"
 msgstr ""
 
-#: analytics/charts_config.py:99 build/lib/analytics/charts_config.py:99
+#: analytics/charts_config.py:183 build/lib/analytics/charts_config.py:183
 msgid "Fonte: Google Scholar"
 msgstr ""
 
-#: analytics/charts_config.py:100 analytics/charts_config.py:103
-#: analytics/charts_config.py:112 build/lib/analytics/charts_config.py:100
-#: build/lib/analytics/charts_config.py:103
-#: build/lib/analytics/charts_config.py:112
+#: analytics/charts_config.py:184 analytics/charts_config.py:187
+#: analytics/charts_config.py:196 build/lib/analytics/charts_config.py:184
+#: build/lib/analytics/charts_config.py:187
+#: build/lib/analytics/charts_config.py:196
 msgid "Métricas H5M5"
 msgstr ""
 
-#: analytics/charts_config.py:113 build/lib/analytics/charts_config.py:113
+#: analytics/charts_config.py:197 build/lib/analytics/charts_config.py:197
 msgid "Ano base"
 msgstr ""
 
-#: analytics/charts_config.py:121 build/lib/analytics/charts_config.py:121
+#: analytics/charts_config.py:205 build/lib/analytics/charts_config.py:205
 msgid "Documentos citáveis"
 msgstr ""
 
-#: analytics/charts_config.py:121 build/lib/analytics/charts_config.py:121
+#: analytics/charts_config.py:205 build/lib/analytics/charts_config.py:205
 msgid "Documentos não citáveis"
 msgstr ""
 
-#: analytics/charts_config.py:128 build/lib/analytics/charts_config.py:128
+#: analytics/charts_config.py:212 build/lib/analytics/charts_config.py:212
 msgid "Distribuição de documentos citáveis e não citáveis"
 msgstr ""
 
-#: analytics/charts_config.py:129 analytics/charts_config.py:143
-#: analytics/charts_config.py:270 analytics/charts_config.py:279
-#: analytics/charts_config.py:294 analytics/charts_config.py:302
-#: analytics/charts_config.py:350 analytics/charts_config.py:359
-#: analytics/charts_config.py:418 analytics/charts_config.py:428
-#: analytics/charts_config.py:470 analytics/charts_config.py:479
-#: analytics/charts_config.py:520 analytics/charts_config.py:528
+#: analytics/charts_config.py:213 analytics/charts_config.py:227
+#: analytics/charts_config.py:354 analytics/charts_config.py:363
+#: analytics/charts_config.py:378 analytics/charts_config.py:386
+#: analytics/charts_config.py:434 analytics/charts_config.py:443
+#: analytics/charts_config.py:502 analytics/charts_config.py:512
+#: analytics/charts_config.py:554 analytics/charts_config.py:563
+#: analytics/charts_config.py:604 analytics/charts_config.py:612
 #: analytics/templates/website/central_container_for_article_filters.mako:13
 #: analytics/templates/website/central_container_for_bibliometric_filters.mako:13
-#: build/lib/analytics/charts_config.py:129
-#: build/lib/analytics/charts_config.py:143
-#: build/lib/analytics/charts_config.py:270
-#: build/lib/analytics/charts_config.py:279
-#: build/lib/analytics/charts_config.py:294
-#: build/lib/analytics/charts_config.py:302
-#: build/lib/analytics/charts_config.py:350
-#: build/lib/analytics/charts_config.py:359
-#: build/lib/analytics/charts_config.py:418
-#: build/lib/analytics/charts_config.py:428
-#: build/lib/analytics/charts_config.py:470
-#: build/lib/analytics/charts_config.py:479
-#: build/lib/analytics/charts_config.py:520
-#: build/lib/analytics/charts_config.py:528
+#: build/lib/analytics/charts_config.py:213
+#: build/lib/analytics/charts_config.py:227
+#: build/lib/analytics/charts_config.py:354
+#: build/lib/analytics/charts_config.py:363
+#: build/lib/analytics/charts_config.py:378
+#: build/lib/analytics/charts_config.py:386
+#: build/lib/analytics/charts_config.py:434
+#: build/lib/analytics/charts_config.py:443
+#: build/lib/analytics/charts_config.py:502
+#: build/lib/analytics/charts_config.py:512
+#: build/lib/analytics/charts_config.py:554
+#: build/lib/analytics/charts_config.py:563
+#: build/lib/analytics/charts_config.py:604
+#: build/lib/analytics/charts_config.py:612
 #: build/lib/analytics/templates/website/central_container_for_article_filters.mako:13
 #: build/lib/analytics/templates/website/central_container_for_bibliometric_filters.mako:13
 msgid "Ano de publicação"
 msgstr ""
 
-#: analytics/charts_config.py:137 analytics/charts_config.py:161
-#: analytics/charts_config.py:180 analytics/charts_config.py:197
-#: analytics/charts_config.py:244 analytics/charts_config.py:268
-#: analytics/charts_config.py:297 analytics/charts_config.py:323
-#: analytics/charts_config.py:348 analytics/charts_config.py:396
-#: analytics/charts_config.py:416 analytics/charts_config.py:424
-#: analytics/charts_config.py:447 analytics/charts_config.py:468
-#: analytics/charts_config.py:518 analytics/charts_config.py:547
-#: build/lib/analytics/charts_config.py:137
-#: build/lib/analytics/charts_config.py:161
-#: build/lib/analytics/charts_config.py:180
-#: build/lib/analytics/charts_config.py:197
-#: build/lib/analytics/charts_config.py:244
-#: build/lib/analytics/charts_config.py:268
-#: build/lib/analytics/charts_config.py:297
-#: build/lib/analytics/charts_config.py:323
-#: build/lib/analytics/charts_config.py:348
-#: build/lib/analytics/charts_config.py:396
-#: build/lib/analytics/charts_config.py:416
-#: build/lib/analytics/charts_config.py:424
-#: build/lib/analytics/charts_config.py:447
-#: build/lib/analytics/charts_config.py:468
-#: build/lib/analytics/charts_config.py:518
-#: build/lib/analytics/charts_config.py:547
+#: analytics/charts_config.py:221 analytics/charts_config.py:245
+#: analytics/charts_config.py:264 analytics/charts_config.py:281
+#: analytics/charts_config.py:328 analytics/charts_config.py:352
+#: analytics/charts_config.py:381 analytics/charts_config.py:407
+#: analytics/charts_config.py:432 analytics/charts_config.py:480
+#: analytics/charts_config.py:500 analytics/charts_config.py:508
+#: analytics/charts_config.py:531 analytics/charts_config.py:552
+#: analytics/charts_config.py:602 analytics/charts_config.py:631
+#: build/lib/analytics/charts_config.py:221
+#: build/lib/analytics/charts_config.py:245
+#: build/lib/analytics/charts_config.py:264
+#: build/lib/analytics/charts_config.py:281
+#: build/lib/analytics/charts_config.py:328
+#: build/lib/analytics/charts_config.py:352
+#: build/lib/analytics/charts_config.py:381
+#: build/lib/analytics/charts_config.py:407
+#: build/lib/analytics/charts_config.py:432
+#: build/lib/analytics/charts_config.py:480
+#: build/lib/analytics/charts_config.py:500
+#: build/lib/analytics/charts_config.py:508
+#: build/lib/analytics/charts_config.py:531
+#: build/lib/analytics/charts_config.py:552
+#: build/lib/analytics/charts_config.py:602
+#: build/lib/analytics/charts_config.py:631
 msgid "Número de documentos"
 msgstr ""
 
-#: analytics/charts_config.py:154 build/lib/analytics/charts_config.py:154
+#: analytics/charts_config.py:238 build/lib/analytics/charts_config.py:238
 msgid "Distribuição de número de referências bibliográficas dos documentos"
 msgstr ""
 
-#: analytics/charts_config.py:157 build/lib/analytics/charts_config.py:157
+#: analytics/charts_config.py:241 build/lib/analytics/charts_config.py:241
 msgid "Referências bibliográficas"
 msgstr ""
 
-#: analytics/charts_config.py:164 build/lib/analytics/charts_config.py:164
+#: analytics/charts_config.py:248 build/lib/analytics/charts_config.py:248
 #, python-format
 msgid "%s documentos com %s referências bibliográficas"
 msgstr ""
 
-#: analytics/charts_config.py:173 build/lib/analytics/charts_config.py:173
+#: analytics/charts_config.py:257 build/lib/analytics/charts_config.py:257
 msgid "Distribuição de número de autores dos documentos"
 msgstr ""
 
-#: analytics/charts_config.py:176
+#: analytics/charts_config.py:260
 #: analytics/templates/website/publication_article.mako:133
-#: build/lib/analytics/charts_config.py:176
+#: build/lib/analytics/charts_config.py:260
 #: build/lib/analytics/templates/website/publication_article.mako:133
 msgid "Número de autores"
 msgstr ""
 
-#: analytics/charts_config.py:183 build/lib/analytics/charts_config.py:183
+#: analytics/charts_config.py:267 build/lib/analytics/charts_config.py:267
 #, python-format
 msgid "%s documentos com %s autores"
 msgstr ""
 
-#: analytics/charts_config.py:194 analytics/charts_config.py:236
-#: build/lib/analytics/charts_config.py:194
-#: build/lib/analytics/charts_config.py:236
+#: analytics/charts_config.py:278 analytics/charts_config.py:320
+#: build/lib/analytics/charts_config.py:278
+#: build/lib/analytics/charts_config.py:320
 msgid "Distribuição de países de afiliação dos autores"
 msgstr ""
 
-#: analytics/charts_config.py:215 analytics/charts_config.py:247
-#: analytics/charts_config.py:302 analytics/charts_config.py:326
-#: analytics/charts_config.py:399 analytics/charts_config.py:450
-#: analytics/charts_config.py:550
+#: analytics/charts_config.py:299 analytics/charts_config.py:331
+#: analytics/charts_config.py:386 analytics/charts_config.py:410
+#: analytics/charts_config.py:483 analytics/charts_config.py:534
+#: analytics/charts_config.py:634
 #: analytics/templates/website/publication_size_documents.mako:9
-#: build/lib/analytics/charts_config.py:215
-#: build/lib/analytics/charts_config.py:247
-#: build/lib/analytics/charts_config.py:302
-#: build/lib/analytics/charts_config.py:326
-#: build/lib/analytics/charts_config.py:399
-#: build/lib/analytics/charts_config.py:450
-#: build/lib/analytics/charts_config.py:550
+#: build/lib/analytics/charts_config.py:299
+#: build/lib/analytics/charts_config.py:331
+#: build/lib/analytics/charts_config.py:386
+#: build/lib/analytics/charts_config.py:410
+#: build/lib/analytics/charts_config.py:483
+#: build/lib/analytics/charts_config.py:534
+#: build/lib/analytics/charts_config.py:634
 #: build/lib/analytics/templates/website/publication_size_documents.mako:9
 msgid "Documentos"
 msgstr ""
 
-#: analytics/charts_config.py:224 analytics/charts_config.py:239
-#: analytics/charts_config.py:247 build/lib/analytics/charts_config.py:224
-#: build/lib/analytics/charts_config.py:239
-#: build/lib/analytics/charts_config.py:247
+#: analytics/charts_config.py:308 analytics/charts_config.py:323
+#: analytics/charts_config.py:331 build/lib/analytics/charts_config.py:308
+#: build/lib/analytics/charts_config.py:323
+#: build/lib/analytics/charts_config.py:331
 msgid "País de afiliação"
 msgstr ""
 
-#: analytics/charts_config.py:260 build/lib/analytics/charts_config.py:260
+#: analytics/charts_config.py:344 build/lib/analytics/charts_config.py:344
 msgid "Distribuição de países de afiliação dos autores por ano de publicação"
 msgstr ""
 
-#: analytics/charts_config.py:293 build/lib/analytics/charts_config.py:293
+#: analytics/charts_config.py:377 build/lib/analytics/charts_config.py:377
 msgid "Distribuição de ano de publicação dos documentos"
 msgstr ""
 
-#: analytics/charts_config.py:315 build/lib/analytics/charts_config.py:315
+#: analytics/charts_config.py:399 build/lib/analytics/charts_config.py:399
 msgid "Distribuição de idiomas dos documentos"
 msgstr ""
 
-#: analytics/charts_config.py:318 build/lib/analytics/charts_config.py:318
+#: analytics/charts_config.py:402 build/lib/analytics/charts_config.py:402
 msgid "Idiomas de publicação"
 msgstr ""
 
-#: analytics/charts_config.py:326 build/lib/analytics/charts_config.py:326
+#: analytics/charts_config.py:410 build/lib/analytics/charts_config.py:410
 msgid "Idioma do documento"
 msgstr ""
 
-#: analytics/charts_config.py:340 build/lib/analytics/charts_config.py:340
+#: analytics/charts_config.py:424 build/lib/analytics/charts_config.py:424
 msgid "Distribuição de idiomas dos documentos por ano de publicação"
 msgstr ""
 
-#: analytics/charts_config.py:370 build/lib/analytics/charts_config.py:370
+#: analytics/charts_config.py:454 build/lib/analytics/charts_config.py:454
 msgid "Distribuição de periódicos por ano de inclusão no SciELO"
 msgstr ""
 
-#: analytics/charts_config.py:371 analytics/charts_config.py:379
-#: build/lib/analytics/charts_config.py:371
-#: build/lib/analytics/charts_config.py:379
+#: analytics/charts_config.py:455 analytics/charts_config.py:463
+#: build/lib/analytics/charts_config.py:455
+#: build/lib/analytics/charts_config.py:463
 msgid "Ano de inclusão"
 msgstr ""
 
-#: analytics/charts_config.py:374 analytics/charts_config.py:498
-#: analytics/charts_config.py:567 analytics/charts_config.py:587
-#: build/lib/analytics/charts_config.py:374
-#: build/lib/analytics/charts_config.py:498
-#: build/lib/analytics/charts_config.py:567
-#: build/lib/analytics/charts_config.py:587
+#: analytics/charts_config.py:458 analytics/charts_config.py:582
+#: analytics/charts_config.py:651 analytics/charts_config.py:671
+#: build/lib/analytics/charts_config.py:458
+#: build/lib/analytics/charts_config.py:582
+#: build/lib/analytics/charts_config.py:651
+#: build/lib/analytics/charts_config.py:671
 msgid "Número de periódicos"
 msgstr ""
 
-#: analytics/charts_config.py:379 analytics/charts_config.py:501
-#: analytics/charts_config.py:570 analytics/charts_config.py:590
+#: analytics/charts_config.py:463 analytics/charts_config.py:585
+#: analytics/charts_config.py:654 analytics/charts_config.py:674
 #: analytics/templates/website/navbar_collection.mako:10
 #: analytics/templates/website/publication_size_journals.mako:10
-#: build/lib/analytics/charts_config.py:379
-#: build/lib/analytics/charts_config.py:501
-#: build/lib/analytics/charts_config.py:570
-#: build/lib/analytics/charts_config.py:590
+#: build/lib/analytics/charts_config.py:463
+#: build/lib/analytics/charts_config.py:585
+#: build/lib/analytics/charts_config.py:654
+#: build/lib/analytics/charts_config.py:674
 #: build/lib/analytics/templates/website/navbar_collection.mako:10
 #: build/lib/analytics/templates/website/publication_size_journals.mako:10
 msgid "Periódicos"
 msgstr ""
 
-#: analytics/charts_config.py:388 build/lib/analytics/charts_config.py:388
+#: analytics/charts_config.py:472 build/lib/analytics/charts_config.py:472
 msgid "Distribuição de área temática dos documentos"
 msgstr ""
 
-#: analytics/charts_config.py:391 analytics/charts_config.py:562
-#: build/lib/analytics/charts_config.py:391
-#: build/lib/analytics/charts_config.py:562
+#: analytics/charts_config.py:475 analytics/charts_config.py:646
+#: build/lib/analytics/charts_config.py:475
+#: build/lib/analytics/charts_config.py:646
 msgid "Areas temáticas"
 msgstr ""
 
-#: analytics/charts_config.py:399 analytics/charts_config.py:570
+#: analytics/charts_config.py:483 analytics/charts_config.py:654
 #: analytics/templates/website/central_container_for_article_filters.mako:30
 #: analytics/templates/website/central_container_for_journal_filters.mako:13
-#: build/lib/analytics/charts_config.py:399
-#: build/lib/analytics/charts_config.py:570
+#: build/lib/analytics/charts_config.py:483
+#: build/lib/analytics/charts_config.py:654
 #: build/lib/analytics/templates/website/central_container_for_article_filters.mako:30
 #: build/lib/analytics/templates/website/central_container_for_journal_filters.mako:13
 msgid "Área temática"
 msgstr ""
 
-#: analytics/charts_config.py:408 build/lib/analytics/charts_config.py:408
+#: analytics/charts_config.py:492 build/lib/analytics/charts_config.py:492
 msgid "Distribuição de área temática dos documentos por ano de publicação"
 msgstr ""
 
-#: analytics/charts_config.py:439 build/lib/analytics/charts_config.py:439
+#: analytics/charts_config.py:523 build/lib/analytics/charts_config.py:523
 msgid "Distribuição por tipo de documento"
 msgstr ""
 
-#: analytics/charts_config.py:442
+#: analytics/charts_config.py:526
 #: analytics/templates/website/publication_article.mako:43
 #: analytics/templates/website/publication_article_by_publication_year.mako:43
-#: build/lib/analytics/charts_config.py:442
+#: build/lib/analytics/charts_config.py:526
 #: build/lib/analytics/templates/website/publication_article.mako:43
 #: build/lib/analytics/templates/website/publication_article_by_publication_year.mako:43
 msgid "Tipos de documentos"
 msgstr ""
 
-#: analytics/charts_config.py:450 build/lib/analytics/charts_config.py:450
+#: analytics/charts_config.py:534 build/lib/analytics/charts_config.py:534
 msgid "Tipo de documento"
 msgstr ""
 
-#: analytics/charts_config.py:460 build/lib/analytics/charts_config.py:460
+#: analytics/charts_config.py:544 build/lib/analytics/charts_config.py:544
 msgid "Distribuição de tipos de documentos por ano de publicação"
 msgstr ""
 
-#: analytics/charts_config.py:490 build/lib/analytics/charts_config.py:490
+#: analytics/charts_config.py:574 build/lib/analytics/charts_config.py:574
 msgid "Distribuição de periódicos por situação atual de publicação no SciELO"
 msgstr ""
 
-#: analytics/charts_config.py:493 analytics/charts_config.py:501
-#: build/lib/analytics/charts_config.py:493
-#: build/lib/analytics/charts_config.py:501
+#: analytics/charts_config.py:577 analytics/charts_config.py:585
+#: build/lib/analytics/charts_config.py:577
+#: build/lib/analytics/charts_config.py:585
 msgid "Situação da publicação"
 msgstr ""
 
-#: analytics/charts_config.py:510 build/lib/analytics/charts_config.py:510
+#: analytics/charts_config.py:594 build/lib/analytics/charts_config.py:594
 msgid "Distribuição de licenças de uso por ano de publicação"
 msgstr ""
 
-#: analytics/charts_config.py:539 build/lib/analytics/charts_config.py:539
+#: analytics/charts_config.py:623 build/lib/analytics/charts_config.py:623
 msgid "Distribuição de licença de uso dos documentos"
 msgstr ""
 
-#: analytics/charts_config.py:542 analytics/charts_config.py:582
+#: analytics/charts_config.py:626 analytics/charts_config.py:666
 #: analytics/templates/website/publication_article.mako:5
 #: analytics/templates/website/publication_article_by_publication_year.mako:5
-#: build/lib/analytics/charts_config.py:542
-#: build/lib/analytics/charts_config.py:582
+#: build/lib/analytics/charts_config.py:626
+#: build/lib/analytics/charts_config.py:666
 #: build/lib/analytics/templates/website/publication_article.mako:5
 #: build/lib/analytics/templates/website/publication_article_by_publication_year.mako:5
 msgid "Licenças de uso"
 msgstr ""
 
-#: analytics/charts_config.py:550 analytics/charts_config.py:590
-#: build/lib/analytics/charts_config.py:550
-#: build/lib/analytics/charts_config.py:590
+#: analytics/charts_config.py:634 analytics/charts_config.py:674
+#: build/lib/analytics/charts_config.py:634
+#: build/lib/analytics/charts_config.py:674
 msgid "Licença"
 msgstr ""
 
-#: analytics/charts_config.py:559 build/lib/analytics/charts_config.py:559
+#: analytics/charts_config.py:643 build/lib/analytics/charts_config.py:643
 msgid "Distribuição de área temática dos periódicos"
 msgstr ""
 
-#: analytics/charts_config.py:579 build/lib/analytics/charts_config.py:579
+#: analytics/charts_config.py:663 build/lib/analytics/charts_config.py:663
 msgid "Distribuição de licença de uso dos periódicos"
 msgstr ""
 
@@ -504,82 +504,44 @@ msgstr ""
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:50
 #: build/lib/analytics/templates/website/accesses_journal_usage_data.mako:50
-msgid "Title Report J4"
+msgid "Language Report J1"
 msgstr ""
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:51
 #: build/lib/analytics/templates/website/accesses_journal_usage_data.mako:51
-msgid "Acessos mensais por ano de publicação"
+msgid "Acessos mensais agregados por idioma de documento"
 msgstr ""
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:57
 #: build/lib/analytics/templates/website/accesses_journal_usage_data.mako:57
-msgid "Language Report J1"
+msgid "Language Report J4"
 msgstr ""
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:58
 #: build/lib/analytics/templates/website/accesses_journal_usage_data.mako:58
-msgid "Acessos mensais agregados por idioma de documento"
+msgid "Acessos mensais agregados por ano de publicação e idioma de documento"
 msgstr ""
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:64
 #: build/lib/analytics/templates/website/accesses_journal_usage_data.mako:64
-msgid "Language Report J4"
+msgid "Geolocation Report J1"
 msgstr ""
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:65
 #: build/lib/analytics/templates/website/accesses_journal_usage_data.mako:65
-msgid "Acessos mensais agregados por ano de publicação e idioma de documento"
+msgid "Acessos mensais agregados por país de origem de acesso"
 msgstr ""
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:71
 #: build/lib/analytics/templates/website/accesses_journal_usage_data.mako:71
-msgid "Geolocation Report J1"
+msgid "Geolocation Report J4"
 msgstr ""
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:72
 #: build/lib/analytics/templates/website/accesses_journal_usage_data.mako:72
-msgid "Acessos mensais agregados por país de origem de acesso"
-msgstr ""
-
-#: analytics/templates/website/accesses_journal_usage_data.mako:78
-#: build/lib/analytics/templates/website/accesses_journal_usage_data.mako:78
-msgid "Geolocation Report J4"
-msgstr ""
-
-#: analytics/templates/website/accesses_journal_usage_data.mako:79
-#: build/lib/analytics/templates/website/accesses_journal_usage_data.mako:79
 msgid ""
 "Acessos mensais agregados por país de origem de acesso e ano de "
 "publicação de documento"
-msgstr ""
-
-#: analytics/templates/website/accesses_list_articles.mako:4
-#: build/lib/analytics/templates/website/accesses_list_articles.mako:4
-msgid "Top 100 artigos por número de acessos"
-msgstr ""
-
-#: analytics/templates/website/accesses_list_articles.mako:7
-#: build/lib/analytics/templates/website/accesses_list_articles.mako:7
-msgid "Artigo"
-msgstr ""
-
-#: analytics/templates/website/accesses_list_articles.mako:8
-#: analytics/templates/website/accesses_list_journals.mako:10
-#: analytics/templates/website/accesses_list_journals_language.mako:11
-#: build/lib/analytics/templates/website/accesses_list_articles.mako:8
-#: build/lib/analytics/templates/website/accesses_list_journals.mako:10
-#: build/lib/analytics/templates/website/accesses_list_journals_language.mako:11
-msgid "Requisições Únicas"
-msgstr ""
-
-#: analytics/templates/website/accesses_list_articles.mako:9
-#: analytics/templates/website/accesses_list_journals.mako:11
-#: analytics/templates/website/accesses_list_journals_language.mako:12
-#: build/lib/analytics/templates/website/accesses_list_articles.mako:9
-#: build/lib/analytics/templates/website/accesses_list_journals.mako:11
-#: build/lib/analytics/templates/website/accesses_list_journals_language.mako:12
-msgid "Requisições Totais"
 msgstr ""
 
 #: analytics/templates/website/accesses_list_journals.mako:6
@@ -594,6 +556,20 @@ msgstr ""
 #: build/lib/analytics/templates/website/accesses_list_journals_language.mako:9
 #: build/lib/analytics/templates/website/navbar_journal.mako:11
 msgid "Periódico"
+msgstr ""
+
+#: analytics/templates/website/accesses_list_journals.mako:10
+#: analytics/templates/website/accesses_list_journals_language.mako:11
+#: build/lib/analytics/templates/website/accesses_list_journals.mako:10
+#: build/lib/analytics/templates/website/accesses_list_journals_language.mako:11
+msgid "Requisições Únicas"
+msgstr ""
+
+#: analytics/templates/website/accesses_list_journals.mako:11
+#: analytics/templates/website/accesses_list_journals_language.mako:12
+#: build/lib/analytics/templates/website/accesses_list_journals.mako:11
+#: build/lib/analytics/templates/website/accesses_list_journals_language.mako:12
+msgid "Requisições Totais"
 msgstr ""
 
 #: analytics/templates/website/accesses_list_journals_language.mako:6
@@ -2052,13 +2028,13 @@ msgstr ""
 #: analytics/templates/website/home_collection.mako:7
 #: analytics/templates/website/home_journal.mako:7
 #: analytics/templates/website/home_network.mako:7
-#: analytics/templates/website/navbar_collection.mako:18
+#: analytics/templates/website/navbar_collection.mako:17
 #: analytics/templates/website/navbar_journal.mako:19
 #: analytics/templates/website/publication_size.mako:5
 #: build/lib/analytics/templates/website/home_collection.mako:7
 #: build/lib/analytics/templates/website/home_journal.mako:7
 #: build/lib/analytics/templates/website/home_network.mako:7
-#: build/lib/analytics/templates/website/navbar_collection.mako:18
+#: build/lib/analytics/templates/website/navbar_collection.mako:17
 #: build/lib/analytics/templates/website/navbar_journal.mako:19
 #: build/lib/analytics/templates/website/publication_size.mako:5
 msgid "Composição da coleção"
@@ -2069,7 +2045,7 @@ msgstr ""
 #: analytics/templates/website/home_journal.mako:18
 #: analytics/templates/website/home_network.mako:21
 #: analytics/templates/website/navbar_collection.mako:9
-#: analytics/templates/website/navbar_collection.mako:27
+#: analytics/templates/website/navbar_collection.mako:26
 #: analytics/templates/website/navbar_document.mako:9
 #: analytics/templates/website/navbar_journal.mako:10
 #: analytics/templates/website/navbar_journal.mako:28
@@ -2078,7 +2054,7 @@ msgstr ""
 #: build/lib/analytics/templates/website/home_journal.mako:18
 #: build/lib/analytics/templates/website/home_network.mako:21
 #: build/lib/analytics/templates/website/navbar_collection.mako:9
-#: build/lib/analytics/templates/website/navbar_collection.mako:27
+#: build/lib/analytics/templates/website/navbar_collection.mako:26
 #: build/lib/analytics/templates/website/navbar_document.mako:9
 #: build/lib/analytics/templates/website/navbar_journal.mako:10
 #: build/lib/analytics/templates/website/navbar_journal.mako:28
@@ -2124,51 +2100,44 @@ msgstr ""
 msgid "Periódicos por idioma"
 msgstr ""
 
-#: analytics/templates/website/navbar_collection.mako:12
-#: analytics/templates/website/navbar_journal.mako:13
-#: build/lib/analytics/templates/website/navbar_collection.mako:12
-#: build/lib/analytics/templates/website/navbar_journal.mako:13
-msgid "Top 100 Artigos"
-msgstr ""
-
-#: analytics/templates/website/navbar_collection.mako:16
+#: analytics/templates/website/navbar_collection.mako:15
 #: analytics/templates/website/navbar_journal.mako:17
-#: build/lib/analytics/templates/website/navbar_collection.mako:16
+#: build/lib/analytics/templates/website/navbar_collection.mako:15
 #: build/lib/analytics/templates/website/navbar_journal.mako:17
 msgid "Publicação"
 msgstr ""
 
-#: analytics/templates/website/navbar_collection.mako:19
+#: analytics/templates/website/navbar_collection.mako:18
 #: analytics/templates/website/navbar_journal.mako:20
-#: build/lib/analytics/templates/website/navbar_collection.mako:19
+#: build/lib/analytics/templates/website/navbar_collection.mako:18
 #: build/lib/analytics/templates/website/navbar_journal.mako:20
 msgid "Gráficos de documentos"
 msgstr ""
 
-#: analytics/templates/website/navbar_collection.mako:20
+#: analytics/templates/website/navbar_collection.mako:19
 #: analytics/templates/website/navbar_journal.mako:21
-#: build/lib/analytics/templates/website/navbar_collection.mako:20
+#: build/lib/analytics/templates/website/navbar_collection.mako:19
 #: build/lib/analytics/templates/website/navbar_journal.mako:21
 msgid "Gráficos de documentos por ano de publicação"
 msgstr ""
 
-#: analytics/templates/website/navbar_collection.mako:21
-#: build/lib/analytics/templates/website/navbar_collection.mako:21
+#: analytics/templates/website/navbar_collection.mako:20
+#: build/lib/analytics/templates/website/navbar_collection.mako:20
 msgid "Gráficos de periódicos"
 msgstr ""
 
-#: analytics/templates/website/navbar_collection.mako:25
+#: analytics/templates/website/navbar_collection.mako:24
 #: analytics/templates/website/navbar_document.mako:13
 #: analytics/templates/website/navbar_journal.mako:25
-#: build/lib/analytics/templates/website/navbar_collection.mako:25
+#: build/lib/analytics/templates/website/navbar_collection.mako:24
 #: build/lib/analytics/templates/website/navbar_document.mako:13
 #: build/lib/analytics/templates/website/navbar_journal.mako:25
 msgid "Bibliometria"
 msgstr ""
 
-#: analytics/templates/website/navbar_collection.mako:28
+#: analytics/templates/website/navbar_collection.mako:27
 #: analytics/templates/website/navbar_journal.mako:30
-#: build/lib/analytics/templates/website/navbar_collection.mako:28
+#: build/lib/analytics/templates/website/navbar_collection.mako:27
 #: build/lib/analytics/templates/website/navbar_journal.mako:30
 msgid "Indicadores Gerais"
 msgstr ""
@@ -2181,6 +2150,11 @@ msgstr ""
 #: analytics/templates/website/navbar_journal.mako:12
 #: build/lib/analytics/templates/website/navbar_journal.mako:12
 msgid "Periódico por idioma"
+msgstr ""
+
+#: analytics/templates/website/navbar_journal.mako:13
+#: build/lib/analytics/templates/website/navbar_journal.mako:13
+msgid "Top 100 Artigos"
 msgstr ""
 
 #: analytics/templates/website/publication_article.mako:17
@@ -2537,5 +2511,17 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Total de acessos por ano e mês (API SUSHI)"
+#~ msgstr ""
+
+#~ msgid "Title Report J4"
+#~ msgstr ""
+
+#~ msgid "Acessos mensais por ano de publicação"
+#~ msgstr ""
+
+#~ msgid "Top 100 artigos por número de acessos"
+#~ msgstr ""
+
+#~ msgid "Artigo"
 #~ msgstr ""
 
