@@ -983,22 +983,78 @@ class UsageStats():
     def __init__(self, usage_api_base_url=None):
         self.base_url = usage_api_base_url or 'http://usage.apis.scielo.org/'
 
+    def _geolocation_title_report_to_chart_data(self, json_results):
+        """
+        Converte JSON de um Usage Report para uma lista de dicionários de acessos por país.
 
+        O formato do retorno é:
+        [
+            {'value': 13300, 'code': 'BR'},
+            {'value': 10399, 'code': 'MX'},
+            {'value': 4052, 'code': 'US'},
+            ...
+        ]
 
+        Args:
+            json_results (dict): JSON contendo os resultados do relatório de uso.
 
+        Returns:
+            list: Lista de dicionários com acessos por país.
+        """
+        country_to_metrics = {}
 
+        for i in json_results.get('Report_Items') or []:
+            code = i['Access_Country_Code_']
+            if code not in country_to_metrics:
+                country_to_metrics[code] = {'Total_Item_Requests': 0}
 
+            for p in i.get('Performance', {}):
+                p_metric_label = p.get('Instance', {}).get('Metric_Type')
 
+                if p_metric_label == 'Total_Item_Requests':
+                    p_metric_value = p.get('Instance', {}).get('Count', 0)
+                    country_to_metrics[code][p_metric_label] += int(p_metric_value)
 
-
-
-
-
-
-
-
+        return [{'value': v['Total_Item_Requests'], 'code': k} for k, v in country_to_metrics.items() if v['Total_Item_Requests'] > 0]
 
     def _title_report_to_chart_data(self, json_results):
+        """
+        Converte JSON de um Usage Report para um dicionário dicionários séries temporais (acessos por mês) por métrica.
+
+        O formato do retorno é:
+        {
+            'series': [
+                {
+                    'data': [
+                        ('2024-01-01', 134),
+                        ('2024-02-01', 350),
+                        ('2024-03-01', 240),
+                        ('2024-04-01', 355),
+                        ('2024-05-01', 359),
+                        ('2024-06-01', 402),
+                    ], 
+                    'name': 'Total Item Requests'
+                },
+                {
+                    'data': [
+                        ('2024-01-01', 114),
+                        ('2024-02-01', 325),
+                        ('2024-03-01', 194),
+                        ('2024-04-01', 302),
+                        ('2024-05-01', 339),
+                        ('2024-06-01', 377),
+                    ], 
+                    'name': 'Unique Item Requests'
+                },
+            ] 
+        }
+
+        Args:
+            json_results (dict): JSON contendo os resultados do relatório de uso.
+
+        Returns:
+            dict: Dicionário de acessos mensais como o seguinte (apropriado para uso em gráficos na biblioteca highcharts):
+        """
         serie_total_requests = []
         serie_unique_requests = []
 
@@ -1025,6 +1081,24 @@ class UsageStats():
         return chart_data
     
     def _title_report_to_table_data(self, json_results):
+        """
+        Converte JSON de um Usage Report para uma lista de dicionários de acessos por periódico ou por periódico e idioma de documento.
+
+        O formato do retorno é:
+        [
+            {'title': 'Psicologia & Sociedade', 'article_language': 'BR', 'unique_item_requests': 1000, 'total_item_requests': 1250},
+            {'title': 'Psicologia & Sociedade', 'article_language': 'ES', 'unique_item_requests': 500, 'total_item_requests': 650},
+            {'title': 'Revista do Departamento de Psicologia. UFF', 'article_language': 'BR', 'unique_item_requests': 341, 'total_item_requests': 409},
+            {'title': 'Revista do Departamento de Psicologia. UFF', 'article_language': 'US', 'unique_item_requests': 200, 'total_item_requests': 233},
+            ...
+        ]
+
+        Args:
+            json_results (dict): JSON contendo os resultados do relatório de uso.
+
+        Returns:
+            list: Lista de dicionários com acessos por periódico ou por periódico e idioma de documento.
+        """
         data = []
 
         for i in json_results.get('Report_Items', [{},]):
@@ -1091,25 +1165,6 @@ class UsageStats():
                     return self._geolocation_title_report_to_chart_data(response.json())
 
         return {}
-
-
-    def _geolocation_title_report_to_chart_data(self, json_results):
-        country_to_metrics = {}
-
-        for i in json_results.get('Report_Items', {}):
-            code = i['Access_Country_Code_']
-            if code not in country_to_metrics:
-                country_to_metrics[code] = {'Total_Item_Requests': 0}
-
-            for p in i.get('Performance', {}):
-                p_metric_label = p.get('Instance', {}).get('Metric_Type', '')
-
-                if p_metric_label == 'Total_Item_Requests':
-                    p_metric_value = p.get('Instance', {}).get('Count', 0)
-                    country_to_metrics[code][p_metric_label] += int(p_metric_value)
-
-        return [{'value': v['Total_Item_Requests'], 'code': k, 'name': k} for k, v in country_to_metrics.items() if v['Total_Item_Requests'] > 0]
-    
 
     def _item_report_to_table_data(self, json_results):
         data = []
