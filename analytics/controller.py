@@ -15,7 +15,7 @@ from publicationstats import queries as PublicationStatsQueries
 from citedby import custom_query
 from altmetric import Altmetric, AltmetricHTTPException
 
-from analytics import utils
+from analytics import choices, utils
 
 PAGE_SIZE = 20
 
