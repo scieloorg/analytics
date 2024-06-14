@@ -1008,11 +1008,11 @@ class UsageStats():
             if attr in params:
                 del params[attr]
 
-    def _get_j1_chart(self, json_results):
+    def _title_report_to_chart_data(self, json_results):
         serie_total_requests = []
         serie_unique_requests = []
 
-        for i in json_results.get('Report_Items', {}):
+        for i in json_results.get('Report_Items', [{},]):
             for p in i.get('Performance', {}):
                 p_metric_label = p.get('Instance', {}).get('Metric_Type', '')
                 p_metric_value = p.get('Instance', {}).get('Count', 0)
@@ -1099,3 +1099,41 @@ class UsageStats():
                     return self._geolocation_title_report_to_chart_data(response.json())
 
         return {}
+
+
+    def _geolocation_title_report_to_chart_data(self, json_results):
+        country_to_metrics = {}
+
+        for i in json_results.get('Report_Items', {}):
+            code = i['Access_Country_Code_']
+            if code not in country_to_metrics:
+                country_to_metrics[code] = {'Total_Item_Requests': 0}
+
+            for p in i.get('Performance', {}):
+                p_metric_label = p.get('Instance', {}).get('Metric_Type', '')
+
+                if p_metric_label == 'Total_Item_Requests':
+                    p_metric_value = p.get('Instance', {}).get('Count', 0)
+                    country_to_metrics[code][p_metric_label] += int(p_metric_value)
+
+        return [{'value': v['Total_Item_Requests'], 'code': k, 'name': k} for k, v in country_to_metrics.items() if v['Total_Item_Requests'] > 0]
+    
+
+    def _item_report_to_table_data(self, json_results):
+        data = []
+
+        for i in json_results.get('Report_Items', {}):
+            i_res = {'code': '', 'total_item_requests': 0, 'unique_item_requests': 0}
+            for p in i.get('Performance', {}):
+                p_metric_label = p.get('Instance', {}).get('Metric_Type', '')
+                p_metric_value = p.get('Instance', {}).get('Count', 0)
+
+                if p_metric_label  == 'Total_Item_Requests':
+                    i_res['total_item_requests'] += int(p_metric_value)
+                elif p_metric_label == 'Unique_Item_Requests':
+                    i_res['unique_item_requests'] += int(p_metric_value)
+
+            if i_res['total_item_requests'] > 0:
+                data.append(i_res)
+        
+        return data
