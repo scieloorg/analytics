@@ -1292,39 +1292,25 @@ class UsageStats():
         
         return self._process_report_data(data, report_code, target)
 
-        try:
-            response.raise_for_status()
-        except requests.HTTPError:
-            ...
+    def _process_report_data(self, data, report_code, target):
+        """
+        Designa transformação de um Usage Report ou para chart ou para table de acordo com o relatório e o valor de target recebidos
 
-        if response.status_code == 200:
-            if report_code in ('cr_j1', 'tr_j1', 'lr_j1'):
-                if target == 'chart':
-                    return self._title_report_to_chart_data(response.json())
-                elif target == 'table':
-                    return self._title_report_to_table_data(response.json())
-            
-            if report_code in ('gr_j1',):
-                if target == 'chart':
-                    return self._geolocation_title_report_to_chart_data(response.json())
+        Args:
+            data (dict): Json de um relatório de acesso
+            report_code (str): Tipo de relatório de acesso (ex.: tr_j1, lr_j1, gr_j1, cr_j1)
+            target (str): Tipo de valor esperado de retorno (ex.: chart ou table)
+        Returns:
+            dict: Dados formatados para gráfico ou tabela
+
+        """
+        if report_code in ('cr_j1', 'tr_j1', 'lr_j1'):
+            if target == 'chart':
+                return self._title_report_to_chart_data(data)
+            elif target == 'table':
+                return self._title_report_to_table_data(data)
+        if report_code in ('gr_j1',):
+            if target == 'chart':
+                return self._geolocation_title_report_to_chart_data(data)
 
         return {}
-
-    def _item_report_to_table_data(self, json_results):
-        data = []
-
-        for i in json_results.get('Report_Items', {}):
-            i_res = {'code': '', 'total_item_requests': 0, 'unique_item_requests': 0}
-            for p in i.get('Performance', {}):
-                p_metric_label = p.get('Instance', {}).get('Metric_Type', '')
-                p_metric_value = p.get('Instance', {}).get('Count', 0)
-
-                if p_metric_label  == 'Total_Item_Requests':
-                    i_res['total_item_requests'] += int(p_metric_value)
-                elif p_metric_label == 'Unique_Item_Requests':
-                    i_res['unique_item_requests'] += int(p_metric_value)
-
-            if i_res['total_item_requests'] > 0:
-                data.append(i_res)
-        
-        return data
