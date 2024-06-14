@@ -1038,12 +1038,14 @@ class UsageStats():
         data = []
 
         for i in json_results.get('Report_Items', [{},]):
-            if i.get('Title', '') == '':
+            if i.get('Title') or '' == '':
                 continue
 
+            i_article_language = i.get('Article_Language') or ''
+            
             i_res = {
                 'title': i['Title'],
-                'article_language': choices.ISO_639_1.get(i.get('Article_Language', '').upper(), 'Undefined'),
+                'article_language': choices.ISO_639_1.get(i_article_language.upper(), 'Undefined'),
                 'unique_item_requests': 0, 
                 'total_item_requests': 0
             }
