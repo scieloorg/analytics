@@ -983,13 +983,8 @@ class UsageStats():
     def __init__(self, usage_api_base_url=None):
         self.base_url = usage_api_base_url or 'http://usage.apis.scielo.org/'
 
-    def _format_date(self, date):
-        fmt_date = datetime.strptime(date, '%Y-%m-%d')
-        fmt_date = fmt_date.replace(day = 1)
 
-        ms_unix_epoch = int(fmt_date.timestamp() * 1000)
 
-        return ms_unix_epoch
 
     def _clean_url_params(self, params, report_code):
         attrs_to_remove = set([k for k, v in params.items() if v is None or v == ''])
