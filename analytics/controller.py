@@ -1033,6 +1033,35 @@ class UsageStats():
         }
 
         return chart_data
+    
+    def _title_report_to_table_data(self, json_results):
+        data = []
+
+        for i in json_results.get('Report_Items', [{},]):
+            if i.get('Title', '') == '':
+                continue
+
+            i_res = {
+                'title': i['Title'],
+                'article_language': choices.ISO_639_1.get(i.get('Article_Language', '').upper(), 'Undefined'),
+                'unique_item_requests': 0, 
+                'total_item_requests': 0
+            }
+            i_res.update({x['Type']: x['Value'] for x in i['Item_ID']})
+            i_res['issn'] = i_res.get('Print_ISSN') or i_res.get('Online_ISSN') or ''
+            
+            for p in i.get('Performance', {}):
+                p_metric_label = p.get('Instance', {}).get('Metric_Type', '')
+                p_metric_value = p.get('Instance', {}).get('Count', 0)
+
+                if p_metric_label == 'Unique_Item_Requests':
+                    i_res['unique_item_requests'] += int(p_metric_value)
+                elif p_metric_label  == 'Total_Item_Requests':
+                    i_res['total_item_requests'] += int(p_metric_value)
+
+            data.append(i_res)
+
+        return sorted(data, key=lambda x: x.get('total_item_requests', 0), reverse=True)
 
     def get_usage_report(self, issn, collection, begin_date, end_date, granularity='monthly', report_code='tr_j1', api_version='v2'):
         url_tr = urllib.parse.urljoin(self.base_url, 'reports/%s' % report_code)
