@@ -994,15 +994,15 @@ class UsageStats():
 
         return ms_unix_epoch
 
-    def _clean_params_according_to_report(self, params, report_code):
-        attrs_to_remove = set()
+    def _clean_url_params(self, params, report_code):
+        attrs_to_remove = set([k for k, v in params.items() if v is None or v == ''])
         
         if report_code == 'cr_j1':
-            attrs_to_remove = ('issn', 'pid',)
+            attrs_to_remove = attrs_to_remove.union(set(['issn', 'pid',]))
         elif report_code == 'ir_a1':
-            attrs_to_remove = ('issn',)
+            attrs_to_remove = attrs_to_remove.union(set(['issn',]))
         elif report_code == 'tr_j1':
-            attrs_to_remove = ('pid',)
+            attrs_to_remove = attrs_to_remove.union(set(['pid',]))
 
         for attr in attrs_to_remove:
             if attr in params:
@@ -1075,7 +1075,7 @@ class UsageStats():
             'api': api_version,
         }
 
-        self._clean_params_according_to_report(params, report_code)
+        self._clean_url_params(params, report_code)
 
         response = requests.get(
             url=url_tr,
