@@ -1,9 +1,6 @@
 # coding: utf-8
 import json
-import requests
 import urllib.parse
-
-from datetime import datetime
 
 from dogpile.cache import make_region
 from scieloh5m5 import h5m5
@@ -15,7 +12,7 @@ from publicationstats import queries as PublicationStatsQueries
 from citedby import custom_query
 from altmetric import Altmetric, AltmetricHTTPException
 
-from analytics import choices, utils
+from analytics import choices, utils, request_utils
 
 PAGE_SIZE = 20
 
