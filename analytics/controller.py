@@ -1063,8 +1063,8 @@ class UsageStats():
 
         return sorted(data, key=lambda x: x.get('total_item_requests', 0), reverse=True)
 
-    def get_usage_report(self, issn, collection, begin_date, end_date, granularity='monthly', report_code='tr_j1', api_version='v2'):
-        url_tr = urllib.parse.urljoin(self.base_url, 'reports/%s' % report_code)
+    def get_usage_report(self, issn, collection, begin_date, end_date, granularity='monthly', report_code='tr_j1', api_version='v2', target='chart'):
+        url_report = urllib.parse.urljoin(self.base_url, 'reports/%s' % report_code)
 
         params = {
             'issn': issn,
@@ -1078,7 +1078,7 @@ class UsageStats():
         self._clean_url_params(params, report_code)
 
         response = requests.get(
-            url=url_tr,
+            url=url_report,
             params=params
         )
 
@@ -1087,7 +1087,15 @@ class UsageStats():
         except requests.HTTPError:
             ...
 
-        if response.status_code == 200 and report_code in ('cr_j1', 'tr_j1'):
-            return self._get_j1_chart(response.json())
+        if response.status_code == 200:
+            if report_code in ('cr_j1', 'tr_j1', 'lr_j1'):
+                if target == 'chart':
+                    return self._title_report_to_chart_data(response.json())
+                elif target == 'table':
+                    return self._title_report_to_table_data(response.json())
+            
+            if report_code in ('gr_j1',):
+                if target == 'chart':
+                    return self._geolocation_title_report_to_chart_data(response.json())
 
         return {}
