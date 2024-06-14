@@ -6,13 +6,10 @@
         <div class="row">
             <h3>${_(u'Composição da coleção')}</h3>
         </div>
-        <div class="col-md-4">
-          <%include file="publication_size_issues.mako"/>
-        </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
           <%include file="publication_size_documents.mako"/>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
           <%include file="publication_size_citations.mako"/>
         </div>
     </div>
