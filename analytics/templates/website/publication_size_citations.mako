@@ -3,10 +3,10 @@
     <h1 id="size_citations_value">
         <span id="loading_size_citations">
             <img src="/static/images/loading.gif" width="40px" />
-            <h5>${_(u'loading')}</h5>
+            <h5>${_(u'Carregando')}</h5>
         </span>
         <br/>
-        <small>${_(u'referências')}</small>
+        <small>${_(u'Referências')}</small>
     </h1>
 </div>
 <script language="javascript">

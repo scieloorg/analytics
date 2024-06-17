@@ -119,7 +119,7 @@ class ChartsConfig(object):
         chart = self.highchart
 
         chart['credits'] = {'href': 'https://usage.apis.scielo.br','text': self._(u'Fonte: SciELO SUSHI API')}
-        chart['title'] = {'text': self._(u'Total de acessos por ano e mês (API SUSHI)')}
+        chart['title'] = {'text': self._(u'Total de acessos por ano e mês')}
         chart['series'] = data['series']
         chart['legend'] = {'enabled': True}
         chart['yAxis']['title'] = {'text': self._(u'Métricas')}
@@ -134,6 +134,46 @@ class ChartsConfig(object):
             'footerFormat': '</table>'
         }
 
+        return {'options': chart}
+
+    def usage_report_geolocation(self, data):
+        chart = self.highchart
+        del chart['chart']
+        del chart['legend']
+        del chart['yAxis']
+
+        chart['credits'] = {'href': 'https://usage.apis.scielo.br','text': self._(u'Fonte: SciELO SUSHI API')}
+        chart['title'] = {'text': self._(u'Acessos por país de origem')}
+        chart['legend'] = {
+            'title': {
+                'text': self._(u'Total de acessos')
+            }
+        }
+        chart['colorAxis'] = {
+            'min': 1,
+            'max': max([k['value'] for k in data]),
+            'type': 'logarithmic'
+        }
+        chart['mapNavigation'] = {
+            'enabled': True,
+            'buttonOptions': {
+                'verticalAlign': 'bottom'
+            }
+        }
+        chart['series'] = [{
+            'data': data,
+            'joinBy': ['iso-a2', 'code'],
+            'name': self._(u'Total de acessos'),
+            'states': {
+                'hover': {
+                    'color': '#BADA55'
+                }
+            }
+        }]
+        chart['tooltip'] = {
+            'headerFormat': '',
+            'pointFormat': u'<span style="color:{point.color}">\u25CF</span>' + self._(u'País de origem de acesso') + ' <strong>{point.name}</strong><br/>{series.name}: <strong>{point.value}</strong>'
+        }
         return {'options': chart}
 
     def bibliometrics_google_h5m5(self, data):
