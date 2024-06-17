@@ -3758,3 +3758,41 @@ class ControllerTest(unittest.TestCase):
         result = self._stats.usage._geolocation_title_report_to_chart_data(json_results)
         
         self.assertEqual(expected, result)
+
+    def test_title_report_to_chart_data(self):
+        json_results = {
+            "Report_Items": [
+                {
+                    "Performance": [
+                        {
+                            "Instance": {
+                                "Metric_Type": "Total_Item_Requests",
+                                "Count": 134
+                            },
+                            "Period": {
+                                "Begin_Date": "2024-01-01"
+                            }
+                        },
+                        {
+                            "Instance": {
+                                "Metric_Type": "Unique_Item_Requests",
+                                "Count": 114
+                            },
+                            "Period": {
+                                "Begin_Date": "2024-01-01"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+        
+        expected = {
+            'series': [
+                {'data': [[1704078000000, 134]], 'name': 'Total Item Requests'},
+                {'data': [[1704078000000, 114]], 'name': 'Unique Item Requests'}
+            ]
+        }
+        
+        result = self._stats.usage._title_report_to_chart_data(json_results)
+        self.assertEqual(result, expected)
