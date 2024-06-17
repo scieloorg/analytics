@@ -17,7 +17,7 @@ from analytics import choices, utils, request_utils
 PAGE_SIZE = 20
 
 
-FETCH_DATA_TIMEOUT = 100
+FETCH_DATA_TIMEOUT = 2
 
 
 CITABLE_DOCUMENT_TYPES = (
@@ -1105,7 +1105,7 @@ class UsageStats():
         data = []
 
         for i in json_results.get('Report_Items') or []:
-            if (i.get('Title') or '') == '':
+            if not i.get('Title'):
                 continue
 
             i_article_language = i.get('Article_Language') or ''
