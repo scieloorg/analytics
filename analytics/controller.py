@@ -1089,10 +1089,10 @@ class UsageStats():
 
         O formato do retorno é:
         [
-            {'title': 'Psicologia & Sociedade', 'article_language': 'BR', 'unique_item_requests': 1000, 'total_item_requests': 1250},
-            {'title': 'Psicologia & Sociedade', 'article_language': 'ES', 'unique_item_requests': 500, 'total_item_requests': 650},
-            {'title': 'Revista do Departamento de Psicologia. UFF', 'article_language': 'BR', 'unique_item_requests': 341, 'total_item_requests': 409},
-            {'title': 'Revista do Departamento de Psicologia. UFF', 'article_language': 'US', 'unique_item_requests': 200, 'total_item_requests': 233},
+            {'title': 'Psicologia & Sociedade', 'article_language': 'Portuguese', 'unique_item_requests': 1000, 'total_item_requests': 1250},
+            {'title': 'Psicologia & Sociedade', 'article_language': 'Spanish', 'unique_item_requests': 500, 'total_item_requests': 650},
+            {'title': 'Revista do Departamento de Psicologia. UFF', 'article_language': 'Portuguese', 'unique_item_requests': 341, 'total_item_requests': 409},
+            {'title': 'Revista do Departamento de Psicologia. UFF', 'article_language': 'English', 'unique_item_requests': 200, 'total_item_requests': 233},
             ...
         ]
 
