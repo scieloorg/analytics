@@ -3709,3 +3709,52 @@ class ControllerTest(unittest.TestCase):
         result = self._stats.access._compute_access_by_document_type(query_result)
 
         self.assertEqual(expected, result)
+        
+    def test_geolocation_title_report_to_chart_data(self):
+        json_results = {
+            "Report_Items": [
+                {
+                    "Access_Country_Code_": "BR",
+                    "Performance": [
+                        {
+                            "Instance": {
+                                "Metric_Type": "Total_Item_Requests",
+                                "Count": 13300
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Access_Country_Code_": "MX",
+                    "Performance": [
+                        {
+                            "Instance": {
+                                "Metric_Type": "Total_Item_Requests",
+                                "Count": 10399
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Access_Country_Code_": "US",
+                    "Performance": [
+                        {
+                            "Instance": {
+                                "Metric_Type": "Total_Item_Requests",
+                                "Count": 4052
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+        
+        expected = [
+            {'value': 13300, 'code': 'BR'},
+            {'value': 10399, 'code': 'MX'},
+            {'value': 4052, 'code': 'US'}
+        ]
+        
+        result = self._stats.usage._geolocation_title_report_to_chart_data(json_results)
+        
+        self.assertEqual(expected, result)
