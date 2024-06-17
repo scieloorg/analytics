@@ -1006,7 +1006,7 @@ class UsageStats():
         """
         country_to_metrics = {}
 
-        for i in json_results.get('Report_Items') or []:
+        for i in json_results.get('Report_Items', [{}]):
             code = i['Access_Country_Code_']
             if code not in country_to_metrics:
                 country_to_metrics[code] = {'Total_Item_Requests': 0}
@@ -1061,8 +1061,8 @@ class UsageStats():
         serie_total_requests = []
         serie_unique_requests = []
 
-        for i in json_results.get('Report_Items') or []:
-            for p in i.get('Performance') or {}:
+        for i in json_results.get('Report_Items', [{}]):
+            for p in i.get('Performance'):
                 p_metric_label = p.get('Instance', {}).get('Metric_Type')
                 p_metric_value = p.get('Instance', {}).get('Count', 0)
                 p_period_begin = p.get('Period', {}).get('Begin_Date')
@@ -1104,7 +1104,7 @@ class UsageStats():
         """
         data = []
 
-        for i in json_results.get('Report_Items') or []:
+        for i in json_results.get('Report_Items', [{}]):
             if not i.get('Title'):
                 continue
 
