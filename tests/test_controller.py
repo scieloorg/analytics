@@ -3796,3 +3796,61 @@ class ControllerTest(unittest.TestCase):
         
         result = self._stats.usage._title_report_to_chart_data(json_results)
         self.assertEqual(result, expected)
+
+    def test_title_report_to_table_data(self):        
+        json_results = {
+            "Report_Items": [
+                {
+                    "Title": "Psicologia & Sociedade",
+                    "Article_Language": "pt",
+                    "Item_ID": [
+                        {"Type": "Print_ISSN", "Value": "0102-7182"},
+                        {"Type": "Online_ISSN", "Value": "1807-0310"}
+                    ],
+                    "Performance": [
+                        {
+                            "Instance": {
+                                "Metric_Type": "Total_Item_Requests",
+                                "Count": 1250
+                            }
+                        },
+                        {
+                            "Instance": {
+                                "Metric_Type": "Unique_Item_Requests",
+                                "Count": 1000
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Title": "Psicologia & Sociedade",
+                    "Article_Language": "es",
+                    "Item_ID": [
+                        {"Type": "Print_ISSN", "Value": "0102-7182"},
+                        {"Type": "Online_ISSN", "Value": "1807-0310"}
+                    ],
+                    "Performance": [
+                        {
+                            "Instance": {
+                                "Metric_Type": "Total_Item_Requests",
+                                "Count": 650
+                            }
+                        },
+                        {
+                            "Instance": {
+                                "Metric_Type": "Unique_Item_Requests",
+                                "Count": 500
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+        
+        expected = [
+            {'title': 'Psicologia & Sociedade', 'article_language': 'Portuguese', 'unique_item_requests': 1000, 'total_item_requests': 1250, 'Print_ISSN': '0102-7182', 'Online_ISSN': '1807-0310', 'issn': '0102-7182'},
+            {'title': 'Psicologia & Sociedade', 'article_language': 'Spanish', 'unique_item_requests': 500, 'total_item_requests': 650, 'Print_ISSN': '0102-7182', 'Online_ISSN': '1807-0310', 'issn': '0102-7182'}
+        ]
+        
+        result = self._stats.usage._title_report_to_table_data(json_results)
+        self.assertEqual(result, expected)
