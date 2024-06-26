@@ -18,12 +18,20 @@ def main(global_config, **settings):
     config = Configurator(settings=settings)
     config.add_renderer('jsonp', JSONP(param_name='callback', indent=4))
 
+    usage_solr_api_host = (
+        os.environ.get(
+            'USAGE_SOLR_API_HOST',
+            settings.get('usage_solr_api_host', 'https://hml-usage.scielo.br:8983')
+        )
+    )
+
     def add_stats(request):
         return controller.Stats(
             settings.get('articlemeta', None),
             settings.get('publicationstats', None),
             settings.get('citedby', None),
             settings.get('usage', None),
+            settings.get('usage_solr', usage_solr_api_host),
         )
 
     def add_chartsconfig(request):

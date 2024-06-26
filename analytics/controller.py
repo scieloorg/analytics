@@ -107,6 +107,7 @@ class Stats(object):
         self.publication = PublicationStats()
         self.bibliometrics = BibliometricsStats()
         self.usage = UsageStats(usage_api_host)
+        self.usage_solr = UsageSolrStats(usage_solr_api_host)
 
     @property
     def _(self):
@@ -1291,7 +1292,7 @@ class UsageStats():
         data = request_utils.fetch_data(
             url_report,
             params=params,
-            timeout=FETCH_DATA_TIMEOUT,            
+            timeout=FETCH_DATA_TIMEOUT,
         )
         
         return self._process_report_data(data, report_code, target)
