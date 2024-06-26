@@ -1319,3 +1319,9 @@ class UsageStats():
                 return self._geolocation_title_report_to_chart_data(data)
 
         return {}
+
+
+class UsageSolrStats():
+    def __init__(self, usage_solr_api_host):
+        self.base_url = usage_solr_api_host
+
