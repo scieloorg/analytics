@@ -69,6 +69,10 @@ def convert_date_to_month_start_unix_ms(date):
     return ms_unix_epoch
 
 
+def convert_date_range_filter_to_solr_format(begin_date, end_date):
+    return f'["{begin_date}T00:00:00Z" TO "{end_date}T00:00:00Z"]'
+
+
 class SingletonMixin(object):
     """
     Adds a singleton behaviour to an existing class.
