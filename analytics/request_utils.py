@@ -80,19 +80,21 @@ def generate_json_facets_for_solr_top100articles():
 
 @retry(
     retry=retry_if_exception_type(RetryableError),
-    wait=wait_exponential(multiplier=1, min=1, max=5),
+    wait=wait_exponential(multiplier=1, min=4, max=10),
     stop=stop_after_attempt(5),
 )
-def fetch_data(url, json=True, params=None, timeout=2, verify=True):
+def fetch_data(url, return_json=True, params=None, timeout=20, verify=True, use_post=False, facets=None):
     """
     Get the resource with HTTP
     Retry: Wait 2^x * 1 second between each retry starting with 4 seconds,
            then up to 10 seconds, then 10 seconds afterwards
     Args:
         url: URL address
-        json: Boolean
+        return_json: Boolean
         params: HTTP parameters
-        verify: Verify the SSL.
+        verify: Verify the SSL
+        use_post: Boolean to force the usage of POST
+        facets: JSON facets data
     Returns:
         Return a requests.response object.
     Except:
@@ -100,8 +102,12 @@ def fetch_data(url, json=True, params=None, timeout=2, verify=True):
     """
 
     try:
-        logger.info("Fetching URL: %s with params %s" % (url, params))
-        response = requests.get(url, params=params, timeout=timeout, verify=verify)
+        if use_post:
+            logger.info("Fetching URL: %s with params %s and facets %s" % (url, params, facets))
+            response = requests.post(url, params=params, headers={'Content-Type': 'application/json'}, json=facets, timeout=timeout, verify=verify)
+        else:
+            logger.info("Fetching URL: %s with params %s" % (url, params))
+            response = requests.get(url, params=params, timeout=timeout, verify=verify)
     except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as exc:
         logger.error("Erro fetching content: %s, retry..., erro: %s" % (url, exc))
         raise RetryableError(exc) from exc
@@ -124,4 +130,4 @@ def fetch_data(url, json=True, params=None, timeout=2, verify=True):
         else:
             raise
 
-    return response.json() if json else response.content
+    return response.json() if return_json else response.content

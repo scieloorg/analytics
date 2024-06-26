@@ -17,7 +17,8 @@ from analytics import choices, utils, request_utils
 PAGE_SIZE = 20
 
 
-FETCH_DATA_TIMEOUT = 2
+# Tempo de espera pelos resultados de uma requisição usando requests.get
+FETCH_DATA_TIMEOUT = 20
 
 
 CITABLE_DOCUMENT_TYPES = (
