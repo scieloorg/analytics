@@ -1,9 +1,6 @@
 # coding: utf-8
 import json
-import requests
 import urllib.parse
-
-from datetime import datetime
 
 from dogpile.cache import make_region
 from scieloh5m5 import h5m5
@@ -15,9 +12,13 @@ from publicationstats import queries as PublicationStatsQueries
 from citedby import custom_query
 from altmetric import Altmetric, AltmetricHTTPException
 
-from analytics import utils
+from analytics import choices, utils, request_utils
 
 PAGE_SIZE = 20
+
+
+# Tempo de espera pelos resultados de uma requisição usando requests.get
+FETCH_DATA_TIMEOUT = 20
 
 
 CITABLE_DOCUMENT_TYPES = (
@@ -102,11 +103,12 @@ class ServerError(Exception):
 
 class Stats(object):
 
-    def __init__(self, articlemeta_host, publicationstats_host, bibliometrics_host, usage_api_host):
+    def __init__(self, articlemeta_host, publicationstats_host, bibliometrics_host, usage_api_host, usage_solr_api_host):
         self.articlemeta = ArticleMeta()
         self.publication = PublicationStats()
         self.bibliometrics = BibliometricsStats()
         self.usage = UsageStats(usage_api_host)
+        self.usage_solr = UsageSolrStats(usage_solr_api_host)
 
     @property
     def _(self):
@@ -986,39 +988,88 @@ class UsageStats():
     def __init__(self, usage_api_base_url=None):
         self.base_url = usage_api_base_url or 'http://usage.apis.scielo.org/'
 
-    def _format_date(self, date):
-        fmt_date = datetime.strptime(date, '%Y-%m-%d')
-        fmt_date = fmt_date.replace(day = 1)
+    def _geolocation_title_report_to_chart_data(self, json_results):
+        """
+        Converte JSON de um Usage Report para uma lista de dicionários de acessos por país.
 
-        ms_unix_epoch = int(fmt_date.timestamp() * 1000)
+        O formato do retorno é:
+        [
+            {'value': 13300, 'code': 'BR'},
+            {'value': 10399, 'code': 'MX'},
+            {'value': 4052, 'code': 'US'},
+            ...
+        ]
 
-        return ms_unix_epoch
+        Args:
+            json_results (dict): JSON contendo os resultados do relatório de uso.
 
-    def _clean_params_according_to_report(self, params, report_code):
-        attrs_to_remove = set()
-        
-        if report_code == 'cr_j1':
-            attrs_to_remove = ('issn', 'pid',)
-        elif report_code == 'ir_a1':
-            attrs_to_remove = ('issn',)
-        elif report_code == 'tr_j1':
-            attrs_to_remove = ('pid',)
+        Returns:
+            list: Lista de dicionários com acessos por país.
+        """
+        country_to_metrics = {}
 
-        for attr in attrs_to_remove:
-            if attr in params:
-                del params[attr]
+        for i in json_results.get('Report_Items', [{}]):
+            code = i['Access_Country_Code_']
+            if code not in country_to_metrics:
+                country_to_metrics[code] = {'Total_Item_Requests': 0}
 
-    def _get_j1_chart(self, json_results):
+            for p in i.get('Performance', {}):
+                p_metric_label = p.get('Instance', {}).get('Metric_Type')
+
+                if p_metric_label == 'Total_Item_Requests':
+                    p_metric_value = p.get('Instance', {}).get('Count', 0)
+                    country_to_metrics[code][p_metric_label] += int(p_metric_value)
+
+        return [{'value': v['Total_Item_Requests'], 'code': k} for k, v in country_to_metrics.items() if v['Total_Item_Requests'] > 0]
+
+    def _title_report_to_chart_data(self, json_results):
+        """
+        Converte JSON de um Usage Report para um dicionário dicionários séries temporais (acessos por mês) por métrica.
+
+        O formato do retorno é:
+        {
+            'series': [
+                {
+                    'data': [
+                        ('2024-01-01', 134),
+                        ('2024-02-01', 350),
+                        ('2024-03-01', 240),
+                        ('2024-04-01', 355),
+                        ('2024-05-01', 359),
+                        ('2024-06-01', 402),
+                    ], 
+                    'name': 'Total Item Requests'
+                },
+                {
+                    'data': [
+                        ('2024-01-01', 114),
+                        ('2024-02-01', 325),
+                        ('2024-03-01', 194),
+                        ('2024-04-01', 302),
+                        ('2024-05-01', 339),
+                        ('2024-06-01', 377),
+                    ], 
+                    'name': 'Unique Item Requests'
+                },
+            ] 
+        }
+
+        Args:
+            json_results (dict): JSON contendo os resultados do relatório de uso.
+
+        Returns:
+            dict: Dicionário de acessos mensais como o seguinte (apropriado para uso em gráficos na biblioteca highcharts):
+        """
         serie_total_requests = []
         serie_unique_requests = []
 
-        for i in json_results.get('Report_Items', {}):
-            for p in i.get('Performance', {}):
-                p_metric_label = p.get('Instance', {}).get('Metric_Type', '')
+        for i in json_results.get('Report_Items', [{}]):
+            for p in i.get('Performance'):
+                p_metric_label = p.get('Instance', {}).get('Metric_Type')
                 p_metric_value = p.get('Instance', {}).get('Count', 0)
-                p_period_begin = p.get('Period', {}).get('Begin_Date', '')
+                p_period_begin = p.get('Period', {}).get('Begin_Date')
 
-                fmt_date = self._format_date(p_period_begin)
+                fmt_date = utils.convert_date_to_month_start_unix_ms(p_period_begin)
 
                 if p_metric_label  == 'Total_Item_Requests':
                     serie_total_requests.append([fmt_date, int(p_metric_value)])
@@ -1033,9 +1084,200 @@ class UsageStats():
         }
 
         return chart_data
+    
+    def _title_report_to_table_data(self, json_results):
+        """
+        Converte JSON de um Usage Report para uma lista de dicionários de acessos por periódico ou por periódico e idioma de documento.
 
-    def get_usage_report(self, issn, collection, begin_date, end_date, granularity='monthly', report_code='tr_j1', api_version='v2'):
-        url_tr = urllib.parse.urljoin(self.base_url, 'reports/%s' % report_code)
+        O formato do retorno é:
+        [
+            {'title': 'Psicologia & Sociedade', 'article_language': 'Portuguese', 'unique_item_requests': 1000, 'total_item_requests': 1250},
+            {'title': 'Psicologia & Sociedade', 'article_language': 'Spanish', 'unique_item_requests': 500, 'total_item_requests': 650},
+            {'title': 'Revista do Departamento de Psicologia. UFF', 'article_language': 'Portuguese', 'unique_item_requests': 341, 'total_item_requests': 409},
+            {'title': 'Revista do Departamento de Psicologia. UFF', 'article_language': 'English', 'unique_item_requests': 200, 'total_item_requests': 233},
+            ...
+        ]
+
+        Args:
+            json_results (dict): JSON contendo os resultados do relatório de uso.
+
+        Returns:
+            list: Lista de dicionários com acessos por periódico ou por periódico e idioma de documento.
+        """
+        data = []
+
+        for i in json_results.get('Report_Items', [{}]):
+            if not i.get('Title'):
+                continue
+
+            i_article_language = i.get('Article_Language') or ''
+            
+            i_res = {
+                'title': i['Title'],
+                'article_language': choices.ISO_639_1.get(i_article_language.upper(), 'Undefined'),
+                'unique_item_requests': 0, 
+                'total_item_requests': 0
+            }
+            i_res.update({x['Type']: x['Value'] for x in i['Item_ID']})
+            i_res['issn'] = i_res.get('Print_ISSN') or i_res.get('Online_ISSN') or ''
+            
+            for p in i.get('Performance', {}):
+                p_metric_label = p.get('Instance', {}).get('Metric_Type')
+                p_metric_value = p.get('Instance', {}).get('Count', 0)
+
+                if p_metric_label == 'Unique_Item_Requests':
+                    i_res['unique_item_requests'] += int(p_metric_value)
+                elif p_metric_label  == 'Total_Item_Requests':
+                    i_res['total_item_requests'] += int(p_metric_value)
+
+            if i_res['total_item_requests'] > 0:
+                data.append(i_res)
+
+        return sorted(data, key=lambda x: x.get('total_item_requests', 0), reverse=True)
+
+    def get_usage_report(self, issn, collection, begin_date, end_date, granularity='monthly', report_code='tr_j1', api_version='v2', target='chart'):
+        """ 
+        Obtém um Usage Report JSON da SciELO SUSHI API e retorna dados ou para gráfico ou para tabela.
+
+        Args:
+            issn (str): ISSN do periódico
+            collection (str): Nome da coleção da qual o relatório é solicitado.
+            begin_date (str): Data de início do período do relatório (YYYY-MM-DD).
+            end_date (str): Data de término do período do relatório (YYYY-MM-DD).
+            granularity (str): Granularidade dos dados do relatório (ex: 'monthly' ou 'totals').
+            report_code (str): Código do relatório a ser solicitado.
+            api_version (str): Versão da API SUSHI a ser utilizada.
+            target (str): Formato de retorno dos dados (ex: 'chart' ou 'table').
+        Returns: 
+            dict: Lista de dicionários formatados para visualização em gráfico (chart) ou table (table)
+        
+        Segue um exemplo de relatório obtido da SciELO SUSHI API que é convertido para lista de dicionários neste método:
+        {
+            "Exceptions": [],
+            "Report_Attributes": [
+                {
+                    "Name": "Attributes_To_Show",
+                    "Value": "Data_Type|Access_Method"
+                }
+            ],
+            "Report_Filters": [
+                {
+                    "Name": "Begin_Date",
+                    "Value": "2022-01-01"
+                },
+                {
+                    "Name": "End_Date",
+                    "Value": "2022-01-31"
+                }
+            ],
+            "Report_Header": {
+                "Created": "2024-06-14T21:16:29.834239",
+                "Created_By": "Scientific Electronic Library Online SUSHI API",
+                "Customer_ID": "",
+                "Institution_ID": [
+                    {
+                        "Type": "ISNI",
+                        "Value": ""
+                    }
+                ],
+                "Institution_Name": "",
+                "Release": 5,
+                "Report_ID": "tr_j1",
+                "Report_Name": "Journal Requests (Excluding OA_Gold)"
+            },
+            "Report_Items": [
+                {
+                    "Access_Method": "Regular",
+                    "Access_Type": "Open Access",
+                    "Data_Type": "Journal",
+                    "Item_ID": [
+                        {
+                            "Type": "Print_ISSN",
+                            "Value": "0102-7182"
+                        },
+                        {
+                            "Type": "Online_ISSN",
+                            "Value": "1807-0310"
+                        }
+                    ],
+                    "Performance": [
+                        {
+                            "Instance": {
+                                "Count": "78322",
+                                "Metric_Type": "Total_Item_Requests"
+                            },
+                            "Period": {
+                                "Begin_Date": "2022-01-01",
+                                "End_Date": "2022-01-31"
+                            }
+                        },
+                        {
+                            "Instance": {
+                                "Count": "73916",
+                                "Metric_Type": "Unique_Item_Requests"
+                            },
+                            "Period": {
+                                "Begin_Date": "2022-01-01",
+                                "End_Date": "2022-01-31"
+                            }
+                        }
+                    ],
+                    "Platform": "Scientific Electronic Library Online - Brasil",
+                    "Publisher": "Associação Brasileira de Psicologia Social",
+                    "Publisher_ID": [],
+                    "Section_Type": "Article",
+                    "Title": "Psicologia & Sociedade"
+                },
+                {
+                    "Access_Method": "Regular",
+                    "Access_Type": "Open Access",
+                    "Data_Type": "Journal",
+                    "Item_ID": [
+                        {
+                            "Type": "Print_ISSN",
+                            "Value": "0103-863X"
+                        },
+                        {
+                            "Type": "Online_ISSN",
+                            "Value": "1982-4327"
+                        }
+                    ],
+                    "Performance": [
+                        {
+                            "Instance": {
+                                "Count": "51534",
+                                "Metric_Type": "Total_Item_Requests"
+                            },
+                            "Period": {
+                                "Begin_Date": "2022-01-01",
+                                "End_Date": "2022-01-31"
+                            }
+                        },
+                        {
+                            "Instance": {
+                                "Count": "48403",
+                                "Metric_Type": "Unique_Item_Requests"
+                            },
+                            "Period": {
+                                "Begin_Date": "2022-01-01",
+                                "End_Date": "2022-01-31"
+                            }
+                        }
+                    ],
+                    "Platform": "Scientific Electronic Library Online - Brasil",
+                    "Publisher": "Universidade de São Paulo, Faculdade de Filosofia Ciências e Letras de Ribeirão Preto, Programa de Pós-Graduação em Psicologia",
+                    "Publisher_ID": [],
+                    "Section_Type": "Article",
+                    "Title": "Paidéia (Ribeirão Preto)"
+                },
+            ]
+        }
+        Args:
+
+        Returns:
+            dict: 
+        """
+        url_report = urllib.parse.urljoin(self.base_url, 'reports/%s' % report_code)
 
         params = {
             'issn': issn,
@@ -1046,19 +1288,125 @@ class UsageStats():
             'api': api_version,
         }
 
-        self._clean_params_according_to_report(params, report_code)
+        request_utils.clean_params_by_report(params, report_code)
 
-        response = requests.get(
-            url=url_tr,
-            params=params
+        data = request_utils.fetch_data(
+            url_report,
+            params=params,
+            timeout=FETCH_DATA_TIMEOUT,
+        )
+        
+        return self._process_report_data(data, report_code, target)
+
+    def _process_report_data(self, data, report_code, target):
+        """
+        Designa transformação de um Usage Report ou para chart ou para table de acordo com o relatório e o valor de target recebidos
+
+        Args:
+            data (dict): Json de um relatório de acesso
+            report_code (str): Tipo de relatório de acesso (ex.: tr_j1, lr_j1, gr_j1, cr_j1)
+            target (str): Tipo de valor esperado de retorno (ex.: chart ou table)
+        Returns:
+            dict: Dados formatados para gráfico ou tabela
+
+        """
+        if report_code in ('cr_j1', 'tr_j1', 'lr_j1'):
+            if target == 'chart':
+                return self._title_report_to_chart_data(data)
+            elif target == 'table':
+                return self._title_report_to_table_data(data)
+        if report_code in ('gr_j1',):
+            if target == 'chart':
+                return self._geolocation_title_report_to_chart_data(data)
+
+        return {}
+
+
+class UsageSolrStats():
+    def __init__(self, usage_solr_api_host):
+        self.base_url = usage_solr_api_host
+
+    def get_top100articles(self, begin_date, end_date, collection, issn=None):
+        """ 
+        Obtém dados do Usage Solr para preencher tabelas com os 100 artigos mais acessados, 
+        em termos de total_item_requests_sum, no período, coleção e revista indicados.
+
+        Args:
+            begin_date (str): Data de início do período do relatório (YYYY-MM-DD).
+            end_date (str): Data de término do período do relatório (YYYY-MM-DD).
+            collection (str): Nome da coleção da qual o relatório é solicitado.
+            issn (str): ISSN do periódico (None retorna artigos de quaisquer periódicos da coleção indicada).
+
+        Returns: 
+            dict: os top n documentos mais acessados
+        
+        Segue um exemplo de JSON obtido do índice metrics do Usage Solr:
+        {
+            "responseHeader": {
+                "status": 0,
+                "QTime": 63
+            },
+            "response": {
+                "numFound": 56399,
+                "start": 0,
+                "numFoundExact": true,
+                "docs": []
+            },
+            "facets": {
+                "count": 56399,
+                "pids": {
+                    "buckets": [
+                        {
+                            "val": "S0026-17422022000100007",
+                            "count": 145,
+                            "total_requests_sum": 74181,
+                            "total_investigations_sum": 79539,
+                            "yop": "2022",
+                            "unique_investigations_sum": 68763,
+                            "key_issn": "0026-1742",
+                            "unique_requests_sum": 64242
+                        },
+                        {
+                            "val": "S0026-17422021000100039",
+                            "count": 144,
+                            "total_requests_sum": 73095,
+                            "total_investigations_sum": 78078,
+                            "yop": "2021",
+                            "unique_investigations_sum": 68280,
+                            "key_issn": "0026-1742",
+                            "unique_requests_sum": 63827
+                        },
+                        {
+                            "val": "S0026-17422016000600043",
+                            "count": 146,
+                            "total_requests_sum": 71332,
+                            "total_investigations_sum": 72111,
+                            "yop": "2016",
+                            "unique_investigations_sum": 63795,
+                            "key_issn": "0026-1742",
+                            "unique_requests_sum": 63092
+                        },
+                        ...
+                    ]
+                }
+            }
+        }
+        """
+        year_month_day_range = utils.convert_date_range_filter_to_solr_format(begin_date, end_date)
+        params = request_utils.generate_params_for_solr_top100articles(collection, year_month_day_range, issn)
+        json_facets = request_utils.generate_json_facets_for_solr_top100articles()
+        
+        data = request_utils.fetch_data(
+            urllib.parse.urljoin(self.base_url, '/solr/metrics/select'),
+            params=params,
+            timeout=FETCH_DATA_TIMEOUT,
+            # Devido ao tamanho dos parâmetros de URL, a solução é usar POST em lugar de GET
+            # Os dados das facets são passados por meio do parâmetro json
+            use_post=True,
+            facets=json_facets, 
         )
 
         try:
-            response.raise_for_status()
-        except requests.HTTPError:
-            ...
-
-        if response.status_code == 200 and report_code in ('cr_j1', 'tr_j1'):
-            return self._get_j1_chart(response.json())
-
-        return {}
+            return data['facets']['pids']['buckets']
+        except KeyError:
+            return []

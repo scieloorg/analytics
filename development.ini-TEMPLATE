@@ -26,6 +26,8 @@ memcached_expiration_time = 3600
 google_analytics_code =
 google_analytics_sample_rate = 100
 
+usage_solr_api_host = http://172.18.0.7:8983
+
 ###
 # Tags list of under develoment functionalities
 under_development = bibliometrics
