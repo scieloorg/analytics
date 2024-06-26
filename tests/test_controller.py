@@ -3799,7 +3799,7 @@ class ControllerTest(unittest.TestCase):
         result = self._stats.usage._title_report_to_chart_data(json_results)
         self.assertEqual(result, expected)
 
-    def test_title_report_to_table_data(self):        
+    def test_title_report_to_table_data(self):
         json_results = {
             "Report_Items": [
                 {
