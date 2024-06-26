@@ -9,6 +9,7 @@
       <li><a href="${request.route_url('accesses_web')}">${_(u'Gráficos')}</a></li>
       <li><a href="${request.route_url('accesses_list_journals_web')}">${_(u'Periódicos')}</a></li>
       <li><a href="${request.route_url('accesses_list_journals_language')}">${_(u'Periódicos por idioma')}</a></li>
+      <li><a href="${request.route_url('accesses_list_journals_top100_articles')}">${_(u'Top 100 artigos')}</a></li>
     </ul>
   </li>
   <li class="${'active' if page == 'publication' else ''}">
