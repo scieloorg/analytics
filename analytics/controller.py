@@ -1325,3 +1325,87 @@ class UsageSolrStats():
     def __init__(self, usage_solr_api_host):
         self.base_url = usage_solr_api_host
 
+    def get_top100articles(self, begin_date, end_date, collection, issn=None):
+        """ 
+        Obtém dados do Usage Solr para preencher tabelas com os 100 artigos mais acessados, 
+        em termos de total_item_requests_sum, no período, coleção e revista indicados.
+
+        Args:
+            begin_date (str): Data de início do período do relatório (YYYY-MM-DD).
+            end_date (str): Data de término do período do relatório (YYYY-MM-DD).
+            collection (str): Nome da coleção da qual o relatório é solicitado.
+            issn (str): ISSN do periódico (None retorna artigos de quaisquer periódicos da coleção indicada).
+
+        Returns: 
+            dict: os top n documentos mais acessados
+        
+        Segue um exemplo de JSON obtido do índice metrics do Usage Solr:
+        {
+            "responseHeader": {
+                "status": 0,
+                "QTime": 63
+            },
+            "response": {
+                "numFound": 56399,
+                "start": 0,
+                "numFoundExact": true,
+                "docs": []
+            },
+            "facets": {
+                "count": 56399,
+                "pids": {
+                    "buckets": [
+                        {
+                            "val": "S0026-17422022000100007",
+                            "count": 145,
+                            "total_requests_sum": 74181,
+                            "total_investigations_sum": 79539,
+                            "yop": "2022",
+                            "unique_investigations_sum": 68763,
+                            "key_issn": "0026-1742",
+                            "unique_requests_sum": 64242
+                        },
+                        {
+                            "val": "S0026-17422021000100039",
+                            "count": 144,
+                            "total_requests_sum": 73095,
+                            "total_investigations_sum": 78078,
+                            "yop": "2021",
+                            "unique_investigations_sum": 68280,
+                            "key_issn": "0026-1742",
+                            "unique_requests_sum": 63827
+                        },
+                        {
+                            "val": "S0026-17422016000600043",
+                            "count": 146,
+                            "total_requests_sum": 71332,
+                            "total_investigations_sum": 72111,
+                            "yop": "2016",
+                            "unique_investigations_sum": 63795,
+                            "key_issn": "0026-1742",
+                            "unique_requests_sum": 63092
+                        },
+                        ...
+                    ]
+                }
+            }
+        }
+        """
+        year_month_day_range = utils.convert_date_range_filter_to_solr_format(begin_date, end_date)
+        params = request_utils.generate_params_for_solr_top100articles(collection, year_month_day_range, issn)
+        json_facets = request_utils.generate_json_facets_for_solr_top100articles()
+        
+        data = request_utils.fetch_data(
+            urllib.parse.urljoin(self.base_url, '/solr/metrics/select'),
+            params=params,
+            timeout=FETCH_DATA_TIMEOUT,
+            # Devido ao tamanho dos parâmetros de URL, a solução é usar POST em lugar de GET
+            # Os dados das facets são passados por meio do parâmetro json
+            use_post=True,
+            facets=json_facets, 
+        )
+
+        try:
+            return data['facets']['pids']['buckets']
+        except KeyError:
+            return []

@@ -1,7 +1,9 @@
 # coding: utf-8
+from unittest import patch, Mock
+
 import unittest
 import os
-import json
+
 
 from analytics import controller
 
@@ -3854,3 +3856,52 @@ class ControllerTest(unittest.TestCase):
         
         result = self._stats.usage._title_report_to_table_data(json_results)
         self.assertEqual(result, expected)
+
+    @patch('request_utils.fetch_data')
+    def test_get_top100articles_key_error(self, mock_fetch_data):
+        mock_fetch_data.return_value = {
+            "responseHeader": {
+                "status": 0,
+                "QTime": 63
+            },
+            "response": {
+                "numFound": 56399,
+                "start": 0,
+                "numFoundExact": True,
+                "docs": []
+            },
+            "facets": {
+                "count": 0,
+            }
+        }
+
+        result = self._stats.usage_solr.get_top100articles('2024-01-01', '2024-06-01', 'mex')
+
+        self.assertEqual(result, [])
+
+
+    @patch('request_utils.fetch_data')
+    def test_get_top100articles_success(self, mock_fetch_data):
+        mock_fetch_data.return_value = {
+            "facets": {
+                "pids": {
+                    "buckets": [
+                        {
+                            "val": "S0026-17422022000100007",
+                            "count": 145,
+                            "total_item_requests_sum": 74181,
+                            "total_item_investigations_sum": 79539,
+                            "yop": "2022",
+                            "unique_item_investigations_sum": 68763,
+                            "key_issn": "0026-1742",
+                            "unique_item_requests_sum": 64242
+                        }
+                    ]
+                }
+            }
+        }
+
+        result = self._stats.usage_solr.get_top100articles('2024-01-01', '2024-06-01', 'mex')
+        expected_result = mock_fetch_data.return_value["facets"]["pids"]["buckets"]
+
+        self.assertEqual(result, expected_result)
