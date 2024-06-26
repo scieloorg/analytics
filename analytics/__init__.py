@@ -38,6 +38,7 @@ def main(global_config, **settings):
     config.add_route('accesses_web', '/w/accesses')
     config.add_route('accesses_list_journals_web', '/w/accesses/list/journals')
     config.add_route('accesses_list_journals_language', '/w/accesses/list/journals/language')
+    config.add_route('accesses_list_journals_top100_articles', '/w/accesses/list/journals/top100_articles')
     config.add_route('accesses_journal_usage_data_web', '/w/accesses/journal/usage_data')
     config.add_route('publication_size_web', '/w/publication/size')
     config.add_route('publication_size', '/ajx/publication/size')
