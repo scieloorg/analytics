@@ -56,6 +56,28 @@ def generate_params_for_solr_top100articles(collection, year_month_day_range, is
 
     return params
 
+
+def generate_json_facets_for_solr_top100articles():
+    return {
+        'facet': {
+            'pids': {
+                'type': 'terms',
+                'field': 'pid',
+                'limit': 100,
+                'sort':{'total_item_requests_sum': 'desc'},
+                'facet': {
+                   'total_item_requests_sum': 'sum(total_item_requests)',
+                   'total_item_investigations_sum': 'sum(total_item_investigations)',
+                   'unique_item_requests_sum': 'sum(unique_item_requests)',
+                   'unique_item_investigations_sum': 'sum(unique_item_investigations)',
+                   'yop': 'min(yop)',
+                   'key_issn': 'min(key_issn)',
+                }
+            }
+        }
+    }
+
+
 @retry(
     retry=retry_if_exception_type(RetryableError),
     wait=wait_exponential(multiplier=1, min=1, max=5),
