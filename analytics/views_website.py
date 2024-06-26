@@ -201,6 +201,23 @@ def accesses_list_journals_language(request):
     return data
 
 
+@view_config(route_name='accesses_list_journals_top100_articles', renderer='templates/website/accesses_list_journals_top100_articles.mako')
+@base_data_manager
+def accesses_list_journals_top100_articles(request):
+
+    data = request.data_manager
+    data['page'] = 'accesses'
+
+    data['usage'] = request.stats.usage_solr.get_top100articles(
+        begin_date=data['range_start'],
+        end_date=data['range_end'],
+        collection=data['selected_collection_code'],
+        issn=data['selected_code'] if len(data['selected_code']) >= 8 else '',
+    )
+
+    return data
+
+
 @view_config(route_name='accesses_journal_usage_data_web', renderer='templates/website/accesses_journal_usage_data.mako')
 @base_data_manager
 def accesses_journal_usage_data_web(request):
