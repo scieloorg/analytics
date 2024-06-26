@@ -1,3 +1,4 @@
+import json
 import logging
 import requests
 
@@ -38,6 +39,22 @@ def clean_params_by_report(params, report_code):
         if attr in params:
             del params[attr]
 
+
+def generate_params_for_solr_top100articles(collection, year_month_day_range, issn=None):
+    params = {
+        'q': '*:*', 
+        'fq':[
+            f'metric_scope:top100articles',
+            f'collection:{collection}',
+            f'year_month_day:{year_month_day_range}',
+        ],
+        'rows': 0,
+    }
+
+    if issn:
+        params['fq'].append(f'key_issn:{issn}')
+
+    return params
 
 @retry(
     retry=retry_if_exception_type(RetryableError),
