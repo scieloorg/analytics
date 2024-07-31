@@ -18,6 +18,8 @@ memcached_expiration_time = 3600
 google_analytics_code =
 google_analytics_sample_rate = 100
 
+usage_solr_api_host = https://hml-usage.scielo.br:8983
+
 ###
 # Tags list of under develoment functionalities
 under_development = bibliometrics

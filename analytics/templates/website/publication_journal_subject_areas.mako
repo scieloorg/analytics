@@ -4,7 +4,7 @@
     <div id="journal_subject_areas" style="width:100%; height:400px;">
       <span id="loading_journal_subject_areas">
         <img src="/static/images/loading.gif" />
-        <h5>${_(u'loading')}</h5>
+        <h5>${_(u'Carregando')}</h5>
       </span>
     </div>
   </div>

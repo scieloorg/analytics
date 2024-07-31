@@ -2,7 +2,7 @@
 <div id="jcr_average_impact_factor_percentile_chart" style="width:100%; height:400px;">
   <span id="loading_jcr_average_impact_factor_percentile_chart">
     <img src="/static/images/loading.gif" />
-    <h5>${_(u'loading')}</h5>
+    <h5>${_(u'Carregando')}</h5>
   </span>
 </div>
 <script language="javascript">

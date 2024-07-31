@@ -18,12 +18,20 @@ def main(global_config, **settings):
     config = Configurator(settings=settings)
     config.add_renderer('jsonp', JSONP(param_name='callback', indent=4))
 
+    usage_solr_api_host = (
+        os.environ.get(
+            'USAGE_SOLR_API_HOST',
+            settings.get('usage_solr_api_host', 'https://hml-usage.scielo.br:8983')
+        )
+    )
+
     def add_stats(request):
         return controller.Stats(
             settings.get('articlemeta', None),
             settings.get('publicationstats', None),
             settings.get('citedby', None),
             settings.get('usage', None),
+            settings.get('usage_solr', usage_solr_api_host),
         )
 
     def add_chartsconfig(request):
@@ -36,6 +44,9 @@ def main(global_config, **settings):
     config.add_route('reports', '/w/reports')
     config.add_route('usage_report_chart', '/ajx/usage/usage_report_chart')
     config.add_route('accesses_web', '/w/accesses')
+    config.add_route('accesses_list_journals_web', '/w/accesses/list/journals')
+    config.add_route('accesses_list_journals_language', '/w/accesses/list/journals/language')
+    config.add_route('accesses_list_journals_top100_articles', '/w/accesses/list/journals/top100_articles')
     config.add_route('accesses_journal_usage_data_web', '/w/accesses/journal/usage_data')
     config.add_route('publication_size_web', '/w/publication/size')
     config.add_route('publication_size', '/ajx/publication/size')
