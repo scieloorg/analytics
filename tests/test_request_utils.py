@@ -13,7 +13,7 @@ class RequestUtilsTest(unittest.TestCase):
         expected_results = {
             'q': '*:*', 
             'fq':[
-                f'key_issn:{issn}',
+                f'pid_issn:{issn}',
                 f'metric_scope:top100articles',
                 f'collection:{collection}',
                 f'year_month_day:{year_month_day_range}',
@@ -59,7 +59,7 @@ class RequestUtilsTest(unittest.TestCase):
                     'unique_item_requests_sum': 'sum(unique_item_requests)',
                     'unique_item_investigations_sum': 'sum(unique_item_investigations)',
                     'yop': 'min(yop)',
-                    'key_issn': 'min(key_issn)',
+                    'pid_issn': 'min(pid_issn)',
                     }
                 }
             }

@@ -52,7 +52,7 @@ def generate_params_for_solr_top100articles(collection, year_month_day_range, is
     }
 
     if issn:
-        params['fq'].append(f'key_issn:{issn}')
+        params['fq'].append(f'pid_issn:{issn}')
 
     return params
 
@@ -71,7 +71,7 @@ def generate_json_facets_for_solr_top100articles():
                    'unique_item_requests_sum': 'sum(unique_item_requests)',
                    'unique_item_investigations_sum': 'sum(unique_item_investigations)',
                    'yop': 'min(yop)',
-                   'key_issn': 'min(key_issn)',
+                   'pid_issn': 'min(pid_issn)',
                 }
             }
         }

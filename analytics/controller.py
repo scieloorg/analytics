@@ -1363,7 +1363,7 @@ class UsageSolrStats():
                             "total_investigations_sum": 79539,
                             "yop": "2022",
                             "unique_investigations_sum": 68763,
-                            "key_issn": "0026-1742",
+                            "pid_issn": "0026-1742",
                             "unique_requests_sum": 64242
                         },
                         {
@@ -1373,7 +1373,7 @@ class UsageSolrStats():
                             "total_investigations_sum": 78078,
                             "yop": "2021",
                             "unique_investigations_sum": 68280,
-                            "key_issn": "0026-1742",
+                            "pid_issn": "0026-1742",
                             "unique_requests_sum": 63827
                         },
                         {
@@ -1383,7 +1383,7 @@ class UsageSolrStats():
                             "total_investigations_sum": 72111,
                             "yop": "2016",
                             "unique_investigations_sum": 63795,
-                            "key_issn": "0026-1742",
+                            "pid_issn": "0026-1742",
                             "unique_requests_sum": 63092
                         },
                         ...

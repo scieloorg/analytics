@@ -17,11 +17,11 @@
     % for item in usage:
       <tr>
         <td>
-          <a href="http://${selected_collection['domain']}/scielo.php?script=sci_serial&amp;pid=${item['key_issn']}" target="_blank">
+          <a href="http://${selected_collection['domain']}/scielo.php?script=sci_serial&amp;pid=${item['pid_issn']}" target="_blank">
             <span class="glyphicon glyphicon-globe" />
           </a>
-          <a href="${request.route_url('index_web')}?journal=${item['key_issn']}">
-            ${item['key_issn']}
+          <a href="${request.route_url('index_web')}?journal=${item['pid_issn']}">
+            ${item['pid_issn']}
           </a>
         </td>
         <td>

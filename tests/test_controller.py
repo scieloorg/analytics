@@ -3893,7 +3893,7 @@ class ControllerTest(unittest.TestCase):
                             "total_item_investigations_sum": 79539,
                             "yop": "2022",
                             "unique_item_investigations_sum": 68763,
-                            "key_issn": "0026-1742",
+                            "pid_issn": "0026-1742",
                             "unique_item_requests_sum": 64242
                         }
                     ]
