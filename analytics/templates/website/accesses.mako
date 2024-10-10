@@ -5,8 +5,13 @@
   <%include file="access_datepicker.mako"/>
   <center>
     <div class="chart">
-      % if selected_journal_code:
-      <h3>${_(u'Gráfico da evolução de acessos aos documentos')}</h3>
+      % if selected_document_code:
+      <h3>${_(u'Gráfico da evolução de acessos ao documento')}</h3>
+      <div class="col-md-12">
+        <%include file="usage_ir_a1.mako"/>
+      </div>
+      % elif selected_journal_code:
+      <h3>${_(u'Gráfico da evolução de acessos aos documentos do periódico')}</h3>
       <div class="col-md-12">
         <%include file="usage_tr_j1.mako"/>
       </div>
