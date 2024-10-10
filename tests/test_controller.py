@@ -3848,8 +3848,8 @@ class ControllerTest(unittest.TestCase):
         }
         
         expected = [
-            {'title': 'Psicologia & Sociedade', 'article_language': 'Portuguese', 'unique_item_requests': 1000, 'total_item_requests': 1250, 'Print_ISSN': '0102-7182', 'Online_ISSN': '1807-0310', 'issn': '0102-7182'},
-            {'title': 'Psicologia & Sociedade', 'article_language': 'Spanish', 'unique_item_requests': 500, 'total_item_requests': 650, 'Print_ISSN': '0102-7182', 'Online_ISSN': '1807-0310', 'issn': '0102-7182'}
+            {'title': 'Psicologia & Sociedade', 'article_language_iso': 'Portuguese', 'unique_item_requests': 1000, 'total_item_requests': 1250, 'Print_ISSN': '0102-7182', 'Online_ISSN': '1807-0310', 'issn': '0102-7182'},
+            {'title': 'Psicologia & Sociedade', 'article_language_iso': 'Spanish', 'unique_item_requests': 500, 'total_item_requests': 650, 'Print_ISSN': '0102-7182', 'Online_ISSN': '1807-0310', 'issn': '0102-7182'}
         ]
         
         result = self._stats.usage._title_report_to_table_data(json_results)
