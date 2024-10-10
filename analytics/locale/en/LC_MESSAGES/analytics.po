@@ -409,8 +409,8 @@ msgstr ""
 
 #: analytics/templates/website/accesses.mako:9
 #: build/lib/analytics/templates/website/accesses.mako:9
-msgid "Gráfico da evolução de acessos aos documentos"
-msgstr "Site usage chart"
+msgid "Gráfico da evolução de acessos aos documentos do periódico"
+msgstr "Chart of the evolution of accesses to the journal's documents"
 
 #: analytics/templates/website/accesses.mako:13
 #: build/lib/analytics/templates/website/accesses.mako:13
@@ -422,7 +422,7 @@ msgstr "Geolocation map of accesses by country"
 #: build/lib/analytics/templates/website/accesses.mako:18
 #, fuzzy
 msgid "Gráfico da evolução de acessos aos documentos da coleção"
-msgstr "Site usage chart"
+msgstr "Chart of the evolution of accesses to the collection's documents"
 
 #: analytics/templates/website/accesses_journal_usage_data.mako:9
 #: analytics/templates/website/bibliometrics_journal.mako:8

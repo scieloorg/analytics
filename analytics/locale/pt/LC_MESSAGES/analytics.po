@@ -398,7 +398,7 @@ msgstr ""
 
 #: analytics/templates/website/accesses.mako:9
 #: build/lib/analytics/templates/website/accesses.mako:9
-msgid "Gráfico da evolução de acessos aos documentos"
+msgid "Gráfico da evolução de acessos aos documentos do periódico"
 msgstr ""
 
 #: analytics/templates/website/accesses.mako:13

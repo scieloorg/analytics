@@ -395,11 +395,6 @@ msgid ""
 " selecionando tudo."
 msgstr ""
 
-#: analytics/templates/website/accesses.mako:6
-#: build/lib/analytics/templates/website/accesses.mako:6
-msgid "Gráfico da evolução de acessos aos documentos"
-msgstr ""
-
 #: analytics/templates/website/accesses_journal_usage_data.mako:9
 #: analytics/templates/website/bibliometrics_journal.mako:8
 #: analytics/templates/website/bibliometrics_journal_altmetric.mako:8
