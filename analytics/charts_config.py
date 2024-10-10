@@ -151,7 +151,7 @@ class ChartsConfig(object):
         }
         chart['colorAxis'] = {
             'min': 1,
-            'max': max([k['value'] for k in data]),
+            'max': max([k['value'] for k in data]) if len(data) > 0 else 100,
             'type': 'logarithmic'
         }
         chart['mapNavigation'] = {
