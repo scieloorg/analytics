@@ -172,7 +172,7 @@ class ChartsConfig(object):
         }]
         chart['tooltip'] = {
             'headerFormat': '',
-            'pointFormat': u'<span style="color:{point.color}">\u25CF</span>' + self._(u'País de origem de acesso') + ' <strong>{point.name}</strong><br/>{series.name}: <strong>{point.value}</strong>'
+            'pointFormat': u'<span style="color:{point.color}">\u25CF </span>' + self._(u'País de origem de acesso') + ': <strong>{point.name}</strong><br/>{series.name}: <strong>{point.value}</strong>'
         }
         return {'options': chart}
 
