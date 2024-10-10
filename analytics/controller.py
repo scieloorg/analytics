@@ -984,7 +984,7 @@ class ArticleMeta(ArticleMetaThriftClient):
 
 class UsageStats():
     def __init__(self, usage_api_base_url=None):
-        self.base_url = usage_api_base_url or 'http://usage.apis.scielo.org/'
+        self.base_url = usage_api_base_url or 'https://usage.apis.scielo.org/'
 
     def _geolocation_title_report_to_chart_data(self, json_results):
         """
