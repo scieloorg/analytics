@@ -77,8 +77,10 @@ def usage_report_chart(request):
     granularity = request.GET.get('granularity', 'monthly')
     selected_code = data['selected_code']
     selected_collection_code = data['selected_collection_code']
+    selected_document_code = data['selected_document_code']
 
     data_chart = request.stats.usage.get_usage_report(
+        pid = selected_document_code,
         issn = selected_code,
         collection = selected_collection_code,
         begin_date = range_start,
