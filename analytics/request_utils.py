@@ -1,7 +1,16 @@
 import logging
 import requests
 
+from requests.exceptions import (
+    ConnectionError,
+    Timeout,
+    InvalidSchema,
+    MissingSchema,
+    InvalidURL,
+    HTTPError,
+)
 from tenacity import (
+    before_sleep_log,
     retry,
     retry_if_exception_type,
     stop_after_attempt,
@@ -41,48 +50,50 @@ def clean_params_by_report(params, report_code):
 
 @retry(
     retry=retry_if_exception_type(RetryableError),
-    wait=wait_exponential(multiplier=1, min=1, max=5),
+    wait=wait_exponential(multiplier=1, min=1, max=16),
     stop=stop_after_attempt(5),
+    before_sleep=before_sleep_log(logger, logging.INFO)
 )
-def fetch_data(url, json=True, params=None, timeout=2, verify=True):
+def fetch_data(url, json=True, params=None, timeout=32, verify=True):
     """
-    Get the resource with HTTP
-    Retry: Wait 2^x * 1 second between each retry starting with 4 seconds,
-           then up to 10 seconds, then 10 seconds afterwards
+    Fetches a resource from the specified URL with optional parameters.
+
     Args:
-        url: URL address
-        json: Boolean
-        params: HTTP parameters
-        verify: Verify the SSL.
+        url (str): URL of the resource to fetch.
+        json (bool): Whether to return the response as JSON. Defaults to True.
+        params (dict): Optional dictionary of URL parameters. Defaults to None.
+        timeout (int): Timeout for the request.
+        verify (bool): Whether to verify SSL certificates. Defaults to True.
+
     Returns:
-        Return a requests.response object.
-    Except:
-        Raise a RetryableError to retry.
+        dict or bytes: The JSON response if json=True, otherwise the raw response content.
+
+    Raises:
+        RetryableError: If a connection or timeout error occurs (for retry).
+        NonRetryableError: For schema, URL, or 4xx client errors.
     """
+    logger.info(f"Fetching URL: {url} with params {params}")
 
     try:
-        logger.info("Fetching URL: %s with params %s" % (url, params))
+        logger.info(f"Fetching URL: {url} with params {params}")
         response = requests.get(url, params=params, timeout=timeout, verify=verify)
-    except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as exc:
-        logger.error("Erro fetching content: %s, retry..., erro: %s" % (url, exc))
-        raise RetryableError(exc) from exc
-    except (
-        requests.exceptions.InvalidSchema,
-        requests.exceptions.MissingSchema,
-        requests.exceptions.InvalidURL,
-    ) as exc:
-        raise NonRetryableError(exc) from exc
-    try:
         response.raise_for_status()
-    except requests.HTTPError as exc:
-        if 400 <= exc.response.status_code < 500:
+
+    except (ConnectionError, Timeout) as exc:
+        logger.error(f"Erro fetching content: {url}. Retrying... Error: {exc}")
+        raise RetryableError(exc) from exc
+
+    except (InvalidSchema, MissingSchema, InvalidURL) as exc:
+        logger.error(f"Invalid URL or schema: {url}. Error: {exc}")
+        raise NonRetryableError(exc) from exc
+    
+    except HTTPError as exc:
+        status_code = exc.response.status_code
+        if 400 <= status_code < 500:
+            logger.error(f"Client error (non-retryable): {url}. Status: {status_code}")
             raise NonRetryableError(exc) from exc
-        elif 500 <= exc.response.status_code < 600:
-            logger.error(
-                "Erro fetching content: %s, retry..., erro: %s" % (url, exc)
-            )
+        elif 500 <= status_code < 600:
+            logger.error(f"Server error: {url}. Retrying... Status: {status_code}")
             raise RetryableError(exc) from exc
-        else:
-            raise
 
     return response.json() if json else response.content
