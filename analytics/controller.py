@@ -1006,16 +1006,27 @@ class UsageStats():
         """
         country_to_metrics = {}
 
-        for i in json_results.get('Report_Items', [{}]):
-            code = i['Access_Country_Code_']
+        report_items = json_results.get('Report_Items', [])
+
+        for i in report_items:
+            if not isinstance(i, dict):
+                continue
+
+            code = i.get('Access_Country_Code_')
+            if code is None:
+                continue
+
             if code not in country_to_metrics:
                 country_to_metrics[code] = {'Total_Item_Requests': 0}
 
-            for p in i.get('Performance', {}):
-                p_metric_label = p.get('Instance', {}).get('Metric_Type')
+            performances = i.get('Performance', [])
+            
+            for p in performances:
+                instance = p.get('Instance', {})
 
+                p_metric_label = instance.get('Metric_Type')
                 if p_metric_label == 'Total_Item_Requests':
-                    p_metric_value = p.get('Instance', {}).get('Count', 0)
+                    p_metric_value = instance.get('Count', 0)
                     country_to_metrics[code][p_metric_label] += int(p_metric_value)
 
         return [{'value': v['Total_Item_Requests'], 'code': k} for k, v in country_to_metrics.items() if v['Total_Item_Requests'] > 0]
