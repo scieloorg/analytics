@@ -9,10 +9,7 @@
         <div class="col-md-4">
           <%include file="bibliometrics_document_altmetrics.mako"/>
         </div>
-        <div class="col-md-4">
-          <%include file="bibliometrics_document_received_citations.mako"/>
-        </div>
-        <div class="col-md-4">
+                <div class="col-md-4">
           <%include file="publication_size_citations.mako"/>
         </div>
     </div>
