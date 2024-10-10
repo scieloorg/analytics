@@ -7,7 +7,7 @@
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${_(u'Acessos')} <span class="caret"></span></a>
     <ul class="dropdown-menu">
       <li><a href="${request.route_url('accesses_web')}">${_(u'Gráficos')}</a></li>
-        </ul>
+    </ul>
   </li>
   <%include file="navbar_common_links.mako"/>
 </ul>
