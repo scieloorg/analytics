@@ -14,11 +14,12 @@ from altmetric import Altmetric, AltmetricHTTPException
 
 from analytics import choices, utils, request_utils
 
+
+SCIELO_SUSHI_API_ERROR_KEY = 'Severity'
+SCIELO_SUSHI_API_ERROR_VALUE = 'Error'
+SCIELO_SUSHI_API_FETCH_DATA_TIMEOUT = 32
+
 PAGE_SIZE = 20
-
-
-FETCH_DATA_TIMEOUT = 2
-
 
 CITABLE_DOCUMENT_TYPES = (
     u'article-commentary',
@@ -29,7 +30,6 @@ CITABLE_DOCUMENT_TYPES = (
     u'research-article',
     u'review-article'
 )
-
 
 ALLOWED_DOC_TYPES_N_FACETS = {
     'articles': [
