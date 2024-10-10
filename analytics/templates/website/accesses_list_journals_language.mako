@@ -21,7 +21,7 @@
             ${item['title']}
           </a>
         </td>
-        <td>${item['article_language']}</td>
+        <td>${item['article_language_iso']}</td>
         <td>${item['unique_item_requests']}</td>
         <td>${item['total_item_requests']}</td>
       </tr>
