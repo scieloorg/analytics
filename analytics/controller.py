@@ -1168,7 +1168,7 @@ class UsageStats():
 
         return sorted(res, key=lambda x: x.get('total_item_requests', 0), reverse=True)
 
-    def get_usage_report(self, issn, collection, begin_date, end_date, granularity='monthly', report_code='tr_j1', api_version='v2', target='chart'):
+    def get_usage_report(self, issn, collection, begin_date, end_date, pid=None, granularity='monthly', report_code='tr_j1', api_version='v2', target='chart'):
         """ 
         Obtém um Usage Report JSON da SciELO SUSHI API e retorna dados ou para gráfico ou para tabela.
 
@@ -1313,6 +1313,7 @@ class UsageStats():
         url_report = urllib.parse.urljoin(self.base_url, 'reports/%s' % report_code)
 
         params = {
+            'pid': pid,
             'issn': issn,
             'collection': collection,
             'begin_date': begin_date,
@@ -1326,7 +1327,7 @@ class UsageStats():
         data = request_utils.fetch_data(
             url_report,
             params=params,
-            timeout=FETCH_DATA_TIMEOUT,            
+            timeout=SCIELO_SUSHI_API_FETCH_DATA_TIMEOUT,            
         )
         
         return self._process_report_data(data, report_code, target)
@@ -1337,19 +1338,34 @@ class UsageStats():
 
         Args:
             data (dict): Json de um relatório de acesso
-            report_code (str): Tipo de relatório de acesso (ex.: tr_j1, lr_j1, gr_j1, cr_j1)
+            report_code (str): Tipo de relatório de acesso (ex.: tr_j1, lr_j1, gr_j1, cr_j1, ir_a1)
             target (str): Tipo de valor esperado de retorno (ex.: chart ou table)
         Returns:
-            dict: Dados formatados para gráfico ou tabela
+            dict: Dados formatados para gráfico ou tabela-
 
         """
-        if report_code in ('cr_j1', 'tr_j1', 'lr_j1'):
+        # Check for an error response for the API. Example of error response:
+        # {
+        #   "Code": 3030,
+        #   "Severity": "error",
+        #   "Message": "No Usage Available for Requested Dates"
+        # }
+        if data.get(SCIELO_SUSHI_API_ERROR_KEY) == SCIELO_SUSHI_API_ERROR_VALUE:
+            # Return an empty series in case of error
+            return {'series': []}
+
+        # Handle different report codes for 'cr_j1', 'tr_j1', 'lr_j1', 'ir_a1'
+        if report_code in ('cr_j1', 'tr_j1', 'lr_j1', 'ir_a1',):
             if target == 'chart':
+                # Return chart data for these report types
                 return self._title_report_to_chart_data(data)
             elif target == 'table':
+                # Return table data for these report types
                 return self._title_report_to_table_data(data)
+            
+        # Handle report code 'gr_j1' (geolocation-based report)
         if report_code in ('gr_j1',):
             if target == 'chart':
                 return self._geolocation_title_report_to_chart_data(data)
 
-        return {}
+        return  {'series': []}
