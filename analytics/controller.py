@@ -1072,18 +1072,28 @@ class UsageStats():
         serie_total_requests = []
         serie_unique_requests = []
 
-        for i in json_results.get('Report_Items', [{}]):
-            for p in i.get('Performance'):
-                p_metric_label = p.get('Instance', {}).get('Metric_Type')
-                p_metric_value = p.get('Instance', {}).get('Count', 0)
-                p_period_begin = p.get('Period', {}).get('Begin_Date')
+        report_items = json_results.get('Report_Items', [])
 
-                fmt_date = utils.convert_date_to_month_start_unix_ms(p_period_begin)
+        for item in report_items:
+            performances = item.get('Performance', [])
 
-                if p_metric_label  == 'Total_Item_Requests':
-                    serie_total_requests.append([fmt_date, int(p_metric_value)])
-                elif p_metric_label == 'Unique_Item_Requests':
-                    serie_unique_requests.append([fmt_date, int(p_metric_value)])
+            for p in performances:
+                instance = p.get('Instance', {})
+                period = p.get('Period', {})
+
+                # Recupera métrica e valor com valores padrão seguros
+                p_metric_label = instance.get('Metric_Type')
+                p_metric_value = instance.get('Count', 0)
+                p_period_begin = period.get('Begin_Date')
+
+                if p_period_begin:
+                    fmt_date = utils.convert_date_to_month_start_unix_ms(p_period_begin)
+
+                    # Classifica as métricas nos seus respectivos arrays
+                    if p_metric_label  == 'Total_Item_Requests':
+                        serie_total_requests.append([fmt_date, int(p_metric_value)])
+                    elif p_metric_label == 'Unique_Item_Requests':
+                        serie_unique_requests.append([fmt_date, int(p_metric_value)])
 
         chart_data = {
             'series': [
@@ -1113,36 +1123,50 @@ class UsageStats():
         Returns:
             list: Lista de dicionários com acessos por periódico ou por periódico e idioma de documento.
         """
-        data = []
+        raw = {}
+        res = []
 
-        for i in json_results.get('Report_Items', [{}]):
-            if not i.get('Title'):
+        report_items = json_results.get('Report_Items', [])
+
+        for item in report_items:
+            if not item.get('Title'):
                 continue
 
-            i_article_language = i.get('Article_Language') or ''
+            article_language = item.get('Article_Language') or ''
+            article_language_iso = choices.ISO_639_1.get(article_language.upper(), 'Undefined')
+            journal_title = item.get('Title')
+
+            journal_key = (journal_title, article_language_iso)
+
+            if journal_key not in raw:
+                raw[journal_key] = {
+                    'title': journal_title,
+                    'article_language_iso': article_language_iso,
+                    'unique_item_requests': 0, 
+                    'total_item_requests': 0
+                }
+
+            raw[journal_key].update({x['Type']: x['Value'] for x in item.get('Item_ID', [])})
+            raw[journal_key]['issn'] = raw[journal_key].get('Print_ISSN') or raw[journal_key].get('Online_ISSN') or ''
             
-            i_res = {
-                'title': i['Title'],
-                'article_language': choices.ISO_639_1.get(i_article_language.upper(), 'Undefined'),
-                'unique_item_requests': 0, 
-                'total_item_requests': 0
-            }
-            i_res.update({x['Type']: x['Value'] for x in i['Item_ID']})
-            i_res['issn'] = i_res.get('Print_ISSN') or i_res.get('Online_ISSN') or ''
-            
-            for p in i.get('Performance', {}):
-                p_metric_label = p.get('Instance', {}).get('Metric_Type')
-                p_metric_value = p.get('Instance', {}).get('Count', 0)
+            performances = item.get('Performance', [])
+
+            for p in performances:
+                instance = p.get('Instance', {})
+
+                p_metric_label = instance.get('Metric_Type')
+                p_metric_value = instance.get('Count', 0)
 
                 if p_metric_label == 'Unique_Item_Requests':
-                    i_res['unique_item_requests'] += int(p_metric_value)
+                    raw[journal_key]['unique_item_requests'] += int(p_metric_value)
                 elif p_metric_label  == 'Total_Item_Requests':
-                    i_res['total_item_requests'] += int(p_metric_value)
+                    raw[journal_key]['total_item_requests'] += int(p_metric_value)
 
-            if i_res['total_item_requests'] > 0:
-                data.append(i_res)
+        for value in raw.values():
+            if value['total_item_requests'] > 0:
+                res.append(value)
 
-        return sorted(data, key=lambda x: x.get('total_item_requests', 0), reverse=True)
+        return sorted(res, key=lambda x: x.get('total_item_requests', 0), reverse=True)
 
     def get_usage_report(self, issn, collection, begin_date, end_date, granularity='monthly', report_code='tr_j1', api_version='v2', target='chart'):
         """ 
