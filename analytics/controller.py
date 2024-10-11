@@ -1095,6 +1095,9 @@ class UsageStats():
                     elif p_metric_label == 'Unique_Item_Requests':
                         serie_unique_requests.append([fmt_date, int(p_metric_value)])
 
+        serie_total_requests = sorted(serie_total_requests, key=lambda x: x[0])
+        serie_unique_requests = sorted(serie_unique_requests, key=lambda x: x[0])
+
         chart_data = {
             'series': [
                 {'data': serie_total_requests, 'name': 'Total Item Requests',},
