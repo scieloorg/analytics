@@ -7,6 +7,8 @@
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${_(u'Acessos')} <span class="caret"></span></a>
     <ul class="dropdown-menu">
       <li><a href="${request.route_url('accesses_web')}">${_(u'Gráficos')}</a></li>
+      <li><a href="${request.route_url('accesses_list_journals_web')}">${_(u'Periódicos')}</a></li>
+      <li><a href="${request.route_url('accesses_list_journals_language')}">${_(u'Periódicos por idioma')}</a></li>
     </ul>
   </li>
   <li class="${'active' if page == 'publication' else ''}">

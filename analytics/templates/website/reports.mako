@@ -13,14 +13,14 @@ ${_(u'Para mais informações sobre as catacterísticas de cada tabulação, ace
   <h3>${tab['collection']['name']}</h3>
   %if tab['is_available']:
     <ul>
-      <li><b>${_(u'nome do arquivo')}:</b> <a href="${tab['tabsurl']}">${tab['tabsfilename']}</a></li>
-      <li><b>${_(u'periodicidade de atualização')}:</b> ${_(u'mensal')}</li>
-      <li><b>${_(u'tamanho do arquivo')}:</b> ${tab['contentlength']}Mb</li>
-      <li><b>${_(u'conjunto de caracteres')}:</b> utf-8</li>
-      <li><b>${_(u'última atualização')}:</b> ${tab['lastmodified']}</li>
+      <li><b>${_(u'Nome do arquivo')}:</b> <a href="${tab['tabsurl']}">${tab['tabsfilename']}</a></li>
+      <li><b>${_(u'Periodicidade de atualização')}:</b> ${_(u'mensal')}</li>
+      <li><b>${_(u'Tamanho do arquivo')}:</b> ${tab['contentlength']}Mb</li>
+      <li><b>${_(u'Conjunto de caracteres')}:</b> utf-8</li>
+      <li><b>${_(u'Última atualização')}:</b> ${tab['lastmodified']}</li>
     </ul>
   %else:
-    <h5>${_(u'arquivo não disponível para esta coleção')}</h5>
+    <h5>${_(u'Arquivo não disponível para esta coleção')}</h5>
   %endif
 % endfor
 

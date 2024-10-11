@@ -74,17 +74,24 @@ def usage_report_chart(request):
     range_start = request.GET.get('range_start', None)
     range_end = request.GET.get('range_end', None)
     report_code = request.GET.get('report_code', 'tr_j1')
+    granularity = request.GET.get('granularity', 'monthly')
     selected_code = data['selected_code']
     selected_collection_code = data['selected_collection_code']
+    selected_document_code = data['selected_document_code']
 
     data_chart = request.stats.usage.get_usage_report(
+        pid = selected_document_code,
         issn = selected_code,
         collection = selected_collection_code,
         begin_date = range_start,
         end_date = range_end,
         report_code = report_code,
         api_version = api_version,
+        granularity = granularity,
     )
+
+    if report_code == 'gr_j1':
+        return request.chartsconfig.usage_report_geolocation(data_chart)
 
     return request.chartsconfig.usage_report(data_chart)
 

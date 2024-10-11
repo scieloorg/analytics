@@ -1,9 +1,6 @@
 # coding: utf-8
 import json
-import requests
 import urllib.parse
-
-from datetime import datetime
 
 from dogpile.cache import make_region
 from scieloh5m5 import h5m5
@@ -15,10 +12,14 @@ from publicationstats import queries as PublicationStatsQueries
 from citedby import custom_query
 from altmetric import Altmetric, AltmetricHTTPException
 
-from analytics import utils
+from analytics import choices, utils, request_utils
+
+
+SCIELO_SUSHI_API_ERROR_KEY = 'Severity'
+SCIELO_SUSHI_API_ERROR_VALUE = 'Error'
+SCIELO_SUSHI_API_FETCH_DATA_TIMEOUT = 32
 
 PAGE_SIZE = 20
-
 
 CITABLE_DOCUMENT_TYPES = (
     u'article-commentary',
@@ -29,7 +30,6 @@ CITABLE_DOCUMENT_TYPES = (
     u'research-article',
     u'review-article'
 )
-
 
 ALLOWED_DOC_TYPES_N_FACETS = {
     'articles': [
@@ -984,46 +984,119 @@ class ArticleMeta(ArticleMetaThriftClient):
 
 class UsageStats():
     def __init__(self, usage_api_base_url=None):
-        self.base_url = usage_api_base_url or 'http://usage.apis.scielo.org/'
+        self.base_url = usage_api_base_url or 'https://usage.apis.scielo.org/'
 
-    def _format_date(self, date):
-        fmt_date = datetime.strptime(date, '%Y-%m-%d')
-        fmt_date = fmt_date.replace(day = 1)
+    def _geolocation_title_report_to_chart_data(self, json_results):
+        """
+        Converte JSON de um Usage Report para uma lista de dicionários de acessos por país.
 
-        ms_unix_epoch = int(fmt_date.timestamp() * 1000)
+        O formato do retorno é:
+        [
+            {'value': 13300, 'code': 'BR'},
+            {'value': 10399, 'code': 'MX'},
+            {'value': 4052, 'code': 'US'},
+            ...
+        ]
 
-        return ms_unix_epoch
+        Args:
+            json_results (dict): JSON contendo os resultados do relatório de uso.
 
-    def _clean_params_according_to_report(self, params, report_code):
-        attrs_to_remove = set()
-        
-        if report_code == 'cr_j1':
-            attrs_to_remove = ('issn', 'pid',)
-        elif report_code == 'ir_a1':
-            attrs_to_remove = ('issn',)
-        elif report_code == 'tr_j1':
-            attrs_to_remove = ('pid',)
+        Returns:
+            list: Lista de dicionários com acessos por país.
+        """
+        country_to_metrics = {}
 
-        for attr in attrs_to_remove:
-            if attr in params:
-                del params[attr]
+        report_items = json_results.get('Report_Items', [])
 
-    def _get_j1_chart(self, json_results):
+        for i in report_items:
+            if not isinstance(i, dict):
+                continue
+
+            code = i.get('Access_Country_Code_')
+            if code is None:
+                continue
+
+            if code not in country_to_metrics:
+                country_to_metrics[code] = {'Total_Item_Requests': 0}
+
+            performances = i.get('Performance', [])
+            
+            for p in performances:
+                instance = p.get('Instance', {})
+
+                p_metric_label = instance.get('Metric_Type')
+                if p_metric_label == 'Total_Item_Requests':
+                    p_metric_value = instance.get('Count', 0)
+                    country_to_metrics[code][p_metric_label] += int(p_metric_value)
+
+        return [{'value': v['Total_Item_Requests'], 'code': k} for k, v in country_to_metrics.items() if v['Total_Item_Requests'] > 0]
+
+    def _title_report_to_chart_data(self, json_results):
+        """
+        Converte JSON de um Usage Report para um dicionário dicionários séries temporais (acessos por mês) por métrica.
+
+        O formato do retorno é:
+        {
+            'series': [
+                {
+                    'data': [
+                        ('2024-01-01', 134),
+                        ('2024-02-01', 350),
+                        ('2024-03-01', 240),
+                        ('2024-04-01', 355),
+                        ('2024-05-01', 359),
+                        ('2024-06-01', 402),
+                    ], 
+                    'name': 'Total Item Requests'
+                },
+                {
+                    'data': [
+                        ('2024-01-01', 114),
+                        ('2024-02-01', 325),
+                        ('2024-03-01', 194),
+                        ('2024-04-01', 302),
+                        ('2024-05-01', 339),
+                        ('2024-06-01', 377),
+                    ], 
+                    'name': 'Unique Item Requests'
+                },
+            ] 
+        }
+
+        Args:
+            json_results (dict): JSON contendo os resultados do relatório de uso.
+
+        Returns:
+            dict: Dicionário de acessos mensais como o seguinte (apropriado para uso em gráficos na biblioteca highcharts):
+        """
         serie_total_requests = []
         serie_unique_requests = []
 
-        for i in json_results.get('Report_Items', {}):
-            for p in i.get('Performance', {}):
-                p_metric_label = p.get('Instance', {}).get('Metric_Type', '')
-                p_metric_value = p.get('Instance', {}).get('Count', 0)
-                p_period_begin = p.get('Period', {}).get('Begin_Date', '')
+        report_items = json_results.get('Report_Items', [])
 
-                fmt_date = self._format_date(p_period_begin)
+        for item in report_items:
+            performances = item.get('Performance', [])
 
-                if p_metric_label  == 'Total_Item_Requests':
-                    serie_total_requests.append([fmt_date, int(p_metric_value)])
-                elif p_metric_label == 'Unique_Item_Requests':
-                    serie_unique_requests.append([fmt_date, int(p_metric_value)])
+            for p in performances:
+                instance = p.get('Instance', {})
+                period = p.get('Period', {})
+
+                # Recupera métrica e valor com valores padrão seguros
+                p_metric_label = instance.get('Metric_Type')
+                p_metric_value = instance.get('Count', 0)
+                p_period_begin = period.get('Begin_Date')
+
+                if p_period_begin:
+                    fmt_date = utils.convert_date_to_month_start_unix_ms(p_period_begin)
+
+                    # Classifica as métricas nos seus respectivos arrays
+                    if p_metric_label  == 'Total_Item_Requests':
+                        serie_total_requests.append([fmt_date, int(p_metric_value)])
+                    elif p_metric_label == 'Unique_Item_Requests':
+                        serie_unique_requests.append([fmt_date, int(p_metric_value)])
+
+        serie_total_requests = sorted(serie_total_requests, key=lambda x: x[0])
+        serie_unique_requests = sorted(serie_unique_requests, key=lambda x: x[0])
 
         chart_data = {
             'series': [
@@ -1033,11 +1106,217 @@ class UsageStats():
         }
 
         return chart_data
+    
+    def _title_report_to_table_data(self, json_results):
+        """
+        Converte JSON de um Usage Report para uma lista de dicionários de acessos por periódico ou por periódico e idioma de documento.
 
-    def get_usage_report(self, issn, collection, begin_date, end_date, granularity='monthly', report_code='tr_j1', api_version='v2'):
-        url_tr = urllib.parse.urljoin(self.base_url, 'reports/%s' % report_code)
+        O formato do retorno é:
+        [
+            {'title': 'Psicologia & Sociedade', 'article_language': 'Portuguese', 'unique_item_requests': 1000, 'total_item_requests': 1250},
+            {'title': 'Psicologia & Sociedade', 'article_language': 'Spanish', 'unique_item_requests': 500, 'total_item_requests': 650},
+            {'title': 'Revista do Departamento de Psicologia. UFF', 'article_language': 'Portuguese', 'unique_item_requests': 341, 'total_item_requests': 409},
+            {'title': 'Revista do Departamento de Psicologia. UFF', 'article_language': 'English', 'unique_item_requests': 200, 'total_item_requests': 233},
+            ...
+        ]
+
+        Args:
+            json_results (dict): JSON contendo os resultados do relatório de uso.
+
+        Returns:
+            list: Lista de dicionários com acessos por periódico ou por periódico e idioma de documento.
+        """
+        raw = {}
+        res = []
+
+        report_items = json_results.get('Report_Items', [])
+
+        for item in report_items:
+            if not item.get('Title'):
+                continue
+
+            article_language = item.get('Article_Language') or ''
+            article_language_iso = choices.ISO_639_1.get(article_language.upper(), 'Undefined')
+            journal_title = item.get('Title')
+
+            journal_key = (journal_title, article_language_iso)
+
+            if journal_key not in raw:
+                raw[journal_key] = {
+                    'title': journal_title,
+                    'article_language_iso': article_language_iso,
+                    'unique_item_requests': 0, 
+                    'total_item_requests': 0
+                }
+
+            raw[journal_key].update({x['Type']: x['Value'] for x in item.get('Item_ID', [])})
+            raw[journal_key]['issn'] = raw[journal_key].get('Print_ISSN') or raw[journal_key].get('Online_ISSN') or ''
+            
+            performances = item.get('Performance', [])
+
+            for p in performances:
+                instance = p.get('Instance', {})
+
+                p_metric_label = instance.get('Metric_Type')
+                p_metric_value = instance.get('Count', 0)
+
+                if p_metric_label == 'Unique_Item_Requests':
+                    raw[journal_key]['unique_item_requests'] += int(p_metric_value)
+                elif p_metric_label  == 'Total_Item_Requests':
+                    raw[journal_key]['total_item_requests'] += int(p_metric_value)
+
+        for value in raw.values():
+            if value['total_item_requests'] > 0:
+                res.append(value)
+
+        return sorted(res, key=lambda x: x.get('total_item_requests', 0), reverse=True)
+
+    def get_usage_report(self, issn, collection, begin_date, end_date, pid=None, granularity='monthly', report_code='tr_j1', api_version='v2', target='chart'):
+        """ 
+        Obtém um Usage Report JSON da SciELO SUSHI API e retorna dados ou para gráfico ou para tabela.
+
+        Args:
+            issn (str): ISSN do periódico
+            collection (str): Nome da coleção da qual o relatório é solicitado.
+            begin_date (str): Data de início do período do relatório (YYYY-MM-DD).
+            end_date (str): Data de término do período do relatório (YYYY-MM-DD).
+            granularity (str): Granularidade dos dados do relatório (ex: 'monthly' ou 'totals').
+            report_code (str): Código do relatório a ser solicitado.
+            api_version (str): Versão da API SUSHI a ser utilizada.
+            target (str): Formato de retorno dos dados (ex: 'chart' ou 'table').
+        Returns: 
+            dict: Lista de dicionários formatados para visualização em gráfico (chart) ou table (table)
+        
+        Segue um exemplo de relatório obtido da SciELO SUSHI API que é convertido para lista de dicionários neste método:
+        {
+            "Exceptions": [],
+            "Report_Attributes": [
+                {
+                    "Name": "Attributes_To_Show",
+                    "Value": "Data_Type|Access_Method"
+                }
+            ],
+            "Report_Filters": [
+                {
+                    "Name": "Begin_Date",
+                    "Value": "2022-01-01"
+                },
+                {
+                    "Name": "End_Date",
+                    "Value": "2022-01-31"
+                }
+            ],
+            "Report_Header": {
+                "Created": "2024-06-14T21:16:29.834239",
+                "Created_By": "Scientific Electronic Library Online SUSHI API",
+                "Customer_ID": "",
+                "Institution_ID": [
+                    {
+                        "Type": "ISNI",
+                        "Value": ""
+                    }
+                ],
+                "Institution_Name": "",
+                "Release": 5,
+                "Report_ID": "tr_j1",
+                "Report_Name": "Journal Requests (Excluding OA_Gold)"
+            },
+            "Report_Items": [
+                {
+                    "Access_Method": "Regular",
+                    "Access_Type": "Open Access",
+                    "Data_Type": "Journal",
+                    "Item_ID": [
+                        {
+                            "Type": "Print_ISSN",
+                            "Value": "0102-7182"
+                        },
+                        {
+                            "Type": "Online_ISSN",
+                            "Value": "1807-0310"
+                        }
+                    ],
+                    "Performance": [
+                        {
+                            "Instance": {
+                                "Count": "78322",
+                                "Metric_Type": "Total_Item_Requests"
+                            },
+                            "Period": {
+                                "Begin_Date": "2022-01-01",
+                                "End_Date": "2022-01-31"
+                            }
+                        },
+                        {
+                            "Instance": {
+                                "Count": "73916",
+                                "Metric_Type": "Unique_Item_Requests"
+                            },
+                            "Period": {
+                                "Begin_Date": "2022-01-01",
+                                "End_Date": "2022-01-31"
+                            }
+                        }
+                    ],
+                    "Platform": "Scientific Electronic Library Online - Brasil",
+                    "Publisher": "Associação Brasileira de Psicologia Social",
+                    "Publisher_ID": [],
+                    "Section_Type": "Article",
+                    "Title": "Psicologia & Sociedade"
+                },
+                {
+                    "Access_Method": "Regular",
+                    "Access_Type": "Open Access",
+                    "Data_Type": "Journal",
+                    "Item_ID": [
+                        {
+                            "Type": "Print_ISSN",
+                            "Value": "0103-863X"
+                        },
+                        {
+                            "Type": "Online_ISSN",
+                            "Value": "1982-4327"
+                        }
+                    ],
+                    "Performance": [
+                        {
+                            "Instance": {
+                                "Count": "51534",
+                                "Metric_Type": "Total_Item_Requests"
+                            },
+                            "Period": {
+                                "Begin_Date": "2022-01-01",
+                                "End_Date": "2022-01-31"
+                            }
+                        },
+                        {
+                            "Instance": {
+                                "Count": "48403",
+                                "Metric_Type": "Unique_Item_Requests"
+                            },
+                            "Period": {
+                                "Begin_Date": "2022-01-01",
+                                "End_Date": "2022-01-31"
+                            }
+                        }
+                    ],
+                    "Platform": "Scientific Electronic Library Online - Brasil",
+                    "Publisher": "Universidade de São Paulo, Faculdade de Filosofia Ciências e Letras de Ribeirão Preto, Programa de Pós-Graduação em Psicologia",
+                    "Publisher_ID": [],
+                    "Section_Type": "Article",
+                    "Title": "Paidéia (Ribeirão Preto)"
+                },
+            ]
+        }
+        Args:
+
+        Returns:
+            dict: 
+        """
+        url_report = urllib.parse.urljoin(self.base_url, 'reports/%s' % report_code)
 
         params = {
+            'pid': pid,
             'issn': issn,
             'collection': collection,
             'begin_date': begin_date,
@@ -1046,19 +1325,50 @@ class UsageStats():
             'api': api_version,
         }
 
-        self._clean_params_according_to_report(params, report_code)
+        request_utils.clean_params_by_report(params, report_code)
 
-        response = requests.get(
-            url=url_tr,
-            params=params
+        data = request_utils.fetch_data(
+            url_report,
+            params=params,
+            timeout=SCIELO_SUSHI_API_FETCH_DATA_TIMEOUT,            
         )
+        
+        return self._process_report_data(data, report_code, target)
 
-        try:
-            response.raise_for_status()
-        except requests.HTTPError:
-            ...
+    def _process_report_data(self, data, report_code, target):
+        """
+        Designa transformação de um Usage Report ou para chart ou para table de acordo com o relatório e o valor de target recebidos
 
-        if response.status_code == 200 and report_code in ('cr_j1', 'tr_j1'):
-            return self._get_j1_chart(response.json())
+        Args:
+            data (dict): Json de um relatório de acesso
+            report_code (str): Tipo de relatório de acesso (ex.: tr_j1, lr_j1, gr_j1, cr_j1, ir_a1)
+            target (str): Tipo de valor esperado de retorno (ex.: chart ou table)
+        Returns:
+            dict: Dados formatados para gráfico ou tabela-
 
-        return {}
+        """
+        # Check for an error response for the API. Example of error response:
+        # {
+        #   "Code": 3030,
+        #   "Severity": "error",
+        #   "Message": "No Usage Available for Requested Dates"
+        # }
+        if data.get(SCIELO_SUSHI_API_ERROR_KEY) == SCIELO_SUSHI_API_ERROR_VALUE:
+            # Return an empty series in case of error
+            return {'series': []}
+
+        # Handle different report codes for 'cr_j1', 'tr_j1', 'lr_j1', 'ir_a1'
+        if report_code in ('cr_j1', 'tr_j1', 'lr_j1', 'ir_a1',):
+            if target == 'chart':
+                # Return chart data for these report types
+                return self._title_report_to_chart_data(data)
+            elif target == 'table':
+                # Return table data for these report types
+                return self._title_report_to_table_data(data)
+            
+        # Handle report code 'gr_j1' (geolocation-based report)
+        if report_code in ('gr_j1',):
+            if target == 'chart':
+                return self._geolocation_title_report_to_chart_data(data)
+
+        return  {'series': []}

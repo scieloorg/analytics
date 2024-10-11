@@ -161,6 +161,46 @@ def accesses(request):
     return data
 
 
+@view_config(route_name='accesses_list_journals_web', renderer='templates/website/accesses_list_journals.mako')
+@base_data_manager
+def accesses_list_journals(request):
+
+    data = request.data_manager
+    data['page'] = 'accesses'
+
+    data['usage'] = request.stats.usage.get_usage_report(
+        issn=data['selected_code'] if len(data['selected_code']) >= 8 else '',
+        collection=data['selected_collection_code'],
+        begin_date=data['range_start'],
+        end_date=data['range_end'],
+        granularity='totals',
+        report_code='tr_j1',
+        target='table',
+    )
+
+    return data
+
+
+@view_config(route_name='accesses_list_journals_language', renderer='templates/website/accesses_list_journals_language.mako')
+@base_data_manager
+def accesses_list_journals_language(request):
+
+    data = request.data_manager
+    data['page'] = 'accesses'
+
+    data['usage'] = request.stats.usage.get_usage_report(
+        issn=data['selected_code'] if len(data['selected_code']) >= 8 else '',
+        collection=data['selected_collection_code'],
+        begin_date=data['range_start'],
+        end_date=data['range_end'],
+        granularity='totals',
+        report_code='lr_j1',
+        target='table',
+    )
+
+    return data
+
+
 @view_config(route_name='accesses_journal_usage_data_web', renderer='templates/website/accesses_journal_usage_data.mako')
 @base_data_manager
 def accesses_journal_usage_data_web(request):

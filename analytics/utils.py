@@ -1,8 +1,9 @@
 # coding: utf-8
 import os
-import weakref
 import re
 import unicodedata
+import weakref
+
 from datetime import datetime
 
 try:
@@ -57,6 +58,15 @@ def mktime(year=1970, month=1, day=1):
     diff = datetime(year, month, day) - epoch
 
     return diff.total_seconds() * 1000
+
+
+def convert_date_to_month_start_unix_ms(date):
+    fmt_date = datetime.strptime(date, '%Y-%m-%d')
+    fmt_date = fmt_date.replace(day = 1)
+
+    ms_unix_epoch = int(fmt_date.timestamp() * 1000)
+
+    return ms_unix_epoch
 
 
 class SingletonMixin(object):

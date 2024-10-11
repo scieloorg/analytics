@@ -3,10 +3,10 @@
     <h1 id="size_documents_value">
         <span id="loading_size_documents">
             <img src="/static/images/loading.gif" width="40px" />
-            <h5>${_(u'loading')}</h5>
+            <h5>${_(u'Carregando')}</h5>
         </span>  
         <br/>
-        <small>${_(u'documentos')}</small>
+        <small>${_(u'Documentos')}</small>
     </h1>      
 </div>
 <script language="javascript">
