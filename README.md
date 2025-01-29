@@ -20,13 +20,13 @@ Docker Compose:
 É mais prático realizar os testes em um ambiente virtual (em lugar de usar contêineres Docker). Para isso, como o Python base do Analytics é versão 3.6, pode ser mais fácil criar esse ambiente por meio do miniconda. Também é preciso instalar a dependência de sistema `libmemcached-dev`. Em sistemas Ubuntu, isso é factível por meio do comando:
 
 ```shell
-apt install libmemcached-dev
+sudo apt install libmemcached-dev
 ```
 
 Crie um ambiente virtual baseado em Python3.6 e instale as dependências. Usar o miniconda para isso pode ser um facilitador.
 
 ```shell
-conda create -n scl-analytics python=3.6
+conda create -n scl-analytics python=3.6 -y
 conda activate scl-analytics
 pip install deps/scielojcr-1.3.0-py2.py3-none-any.whl
 pip install -r requirements.txt

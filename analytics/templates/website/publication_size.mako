@@ -16,17 +16,6 @@
           </div>
         </div>
         <div class="col-md-3">
-          <%include file="publication_size_issues.mako"/>
-          <div class="panel panel-info">
-            <div class="panel-heading">
-              <h3 class="panel-title">${_(u'Sobre os números')}</h3>
-            </div>
-            <div class="panel-body">
-              ${_(u'Os números acima correspondem aos fascículos com pelo menos 1 artigo publicado. Os números são relacionados a coleção ou ao periódico quando um periódico é selecionado na barra superior do site.')}
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
           <%include file="publication_size_documents.mako"/>
           <div class="panel panel-info">
             <div class="panel-heading">
