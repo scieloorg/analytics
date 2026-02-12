@@ -149,19 +149,6 @@ class ChartsConfig(object):
         chart['legend'] = {'enabled': True, 'align': 'center', 'verticalAlign': 'bottom', 'layout': 'horizontal'}
         chart['yAxis']['title'] = {'text': metric_label}
         chart['yAxis']['opposite'] = False
-        # Format large numbers with abbreviations (K for thousands, M for millions)
-        chart['yAxis']['labels'] = {
-            'formatter': '''function() {
-                var abs = Math.abs(this.value);
-                if (abs >= 1000000) {
-                    return (this.value / 1000000).toFixed(1) + 'M';
-                } else if (abs >= 1000) {
-                    return (this.value / 1000).toFixed(1) + 'K';
-                } else {
-                    return this.value;
-                }
-            }'''
-        }
         chart['xAxis'] = {
             'title': {'text': self._(u'Mês')},
             'categories': data.get('categories', [])
