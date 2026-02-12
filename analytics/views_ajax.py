@@ -105,28 +105,53 @@ def usage_report_yearly_chart(request):
     api_version = request.GET.get('api_version', 'v2')
     range_start = request.GET.get('range_start', None)
     range_end = request.GET.get('range_end', None)
-    report_code = request.GET.get('report_code', 'tr_j1')
+    report_code = request.GET.get('report_code', 'cr_j1')
     metric_type = request.GET.get('metric_type', 'Total_Item_Requests')
     selected_code = data['selected_code']
     selected_collection_code = data['selected_collection_code']
     selected_document_code = data['selected_document_code']
     
-    # Fetch data with monthly granularity, we'll aggregate by year in processing
-    data_raw = request.stats.usage.get_usage_report(
-        pid = selected_document_code,
-        issn = selected_code,
-        collection = selected_collection_code,
-        begin_date = range_start,
-        end_date = range_end,
-        report_code = report_code,
-        api_version = api_version,
-        granularity = 'monthly',
-    )
+    # Fetch RAW data directly from API (not processed)
+    import urllib.parse
+    from analytics import request_utils
+    from analytics.controller import SCIELO_SUSHI_API_FETCH_DATA_TIMEOUT
+    
+    url_report = urllib.parse.urljoin(request.stats.usage.base_url, 'reports/%s' % report_code)
+    
+    params = {
+        'pid': selected_document_code,
+        'issn': selected_code,
+        'collection': selected_collection_code,
+        'begin_date': range_start,
+        'end_date': range_end,
+        'granularity': 'monthly',
+        'api': api_version,
+    }
+    
+    request_utils.clean_params_by_report(params, report_code)
+    
+    try:
+        data_raw = request_utils.fetch_data(
+            url_report,
+            params=params,
+            timeout=SCIELO_SUSHI_API_FETCH_DATA_TIMEOUT,
+        )
+    except (request_utils.RetryableError, request_utils.NonRetryableError):
+        # If API request fails, return empty chart
+        return request.chartsconfig.usage_report_yearly({'series': [], 'categories': []}, metric_type)
+    
+    # Check for API error response
+    from analytics.controller import SCIELO_SUSHI_API_ERROR_KEY, SCIELO_SUSHI_API_ERROR_VALUE
+    severity = data_raw.get(SCIELO_SUSHI_API_ERROR_KEY, '')
+    if isinstance(severity, str) and severity.lower() == SCIELO_SUSHI_API_ERROR_VALUE.lower():
+        # Return empty chart in case of error
+        return request.chartsconfig.usage_report_yearly({'series': [], 'categories': []}, metric_type)
     
     # Process into yearly chart data
     data_chart = request.stats.usage._title_report_to_yearly_chart_data(data_raw, metric_type=metric_type)
     
     return request.chartsconfig.usage_report_yearly(data_chart, metric_type)
+
 
 
 @view_config(route_name='publication_article_references', request_method='GET', renderer='jsonp')
