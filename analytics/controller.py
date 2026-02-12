@@ -1327,11 +1327,15 @@ class UsageStats():
 
         request_utils.clean_params_by_report(params, report_code)
 
-        data = request_utils.fetch_data(
-            url_report,
-            params=params,
-            timeout=SCIELO_SUSHI_API_FETCH_DATA_TIMEOUT,            
-        )
+        try:
+            data = request_utils.fetch_data(
+                url_report,
+                params=params,
+                timeout=SCIELO_SUSHI_API_FETCH_DATA_TIMEOUT,            
+            )
+        except (request_utils.RetryableError, request_utils.NonRetryableError) as e:
+            # If API request fails, return empty series to avoid breaking the chart
+            return {'series': []}
         
         return self._process_report_data(data, report_code, target)
 
