@@ -1098,8 +1098,8 @@ class UsageStats():
                         elif p_metric_label == 'Unique_Item_Requests':
                             serie_unique_requests.append([fmt_date, metric_value])
                     except (ValueError, TypeError):
-                        # Skip invalid data points
-                        continue
+                        # Skip invalid data points (continue to next iteration)
+                        pass
 
         serie_total_requests = sorted(serie_total_requests, key=lambda x: x[0])
         serie_unique_requests = sorted(serie_unique_requests, key=lambda x: x[0])
