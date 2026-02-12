@@ -1113,6 +1113,60 @@ class UsageStats():
 
         return chart_data
     
+    def _title_report_to_yearly_chart_data(self, json_results, metric_type='Total_Item_Requests'):
+        """
+        Converte JSON de um Usage Report para séries temporais agregadas por ano para uma métrica específica.
+
+        Args:
+            json_results (dict): JSON contendo os resultados do relatório de uso.
+            metric_type (str): Tipo de métrica ('Total_Item_Requests' ou 'Unique_Item_Requests')
+
+        Returns:
+            dict: Dicionário de acessos anuais apropriado para gráficos na biblioteca highcharts
+        """
+        year_data = {}
+        
+        report_items = json_results.get('Report_Items', [])
+
+        for item in report_items:
+            performances = item.get('Performance', [])
+
+            for p in performances:
+                instance = p.get('Instance', {})
+                period = p.get('Period', {})
+
+                p_metric_label = instance.get('Metric_Type')
+                p_metric_value = instance.get('Count', 0)
+                p_period_begin = period.get('Begin_Date')
+
+                # Process only the requested metric type
+                if p_period_begin and p_metric_value is not None and p_metric_label == metric_type:
+                    try:
+                        # Extract year from date (YYYY-MM-DD format)
+                        year = int(p_period_begin[:4])
+                        metric_value = int(p_metric_value)
+                        
+                        # Aggregate by year
+                        if year not in year_data:
+                            year_data[year] = 0
+                        year_data[year] += metric_value
+                    except (ValueError, TypeError, IndexError):
+                        # Skip invalid data points
+                        pass
+
+        # Convert to list of [year, value] and sort by year
+        serie_data = [[year, value] for year, value in sorted(year_data.items())]
+        
+        metric_name = 'Total Item Requests' if metric_type == 'Total_Item_Requests' else 'Unique Item Requests'
+
+        chart_data = {
+            'series': [
+                {'data': serie_data, 'name': metric_name}
+            ],
+        }
+
+        return chart_data
+    
     def _title_report_to_table_data(self, json_results):
         """
         Converte JSON de um Usage Report para uma lista de dicionários de acessos por periódico ou por periódico e idioma de documento.

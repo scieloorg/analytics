@@ -96,6 +96,39 @@ def usage_report_chart(request):
     return request.chartsconfig.usage_report(data_chart)
 
 
+@view_config(route_name='usage_report_yearly_chart', request_method='GET', renderer='jsonp')
+@base_data_manager
+def usage_report_yearly_chart(request):
+    
+    data = request.data_manager
+    
+    api_version = request.GET.get('api_version', 'v2')
+    range_start = request.GET.get('range_start', None)
+    range_end = request.GET.get('range_end', None)
+    report_code = request.GET.get('report_code', 'tr_j1')
+    metric_type = request.GET.get('metric_type', 'Total_Item_Requests')
+    selected_code = data['selected_code']
+    selected_collection_code = data['selected_collection_code']
+    selected_document_code = data['selected_document_code']
+    
+    # Fetch data with monthly granularity, we'll aggregate by year in processing
+    data_raw = request.stats.usage.get_usage_report(
+        pid = selected_document_code,
+        issn = selected_code,
+        collection = selected_collection_code,
+        begin_date = range_start,
+        end_date = range_end,
+        report_code = report_code,
+        api_version = api_version,
+        granularity = 'monthly',
+    )
+    
+    # Process into yearly chart data
+    data_chart = request.stats.usage._title_report_to_yearly_chart_data(data_raw, metric_type=metric_type)
+    
+    return request.chartsconfig.usage_report_yearly(data_chart, metric_type)
+
+
 @view_config(route_name='publication_article_references', request_method='GET', renderer='jsonp')
 @base_data_manager
 def publication_article_references(request):

@@ -24,6 +24,12 @@
       <div class="col-md-12">
         <%include file="usage_cr_j1.mako"/>
       </div>
+      <div class="col-md-6" style="margin-top: 50px;">
+        <%include file="usage_cr_j1_yearly_total.mako"/>
+      </div>
+      <div class="col-md-6" style="margin-top: 50px;">
+        <%include file="usage_cr_j1_yearly_unique.mako"/>
+      </div>
       % endif
     </div>
   </center>

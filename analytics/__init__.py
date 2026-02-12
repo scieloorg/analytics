@@ -35,6 +35,7 @@ def main(global_config, **settings):
     config.add_route('faq_web', '/w/faq')
     config.add_route('reports', '/w/reports')
     config.add_route('usage_report_chart', '/ajx/usage/usage_report_chart')
+    config.add_route('usage_report_yearly_chart', '/ajx/usage/usage_report_yearly_chart')
     config.add_route('accesses_web', '/w/accesses')
     config.add_route('accesses_list_journals_web', '/w/accesses/list/journals')
     config.add_route('accesses_list_journals_language', '/w/accesses/list/journals/language')

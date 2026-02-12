@@ -136,6 +136,37 @@ class ChartsConfig(object):
 
         return {'options': chart}
 
+    def usage_report_yearly(self, data, metric_type='Total_Item_Requests'):
+        chart = self.highchart
+        chart['chart']['type'] = 'column'
+        
+        metric_label = self._(u'Total Item Requests') if metric_type == 'Total_Item_Requests' else self._(u'Unique Item Requests')
+        
+        chart['credits'] = {'href': 'https://usage.apis.scielo.br','text': self._(u'Fonte: SciELO SUSHI API')}
+        chart['title'] = {'text': metric_label + self._(u' por ano')}
+        chart['series'] = data['series']
+        chart['legend'] = {'enabled': False}
+        chart['yAxis']['title'] = {'text': metric_label}
+        chart['yAxis']['opposite'] = False
+        chart['xAxis'] = {
+            'title': {'text': self._(u'Ano')},
+            'type': 'category'
+        }
+        chart['plotOptions'] = {
+            'column': {
+                'dataLabels': {
+                    'enabled': True,
+                    'format': '{point.y:,.0f}'
+                }
+            }
+        }
+        chart['tooltip'] = {
+            'headerFormat': '',
+            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> <strong>' + self._(u'Ano') + u' {point.x}</strong><br/>' + metric_label + u': <strong>{point.y:,.0f}</strong>'
+        }
+
+        return {'options': chart}
+
     def usage_report_geolocation(self, data):
         chart = self.highchart
         del chart['chart']
