@@ -1353,7 +1353,9 @@ class UsageStats():
         #   "Severity": "error",
         #   "Message": "No Usage Available for Requested Dates"
         # }
-        if data.get(SCIELO_SUSHI_API_ERROR_KEY) == SCIELO_SUSHI_API_ERROR_VALUE:
+        # Case-insensitive check to handle both 'Error' and 'error'
+        severity = data.get(SCIELO_SUSHI_API_ERROR_KEY, '')
+        if isinstance(severity, str) and severity.lower() == SCIELO_SUSHI_API_ERROR_VALUE.lower():
             # Return an empty series in case of error
             return {'series': []}
 
