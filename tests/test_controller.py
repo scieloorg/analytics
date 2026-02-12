@@ -3797,6 +3797,46 @@ class ControllerTest(unittest.TestCase):
         result = self._stats.usage._title_report_to_chart_data(json_results)
         self.assertEqual(result, expected)
 
+    def test_title_report_to_chart_data_with_null_count(self):
+        """Test that null Count values are handled gracefully"""
+        json_results = {
+            "Report_Items": [
+                {
+                    "Performance": [
+                        {
+                            "Instance": {
+                                "Metric_Type": "Total_Item_Requests",
+                                "Count": None  # null value
+                            },
+                            "Period": {
+                                "Begin_Date": "2024-01-01"
+                            }
+                        },
+                        {
+                            "Instance": {
+                                "Metric_Type": "Total_Item_Requests",
+                                "Count": 134  # valid value
+                            },
+                            "Period": {
+                                "Begin_Date": "2024-02-01"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+        
+        # Should skip null Count and only include valid data
+        expected = {
+            'series': [
+                {'data': [[1706756400000, 134]], 'name': 'Total Item Requests'},
+                {'data': [], 'name': 'Unique Item Requests'}
+            ]
+        }
+        
+        result = self._stats.usage._title_report_to_chart_data(json_results)
+        self.assertEqual(result, expected)
+
     def test_title_report_to_table_data(self):        
         json_results = {
             "Report_Items": [

@@ -1086,14 +1086,20 @@ class UsageStats():
                 p_metric_value = instance.get('Count', 0)
                 p_period_begin = period.get('Begin_Date')
 
-                if p_period_begin:
-                    fmt_date = utils.convert_date_to_month_start_unix_ms(p_period_begin)
-
-                    # Classifica as métricas nos seus respectivos arrays
-                    if p_metric_label  == 'Total_Item_Requests':
-                        serie_total_requests.append([fmt_date, int(p_metric_value)])
-                    elif p_metric_label == 'Unique_Item_Requests':
-                        serie_unique_requests.append([fmt_date, int(p_metric_value)])
+                # Skip if Count is None or Begin_Date is missing
+                if p_period_begin and p_metric_value is not None:
+                    try:
+                        fmt_date = utils.convert_date_to_month_start_unix_ms(p_period_begin)
+                        metric_value = int(p_metric_value)
+                        
+                        # Classifica as métricas nos seus respectivos arrays
+                        if p_metric_label  == 'Total_Item_Requests':
+                            serie_total_requests.append([fmt_date, metric_value])
+                        elif p_metric_label == 'Unique_Item_Requests':
+                            serie_unique_requests.append([fmt_date, metric_value])
+                    except (ValueError, TypeError):
+                        # Skip invalid data points
+                        continue
 
         serie_total_requests = sorted(serie_total_requests, key=lambda x: x[0])
         serie_unique_requests = sorted(serie_unique_requests, key=lambda x: x[0])
