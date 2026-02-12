@@ -2,11 +2,6 @@
 <div style="margin-bottom: 10px;">
   <small class="text-muted">
     ${_(u'Período')}: <strong>${range_start}</strong> ${_(u'a')} <strong>${range_end}</strong>
-    <span style="margin-left: 15px;">
-      <a href="${request.route_url('accesses_web')}?collection=${selected_collection_code}" class="btn btn-xs btn-default">
-        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> ${_(u'Ver todos os períodos')}
-      </a>
-    </span>
   </small>
 </div>
 <div id="usage_cr_j1_chart" style="width:100%; height:400px;">
@@ -21,7 +16,7 @@
     ${_(u'Não há dados de acesso para o período selecionado')}.
   </p>
   <p>
-    <a href="${request.route_url('accesses_web')}?collection=${selected_collection_code}&range_start=1998-01-01" class="btn btn-primary">
+    <a href="${request.route_url('accesses_web')}?collection=${selected_collection_code}&range_start=1998-01-01&range_end=${range_end}" class="btn btn-primary">
       <span class="glyphicon glyphicon-search" aria-hidden="true"></span> ${_(u'Ver dados históricos completos')}
     </a>
   </p>
