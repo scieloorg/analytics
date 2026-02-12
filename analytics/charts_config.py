@@ -138,31 +138,37 @@ class ChartsConfig(object):
 
     def usage_report_yearly(self, data, metric_type='Total_Item_Requests'):
         chart = self.highchart
-        chart['chart']['type'] = 'column'
+        chart['chart']['type'] = 'line'
         
         metric_label = self._(u'Total Item Requests') if metric_type == 'Total_Item_Requests' else self._(u'Unique Item Requests')
         
         chart['credits'] = {'href': 'https://usage.apis.scielo.br','text': self._(u'Fonte: SciELO SUSHI API')}
-        chart['title'] = {'text': metric_label + self._(u' por ano')}
+        chart['title'] = {'text': metric_label + self._(u' por mês e ano')}
         chart['series'] = data['series']
-        chart['legend'] = {'enabled': False}
+        chart['legend'] = {'enabled': True, 'align': 'right', 'verticalAlign': 'top', 'layout': 'vertical'}
         chart['yAxis']['title'] = {'text': metric_label}
         chart['yAxis']['opposite'] = False
         chart['xAxis'] = {
-            'title': {'text': self._(u'Ano')},
-            'type': 'category'
+            'title': {'text': self._(u'Mês')},
+            'categories': data.get('categories', [])
         }
         chart['plotOptions'] = {
-            'column': {
+            'line': {
                 'dataLabels': {
+                    'enabled': False
+                },
+                'marker': {
                     'enabled': True,
-                    'format': '{point.y:,.0f}'
+                    'radius': 4
                 }
             }
         }
         chart['tooltip'] = {
-            'headerFormat': '',
-            'pointFormat': u'<span style="color:{point.color}">\u25CF</span> <strong>' + self._(u'Ano') + u' {point.x}</strong><br/>' + metric_label + u': <strong>{point.y:,.0f}</strong>'
+            'shared': True,
+            'useHTML': True,
+            'headerFormat': '<strong>{point.key}</strong><table style="width: 100%; border-top: 1px solid #CCC;">',
+            'pointFormat': u'<tr><td><span style="color:{point.color}">\u25CF</span> {series.name}: </td><td style="text-align: right"><strong>{point.y:,.0f}</strong></td></tr>',
+            'footerFormat': '</table>'
         }
 
         return {'options': chart}

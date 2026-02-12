@@ -1115,16 +1115,18 @@ class UsageStats():
     
     def _title_report_to_yearly_chart_data(self, json_results, metric_type='Total_Item_Requests'):
         """
-        Converte JSON de um Usage Report para séries temporais agregadas por ano para uma métrica específica.
+        Converte JSON de um Usage Report para séries temporais com uma série por ano mostrando os 12 meses.
+        Permite comparação mês a mês entre diferentes anos.
 
         Args:
             json_results (dict): JSON contendo os resultados do relatório de uso.
             metric_type (str): Tipo de métrica ('Total_Item_Requests' ou 'Unique_Item_Requests')
 
         Returns:
-            dict: Dicionário de acessos anuais apropriado para gráficos na biblioteca highcharts
+            dict: Dicionário com múltiplas séries (uma por ano) apropriado para gráficos na biblioteca highcharts
         """
-        year_data = {}
+        # Dictionary to store data: {year: {month: value}}
+        year_month_data = {}
         
         report_items = json_results.get('Report_Items', [])
 
@@ -1142,27 +1144,46 @@ class UsageStats():
                 # Process only the requested metric type
                 if p_period_begin and p_metric_value is not None and p_metric_label == metric_type:
                     try:
-                        # Extract year from date (YYYY-MM-DD format)
+                        # Extract year and month from date (YYYY-MM-DD format)
                         year = int(p_period_begin[:4])
+                        month = int(p_period_begin[5:7])
                         metric_value = int(p_metric_value)
                         
-                        # Aggregate by year
-                        if year not in year_data:
-                            year_data[year] = 0
-                        year_data[year] += metric_value
+                        # Store data by year and month
+                        if year not in year_month_data:
+                            year_month_data[year] = {}
+                        
+                        # If month already exists, add to it (in case of duplicates)
+                        if month in year_month_data[year]:
+                            year_month_data[year][month] += metric_value
+                        else:
+                            year_month_data[year][month] = metric_value
+                            
                     except (ValueError, TypeError, IndexError):
                         # Skip invalid data points
                         pass
 
-        # Convert to list of [year, value] and sort by year
-        serie_data = [[year, value] for year, value in sorted(year_data.items())]
+        # Convert to series format - one series per year
+        series = []
+        month_names = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
         
-        metric_name = 'Total Item Requests' if metric_type == 'Total_Item_Requests' else 'Unique Item Requests'
+        for year in sorted(year_month_data.keys()):
+            # Create data array with 12 months (use None for missing months)
+            year_data = []
+            for month in range(1, 13):
+                value = year_month_data[year].get(month, None)
+                year_data.append(value)
+            
+            # Only add series if it has at least some data
+            if any(v is not None for v in year_data):
+                series.append({
+                    'name': str(year),
+                    'data': year_data
+                })
 
         chart_data = {
-            'series': [
-                {'data': serie_data, 'name': metric_name}
-            ],
+            'series': series,
+            'categories': month_names
         }
 
         return chart_data
