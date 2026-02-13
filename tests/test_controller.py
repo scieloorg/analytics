@@ -4012,4 +4012,4 @@ class ControllerTest(unittest.TestCase):
         self.assertIsNotNone(result.get('series'))
         self.assertIsInstance(result.get('series'), list)
         # Should have data
-        self.assertTrue(len(result['series']) > 0)
+        self.assertGreater(len(result['series']), 0)
