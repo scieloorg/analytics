@@ -3797,6 +3797,46 @@ class ControllerTest(unittest.TestCase):
         result = self._stats.usage._title_report_to_chart_data(json_results)
         self.assertEqual(result, expected)
 
+    def test_title_report_to_chart_data_with_null_count(self):
+        """Test that null Count values are handled gracefully"""
+        json_results = {
+            "Report_Items": [
+                {
+                    "Performance": [
+                        {
+                            "Instance": {
+                                "Metric_Type": "Total_Item_Requests",
+                                "Count": None  # null value
+                            },
+                            "Period": {
+                                "Begin_Date": "2024-01-01"
+                            }
+                        },
+                        {
+                            "Instance": {
+                                "Metric_Type": "Total_Item_Requests",
+                                "Count": 134  # valid value
+                            },
+                            "Period": {
+                                "Begin_Date": "2024-02-01"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+        
+        # Should skip null Count and only include valid data
+        expected = {
+            'series': [
+                {'data': [[1706756400000, 134]], 'name': 'Total Item Requests'},
+                {'data': [], 'name': 'Unique Item Requests'}
+            ]
+        }
+        
+        result = self._stats.usage._title_report_to_chart_data(json_results)
+        self.assertEqual(result, expected)
+
     def test_title_report_to_table_data(self):        
         json_results = {
             "Report_Items": [
@@ -3854,3 +3894,122 @@ class ControllerTest(unittest.TestCase):
         
         result = self._stats.usage._title_report_to_table_data(json_results)
         self.assertEqual(result, expected)
+
+    def test_process_report_data_error_lowercase(self):
+        """Test that API errors with lowercase 'error' are handled correctly"""
+        data = {
+            "Code": 3030,
+            "Severity": "error",
+            "Message": "No Usage Available for Requested Dates"
+        }
+        
+        result = self._stats.usage._process_report_data(data, 'cr_j1', 'chart')
+        self.assertEqual(result, {'series': []})
+
+    def test_process_report_data_error_uppercase(self):
+        """Test that API errors with uppercase 'Error' are handled correctly"""
+        data = {
+            "Code": 3030,
+            "Severity": "Error",
+            "Message": "No Usage Available for Requested Dates"
+        }
+        
+        result = self._stats.usage._process_report_data(data, 'cr_j1', 'chart')
+        self.assertEqual(result, {'series': []})
+
+    def test_process_report_data_error_mixedcase(self):
+        """Test that API errors with mixed case 'ErRoR' are handled correctly"""
+        data = {
+            "Code": 3030,
+            "Severity": "ErRoR",
+            "Message": "No Usage Available for Requested Dates"
+        }
+        
+        result = self._stats.usage._process_report_data(data, 'cr_j1', 'chart')
+        self.assertEqual(result, {'series': []})
+
+    def test_title_report_to_chart_data_bolivia_collection(self):
+        """Test that Bolivia collection (bol) data is processed correctly"""
+        json_results = {
+            "Report_Items": [
+                {
+                    "Title": "Scientific Electronic Library Online - Bolivia",
+                    "Performance": [
+                        {
+                            "Instance": {
+                                "Metric_Type": "Total_Item_Requests",
+                                "Count": 500
+                            },
+                            "Period": {
+                                "Begin_Date": "2024-01-01"
+                            }
+                        },
+                        {
+                            "Instance": {
+                                "Metric_Type": "Unique_Item_Requests",
+                                "Count": 450
+                            },
+                            "Period": {
+                                "Begin_Date": "2024-01-01"
+                            }
+                        },
+                        {
+                            "Instance": {
+                                "Metric_Type": "Total_Item_Requests",
+                                "Count": 600
+                            },
+                            "Period": {
+                                "Begin_Date": "2024-02-01"
+                            }
+                        },
+                        {
+                            "Instance": {
+                                "Metric_Type": "Unique_Item_Requests",
+                                "Count": 550
+                            },
+                            "Period": {
+                                "Begin_Date": "2024-02-01"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+        
+        expected = {
+            'series': [
+                {'data': [[1704078000000, 500], [1706756400000, 600]], 'name': 'Total Item Requests'},
+                {'data': [[1704078000000, 450], [1706756400000, 550]], 'name': 'Unique Item Requests'}
+            ]
+        }
+        
+        result = self._stats.usage._title_report_to_chart_data(json_results)
+        self.assertEqual(result, expected)
+
+    def test_process_report_data_cr_j1_with_valid_data(self):
+        """Test that cr_j1 report with valid data returns chart data correctly"""
+        data = {
+            "Report_Items": [
+                {
+                    "Performance": [
+                        {
+                            "Instance": {
+                                "Metric_Type": "Total_Item_Requests",
+                                "Count": 100
+                            },
+                            "Period": {
+                                "Begin_Date": "2024-01-01"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+        
+        result = self._stats.usage._process_report_data(data, 'cr_j1', 'chart')
+        
+        # Should not return empty series
+        self.assertIsNotNone(result.get('series'))
+        self.assertIsInstance(result.get('series'), list)
+        # Should have data
+        self.assertGreater(len(result['series']), 0)

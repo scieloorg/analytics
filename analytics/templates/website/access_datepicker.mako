@@ -2,7 +2,7 @@
 <div class="row container-fluid">
   <form class="form-inline">
     <div class="form-group">
-      <label class="sr-only" for="exampleInputAmount">${_(u'Período')}</label>
+      <label for="daterange" style="margin-right: 10px; font-weight: bold;">${_(u'Período de dados de acessos:')}</label>
       <div class="input-group">
         <div class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></div>
         <input type="text" id="daterange" style="width: 180px; height: 30px;"/>

@@ -131,3 +131,7 @@
 .continuous-hr{
     border-top: 1px solid #CCCCCC;
 }
+
+.highcharts-data-table td.number {
+    text-align: right;
+}

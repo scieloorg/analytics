@@ -17,10 +17,33 @@ class ChartsConfig(object):
 
     @property
     def highchart(self):
+        decimal_point = u','
+        thousands_sep = u'.'
+
+        if self.request.locale_name == 'en':
+            decimal_point = u'.'
+            thousands_sep = u','
+        elif self.request.locale_name == 'es_MX':
+            decimal_point = u'.'
+            thousands_sep = u','
 
         _highchart = {
+            'lang': {
+                'decimalPoint': decimal_point,
+                'thousandsSep': thousands_sep
+            },
+            'exporting': {
+                'csv': {
+                    'dateFormat': '%Y-%m'
+                }
+            },
+            'navigator': {
+                'series': {
+                    'includeInCSVExport': False
+                }
+            },
             'chart': {'type': 'line', 'backgroundColor': '#FFFFFF'},
-            'yAxis': {'min': 0, 'labels': {'format': '{value}'}},
+            'yAxis': {'min': 0, 'labels': {'format': '{value:,.0f}'}},
             'legend': {'align': 'center', 'highlightSeries': {'enabled': True}},
             'credits': {'href': 'http://www.scielo.org', 'text': self._(u'Fonte: SciELO.org')}
         }
@@ -130,7 +153,45 @@ class ChartsConfig(object):
             'shared': True,
             'useHTML': True,
             'headerFormat': self._(u'Acessos em') + ' <strong>{point.x:%B %Y}</strong><table style="width: 100%; border-top: 1px solid #CCC;">',
-            'pointFormat': u'<tr><td><span style="color:{point.color}">\u25CF</span> {series.name}: </td><td style="text-align: right"><strong>{point.y}</strong></td></tr>',
+            'pointFormat': u'<tr><td><span style="color:{point.color}">\u25CF</span> {series.name}: </td><td style="text-align: right"><strong>{point.y:,.0f}</strong></td></tr>',
+            'footerFormat': '</table>'
+        }
+
+        return {'options': chart}
+
+    def usage_report_yearly(self, data, metric_type='Total_Item_Requests'):
+        chart = self.highchart
+        chart['chart']['type'] = 'line'
+        
+        metric_label = self._(u'Total Item Requests') if metric_type == 'Total_Item_Requests' else self._(u'Unique Item Requests')
+        
+        chart['credits'] = {'href': 'https://usage.apis.scielo.br','text': self._(u'Fonte: SciELO SUSHI API')}
+        chart['title'] = {'text': metric_label + self._(u' por mês e ano')}
+        chart['series'] = data['series']
+        # Legend at the bottom
+        chart['legend'] = {'enabled': True, 'align': 'center', 'verticalAlign': 'bottom', 'layout': 'horizontal'}
+        chart['yAxis']['title'] = {'text': metric_label}
+        chart['yAxis']['opposite'] = False
+        chart['xAxis'] = {
+            'title': {'text': self._(u'Mês')},
+            'categories': data.get('categories', [])
+        }
+        chart['plotOptions'] = {
+            'line': {
+                'dataLabels': {
+                    'enabled': False
+                },
+                'marker': {
+                    'enabled': True,
+                    'radius': 4
+                }
+            }
+        }
+        chart['tooltip'] = {
+            'shared': True,
+            'useHTML': True,
+            'headerFormat': '<strong>{point.key}</strong><table style="width: 100%; border-top: 1px solid #CCC;">',
+            'pointFormat': u'<tr><td><span style="color:{point.color}">\u25CF</span> {series.name}: </td><td style="text-align: right"><strong>{point.y:,.0f}</strong></td></tr>',
             'footerFormat': '</table>'
         }
 
@@ -213,11 +274,7 @@ class ChartsConfig(object):
         chart['xAxis'] = {'title': {'text': self._(u'Ano de publicação')}}
         chart['legend'] = {'enabled': True}
         chart['series'] = data['series']
-        chart['navigator'] = {
-            'series': {
-                'data': data['navigator_series']
-            }
-        }
+        chart['navigator']['series']['data'] = data['navigator_series']
         chart['yAxis']['title'] = {'text': self._(u'Número de documentos')}
         chart['yAxis']['opposite'] = False
         chart['rangeSelector'] = {'enabled': False}
@@ -275,7 +332,7 @@ class ChartsConfig(object):
         del chart['chart']
         del chart['legend']
         del chart['yAxis']
-        chart['title'] = {'text': self._(u'Distribuição de países de afiliação dos autores')}
+        chart['title'] = {'text': ''}
         chart['legend'] = {
             'title': {
                 'text': self._(u'Número de documentos')
@@ -344,11 +401,7 @@ class ChartsConfig(object):
         chart['title'] = {'text': self._(u'Distribuição de países de afiliação dos autores por ano de publicação')}
         chart['legend'] = {'enabled': False}
         chart['series'] = data['series']
-        chart['navigator'] = {
-            'series': {
-                'data': data['navigator_series']
-            }
-        }
+        chart['navigator']['series']['data'] = data['navigator_series']
         chart['yAxis']['title'] = {'text': self._(u'Número de documentos')}
         chart['yAxis']['opposite'] = False
         chart['xAxis'] = {'title': {'text': self._(u'Ano de publicação')}}
@@ -424,11 +477,7 @@ class ChartsConfig(object):
         chart['title'] = {'text': self._(u'Distribuição de idiomas dos documentos por ano de publicação')}
         chart['legend'] = {'enabled': True}
         chart['series'] = data['series']
-        chart['navigator'] = {
-            'series': {
-                'data': data['navigator_series']
-            }
-        }
+        chart['navigator']['series']['data'] = data['navigator_series']
         chart['yAxis']['title'] = {'text': self._(u'Número de documentos')}
         chart['yAxis']['opposite'] = False
         chart['xAxis'] = {'title': {'text': self._(u'Ano de publicação')}}
@@ -492,11 +541,7 @@ class ChartsConfig(object):
         chart['title'] = {'text': self._(u'Distribuição de área temática dos documentos por ano de publicação')}
         chart['legend'] = {'enabled': True}
         chart['series'] = data['series']
-        chart['navigator'] = {
-            'series': {
-                'data': data['navigator_series']
-            }
-        }
+        chart['navigator']['series']['data'] = data['navigator_series']
         chart['yAxis']['title'] = {'text': self._(u'Número de documentos')}
         chart['yAxis']['opposite'] = False
         chart['xAxis'] = {'title': {'text': self._(u'Ano de publicação')}}
@@ -544,11 +589,7 @@ class ChartsConfig(object):
         chart['title'] = {'text': self._(u'Distribuição de tipos de documentos por ano de publicação')}
         chart['legend'] = {'enabled': True}
         chart['series'] = data['series']
-        chart['navigator'] = {
-            'series': {
-                'data': data['navigator_series']
-            }
-        }
+        chart['navigator']['series']['data'] = data['navigator_series']
         chart['yAxis']['title'] = {'text': self._(u'Número de documentos')}
         chart['yAxis']['opposite'] = False
         chart['xAxis'] = {'title': {'text': self._(u'Ano de publicação')}}
@@ -594,11 +635,7 @@ class ChartsConfig(object):
         chart['title'] = {'text': self._(u'Distribuição de licenças de uso por ano de publicação')}
         chart['legend'] = {'enabled': True}
         chart['series'] = data['series']
-        chart['navigator'] = {
-            'series': {
-                'data': data['navigator_series']
-            }
-        }
+        chart['navigator']['series']['data'] = data['navigator_series']
         chart['yAxis']['title'] = {'text': self._(u'Número de documentos')}
         chart['yAxis']['opposite'] = False
         chart['xAxis'] = {'title': {'text': self._(u'Ano de publicação')}}

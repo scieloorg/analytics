@@ -15,6 +15,7 @@
             % if selected_journal:
                 data['options']['subtitle'] = {'text': '${selected_journal}'};
             % endif
+            data['options']['title'] = {'text': '${_(u"Documentos por país de afiliação de autores")}'};
             data.options.series[0].mapData = Highcharts.maps['custom/world'];
             $('#article_affiliations_map').highcharts('Map', data['options']);
             $("#loading_article_affiliations_map").hide();

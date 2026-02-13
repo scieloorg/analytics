@@ -102,11 +102,11 @@ class ServerError(Exception):
 
 class Stats(object):
 
-    def __init__(self, articlemeta_host, publicationstats_host, bibliometrics_host, usage_api_host):
+    def __init__(self, articlemeta_host, publicationstats_host, bibliometrics_host, usage_api_host, request):
         self.articlemeta = ArticleMeta()
         self.publication = PublicationStats()
         self.bibliometrics = BibliometricsStats()
-        self.usage = UsageStats(usage_api_host)
+        self.usage = UsageStats(usage_api_host, request.translate)
 
     @property
     def _(self):
@@ -983,8 +983,9 @@ class ArticleMeta(ArticleMetaThriftClient):
 
 
 class UsageStats():
-    def __init__(self, usage_api_base_url=None):
+    def __init__(self, usage_api_base_url=None, translate_function=None):
         self.base_url = usage_api_base_url or 'https://usage.apis.scielo.org/'
+        self._ = translate_function or (lambda x: x)
 
     def _geolocation_title_report_to_chart_data(self, json_results):
         """
@@ -1086,14 +1087,20 @@ class UsageStats():
                 p_metric_value = instance.get('Count', 0)
                 p_period_begin = period.get('Begin_Date')
 
-                if p_period_begin:
-                    fmt_date = utils.convert_date_to_month_start_unix_ms(p_period_begin)
-
-                    # Classifica as métricas nos seus respectivos arrays
-                    if p_metric_label  == 'Total_Item_Requests':
-                        serie_total_requests.append([fmt_date, int(p_metric_value)])
-                    elif p_metric_label == 'Unique_Item_Requests':
-                        serie_unique_requests.append([fmt_date, int(p_metric_value)])
+                # Skip if Count is None or Begin_Date is missing
+                if p_period_begin and p_metric_value is not None:
+                    try:
+                        fmt_date = utils.convert_date_to_month_start_unix_ms(p_period_begin)
+                        metric_value = int(p_metric_value)
+                        
+                        # Classifica as métricas nos seus respectivos arrays
+                        if p_metric_label  == 'Total_Item_Requests':
+                            serie_total_requests.append([fmt_date, metric_value])
+                        elif p_metric_label == 'Unique_Item_Requests':
+                            serie_unique_requests.append([fmt_date, metric_value])
+                    except (ValueError, TypeError):
+                        # Skip invalid data points (continue to next iteration)
+                        pass
 
         serie_total_requests = sorted(serie_total_requests, key=lambda x: x[0])
         serie_unique_requests = sorted(serie_unique_requests, key=lambda x: x[0])
@@ -1103,6 +1110,85 @@ class UsageStats():
                 {'data': serie_total_requests, 'name': 'Total Item Requests',},
                 {'data': serie_unique_requests, 'name': 'Unique Item Requests',}
             ],
+        }
+
+        return chart_data
+    
+    def _title_report_to_yearly_chart_data(self, json_results, metric_type='Total_Item_Requests'):
+        """
+        Converte JSON de um Usage Report para séries temporais com uma série por ano mostrando os 12 meses.
+        Permite comparação mês a mês entre diferentes anos.
+
+        Args:
+            json_results (dict): JSON contendo os resultados do relatório de uso.
+            metric_type (str): Tipo de métrica ('Total_Item_Requests' ou 'Unique_Item_Requests')
+
+        Returns:
+            dict: Dicionário com múltiplas séries (uma por ano) apropriado para gráficos na biblioteca highcharts
+        """
+        # Dictionary to store data: {year: {month: value}}
+        year_month_data = {}
+        
+        report_items = json_results.get('Report_Items', [])
+
+        for item in report_items:
+            performances = item.get('Performance', [])
+
+            for p in performances:
+                instance = p.get('Instance', {})
+                period = p.get('Period', {})
+
+                p_metric_label = instance.get('Metric_Type')
+                p_metric_value = instance.get('Count', 0)
+                p_period_begin = period.get('Begin_Date')
+
+                # Process only the requested metric type
+                if p_period_begin and p_metric_value is not None and p_metric_label == metric_type:
+                    try:
+                        # Extract year and month from date (YYYY-MM-DD format)
+                        year = int(p_period_begin[:4])
+                        month = int(p_period_begin[5:7])
+                        metric_value = int(p_metric_value)
+                        
+                        # Store data by year and month
+                        if year not in year_month_data:
+                            year_month_data[year] = {}
+                        
+                        # If month already exists, add to it (in case of duplicates)
+                        if month in year_month_data[year]:
+                            year_month_data[year][month] += metric_value
+                        else:
+                            year_month_data[year][month] = metric_value
+                            
+                    except (ValueError, TypeError, IndexError):
+                        # Skip invalid data points
+                        pass
+
+        # Convert to series format - one series per year
+        series = []
+        month_names = [
+            self._(u'Jan'), self._(u'Fev'), self._(u'Mar'), self._(u'Abr'),
+            self._(u'Mai'), self._(u'Jun'), self._(u'Jul'), self._(u'Ago'),
+            self._(u'Set'), self._(u'Out'), self._(u'Nov'), self._(u'Dez')
+        ]
+        
+        for year in sorted(year_month_data.keys()):
+            # Create data array with 12 months (use None for missing months)
+            year_data = []
+            for month in range(1, 13):
+                value = year_month_data[year].get(month, None)
+                year_data.append(value)
+            
+            # Only add series if it has at least some data
+            if any(v is not None for v in year_data):
+                series.append({
+                    'name': str(year),
+                    'data': year_data
+                })
+
+        chart_data = {
+            'series': series,
+            'categories': month_names
         }
 
         return chart_data
@@ -1327,11 +1413,15 @@ class UsageStats():
 
         request_utils.clean_params_by_report(params, report_code)
 
-        data = request_utils.fetch_data(
-            url_report,
-            params=params,
-            timeout=SCIELO_SUSHI_API_FETCH_DATA_TIMEOUT,            
-        )
+        try:
+            data = request_utils.fetch_data(
+                url_report,
+                params=params,
+                timeout=SCIELO_SUSHI_API_FETCH_DATA_TIMEOUT,            
+            )
+        except (request_utils.RetryableError, request_utils.NonRetryableError) as e:
+            # If API request fails, return empty series to avoid breaking the chart
+            return {'series': []}
         
         return self._process_report_data(data, report_code, target)
 
@@ -1353,7 +1443,9 @@ class UsageStats():
         #   "Severity": "error",
         #   "Message": "No Usage Available for Requested Dates"
         # }
-        if data.get(SCIELO_SUSHI_API_ERROR_KEY) == SCIELO_SUSHI_API_ERROR_VALUE:
+        # Case-insensitive check to handle both 'Error' and 'error'
+        severity = data.get(SCIELO_SUSHI_API_ERROR_KEY, '')
+        if isinstance(severity, str) and severity.lower() == SCIELO_SUSHI_API_ERROR_VALUE.lower():
             # Return an empty series in case of error
             return {'series': []}
 

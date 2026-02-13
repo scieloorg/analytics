@@ -172,7 +172,7 @@ def base_data_manager(wrapped):
         journal_code = request.session.get('journal', None)
         under_development = request.session.get('under_development', '')
         range_end = request.session.get('range_end', datetime.datetime.now().isoformat()[0:10])
-        range_start = request.session.get('range_start', (datetime.datetime.now() - datetime.timedelta(365*3)).isoformat()[0:10])
+        range_start = request.session.get('range_start', '1998-01-01')
         document_code = utils.REGEX_ARTICLE.match(request.session.get('document', ''))
         if document_code:
             document_code = document_code.string

@@ -8,13 +8,23 @@
       </div>
       <form role="form" method="GET">
         <div class="modal-body">
-            ${_(u'Selecionar um periódico')}:
-            <select name="journal">
+          <div class="form-group">
+            <label for="journal_selector">${_(u'Selecionar um periódico')}:</label>
+            <select id="journal_selector" name="journal" class="form-control">
+              <%
+                def _truncate_label(value, max_len=80):
+                  if not value:
+                    return ''
+                  if len(value) <= max_len:
+                    return value
+                  return value[:max_len - 3] + '...'
+              %>
               % for issn, title in sorted(journals.items(), key=lambda x: x[1]):
-                <option value="${issn}" ${'selected' if issn == selected_journal_code else ''}>${title}</option>
+                <option value="${issn}" ${'selected' if issn == selected_journal_code else ''} title="${title}">${_truncate_label(title)}</option>
               % endfor
             </select>
             <input type="hidden" name="collection" value="${selected_collection_code}"/>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">${_(u'Selecionar')}</button>
