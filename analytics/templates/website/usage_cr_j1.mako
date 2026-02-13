@@ -15,11 +15,6 @@
     <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
     ${_(u'Não há dados de acesso para o período selecionado')}.
   </p>
-  <p>
-    <a href="${request.route_url('accesses_web')}?collection=${selected_collection_code}&range_start=1998-01-01&range_end=${range_end}" class="btn btn-primary">
-      <span class="glyphicon glyphicon-search" aria-hidden="true"></span> ${_(u'Ver dados históricos completos')}
-    </a>
-  </p>
 </div>
 <script language="javascript">
     $("#loading_usage_cr_j1_chart").show();
