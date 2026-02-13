@@ -1,9 +1,13 @@
 # coding: utf-8
+import urllib.parse
+
 from pyramid.view import view_config
 
 from dogpile.cache import make_region
 
 from analytics.control_manager import base_data_manager
+from analytics import request_utils
+from analytics.controller import SCIELO_SUSHI_API_FETCH_DATA_TIMEOUT, SCIELO_SUSHI_API_ERROR_KEY, SCIELO_SUSHI_API_ERROR_VALUE
 
 
 cache_region = make_region(name='views_ajax_cache')
@@ -112,10 +116,6 @@ def usage_report_yearly_chart(request):
     selected_document_code = data['selected_document_code']
     
     # Fetch RAW data directly from API (not processed)
-    import urllib.parse
-    from analytics import request_utils
-    from analytics.controller import SCIELO_SUSHI_API_FETCH_DATA_TIMEOUT
-    
     url_report = urllib.parse.urljoin(request.stats.usage.base_url, 'reports/%s' % report_code)
     
     params = {
@@ -141,7 +141,6 @@ def usage_report_yearly_chart(request):
         return request.chartsconfig.usage_report_yearly({'series': [], 'categories': []}, metric_type)
     
     # Check for API error response
-    from analytics.controller import SCIELO_SUSHI_API_ERROR_KEY, SCIELO_SUSHI_API_ERROR_VALUE
     severity = data_raw.get(SCIELO_SUSHI_API_ERROR_KEY, '')
     if isinstance(severity, str) and severity.lower() == SCIELO_SUSHI_API_ERROR_VALUE.lower():
         # Return empty chart in case of error

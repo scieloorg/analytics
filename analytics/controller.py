@@ -1165,7 +1165,11 @@ class UsageStats():
 
         # Convert to series format - one series per year
         series = []
-        month_names = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
+        month_names = [
+            self._(u'Jan'), self._(u'Fev'), self._(u'Mar'), self._(u'Abr'),
+            self._(u'Mai'), self._(u'Jun'), self._(u'Jul'), self._(u'Ago'),
+            self._(u'Set'), self._(u'Out'), self._(u'Nov'), self._(u'Dez')
+        ]
         
         for year in sorted(year_month_data.keys()):
             # Create data array with 12 months (use None for missing months)
