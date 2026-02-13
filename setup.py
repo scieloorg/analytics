@@ -35,7 +35,7 @@ test_requires = ["nose>=1.0", "coverage"]
 
 setup(
     name="analytics",
-    version='2.2.1',
+    version='2.3.0',
     description="A analytics frontend for SciELO usage and publication statistics",
     author="SciELO",
     author_email="scielo-dev@googlegroups.com",
