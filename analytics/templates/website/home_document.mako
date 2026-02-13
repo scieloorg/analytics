@@ -15,7 +15,7 @@
     </div>
     <div class="row container-fluid" style="margin-top: 100px;">
         <div class="row">
-            <h3>${_(u'Gráficos')}</h3>
+            <h3>${_(u'Distribuição de documentos por país de afiliação de autores')}</h3>
         </div>
         <div class="col-md-6">
             <%include file="publication_article_affiliations_map.mako"/>
