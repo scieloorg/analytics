@@ -116,7 +116,7 @@ docker-compose -f docker-compose-dev.yml up
 6. Acessar a interface web:
 
 ```
-http://0.0.0.0:8000
+http://0.0.0.0:6543
 ```
 
 ---
@@ -128,7 +128,7 @@ Sempre que fizer alterações:
 1. Construir o container (`docker-compose build --no-cache`)
 2. Iniciar o container (`docker-compose up`)
 3. Conectar à VPN SciELO
-4. Acessar a interface web (`http://0.0.0.0:8000`)
+4. Acessar a interface web (`http://0.0.0.0:6543`)
 
 > ⚠️ Para desenvolvimento local fora do Docker, lembre-se de iniciar o Memcached local (`127.0.0.1:11211`) antes de rodar o `pserve`.
 
