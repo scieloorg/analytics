@@ -2,95 +2,170 @@
 
 Interface web para consulta de indicadores de acessos e publicação das coleções da rede SciELO.
 
+---
 
-### Arquivos: Dockerfile* e docker-compose*.yml
+## Arquivos: Dockerfile* e docker-compose*.yml
 
+### Dockerfile
 
-Dockerfile:
-- **Dockerfile**: contém as definições para construir a imagem pronta para instalar em **produção**
-- **Dockerfile-dev**: contém as definições para construir a imagem pronta para instalar em **desenvolvimento**
+* **Dockerfile**: define a imagem para **produção**.
+* **Dockerfile-dev**: define a imagem para **desenvolvimento**, com ferramentas adicionais e configuração para debug.
 
-Docker Compose:
-- **docker-compose.yml**: contém as definições para iniciar todos os containers necessários para rodar em **produção**
-- **docker-compose-dev.yml**: contém as definições para iniciar todos os containers necessários para rodar em **desenvolvimento**
+### Docker Compose
 
+* **docker-compose.yml**: inicia todos os containers necessários para **produção**.
+* **docker-compose-dev.yml**: inicia todos os containers necessários para **desenvolvimento**, incluindo Memcached, VPN, etc.
 
-### Como executar os testes
+---
 
-É mais prático realizar os testes em um ambiente virtual (em lugar de usar contêineres Docker). Para isso, como o Python base do Analytics é versão 3.6, pode ser mais fácil criar esse ambiente por meio do miniconda. Também é preciso instalar a dependência de sistema `libmemcached-dev`. Em sistemas Ubuntu, isso é factível por meio do comando:
+## Execução dos testes
 
-```shell
+Para testes, é mais prático usar um ambiente virtual Python em vez de containers Docker.
+
+1. Instale a dependência de sistema `libmemcached-dev` (no Ubuntu/Debian):
+
+```bash
 sudo apt install libmemcached-dev
 ```
 
-Crie um ambiente virtual baseado em Python3.6 e instale as dependências. Usar o miniconda para isso pode ser um facilitador.
+2. Crie um ambiente virtual Python 3.6 (usando miniconda):
 
-```shell
+```bash
 conda create -n scl-analytics python=3.6 -y
 conda activate scl-analytics
+```
+
+3. Instale as dependências:
+
+```bash
 pip install deps/scielojcr-1.3.0-py2.py3-none-any.whl
 pip install -r requirements.txt
 ```
 
-Rode os testes de unidade por meio de: 
+4. Execute os testes de unidade:
 
-```shell
+```bash
 python setup.py test
 ```
 
+> ⚠️ **Observação**: fora do Docker, o Memcached deve estar rodando localmente (`127.0.0.1:11211`). Você pode iniciá-lo com:
 
-### Integrações
-
-O analytics é um aplicação que faz a integração de 5 serviços:
-
-* Article Meta: https://github.com/scieloorg/articles_meta
-* Publication Stats: https://github.com/scieloorg/publication_stats
-* Access Stats: https://github.com/scieloorg/access_stats
-* Bibliometrics: https://github.com/scieloorg/bibliometrics
-* SUSHI API: https://github.com/scieloorg/scielo-sushi-api
-
-Para realizar o uso do analytics é necessário ter as conexões **Thrift** dos quatro primeiros serviços listados a seguir e uma conexão com a SUSHI API (que não possui **Thrift**):
-
-* Article Meta: articlemeta.scielo.org:11621
-* Publication Stats: publication.scielo.org:11620
-* Access Stats: ratchet.scielo.org:11660
-* Bibliometric Stats: Utiliza a conexão do Article Meta
-* SUSHI API: usage.apis.scielo.org
-
-É **importante** testar previamente se o host que está utilizando para fazer a instalação da aplicação está com conectividade para esses endereços e portas, para isso utilize o utilitário **telnet**.
-
-```shell
-telnet hospedeiro porta
+```bash
+docker run -d --name memcached-dev -p 11211:11211 memcached:latest
 ```
 
-Caso a conexão seja estabelecida é que o host esta com acesso na porta do serviço do **thrift**, o que garante que o serviço esta acessível, tanto em uma instalação local utilizando o ```python setup.py``` quanto em uma instalação dockenizada.
+---
 
-### Executando a aplicação (desenvolvimento)
+## Integrações
 
-Na primeira execução fazer uma cópia do arquivo `development.ini-TEMPLATE`
+O Analytics integra cinco serviços principais:
 
-```shell
+* **Article Meta**: [GitHub](https://github.com/scieloorg/articles_meta)
+* **Publication Stats**: [GitHub](https://github.com/scieloorg/publication_stats)
+* **Access Stats**: [GitHub](https://github.com/scieloorg/access_stats)
+* **Bibliometrics**: [GitHub](https://github.com/scieloorg/bibliometrics)
+* **SUSHI API**: [GitHub](https://github.com/scieloorg/scielo-sushi-api)
+
+### Conexões necessárias
+
+| Serviço           | Host/Port                    | Observações       |
+| ----------------- | ---------------------------- | ----------------- |
+| Article Meta      | articlemeta.scielo.org:11621 | Thrift            |
+| Publication Stats | publication.scielo.org:11620 | Thrift            |
+| Access Stats      | ratchet.scielo.org:11660     | Thrift            |
+| Bibliometrics     | usa conexão do Article Meta  | Thrift            |
+| SUSHI API         | usage.apis.scielo.org        | HTTP (não Thrift) |
+
+> ⚠️ **Importante**: verifique a conectividade antes de instalar. Exemplo com `telnet`:
+
+```bash
+telnet articlemeta.scielo.org 11621
+```
+
+Se conectar, o host tem acesso à porta do serviço.
+
+---
+
+## Executando a aplicação (desenvolvimento)
+
+1. Crie o arquivo `development.ini` a partir do template:
+
+```bash
 cp development.ini-TEMPLATE development.ini
-
 ```
 
-Construir do container
-```shell
+2. Certifique-se de que Memcached está acessível:
 
+   * Fora do Docker: use `docker run -d --name memcached-dev -p 11211:11211 memcached:latest`
+   * Dentro do Docker Compose: o serviço já estará configurado.
+
+3. Construir o container:
+
+```bash
 docker-compose -f docker-compose-dev.yml build --no-cache
 ```
 
-Iniciar o container
-```shell
+4. Iniciar o container:
+
+```bash
 docker-compose -f docker-compose-dev.yml up
 ```
 
-Conectar-se a VPN SciELO
+5. Conectar-se à VPN SciELO (necessário para acessar alguns serviços).
 
-Acessar a interface web: http://0.0.0.0:8000
+6. Acessar a interface web:
 
-### Alterando a aplicação (desenvolvimento)
+```
+http://0.0.0.0:8000
+```
 
-Cada vez que for editar/corrigir algo na aplicação, repetir os passos:
+---
 
-Construir o container (verificar se sua conexão com Internet está ok); Iniciar o container; Conectar-se a VPN SciELO e Acessar a interface web.
+## Alterando a aplicação (desenvolvimento)
+
+Sempre que fizer alterações:
+
+1. Construir o container (`docker-compose build --no-cache`)
+2. Iniciar o container (`docker-compose up`)
+3. Conectar à VPN SciELO
+4. Acessar a interface web (`http://0.0.0.0:8000`)
+
+> ⚠️ Para desenvolvimento local fora do Docker, lembre-se de iniciar o Memcached local (`127.0.0.1:11211`) antes de rodar o `pserve`.
+
+---
+
+## Internacionalização
+
+Para adicionar ou atualizar strings de tradução, siga os passos abaixo.
+
+### 1. Marcar Strings para Tradução
+
+Nos templates Mako (`.mako`), envolva as strings com `${_(u'texto para traduzir')}`. Em arquivos Python (`.py`), use `_('texto para traduzir')` após importar o tradutor.
+
+### 2. Extrair Novas Strings
+
+Execute o comando abaixo na raiz do projeto para extrair as strings marcadas para um arquivo de modelo (`.pot`):
+
+```bash
+python setup.py extract_messages
+```
+
+### 3. Atualizar os Arquivos de Tradução
+
+Atualize os arquivos de tradução (`.po`) de cada idioma com as novas strings do arquivo de modelo:
+
+```bash
+python setup.py update_catalog
+```
+
+### 4. Traduzir as Strings
+
+Edite os arquivos `.po` em `analytics/locale/<idioma>/LC_MESSAGES/analytics.po` e adicione as traduções para as strings com `msgstr ""`.
+
+### 5. Compilar as Traduções
+
+Compile os arquivos `.po` para o formato binário (`.mo`), que é usado pela aplicação:
+
+```bash
+python setup.py compile_catalog
+```
