@@ -102,11 +102,11 @@ class ServerError(Exception):
 
 class Stats(object):
 
-    def __init__(self, articlemeta_host, publicationstats_host, bibliometrics_host, usage_api_host):
+    def __init__(self, articlemeta_host, publicationstats_host, bibliometrics_host, usage_api_host, request):
         self.articlemeta = ArticleMeta()
         self.publication = PublicationStats()
         self.bibliometrics = BibliometricsStats()
-        self.usage = UsageStats(usage_api_host)
+        self.usage = UsageStats(usage_api_host, request.translate)
 
     @property
     def _(self):
@@ -983,8 +983,9 @@ class ArticleMeta(ArticleMetaThriftClient):
 
 
 class UsageStats():
-    def __init__(self, usage_api_base_url=None):
+    def __init__(self, usage_api_base_url=None, translate_function=None):
         self.base_url = usage_api_base_url or 'https://usage.apis.scielo.org/'
+        self._ = translate_function or (lambda x: x)
 
     def _geolocation_title_report_to_chart_data(self, json_results):
         """

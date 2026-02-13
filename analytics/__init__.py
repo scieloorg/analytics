@@ -24,6 +24,7 @@ def main(global_config, **settings):
             settings.get('publicationstats', None),
             settings.get('citedby', None),
             settings.get('usage', None),
+            request
         )
 
     def add_chartsconfig(request):
