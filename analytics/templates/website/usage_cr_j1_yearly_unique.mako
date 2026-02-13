@@ -11,17 +11,6 @@
         var url =  "${request.route_url('usage_report_yearly_chart')}?api_version=v2&report_code=cr_j1&collection=${selected_collection_code}&range_start=${range_start}&range_end=${range_end}&metric_type=Unique_Item_Requests&callback=?";
 
         $.getJSON(url,  function(data) {
-            // Add Y-axis formatter using Highcharts.numberFormat for thousand separators
-            if (!data['options']['yAxis']) {
-                data['options']['yAxis'] = {};
-            }
-            if (!data['options']['yAxis']['labels']) {
-                data['options']['yAxis']['labels'] = {};
-            }
-            data['options']['yAxis']['labels']['formatter'] = function() {
-                return Highcharts.numberFormat(this.value, 0, ',', '.');
-            };
-            
             $('#usage_cr_j1_yearly_unique_chart').highcharts(data['options']);
             $("#loading_usage_cr_j1_yearly_unique_chart").hide();
         });
