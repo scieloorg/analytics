@@ -55,7 +55,7 @@
             <div class="container-fluid">
                ${selected_journal} (${selected_journal_code})
                <a href="${request.route_url('index_web')}?journal=clean" class="remove_session">
-               <span class="glyphicon glyphicon-remove-circle navbar-right"/>
+               <span class="glyphicon glyphicon-remove-circle navbar-right"></span>
                </a>
             </div>
          </div>
@@ -67,7 +67,7 @@
             <div class="container-fluid">
                ${selected_document.original_title()}
                <a href="${request.route_url('index_web')}?document=clean" class="remove_session">
-               <span class="glyphicon glyphicon-remove-circle navbar-right"/>
+               <span class="glyphicon glyphicon-remove-circle navbar-right"></span>
                </a>
             </div>
          </div>
@@ -85,7 +85,7 @@
          <%block name="central_container_for_article_filters" />
          <%block name="central_container_for_journal_filters" />
          <%block name="central_container_for_bibliometric_filters" />
-      </div>
+        </div>
       </div>
       <div class="row" style="padding-left: 40px; padding-right: 40px; margin-top: 50px;">
          <div class="panel panel-info">
