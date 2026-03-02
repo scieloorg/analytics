@@ -7,7 +7,7 @@
         <div class="input-group-addon">
           <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
         </div>
-        <input class="input-group-addon" id="selected-year" type="number" name="selected-year" min="1941" max="2030" value="2021"/>
+        <input class="input-group-addon" id="selected-year" type="number" name="selected-year" min="1941" max="2030" value="${selected_year}"/>
         <div class="input-group-addon">
           <a href="#" onclick="updateData();" data-toggle="tooltip" data-placement="bottom" title="${_(u'Citações realizadas no ano selecionado')}">${_(u'aplicar')}</a>
         </div>
