@@ -52,7 +52,7 @@
     <ul>
       <li><b>${_(u'Nome do arquivo')}:</b> <a id="link_citations_granted_count" href="https://static.scielo.org/bibliometrics/${selected_journal_code}/${selected_journal_code}_citations_granted_count_${selected_year}.csv">${selected_journal_code}_citations_granted_count_${selected_year}.csv</a></li>
       <li><b>${_(u'Periodicidade de atualização')}:</b> ${_(u'Trimestral')}</li>
-      <li><b>${_(u'Última atualização')}:</b> 24/06/2022</li>
+      <li><b>${_(u'Última atualização')}:</b> 02/03/2026</li>
       <li><b>${_(u'Separador de colunas')}:</b> ${_(u'Vírgula')}</li>
     </ul>
 
@@ -60,7 +60,7 @@
     <ul>
       <li><b>${_(u'Nome do arquivo')}:</b> <a id="link_citations_received_count" href="https://static.scielo.org/bibliometrics/${selected_journal_code}/${selected_journal_code}_citations_received_count_${selected_year}.csv">${selected_journal_code}_citations_received_count_${selected_year}.csv</a></li>
       <li><b>${_(u'Periodicidade de atualização')}:</b> ${_(u'Trimestral')}</li>
-      <li><b>${_(u'Última atualização')}:</b> 24/06/2022</li>
+      <li><b>${_(u'Última atualização')}:</b> 02/03/2026</li>
       <li><b>${_(u'Separador de colunas')}:</b> ${_(u'Vírgula')}</li>
     </ul>
 
@@ -68,7 +68,7 @@
     <ul>
       <li><b>${_(u'Nome do arquivo')}:</b> <a id="link_citations_received_cited_forms" href="https://static.scielo.org/bibliometrics/${selected_journal_code}/${selected_journal_code}_citations_received_cited_forms_${selected_year}.csv">${selected_journal_code}_citations_received_cited_forms_${selected_year}.csv</a></li>
       <li><b>${_(u'Periodicidade de atualização')}:</b> ${_(u'Trimestral')}</li>
-      <li><b>${_(u'Última atualização')}:</b> 24/06/2022</li>
+      <li><b>${_(u'Última atualização')}:</b> 02/03/2026</li>
       <li><b>${_(u'Separador de colunas')}:</b> ${_(u'Vírgula')}</li>
     </ul>
 
@@ -76,7 +76,7 @@
     <ul>
       <li><b>${_(u'Nome do arquivo')}:</b> <a id="link_citations_received_citing_pids" href="https://static.scielo.org/bibliometrics/${selected_journal_code}/${selected_journal_code}_citations_received_citing_pids_${selected_year}.csv">${selected_journal_code}_citations_received_citing_pids_${selected_year}.csv</a></li>
       <li><b>${_(u'Periodicidade de atualização')}:</b> ${_(u'Trimestral')}</li>
-      <li><b>${_(u'Última atualização')}:</b> 24/06/2022</li>
+      <li><b>${_(u'Última atualização')}:</b> 02/03/2026</li>
       <li><b>${_(u'Separador de colunas')}:</b> ${_(u'Vírgula')}</li>
     </ul>
 
@@ -84,7 +84,7 @@
     <ul>
       <li><b>${_(u'Nome do arquivo')}:</b> <a id="link_citations_received_standardized" href="https://static.scielo.org/bibliometrics/${selected_journal_code}/${selected_journal_code}_citations_received_standardized_${selected_year}.csv">${selected_journal_code}_citations_received_standardized_${selected_year}.csv</a></li>
       <li><b>${_(u'Periodicidade de atualização')}:</b> ${_(u'Trimestral')}</li>
-      <li><b>${_(u'Última atualização')}:</b> 24/06/2022</li>
+      <li><b>${_(u'Última atualização')}:</b> 02/03/2026</li>
       <li><b>${_(u'Separador de colunas')}:</b> ${_(u'Vírgula')}</li>
     </ul>
 
