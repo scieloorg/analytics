@@ -1,4 +1,7 @@
 import os
+import time
+import logging
+import threading
 from pyramid.session import SignedCookieSessionFactory
 from pyramid.renderers import JSONP
 from pyramid.config import Configurator
@@ -10,6 +13,42 @@ from analytics.views_website import cache_region as views_website_cache_region
 from analytics.views_ajax import cache_region as views_ajax_cache_region
 from analytics.controller import cache_region as controller_cache_region
 from analytics.control_manager import cache_region as control_manager_cache_region
+
+logger = logging.getLogger(__name__)
+
+
+def _start_cache_prewarm(settings):
+    if os.environ.get("ENABLE_CACHE_PREWARM", "1").lower() in ("0", "false", "no"):
+        return
+
+    def _prewarm():
+        delay_seconds = float(os.environ.get("PREWARM_DELAY_SECONDS", "0"))
+        if delay_seconds > 0:
+            time.sleep(delay_seconds)
+
+        collection = os.environ.get("PREWARM_COLLECTION", "scl")
+        try:
+            stats = controller.Stats(
+                settings.get('articlemeta', None),
+                settings.get('publicationstats', None),
+                settings.get('citedby', None),
+                settings.get('usage', None),
+                request=None
+            )
+            stats.articlemeta.certified_collections()
+            stats.articlemeta.collections_journals(collection)
+            stats.publication.list_subject_areas(collection, collection)
+            stats.publication.list_languages(collection, collection)
+            stats.publication.list_publication_years(collection, collection)
+            logger.info("Cache prewarm finished for collection '%s'", collection)
+        except Exception as exc:
+            logger.warning("Cache prewarm failed: %s", exc)
+
+    threading.Thread(
+        target=_prewarm,
+        name="cache-prewarm",
+        daemon=True,
+    ).start()
 
 
 def main(global_config, **settings):
@@ -109,14 +148,18 @@ def main(global_config, **settings):
         controller_cache_region.configure('dogpile.cache.pylibmc', **cache_config)
         control_manager_cache_region.configure('dogpile.cache.pylibmc', **cache_config)
     else:
-        views_website_cache_region.configure('dogpile.cache.null')
-        controller_cache_region.configure('dogpile.cache.null')
-        control_manager_cache_region.configure('dogpile.cache.null')
-        views_ajax_cache_region.configure('dogpile.cache.null')
+        # Fallback to in-process cache when memcached is unavailable.
+        # This avoids recomputing heavy remote calls on every request.
+        cache_config = {'expiration_time': int(memcached_expiration_time)}
+        views_website_cache_region.configure('dogpile.cache.memory', **cache_config)
+        controller_cache_region.configure('dogpile.cache.memory', **cache_config)
+        control_manager_cache_region.configure('dogpile.cache.memory', **cache_config)
+        views_ajax_cache_region.configure('dogpile.cache.memory', **cache_config)
 
     # Session config
     navegation_session_factory = SignedCookieSessionFactory('sses_navegation')
     config.set_session_factory(navegation_session_factory)
+    _start_cache_prewarm(settings)
 
     config.scan()
 
