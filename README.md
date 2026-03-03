@@ -28,10 +28,10 @@ Para testes, é mais prático usar um ambiente virtual Python em vez de containe
 sudo apt install libmemcached-dev
 ```
 
-2. Crie um ambiente virtual Python 3.6 (usando miniconda):
+2. Crie um ambiente virtual Python 3.13 (usando miniconda):
 
 ```bash
-conda create -n scl-analytics python=3.6 -y
+conda create -n scl-analytics python=3.13 -y
 conda activate scl-analytics
 ```
 
@@ -45,7 +45,7 @@ pip install -r requirements.txt
 4. Execute os testes de unidade:
 
 ```bash
-python setup.py test
+python -m unittest discover -s tests
 ```
 
 > ⚠️ **Observação**: fora do Docker, o Memcached deve estar rodando localmente (`127.0.0.1:11211`). Você pode iniciá-lo com:
