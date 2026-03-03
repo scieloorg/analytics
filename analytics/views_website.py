@@ -4,10 +4,10 @@ from datetime import datetime, timedelta
 
 from pyramid.view import view_config
 from dogpile.cache import make_region
-from citedby.custom_query import journal_titles
 # from scielojcr import jcrindicators
 
 from analytics.control_manager import base_data_manager
+from analytics.custom_query import journal_titles
 
 cache_region = make_region(name='views_website_cache')
 
