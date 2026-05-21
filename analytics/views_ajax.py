@@ -215,7 +215,27 @@ def publication_article_affiliations_map(request):
 
     data = request.data_manager
 
-    chart_data = request.stats.publication.general('article', 'aff_countries', data['selected_code'], data['selected_collection_code'], py_range=data['py_range'], sa_scope=data['sa_scope'], la_scope=data['la_scope'])
+    cache_payload = {
+        'selected_code': data['selected_code'],
+        'selected_collection_code': data['selected_collection_code'],
+        'py_range': data['py_range'],
+        'sa_scope': data['sa_scope'],
+        'la_scope': data['la_scope'],
+    }
+    cache_key = _usage_cache_key("publication_article_affiliations_map", cache_payload)
+
+    chart_data = cache_region.get_or_create(
+        cache_key,
+        lambda: request.stats.publication.general(
+            'article',
+            'aff_countries',
+            data['selected_code'],
+            data['selected_collection_code'],
+            py_range=data['py_range'],
+            sa_scope=data['sa_scope'],
+            la_scope=data['la_scope'],
+        )
+    )
 
     return request.chartsconfig.publication_article_affiliations_map(chart_data)
 
@@ -226,7 +246,29 @@ def publication_article_affiliations(request):
 
     data = request.data_manager
 
-    chart_data = request.stats.publication.general('article', 'aff_countries', data['selected_code'], data['selected_collection_code'], py_range=data['py_range'], sa_scope=data['sa_scope'], la_scope=data['la_scope'], size=20)
+    cache_payload = {
+        'selected_code': data['selected_code'],
+        'selected_collection_code': data['selected_collection_code'],
+        'py_range': data['py_range'],
+        'sa_scope': data['sa_scope'],
+        'la_scope': data['la_scope'],
+        'size': 20,
+    }
+    cache_key = _usage_cache_key("publication_article_affiliations", cache_payload)
+
+    chart_data = cache_region.get_or_create(
+        cache_key,
+        lambda: request.stats.publication.general(
+            'article',
+            'aff_countries',
+            data['selected_code'],
+            data['selected_collection_code'],
+            py_range=data['py_range'],
+            sa_scope=data['sa_scope'],
+            la_scope=data['la_scope'],
+            size=20,
+        )
+    )
 
     return request.chartsconfig.publication_article_affiliations(chart_data)
 
@@ -237,7 +279,25 @@ def publication_article_affiliations_publication_year(request):
 
     data = request.data_manager
 
-    chart_data = request.stats.publication.affiliations_by_publication_year(data['selected_code'], data['selected_collection_code'], data['py_range'], data['sa_scope'], data['la_scope'])
+    cache_payload = {
+        'selected_code': data['selected_code'],
+        'selected_collection_code': data['selected_collection_code'],
+        'py_range': data['py_range'],
+        'sa_scope': data['sa_scope'],
+        'la_scope': data['la_scope'],
+    }
+    cache_key = _usage_cache_key("publication_article_affiliations_publication_year", cache_payload)
+
+    chart_data = cache_region.get_or_create(
+        cache_key,
+        lambda: request.stats.publication.affiliations_by_publication_year(
+            data['selected_code'],
+            data['selected_collection_code'],
+            data['py_range'],
+            data['sa_scope'],
+            data['la_scope']
+        )
+    )
 
     return request.chartsconfig.publication_article_affiliations_by_publication_year(chart_data)
 

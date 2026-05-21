@@ -39,7 +39,22 @@ def _start_cache_prewarm(settings):
             stats.articlemeta.collections_journals(collection)
             stats.publication.list_subject_areas(collection, collection)
             stats.publication.list_languages(collection, collection)
-            stats.publication.list_publication_years(collection, collection)
+            publication_years = stats.publication.list_publication_years(collection, collection)
+            if publication_years:
+                py_range = [publication_years[0], publication_years[-1]]
+            else:
+                current_year = str(time.gmtime().tm_year)
+                py_range = [current_year, current_year]
+
+            # Warm the heaviest home chart payload used by affiliations widgets.
+            stats.publication.general(
+                'article',
+                'aff_countries',
+                collection,
+                collection,
+                py_range=py_range,
+                size=0
+            )
             logger.info("Cache prewarm finished for collection '%s'", collection)
         except Exception as exc:
             logger.warning("Cache prewarm failed: %s", exc)
