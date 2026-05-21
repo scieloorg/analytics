@@ -1,6 +1,9 @@
 # coding: utf-8
 import urllib.parse
 import json
+import logging
+import os
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
 
 from pyramid.view import view_config
 
@@ -12,6 +15,14 @@ from analytics.controller import SCIELO_SUSHI_API_FETCH_DATA_TIMEOUT, SCIELO_SUS
 
 
 cache_region = make_region(name='views_ajax_cache')
+logger = logging.getLogger(__name__)
+
+_AFFILIATIONS_TIMEOUT_SECONDS = float(os.environ.get("PUBLICATION_AFFILIATIONS_TIMEOUT_SECONDS", "4"))
+_AFFILIATIONS_TIMEOUT_POOL_SIZE = int(os.environ.get("PUBLICATION_AFFILIATIONS_TIMEOUT_POOL_SIZE", "8"))
+_AFFILIATIONS_EXECUTOR = ThreadPoolExecutor(
+    max_workers=_AFFILIATIONS_TIMEOUT_POOL_SIZE,
+    thread_name_prefix="affiliations-timeout",
+)
 
 
 def _usage_cache_key(prefix, payload):
@@ -19,6 +30,26 @@ def _usage_cache_key(prefix, payload):
         prefix,
         json.dumps(payload, sort_keys=True, separators=(",", ":"))
     )
+
+
+def _run_with_timeout(callable_obj, fallback_data, timeout_seconds, operation_name):
+    future = _AFFILIATIONS_EXECUTOR.submit(callable_obj)
+    try:
+        return future.result(timeout=timeout_seconds)
+    except FuturesTimeoutError:
+        logger.warning(
+            "Timeout in %s after %.2fs; returning fallback",
+            operation_name,
+            timeout_seconds
+        )
+        return fallback_data
+    except Exception as exc:
+        logger.warning(
+            "Error in %s: %s; returning fallback",
+            operation_name,
+            exc
+        )
+        return fallback_data
 
 
 # @view_config(route_name='bibliometrics_journal_jcr_eigen_factor_chart', request_method='GET', renderer='jsonp')
@@ -224,17 +255,22 @@ def publication_article_affiliations_map(request):
     }
     cache_key = _usage_cache_key("publication_article_affiliations_map", cache_payload)
 
-    chart_data = cache_region.get_or_create(
-        cache_key,
-        lambda: request.stats.publication.general(
-            'article',
-            'aff_countries',
-            data['selected_code'],
-            data['selected_collection_code'],
-            py_range=data['py_range'],
-            sa_scope=data['sa_scope'],
-            la_scope=data['la_scope'],
-        )
+    chart_data = _run_with_timeout(
+        lambda: cache_region.get_or_create(
+            cache_key,
+            lambda: request.stats.publication.general(
+                'article',
+                'aff_countries',
+                data['selected_code'],
+                data['selected_collection_code'],
+                py_range=data['py_range'],
+                sa_scope=data['sa_scope'],
+                la_scope=data['la_scope'],
+            )
+        ),
+        fallback_data={'series': [{'name': 'documents', 'data': []}], 'categories': []},
+        timeout_seconds=_AFFILIATIONS_TIMEOUT_SECONDS,
+        operation_name='publication_article_affiliations_map',
     )
 
     return request.chartsconfig.publication_article_affiliations_map(chart_data)
@@ -256,18 +292,24 @@ def publication_article_affiliations(request):
     }
     cache_key = _usage_cache_key("publication_article_affiliations", cache_payload)
 
-    chart_data = cache_region.get_or_create(
-        cache_key,
-        lambda: request.stats.publication.general(
-            'article',
-            'aff_countries',
-            data['selected_code'],
-            data['selected_collection_code'],
-            py_range=data['py_range'],
-            sa_scope=data['sa_scope'],
-            la_scope=data['la_scope'],
-            size=20,
+    chart_data = _run_with_timeout(
+        lambda: cache_region.get_or_create(
+            cache_key,
+            lambda: request.stats.publication.general(
+                'article',
+                'aff_countries',
+                data['selected_code'],
+                data['selected_collection_code'],
+                py_range=data['py_range'],
+                sa_scope=data['sa_scope'],
+                la_scope=data['la_scope'],
+                size=20,
+            )
         )
+        ,
+        fallback_data={'series': [{'name': 'documents', 'data': []}], 'categories': []},
+        timeout_seconds=_AFFILIATIONS_TIMEOUT_SECONDS,
+        operation_name='publication_article_affiliations',
     )
 
     return request.chartsconfig.publication_article_affiliations(chart_data)
@@ -288,15 +330,21 @@ def publication_article_affiliations_publication_year(request):
     }
     cache_key = _usage_cache_key("publication_article_affiliations_publication_year", cache_payload)
 
-    chart_data = cache_region.get_or_create(
-        cache_key,
-        lambda: request.stats.publication.affiliations_by_publication_year(
-            data['selected_code'],
-            data['selected_collection_code'],
-            data['py_range'],
-            data['sa_scope'],
-            data['la_scope']
+    chart_data = _run_with_timeout(
+        lambda: cache_region.get_or_create(
+            cache_key,
+            lambda: request.stats.publication.affiliations_by_publication_year(
+                data['selected_code'],
+                data['selected_collection_code'],
+                data['py_range'],
+                data['sa_scope'],
+                data['la_scope']
+            )
         )
+        ,
+        fallback_data={'series': [], 'navigator_series': []},
+        timeout_seconds=_AFFILIATIONS_TIMEOUT_SECONDS,
+        operation_name='publication_article_affiliations_publication_year',
     )
 
     return request.chartsconfig.publication_article_affiliations_by_publication_year(chart_data)

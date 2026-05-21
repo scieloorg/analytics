@@ -338,9 +338,13 @@ class ChartsConfig(object):
                 'text': self._(u'Número de documentos')
             }
         }
+        map_values = []
+        if data.get('series') and data['series'][0].get('data'):
+            map_values = data['series'][0]['data']
+
         chart['colorAxis'] = {
             'min': 1,
-            'max': sorted(data['series'][0]['data'])[-1],
+            'max': sorted(map_values)[-1] if map_values else 1,
             'type': 'logarithmic'
         }
 
@@ -351,7 +355,7 @@ class ChartsConfig(object):
             }
         }
         chart['series'] = [{
-            'data': [{'value': v, 'code': k, 'name': k} for k, v in dict(zip(data['categories'], data['series'][0]['data'])).items()],
+            'data': [{'value': v, 'code': k, 'name': k} for k, v in dict(zip(data.get('categories', []), map_values)).items()],
             'joinBy': ['iso-a2', 'code'],
             'name': self._(u'Documentos'),
             'states': {
