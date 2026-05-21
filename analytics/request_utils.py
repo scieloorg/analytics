@@ -1,4 +1,9 @@
 import logging
+import os
+import threading
+import time
+from urllib.parse import urlparse
+
 import requests
 
 from requests.exceptions import (
@@ -20,6 +25,16 @@ from tenacity import (
 
 logger = logging.getLogger(__name__)
 
+CIRCUIT_BREAKER_HOST = os.environ.get("USAGE_CIRCUIT_BREAKER_HOST", "usage.apis.scielo.org")
+CIRCUIT_BREAKER_FAILURE_THRESHOLD = int(os.environ.get("USAGE_CIRCUIT_BREAKER_FAILURE_THRESHOLD", "3"))
+CIRCUIT_BREAKER_OPEN_SECONDS = int(os.environ.get("USAGE_CIRCUIT_BREAKER_OPEN_SECONDS", "90"))
+
+_breaker_lock = threading.Lock()
+_breaker_state = {
+    "failures": 0,
+    "open_until": 0.0,
+}
+
 
 class RetryableError(Exception):
     """Recoverable error without having to modify the data state on the client
@@ -31,6 +46,42 @@ class NonRetryableError(Exception):
     """Recoverable error without having to modify the data state on the client
     side, e.g. timeouts, errors from network partitioning, etc.
     """
+
+
+class CircuitOpenError(Exception):
+    """Raised when the circuit breaker is open and requests are short-circuited."""
+
+
+def _is_breaker_target(url):
+    try:
+        return urlparse(url).hostname == CIRCUIT_BREAKER_HOST
+    except Exception:
+        return False
+
+
+def _breaker_is_open():
+    with _breaker_lock:
+        return time.time() < _breaker_state["open_until"]
+
+
+def _breaker_mark_success():
+    with _breaker_lock:
+        _breaker_state["failures"] = 0
+        _breaker_state["open_until"] = 0.0
+
+
+def _breaker_mark_failure():
+    with _breaker_lock:
+        _breaker_state["failures"] += 1
+        failures = _breaker_state["failures"]
+        if failures >= CIRCUIT_BREAKER_FAILURE_THRESHOLD:
+            _breaker_state["open_until"] = time.time() + CIRCUIT_BREAKER_OPEN_SECONDS
+            logger.warning(
+                "Circuit breaker opened for host '%s' for %ss after %s failures",
+                CIRCUIT_BREAKER_HOST,
+                CIRCUIT_BREAKER_OPEN_SECONDS,
+                failures,
+            )
 
 
 def clean_params_by_report(params, report_code):
@@ -72,14 +123,24 @@ def fetch_data(url, json=True, params=None, timeout=32, verify=True):
         RetryableError: If a connection or timeout error occurs (for retry).
         NonRetryableError: For schema, URL, or 4xx client errors.
     """
-    logger.info(f"Fetching URL: {url} with params {params}")
+    if _is_breaker_target(url) and _breaker_is_open():
+        logger.warning(
+            "Circuit breaker open for host '%s', short-circuiting request: %s",
+            CIRCUIT_BREAKER_HOST,
+            url,
+        )
+        raise NonRetryableError(CircuitOpenError(url))
 
     try:
         logger.info(f"Fetching URL: {url} with params {params}")
         response = requests.get(url, params=params, timeout=timeout, verify=verify)
         response.raise_for_status()
+        if _is_breaker_target(url):
+            _breaker_mark_success()
 
     except (ConnectionError, Timeout) as exc:
+        if _is_breaker_target(url):
+            _breaker_mark_failure()
         logger.error(f"Erro fetching content: {url}. Retrying... Error: {exc}")
         raise RetryableError(exc) from exc
 
@@ -93,6 +154,8 @@ def fetch_data(url, json=True, params=None, timeout=32, verify=True):
             logger.error(f"Client error (non-retryable): {url}. Status: {status_code}")
             raise NonRetryableError(exc) from exc
         elif 500 <= status_code < 600:
+            if _is_breaker_target(url):
+                _breaker_mark_failure()
             logger.error(f"Server error: {url}. Retrying... Status: {status_code}")
             raise RetryableError(exc) from exc
 
