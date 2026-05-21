@@ -9,7 +9,7 @@ from pyramid.view import view_config
 
 from dogpile.cache import make_region
 
-from analytics.control_manager import base_data_manager
+from analytics.control_manager import base_data_manager, check_session
 from analytics import request_utils
 from analytics.controller import SCIELO_SUSHI_API_FETCH_DATA_TIMEOUT, SCIELO_SUSHI_API_ERROR_KEY, SCIELO_SUSHI_API_ERROR_VALUE
 
@@ -19,6 +19,7 @@ logger = logging.getLogger(__name__)
 
 _AFFILIATIONS_TIMEOUT_SECONDS = float(os.environ.get("PUBLICATION_AFFILIATIONS_TIMEOUT_SECONDS", "4"))
 _AFFILIATIONS_TIMEOUT_POOL_SIZE = int(os.environ.get("PUBLICATION_AFFILIATIONS_TIMEOUT_POOL_SIZE", "8"))
+_USAGE_REPORT_TIMEOUT_SECONDS = float(os.environ.get("USAGE_REPORT_TIMEOUT_SECONDS", "4"))
 _AFFILIATIONS_EXECUTOR = ThreadPoolExecutor(
     max_workers=_AFFILIATIONS_TIMEOUT_POOL_SIZE,
     thread_name_prefix="affiliations-timeout",
@@ -107,20 +108,38 @@ def bibliometrics_journal_google_h5m5_chart(request):
     return request.chartsconfig.bibliometrics_google_h5m5(data)
 
 
-@view_config(route_name='usage_report_chart', request_method='GET', renderer='jsonp')
-@base_data_manager
-def usage_report_chart(request):
+def _usage_selected_values(request):
+    selected_collection_code = (
+        request.GET.get('collection')
+        or request.session.get('collection')
+        or 'scl'
+    )
+    selected_document_code = (
+        request.GET.get('pid')
+        or request.GET.get('article')
+        or request.session.get('document')
+        or None
+    )
+    selected_code = (
+        request.GET.get('issn')
+        or request.GET.get('code')
+        or request.GET.get('journal')
+        or request.session.get('journal')
+        or selected_collection_code
+    )
+    return selected_code, selected_collection_code, selected_document_code
 
-    data = request.data_manager
+
+@view_config(route_name='usage_report_chart', request_method='GET', renderer='jsonp')
+@check_session
+def usage_report_chart(request):
 
     api_version = request.GET.get('api_version', 'v2')
     range_start = request.GET.get('range_start', None)
     range_end = request.GET.get('range_end', None)
     report_code = request.GET.get('report_code', 'tr_j1')
     granularity = request.GET.get('granularity', 'monthly')
-    selected_code = data['selected_code']
-    selected_collection_code = data['selected_collection_code']
-    selected_document_code = data['selected_document_code']
+    selected_code, selected_collection_code, selected_document_code = _usage_selected_values(request)
 
     cache_payload = {
         'pid': selected_document_code,
@@ -134,18 +153,28 @@ def usage_report_chart(request):
     }
     cache_key = _usage_cache_key("usage_report_chart", cache_payload)
 
-    data_chart = cache_region.get_or_create(
-        cache_key,
-        lambda: request.stats.usage.get_usage_report(
-            pid=selected_document_code,
-            issn=selected_code,
-            collection=selected_collection_code,
-            begin_date=range_start,
-            end_date=range_end,
-            report_code=report_code,
-            api_version=api_version,
-            granularity=granularity,
+    fallback_data = []
+    if report_code != 'gr_j1':
+        fallback_data = {'series': []}
+
+    data_chart = _run_with_timeout(
+        lambda: cache_region.get_or_create(
+            cache_key,
+            lambda: request.stats.usage.get_usage_report(
+                pid=selected_document_code,
+                issn=selected_code,
+                collection=selected_collection_code,
+                begin_date=range_start,
+                end_date=range_end,
+                report_code=report_code,
+                api_version=api_version,
+                granularity=granularity,
+            )
         )
+        ,
+        fallback_data=fallback_data,
+        timeout_seconds=_USAGE_REPORT_TIMEOUT_SECONDS,
+        operation_name='usage_report_chart',
     )
 
     if report_code == 'gr_j1':
@@ -155,19 +184,15 @@ def usage_report_chart(request):
 
 
 @view_config(route_name='usage_report_yearly_chart', request_method='GET', renderer='jsonp')
-@base_data_manager
+@check_session
 def usage_report_yearly_chart(request):
-    
-    data = request.data_manager
-    
+
     api_version = request.GET.get('api_version', 'v2')
     range_start = request.GET.get('range_start', None)
     range_end = request.GET.get('range_end', None)
     report_code = request.GET.get('report_code', 'cr_j1')
     metric_type = request.GET.get('metric_type', 'Total_Item_Requests')
-    selected_code = data['selected_code']
-    selected_collection_code = data['selected_collection_code']
-    selected_document_code = data['selected_document_code']
+    selected_code, selected_collection_code, selected_document_code = _usage_selected_values(request)
     
     cache_payload = {
         'pid': selected_document_code,
@@ -212,7 +237,12 @@ def usage_report_yearly_chart(request):
 
         return request.stats.usage._title_report_to_yearly_chart_data(data_raw, metric_type=metric_type)
 
-    data_chart = cache_region.get_or_create(cache_key, _compute_yearly_chart)
+    data_chart = _run_with_timeout(
+        lambda: cache_region.get_or_create(cache_key, _compute_yearly_chart),
+        fallback_data={'series': [], 'categories': []},
+        timeout_seconds=_USAGE_REPORT_TIMEOUT_SECONDS,
+        operation_name='usage_report_yearly_chart',
+    )
     
     return request.chartsconfig.usage_report_yearly(data_chart, metric_type)
 
