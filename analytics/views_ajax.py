@@ -3,6 +3,8 @@ import urllib.parse
 import json
 import logging
 import os
+import datetime
+import threading
 from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
 
 from pyramid.view import view_config
@@ -23,10 +25,22 @@ _USAGE_REPORT_TIMEOUT_SECONDS = float(os.environ.get("USAGE_REPORT_TIMEOUT_SECON
 _USAGE_YEARLY_TIMEOUT_SECONDS = float(
     os.environ.get("USAGE_YEARLY_TIMEOUT_SECONDS", str(_USAGE_REPORT_TIMEOUT_SECONDS))
 )
-_AFFILIATIONS_EXECUTOR = ThreadPoolExecutor(
-    max_workers=_AFFILIATIONS_TIMEOUT_POOL_SIZE,
-    thread_name_prefix="affiliations-timeout",
+_USAGE_TIMEOUT_POOL_SIZE = int(os.environ.get("USAGE_TIMEOUT_POOL_SIZE", "8"))
+_USAGE_MAX_INFLIGHT = int(os.environ.get("USAGE_TIMEOUT_MAX_INFLIGHT", str(_USAGE_TIMEOUT_POOL_SIZE)))
+_PUBLICATION_MAX_INFLIGHT = int(
+    os.environ.get("PUBLICATION_AFFILIATIONS_MAX_INFLIGHT", str(_AFFILIATIONS_TIMEOUT_POOL_SIZE))
 )
+
+_USAGE_EXECUTOR = ThreadPoolExecutor(
+    max_workers=_USAGE_TIMEOUT_POOL_SIZE,
+    thread_name_prefix="usage-timeout",
+)
+_PUBLICATION_EXECUTOR = ThreadPoolExecutor(
+    max_workers=_AFFILIATIONS_TIMEOUT_POOL_SIZE,
+    thread_name_prefix="publication-timeout",
+)
+_USAGE_INFLIGHT = threading.BoundedSemaphore(value=_USAGE_MAX_INFLIGHT)
+_PUBLICATION_INFLIGHT = threading.BoundedSemaphore(value=_PUBLICATION_MAX_INFLIGHT)
 
 
 def _usage_cache_key(prefix, payload):
@@ -36,11 +50,39 @@ def _usage_cache_key(prefix, payload):
     )
 
 
-def _run_with_timeout(callable_obj, fallback_data, timeout_seconds, operation_name):
-    future = _AFFILIATIONS_EXECUTOR.submit(callable_obj)
+def _submit_guarded(executor, inflight_guard, callable_obj, operation_name):
+    if not inflight_guard.acquire(blocking=False):
+        logger.warning(
+            "Inflight guard reached for %s; returning fallback without backend call",
+            operation_name
+        )
+        return None
+
+    try:
+        future = executor.submit(callable_obj)
+    except Exception:
+        inflight_guard.release()
+        raise
+
+    def _release_guard(_):
+        try:
+            inflight_guard.release()
+        except ValueError:
+            logger.warning("Inflight guard release imbalance for %s", operation_name)
+
+    future.add_done_callback(_release_guard)
+    return future
+
+
+def _run_with_timeout(executor, inflight_guard, callable_obj, fallback_data, timeout_seconds, operation_name):
+    future = _submit_guarded(executor, inflight_guard, callable_obj, operation_name)
+    if future is None:
+        return fallback_data
+
     try:
         return future.result(timeout=timeout_seconds)
     except FuturesTimeoutError:
+        future.cancel()
         logger.warning(
             "Timeout in %s after %.2fs; returning fallback",
             operation_name,
@@ -133,13 +175,27 @@ def _usage_selected_values(request):
     return selected_code, selected_collection_code, selected_document_code
 
 
+def _usage_date_range(request):
+    today = datetime.datetime.now().isoformat()[0:10]
+    range_start = (
+        request.GET.get('range_start')
+        or request.session.get('range_start')
+        or '1998-01-01'
+    )
+    range_end = (
+        request.GET.get('range_end')
+        or request.session.get('range_end')
+        or today
+    )
+    return range_start, range_end
+
+
 @view_config(route_name='usage_report_chart', request_method='GET', renderer='jsonp')
 @check_session
 def usage_report_chart(request):
 
     api_version = request.GET.get('api_version', 'v2')
-    range_start = request.GET.get('range_start', None)
-    range_end = request.GET.get('range_end', None)
+    range_start, range_end = _usage_date_range(request)
     report_code = request.GET.get('report_code', 'tr_j1')
     granularity = request.GET.get('granularity', 'monthly')
     selected_code, selected_collection_code, selected_document_code = _usage_selected_values(request)
@@ -161,6 +217,8 @@ def usage_report_chart(request):
         fallback_data = {'series': []}
 
     data_chart = _run_with_timeout(
+        _USAGE_EXECUTOR,
+        _USAGE_INFLIGHT,
         lambda: cache_region.get_or_create(
             cache_key,
             lambda: request.stats.usage.get_usage_report(
@@ -191,8 +249,7 @@ def usage_report_chart(request):
 def usage_report_yearly_chart(request):
 
     api_version = request.GET.get('api_version', 'v2')
-    range_start = request.GET.get('range_start', None)
-    range_end = request.GET.get('range_end', None)
+    range_start, range_end = _usage_date_range(request)
     report_code = request.GET.get('report_code', 'cr_j1')
     metric_type = request.GET.get('metric_type', 'Total_Item_Requests')
     selected_code, selected_collection_code, selected_document_code = _usage_selected_values(request)
@@ -241,6 +298,8 @@ def usage_report_yearly_chart(request):
         return request.stats.usage._title_report_to_yearly_chart_data(data_raw, metric_type=metric_type)
 
     data_chart = _run_with_timeout(
+        _USAGE_EXECUTOR,
+        _USAGE_INFLIGHT,
         lambda: cache_region.get_or_create(cache_key, _compute_yearly_chart),
         fallback_data={'series': [], 'categories': []},
         timeout_seconds=_USAGE_YEARLY_TIMEOUT_SECONDS,
@@ -289,6 +348,8 @@ def publication_article_affiliations_map(request):
     cache_key = _usage_cache_key("publication_article_affiliations_map", cache_payload)
 
     chart_data = _run_with_timeout(
+        _PUBLICATION_EXECUTOR,
+        _PUBLICATION_INFLIGHT,
         lambda: cache_region.get_or_create(
             cache_key,
             lambda: request.stats.publication.general(
@@ -326,6 +387,8 @@ def publication_article_affiliations(request):
     cache_key = _usage_cache_key("publication_article_affiliations", cache_payload)
 
     chart_data = _run_with_timeout(
+        _PUBLICATION_EXECUTOR,
+        _PUBLICATION_INFLIGHT,
         lambda: cache_region.get_or_create(
             cache_key,
             lambda: request.stats.publication.general(
@@ -364,6 +427,8 @@ def publication_article_affiliations_publication_year(request):
     cache_key = _usage_cache_key("publication_article_affiliations_publication_year", cache_payload)
 
     chart_data = _run_with_timeout(
+        _PUBLICATION_EXECUTOR,
+        _PUBLICATION_INFLIGHT,
         lambda: cache_region.get_or_create(
             cache_key,
             lambda: request.stats.publication.affiliations_by_publication_year(
