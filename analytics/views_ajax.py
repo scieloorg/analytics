@@ -20,6 +20,9 @@ logger = logging.getLogger(__name__)
 _AFFILIATIONS_TIMEOUT_SECONDS = float(os.environ.get("PUBLICATION_AFFILIATIONS_TIMEOUT_SECONDS", "4"))
 _AFFILIATIONS_TIMEOUT_POOL_SIZE = int(os.environ.get("PUBLICATION_AFFILIATIONS_TIMEOUT_POOL_SIZE", "8"))
 _USAGE_REPORT_TIMEOUT_SECONDS = float(os.environ.get("USAGE_REPORT_TIMEOUT_SECONDS", "4"))
+_USAGE_YEARLY_TIMEOUT_SECONDS = float(
+    os.environ.get("USAGE_YEARLY_TIMEOUT_SECONDS", str(_USAGE_REPORT_TIMEOUT_SECONDS))
+)
 _AFFILIATIONS_EXECUTOR = ThreadPoolExecutor(
     max_workers=_AFFILIATIONS_TIMEOUT_POOL_SIZE,
     thread_name_prefix="affiliations-timeout",
@@ -240,7 +243,7 @@ def usage_report_yearly_chart(request):
     data_chart = _run_with_timeout(
         lambda: cache_region.get_or_create(cache_key, _compute_yearly_chart),
         fallback_data={'series': [], 'categories': []},
-        timeout_seconds=_USAGE_REPORT_TIMEOUT_SECONDS,
+        timeout_seconds=_USAGE_YEARLY_TIMEOUT_SECONDS,
         operation_name='usage_report_yearly_chart',
     )
     
