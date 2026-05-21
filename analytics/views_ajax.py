@@ -1,5 +1,6 @@
 # coding: utf-8
 import urllib.parse
+import json
 
 from pyramid.view import view_config
 
@@ -11,6 +12,13 @@ from analytics.controller import SCIELO_SUSHI_API_FETCH_DATA_TIMEOUT, SCIELO_SUS
 
 
 cache_region = make_region(name='views_ajax_cache')
+
+
+def _usage_cache_key(prefix, payload):
+    return "%s:%s" % (
+        prefix,
+        json.dumps(payload, sort_keys=True, separators=(",", ":"))
+    )
 
 
 # @view_config(route_name='bibliometrics_journal_jcr_eigen_factor_chart', request_method='GET', renderer='jsonp')
@@ -83,15 +91,30 @@ def usage_report_chart(request):
     selected_collection_code = data['selected_collection_code']
     selected_document_code = data['selected_document_code']
 
-    data_chart = request.stats.usage.get_usage_report(
-        pid = selected_document_code,
-        issn = selected_code,
-        collection = selected_collection_code,
-        begin_date = range_start,
-        end_date = range_end,
-        report_code = report_code,
-        api_version = api_version,
-        granularity = granularity,
+    cache_payload = {
+        'pid': selected_document_code,
+        'issn': selected_code,
+        'collection': selected_collection_code,
+        'begin_date': range_start,
+        'end_date': range_end,
+        'report_code': report_code,
+        'api_version': api_version,
+        'granularity': granularity,
+    }
+    cache_key = _usage_cache_key("usage_report_chart", cache_payload)
+
+    data_chart = cache_region.get_or_create(
+        cache_key,
+        lambda: request.stats.usage.get_usage_report(
+            pid=selected_document_code,
+            issn=selected_code,
+            collection=selected_collection_code,
+            begin_date=range_start,
+            end_date=range_end,
+            report_code=report_code,
+            api_version=api_version,
+            granularity=granularity,
+        )
     )
 
     if report_code == 'gr_j1':
@@ -115,39 +138,50 @@ def usage_report_yearly_chart(request):
     selected_collection_code = data['selected_collection_code']
     selected_document_code = data['selected_document_code']
     
-    # Fetch RAW data directly from API (not processed)
-    url_report = urllib.parse.urljoin(request.stats.usage.base_url, 'reports/%s' % report_code)
-    
-    params = {
+    cache_payload = {
         'pid': selected_document_code,
         'issn': selected_code,
         'collection': selected_collection_code,
         'begin_date': range_start,
         'end_date': range_end,
+        'report_code': report_code,
+        'api_version': api_version,
+        'metric_type': metric_type,
         'granularity': 'monthly',
-        'api': api_version,
     }
-    
-    request_utils.clean_params_by_report(params, report_code)
-    
-    try:
-        data_raw = request_utils.fetch_data(
-            url_report,
-            params=params,
-            timeout=SCIELO_SUSHI_API_FETCH_DATA_TIMEOUT,
-        )
-    except (request_utils.RetryableError, request_utils.NonRetryableError):
-        # If API request fails, return empty chart
-        return request.chartsconfig.usage_report_yearly({'series': [], 'categories': []}, metric_type)
-    
-    # Check for API error response
-    severity = data_raw.get(SCIELO_SUSHI_API_ERROR_KEY, '')
-    if isinstance(severity, str) and severity.lower() == SCIELO_SUSHI_API_ERROR_VALUE.lower():
-        # Return empty chart in case of error
-        return request.chartsconfig.usage_report_yearly({'series': [], 'categories': []}, metric_type)
-    
-    # Process into yearly chart data
-    data_chart = request.stats.usage._title_report_to_yearly_chart_data(data_raw, metric_type=metric_type)
+    cache_key = _usage_cache_key("usage_report_yearly_chart", cache_payload)
+
+    def _compute_yearly_chart():
+        url_report = urllib.parse.urljoin(request.stats.usage.base_url, 'reports/%s' % report_code)
+
+        params = {
+            'pid': selected_document_code,
+            'issn': selected_code,
+            'collection': selected_collection_code,
+            'begin_date': range_start,
+            'end_date': range_end,
+            'granularity': 'monthly',
+            'api': api_version,
+        }
+
+        request_utils.clean_params_by_report(params, report_code)
+
+        try:
+            data_raw = request_utils.fetch_data(
+                url_report,
+                params=params,
+                timeout=SCIELO_SUSHI_API_FETCH_DATA_TIMEOUT,
+            )
+        except (request_utils.RetryableError, request_utils.NonRetryableError):
+            return {'series': [], 'categories': []}
+
+        severity = data_raw.get(SCIELO_SUSHI_API_ERROR_KEY, '')
+        if isinstance(severity, str) and severity.lower() == SCIELO_SUSHI_API_ERROR_VALUE.lower():
+            return {'series': [], 'categories': []}
+
+        return request.stats.usage._title_report_to_yearly_chart_data(data_raw, metric_type=metric_type)
+
+    data_chart = cache_region.get_or_create(cache_key, _compute_yearly_chart)
     
     return request.chartsconfig.usage_report_yearly(data_chart, metric_type)
 
