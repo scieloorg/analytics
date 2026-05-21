@@ -121,6 +121,77 @@ http://0.0.0.0:6543
 
 ---
 
+## Cache, timeout e resiliência (home e gráficos)
+
+As rotas AJAX mais pesadas foram preparadas para reduzir latência de primeira carga e proteger o backend em cenários de degradação.
+
+### 1. Cache em Memcached (recomendado)
+
+Com `MEMCACHED_HOST` configurado, o app usa `dogpile.cache.pylibmc` para cache compartilhado entre workers/instâncias.
+
+Efeito prático:
+
+* A primeira requisição para uma combinação de parâmetros (coleção, período, relatório, métrica etc.) consulta o backend externo.
+* Requisições seguintes com a mesma chave servem do cache, inclusive para usuários diferentes.
+* Nova consulta externa só ocorre em `cache miss` ou após expiração.
+
+Sem `MEMCACHED_HOST`, o app cai para `dogpile.cache.memory` (cache por processo).
+
+### 2. Prewarm de cache no startup
+
+No boot da aplicação, um prewarm assíncrono prepara dados base de coleção e agregações críticas da home.
+
+Variáveis:
+
+* `ENABLE_CACHE_PREWARM` (default: `1`)
+* `PREWARM_DELAY_SECONDS` (default: `0`)
+* `PREWARM_COLLECTION` (default: `scl`)
+
+### 3. Timeout e fallback por backend (sem mudar regra de negócio)
+
+Quando backend externo está lento/indisponível, endpoints críticos retornam payload válido vazio em tempo limitado, evitando travamento da home.
+
+Variáveis:
+
+* `BACKEND_TIMEOUT_SECONDS` (default: `8`)
+* `PUBLICATION_AFFILIATIONS_TIMEOUT_SECONDS` (default: `4`)
+* `PUBLICATION_AFFILIATIONS_TIMEOUT_POOL_SIZE` (default: `8`)
+* `USAGE_REPORT_TIMEOUT_SECONDS` (default: `4`)
+* `USAGE_YEARLY_TIMEOUT_SECONDS` (default: usa valor de `USAGE_REPORT_TIMEOUT_SECONDS`)
+
+### 4. Circuit breaker para Usage API
+
+As chamadas para `usage.apis.scielo.org` usam circuit breaker para reduzir efeito cascata em falhas repetidas.
+
+Variáveis:
+
+* `USAGE_CIRCUIT_BREAKER_HOST` (default: `usage.apis.scielo.org`)
+* `USAGE_CIRCUIT_BREAKER_FAILURE_THRESHOLD` (default: `3`)
+* `USAGE_CIRCUIT_BREAKER_OPEN_SECONDS` (default: `90`)
+
+### 5. Exemplo de configuração (homologação)
+
+```bash
+MEMCACHED_HOST=memcached:11211
+MEMCACHED_EXPIRATION_TIME=2592000
+
+ENABLE_CACHE_PREWARM=1
+PREWARM_COLLECTION=scl
+PREWARM_DELAY_SECONDS=2
+
+BACKEND_TIMEOUT_SECONDS=8
+PUBLICATION_AFFILIATIONS_TIMEOUT_SECONDS=4
+PUBLICATION_AFFILIATIONS_TIMEOUT_POOL_SIZE=8
+USAGE_REPORT_TIMEOUT_SECONDS=4
+USAGE_YEARLY_TIMEOUT_SECONDS=4
+
+USAGE_CIRCUIT_BREAKER_HOST=usage.apis.scielo.org
+USAGE_CIRCUIT_BREAKER_FAILURE_THRESHOLD=3
+USAGE_CIRCUIT_BREAKER_OPEN_SECONDS=90
+```
+
+---
+
 ## Alterando a aplicação (desenvolvimento)
 
 Sempre que fizer alterações:
