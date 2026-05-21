@@ -156,8 +156,18 @@ Variáveis:
 * `BACKEND_TIMEOUT_SECONDS` (default: `8`)
 * `PUBLICATION_AFFILIATIONS_TIMEOUT_SECONDS` (default: `4`)
 * `PUBLICATION_AFFILIATIONS_TIMEOUT_POOL_SIZE` (default: `8`)
+* `PUBLICATION_AFFILIATIONS_MAX_INFLIGHT` (default: valor de `PUBLICATION_AFFILIATIONS_TIMEOUT_POOL_SIZE`)
 * `USAGE_REPORT_TIMEOUT_SECONDS` (default: `4`)
 * `USAGE_YEARLY_TIMEOUT_SECONDS` (default: usa valor de `USAGE_REPORT_TIMEOUT_SECONDS`)
+* `USAGE_TIMEOUT_POOL_SIZE` (default: `8`)
+* `USAGE_TIMEOUT_MAX_INFLIGHT` (default: valor de `USAGE_TIMEOUT_POOL_SIZE`)
+
+Detalhes de comportamento:
+
+* Endpoints de usage usam fallback de período por sessão (`range_start`/`range_end`) quando os parâmetros não são enviados.
+* Os pools são isolados por backend (`usage` e `publication`) para evitar contenção cruzada.
+* O limite de inflight aplica backpressure: quando saturado, retorna fallback sem disparar nova chamada de backend.
+* Em timeout, a requisição em background recebe `cancel()` (best effort), mantendo o retorno rápido ao usuário.
 
 ### 4. Circuit breaker para Usage API
 
@@ -182,8 +192,11 @@ PREWARM_DELAY_SECONDS=2
 BACKEND_TIMEOUT_SECONDS=8
 PUBLICATION_AFFILIATIONS_TIMEOUT_SECONDS=4
 PUBLICATION_AFFILIATIONS_TIMEOUT_POOL_SIZE=8
+PUBLICATION_AFFILIATIONS_MAX_INFLIGHT=8
 USAGE_REPORT_TIMEOUT_SECONDS=4
 USAGE_YEARLY_TIMEOUT_SECONDS=4
+USAGE_TIMEOUT_POOL_SIZE=8
+USAGE_TIMEOUT_MAX_INFLIGHT=8
 
 USAGE_CIRCUIT_BREAKER_HOST=usage.apis.scielo.org
 USAGE_CIRCUIT_BREAKER_FAILURE_THRESHOLD=3
