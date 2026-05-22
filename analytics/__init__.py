@@ -2,14 +2,12 @@ import os
 import time
 import logging
 import threading
-from pyramid.response import Response
 from pyramid.session import SignedCookieSessionFactory
 from pyramid.renderers import JSONP
 from pyramid.config import Configurator
 
 from analytics import controller
 from analytics import charts_config
-from analytics import monitoring
 
 from analytics.views_website import cache_region as views_website_cache_region
 from analytics.views_ajax import cache_region as views_ajax_cache_region
@@ -19,39 +17,7 @@ from analytics.control_manager import cache_region as control_manager_cache_regi
 logger = logging.getLogger(__name__)
 
 
-def _metrics_view(_request):
-    body, content_type = monitoring.metrics_response()
-    return Response(body=body, content_type=content_type)
-
-
-def _request_metrics_tween_factory(handler, registry):
-    def _tween(request):
-        route_name = "unknown"
-        if request.matched_route is not None:
-            route_name = request.matched_route.name
-        method = request.method
-        timer = monitoring.HTTP_REQUEST_DURATION_SECONDS.labels(method=method, route=route_name).time()
-        monitoring.HTTP_REQUESTS_IN_PROGRESS.labels(method=method, route=route_name).inc()
-        try:
-            with timer:
-                response = handler(request)
-            status_code = str(getattr(response, "status_code", "200"))
-            monitoring.HTTP_REQUESTS_TOTAL.labels(
-                method=method, route=route_name, status_code=status_code
-            ).inc()
-            return response
-        except Exception:
-            monitoring.HTTP_REQUESTS_TOTAL.labels(
-                method=method, route=route_name, status_code="500"
-            ).inc()
-            raise
-        finally:
-            monitoring.HTTP_REQUESTS_IN_PROGRESS.labels(method=method, route=route_name).dec()
-
-    return _tween
-
-
-def _start_cache_prewarm(settings, usage_api_base_url=None):
+def _start_cache_prewarm(settings):
     if os.environ.get("ENABLE_CACHE_PREWARM", "1").lower() in ("0", "false", "no"):
         return
 
@@ -66,7 +32,7 @@ def _start_cache_prewarm(settings, usage_api_base_url=None):
                 settings.get('articlemeta', None),
                 settings.get('publicationstats', None),
                 settings.get('citedby', None),
-                usage_api_base_url,
+                settings.get('usage', None),
                 request=None
             )
             stats.articlemeta.certified_collections()
@@ -105,14 +71,13 @@ def main(global_config, **settings):
     """
     config = Configurator(settings=settings)
     config.add_renderer('jsonp', JSONP(param_name='callback', indent=4))
-    usage_api_base_url = os.environ.get('USAGE_API_BASE_URL', settings.get('usage', None))
 
     def add_stats(request):
         return controller.Stats(
             settings.get('articlemeta', None),
             settings.get('publicationstats', None),
             settings.get('citedby', None),
-            usage_api_base_url,
+            settings.get('usage', None),
             request
         )
 
@@ -124,7 +89,6 @@ def main(global_config, **settings):
     config.add_route('index_web', '/')
     config.add_route('faq_web', '/w/faq')
     config.add_route('reports', '/w/reports')
-    config.add_route('metrics', '/metrics')
     config.add_route('usage_report_chart', '/ajx/usage/usage_report_chart')
     config.add_route('usage_report_yearly_chart', '/ajx/usage/usage_report_yearly_chart')
     config.add_route('accesses_web', '/w/accesses')
@@ -174,8 +138,6 @@ def main(global_config, **settings):
     config.add_subscriber('analytics.subscribers.add_localizer',
                           'pyramid.events.NewRequest')
     config.add_translation_dirs('analytics:locale')
-    config.add_tween('analytics._request_metrics_tween_factory', over='MAIN')
-    config.add_view(_metrics_view, route_name='metrics', request_method='GET')
 
     # Cache Settings Config
     memcached_host = (
@@ -200,8 +162,6 @@ def main(global_config, **settings):
         views_website_cache_region.configure('dogpile.cache.pylibmc', **cache_config)
         controller_cache_region.configure('dogpile.cache.pylibmc', **cache_config)
         control_manager_cache_region.configure('dogpile.cache.pylibmc', **cache_config)
-        monitoring.CACHE_BACKEND_INFO.labels(backend='pylibmc').set(1)
-        monitoring.CACHE_BACKEND_INFO.labels(backend='memory').set(0)
     else:
         # Fallback to in-process cache when memcached is unavailable.
         # This avoids recomputing heavy remote calls on every request.
@@ -210,13 +170,11 @@ def main(global_config, **settings):
         controller_cache_region.configure('dogpile.cache.memory', **cache_config)
         control_manager_cache_region.configure('dogpile.cache.memory', **cache_config)
         views_ajax_cache_region.configure('dogpile.cache.memory', **cache_config)
-        monitoring.CACHE_BACKEND_INFO.labels(backend='memory').set(1)
-        monitoring.CACHE_BACKEND_INFO.labels(backend='pylibmc').set(0)
 
     # Session config
     navegation_session_factory = SignedCookieSessionFactory('sses_navegation')
     config.set_session_factory(navegation_session_factory)
-    _start_cache_prewarm(settings, usage_api_base_url=usage_api_base_url)
+    _start_cache_prewarm(settings)
 
     config.scan()
 
