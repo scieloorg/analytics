@@ -159,7 +159,6 @@ Variáveis:
 * `PUBLICATION_AFFILIATIONS_MAX_INFLIGHT` (default: valor de `PUBLICATION_AFFILIATIONS_TIMEOUT_POOL_SIZE`)
 * `USAGE_REPORT_TIMEOUT_SECONDS` (default: `4`)
 * `USAGE_YEARLY_TIMEOUT_SECONDS` (default: usa valor de `USAGE_REPORT_TIMEOUT_SECONDS`)
-* `USAGE_YEARLY_DEFAULT_MONTHS` (default: `24`, aplicado quando yearly não recebe `range_start/range_end`)
 * `USAGE_TIMEOUT_POOL_SIZE` (default: `8`)
 * `USAGE_TIMEOUT_MAX_INFLIGHT` (default: valor de `USAGE_TIMEOUT_POOL_SIZE`)
 
@@ -196,7 +195,6 @@ PUBLICATION_AFFILIATIONS_TIMEOUT_POOL_SIZE=8
 PUBLICATION_AFFILIATIONS_MAX_INFLIGHT=8
 USAGE_REPORT_TIMEOUT_SECONDS=4
 USAGE_YEARLY_TIMEOUT_SECONDS=4
-USAGE_YEARLY_DEFAULT_MONTHS=24
 USAGE_TIMEOUT_POOL_SIZE=8
 USAGE_TIMEOUT_MAX_INFLIGHT=8
 
@@ -204,25 +202,6 @@ USAGE_CIRCUIT_BREAKER_HOST=usage.apis.scielo.org
 USAGE_CIRCUIT_BREAKER_FAILURE_THRESHOLD=3
 USAGE_CIRCUIT_BREAKER_OPEN_SECONDS=90
 ```
-
-### 6. Monitoramento com Prometheus
-
-Foi adicionado endpoint de métricas em:
-
-```bash
-GET /metrics
-```
-
-Principais métricas:
-
-* `analytics_http_requests_total`
-* `analytics_http_request_duration_seconds`
-* `analytics_http_requests_in_progress`
-* `analytics_backend_calls_total`
-* `analytics_backend_call_duration_seconds`
-* `analytics_backend_inflight_rejected_total`
-* `analytics_circuit_breaker_state`
-* `analytics_cache_backend_info`
 
 ---
 
