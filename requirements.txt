@@ -15,4 +15,3 @@ publicationstatsapi
 articlemetaapi
 altmetric
 tenacity
-prometheus_client
