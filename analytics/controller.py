@@ -1,18 +1,19 @@
 # coding: utf-8
 import json
+import os
 import urllib.parse
+from types import SimpleNamespace
 
 from dogpile.cache import make_region
 from scieloh5m5 import h5m5
 # from scielojcr import jcrindicators
 from articlemeta.client import ThriftClient as ArticleMetaThriftClient
-from citedby.client import ThriftClient as CitedbyThriftClient
 from publicationstats.client import ThriftClient as PublicationStatsThriftClient
 from publicationstats import queries as PublicationStatsQueries
-from citedby import custom_query
 from altmetric import Altmetric, AltmetricHTTPException
 
 from analytics import choices, utils, request_utils
+from analytics import custom_query
 
 
 SCIELO_SUSHI_API_ERROR_KEY = 'Severity'
@@ -102,18 +103,28 @@ class ServerError(Exception):
 
 class Stats(object):
 
-    def __init__(self, articlemeta_host, publicationstats_host, bibliometrics_host, usage_api_host, request):
-        self.articlemeta = ArticleMeta()
-        self.publication = PublicationStats()
+    def __init__(
+        self,
+        articlemeta_host,
+        publicationstats_host,
+        bibliometrics_host,
+        usage_api_host,
+        request=None
+    ):
+        translate = getattr(request, "translate", None) or (lambda text: text)
+        self.request = request or SimpleNamespace(translate=translate)
+        articlemeta_timeout_ms = int(os.environ.get("ARTICLEMETA_TIMEOUT_MS", "5000"))
+        self.articlemeta = ArticleMeta(articlemeta_host, timeout=articlemeta_timeout_ms)
+        self.publication = PublicationStats(publicationstats_host)
         self.bibliometrics = BibliometricsStats()
-        self.usage = UsageStats(usage_api_host, request.translate)
+        self.usage = UsageStats(usage_api_host, translate)
 
     @property
     def _(self):
         return self.request.translate
 
 
-class BibliometricsStats(CitedbyThriftClient):
+class BibliometricsStats(object):
 
     def _compute_google_h5m5(self, data):
 

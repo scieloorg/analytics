@@ -1,6 +1,8 @@
 # coding: utf-8
 import os
 import datetime
+import logging
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
 
 from pyramid.settings import aslist
 
@@ -11,6 +13,22 @@ from analytics import choices
 
 
 cache_region = make_region(name='control_manager')
+logger = logging.getLogger(__name__)
+
+
+def _backend_call_with_timeout(func, fallback_factory, timeout_seconds, label):
+    executor = ThreadPoolExecutor(max_workers=1)
+    future = executor.submit(func)
+    try:
+        return future.result(timeout=timeout_seconds)
+    except FuturesTimeoutError:
+        logger.warning("Timeout calling backend '%s' after %ss; using fallback", label, timeout_seconds)
+        return fallback_factory()
+    except Exception as exc:
+        logger.warning("Backend '%s' failed (%s); using fallback", label, exc)
+        return fallback_factory()
+    finally:
+        executor.shutdown(wait=False, cancel_futures=True)
 
 
 def current_url(current_url, data):
@@ -126,23 +144,43 @@ def base_data_manager(wrapped):
 
     @check_session
     def wrapper(request, *arg, **kwargs):
+        backend_timeout_seconds = float(os.environ.get("BACKEND_TIMEOUT_SECONDS", "8"))
 
         @cache_region.cache_on_arguments()
         def get_data_manager(collection, journal, document, range_start, range_end):
             code = document or journal or collection
             data = {}
+            fallback_collection = collection or 'scl'
 
-            xylose_doc = request.stats.articlemeta.document(document, collection) if document else None
+            xylose_doc = None
+            if document:
+                xylose_doc = _backend_call_with_timeout(
+                    lambda: request.stats.articlemeta.document(document, collection),
+                    lambda: None,
+                    backend_timeout_seconds,
+                    'articlemeta.document'
+                )
 
             if xylose_doc and xylose_doc.publisher_id:
                 data['selected_document'] = xylose_doc
                 data['selected_document_code'] = document
                 journal = document[1:10]
 
-            collections = request.stats.articlemeta.certified_collections()
-            journals = request.stats.articlemeta.collections_journals(collection)
+            collections = _backend_call_with_timeout(
+                lambda: request.stats.articlemeta.certified_collections(),
+                lambda: {fallback_collection: {'name': fallback_collection, 'domain': ''}},
+                backend_timeout_seconds,
+                'articlemeta.certified_collections'
+            )
+            journals = _backend_call_with_timeout(
+                lambda: request.stats.articlemeta.collections_journals(collection),
+                lambda: {},
+                backend_timeout_seconds,
+                'articlemeta.collections_journals'
+            )
             selected_journal = journals.get(journal, None)
             selected_journal_code = journal if journal in journals else None
+            selected_collection = collections.get(collection) or collections.get(fallback_collection) or {'name': fallback_collection, 'domain': ''}
 
             today = datetime.datetime.now()
             y3 = today - datetime.timedelta(365*3)
@@ -155,7 +193,7 @@ def base_data_manager(wrapped):
                 'selected_journal': selected_journal,
                 'selected_journal_code': selected_journal_code,
                 'selected_document_code': document or None,
-                'selected_collection': collections[collection],
+                'selected_collection': selected_collection,
                 'selected_collection_code': collection,
                 'journals': journals,
                 'range_start': range_start,
@@ -188,9 +226,28 @@ def base_data_manager(wrapped):
             'GOOGLE_ANALYTICS_SAMPLE_RATE',
             request.registry.settings.get('google_analytics_sample_rate', '100')
         )
-        data['subject_areas'] = request.stats.publication.list_subject_areas(data['selected_code'], data['selected_collection_code'])
-        data['languages'] = [(i, choices.ISO_639_1.get(i.upper(), 'undefined')) for i in request.stats.publication.list_languages(data['selected_code'], data['selected_collection_code'])]
-        data['publication_years'] = request.stats.publication.list_publication_years(data['selected_code'], data['selected_collection_code'])
+        subject_areas = _backend_call_with_timeout(
+            lambda: request.stats.publication.list_subject_areas(data['selected_code'], data['selected_collection_code']),
+            lambda: [],
+            backend_timeout_seconds,
+            'publicationstats.list_subject_areas'
+        )
+        languages = _backend_call_with_timeout(
+            lambda: request.stats.publication.list_languages(data['selected_code'], data['selected_collection_code']),
+            lambda: [],
+            backend_timeout_seconds,
+            'publicationstats.list_languages'
+        )
+        publication_years = _backend_call_with_timeout(
+            lambda: request.stats.publication.list_publication_years(data['selected_code'], data['selected_collection_code']),
+            lambda: [],
+            backend_timeout_seconds,
+            'publicationstats.list_publication_years'
+        )
+
+        data['subject_areas'] = subject_areas
+        data['languages'] = [(i, choices.ISO_639_1.get(i.upper(), 'undefined')) for i in languages]
+        data['publication_years'] = publication_years
         if len(data['publication_years']) == 0:
             data['publication_years'] = [str(datetime.datetime.now().year)]
         py = '-'.join([data['publication_years'][0], data['publication_years'][-1]])

@@ -28,10 +28,10 @@ Para testes, é mais prático usar um ambiente virtual Python em vez de containe
 sudo apt install libmemcached-dev
 ```
 
-2. Crie um ambiente virtual Python 3.6 (usando miniconda):
+2. Crie um ambiente virtual Python 3.13 (usando miniconda):
 
 ```bash
-conda create -n scl-analytics python=3.6 -y
+conda create -n scl-analytics python=3.13 -y
 conda activate scl-analytics
 ```
 
@@ -45,7 +45,7 @@ pip install -r requirements.txt
 4. Execute os testes de unidade:
 
 ```bash
-python setup.py test
+python -m unittest discover -s tests
 ```
 
 > ⚠️ **Observação**: fora do Docker, o Memcached deve estar rodando localmente (`127.0.0.1:11211`). Você pode iniciá-lo com:
@@ -118,6 +118,111 @@ docker-compose -f docker-compose-dev.yml up
 ```
 http://0.0.0.0:6543
 ```
+
+---
+
+## Cache, timeout e resiliência (home e gráficos)
+
+As rotas AJAX mais pesadas foram preparadas para reduzir latência de primeira carga e proteger o backend em cenários de degradação.
+
+### 1. Cache em Memcached (recomendado)
+
+Com `MEMCACHED_HOST` configurado, o app usa `dogpile.cache.pylibmc` para cache compartilhado entre workers/instâncias.
+
+Efeito prático:
+
+* A primeira requisição para uma combinação de parâmetros (coleção, período, relatório, métrica etc.) consulta o backend externo.
+* Requisições seguintes com a mesma chave servem do cache, inclusive para usuários diferentes.
+* Nova consulta externa só ocorre em `cache miss` ou após expiração.
+
+Sem `MEMCACHED_HOST`, o app cai para `dogpile.cache.memory` (cache por processo).
+
+### 2. Prewarm de cache no startup
+
+No boot da aplicação, um prewarm assíncrono prepara dados base de coleção e agregações críticas da home.
+
+Variáveis:
+
+* `ENABLE_CACHE_PREWARM` (default: `1`)
+* `PREWARM_DELAY_SECONDS` (default: `0`)
+* `PREWARM_COLLECTION` (default: `scl`)
+
+### 3. Timeout e fallback por backend (sem mudar regra de negócio)
+
+Quando backend externo está lento/indisponível, endpoints críticos retornam payload válido vazio em tempo limitado, evitando travamento da home.
+
+Variáveis:
+
+* `BACKEND_TIMEOUT_SECONDS` (default: `8`)
+* `PUBLICATION_AFFILIATIONS_TIMEOUT_SECONDS` (default: `4`)
+* `PUBLICATION_AFFILIATIONS_TIMEOUT_POOL_SIZE` (default: `8`)
+* `PUBLICATION_AFFILIATIONS_MAX_INFLIGHT` (default: valor de `PUBLICATION_AFFILIATIONS_TIMEOUT_POOL_SIZE`)
+* `USAGE_REPORT_TIMEOUT_SECONDS` (default: `4`)
+* `USAGE_YEARLY_TIMEOUT_SECONDS` (default: usa valor de `USAGE_REPORT_TIMEOUT_SECONDS`)
+* `USAGE_YEARLY_DEFAULT_MONTHS` (default: `24`, aplicado quando yearly não recebe `range_start/range_end`)
+* `USAGE_TIMEOUT_POOL_SIZE` (default: `8`)
+* `USAGE_TIMEOUT_MAX_INFLIGHT` (default: valor de `USAGE_TIMEOUT_POOL_SIZE`)
+
+Detalhes de comportamento:
+
+* Endpoints de usage usam fallback de período por sessão (`range_start`/`range_end`) quando os parâmetros não são enviados.
+* Os pools são isolados por backend (`usage` e `publication`) para evitar contenção cruzada.
+* O limite de inflight aplica backpressure: quando saturado, retorna fallback sem disparar nova chamada de backend.
+* Em timeout, a requisição em background recebe `cancel()` (best effort), mantendo o retorno rápido ao usuário.
+
+### 4. Circuit breaker para Usage API
+
+As chamadas para `usage.apis.scielo.org` usam circuit breaker para reduzir efeito cascata em falhas repetidas.
+
+Variáveis:
+
+* `USAGE_CIRCUIT_BREAKER_HOST` (default: `usage.apis.scielo.org`)
+* `USAGE_CIRCUIT_BREAKER_FAILURE_THRESHOLD` (default: `3`)
+* `USAGE_CIRCUIT_BREAKER_OPEN_SECONDS` (default: `90`)
+
+### 5. Exemplo de configuração (homologação)
+
+```bash
+MEMCACHED_HOST=memcached:11211
+MEMCACHED_EXPIRATION_TIME=2592000
+
+ENABLE_CACHE_PREWARM=1
+PREWARM_COLLECTION=scl
+PREWARM_DELAY_SECONDS=2
+
+BACKEND_TIMEOUT_SECONDS=8
+PUBLICATION_AFFILIATIONS_TIMEOUT_SECONDS=4
+PUBLICATION_AFFILIATIONS_TIMEOUT_POOL_SIZE=8
+PUBLICATION_AFFILIATIONS_MAX_INFLIGHT=8
+USAGE_REPORT_TIMEOUT_SECONDS=4
+USAGE_YEARLY_TIMEOUT_SECONDS=4
+USAGE_YEARLY_DEFAULT_MONTHS=24
+USAGE_TIMEOUT_POOL_SIZE=8
+USAGE_TIMEOUT_MAX_INFLIGHT=8
+
+USAGE_CIRCUIT_BREAKER_HOST=usage.apis.scielo.org
+USAGE_CIRCUIT_BREAKER_FAILURE_THRESHOLD=3
+USAGE_CIRCUIT_BREAKER_OPEN_SECONDS=90
+```
+
+### 6. Monitoramento com Prometheus
+
+Foi adicionado endpoint de métricas em:
+
+```bash
+GET /metrics
+```
+
+Principais métricas:
+
+* `analytics_http_requests_total`
+* `analytics_http_request_duration_seconds`
+* `analytics_http_requests_in_progress`
+* `analytics_backend_calls_total`
+* `analytics_backend_call_duration_seconds`
+* `analytics_backend_inflight_rejected_total`
+* `analytics_circuit_breaker_state`
+* `analytics_cache_backend_info`
 
 ---
 

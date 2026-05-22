@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import os
 
 from setuptools import setup
@@ -12,7 +12,7 @@ with open(os.path.join(here, 'CHANGES.txt')) as f:
 install_requires = [
     'requests',
     'cython',
-    'thriftpy',
+    'thriftpy2',
     'pyramid',
     'pyramid_chameleon',
     'pyramid_mako',
@@ -24,14 +24,10 @@ install_requires = [
     'scieloh5m5',
     'xylose',
     'articlemetaapi',
-    'accessstatsapi',
     'publicationstatsapi',
-    'citedbyapi',
     'scielojcr',
     'altmetric'
     ]
-
-test_requires = ["nose>=1.0", "coverage"]
 
 setup(
     name="analytics",
@@ -48,14 +44,13 @@ setup(
         "Intended Audience :: Developers",
         "License :: OSI Approved :: BSD License",
         "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.13",
         "Operating System :: POSIX :: Linux",
         "Topic :: System",
         "Topic :: Services",
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
-    ],
-    dependency_links=[
-        "git+https://github.com/scieloorg/thriftpy-wrap@0.1.1#egg=thriftpywrap"
     ],
     message_extractors={
         'analytics': [
@@ -67,9 +62,9 @@ setup(
     },
     include_package_data=True,
     zip_safe=False,
-    tests_require=test_requires,
+    python_requires=">=3.13,<4",
+    extras_require={"test": ["coverage"]},
     install_requires=install_requires,
-    test_suite="nose.collector",
     entry_points="""\
     [paste.app_factory]
     main = analytics:main

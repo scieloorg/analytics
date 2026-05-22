@@ -1,21 +1,11 @@
-version: '3.9'
-
 services:
-  memcached:
-    image: memcached:latest
-    restart: always
-    ports:
-      - "11211:11211"
-
   webapp:
     build:
       context: .
       dockerfile: Dockerfile-dev
     user: nobody
     restart: always
-    depends_on:
-      - memcached
     ports:
-      - "8000:8000"
+      - "8010:8000"
     environment:
-      MEMCACHED_HOST: memcached:11211
+      MEMCACHED_HOST: ""

@@ -4,12 +4,8 @@ import re
 import unicodedata
 import weakref
 
-from datetime import datetime
-
-try:
-    from ConfigParser import SafeConfigParser
-except ImportError:
-    from configparser import ConfigParser as SafeConfigParser
+from datetime import datetime, timezone, timedelta
+from configparser import ConfigParser
 
 REGEX_ISSN = re.compile("^[0-9]{4}-[0-9]{3}[0-9xX]$")
 REGEX_ISSUE = re.compile("^[0-9]{4}-[0-9]{3}[0-9xX][0-2][0-9]{3}[0-9]{4}$")
@@ -35,19 +31,18 @@ def dogpile_controller_key_generator(namespace, fn, *kwargs):
 
 
 def clean_string(text):
+    if text is None:
+        return text
 
-    if isinstance(text, str):
-        try:
-            text = text.decode('utf-8')
-        except:
-            pass
+    if isinstance(text, bytes):
+        text = text.decode("utf-8", errors="ignore")
 
     try:
         nfd_form = unicodedata.normalize('NFD', text.strip().lower())
-    except:
+    except (TypeError, AttributeError):
         return text
 
-    cleaned_str = u''.join(x for x in nfd_form if unicodedata.category(x)[0] == 'L' or x == ' ')
+    cleaned_str = ''.join(x for x in nfd_form if unicodedata.category(x)[0] == 'L' or x == ' ')
 
     return cleaned_str.lower().strip()
 
@@ -61,8 +56,10 @@ def mktime(year=1970, month=1, day=1):
 
 
 def convert_date_to_month_start_unix_ms(date):
-    fmt_date = datetime.strptime(date, '%Y-%m-%d')
-    fmt_date = fmt_date.replace(day = 1)
+    # Usage API chart points are expected at month start in BRT (UTC-03:00),
+    # independent from the container/host local timezone.
+    brt_tz = timezone(timedelta(hours=-3))
+    fmt_date = datetime.strptime(date, '%Y-%m-%d').replace(day=1, tzinfo=brt_tz)
 
     ms_unix_epoch = int(fmt_date.timestamp() * 1000)
 
@@ -93,11 +90,11 @@ class SingletonMixin(object):
 
 class Configuration(SingletonMixin):
     """
-    Acts as a proxy to the ConfigParser module
+    Acts as a proxy to the configparser module
     """
-    def __init__(self, fp, parser_dep=SafeConfigParser):
+    def __init__(self, fp, parser_dep=ConfigParser):
         self.conf = parser_dep()
-        self.conf.readfp(fp)
+        self.conf.read_file(fp)
 
     @classmethod
     def from_env(cls):
@@ -115,8 +112,8 @@ class Configuration(SingletonMixin):
 
         ``filepath`` is a text string.
         """
-        fp = open(filepath, 'rb')
-        return cls(fp)
+        with open(filepath, 'r', encoding='utf-8') as fp:
+            return cls(fp)
 
     def __getattr__(self, attr):
         return getattr(self.conf, attr)
