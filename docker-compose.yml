@@ -9,3 +9,6 @@ services:
       - "8010:8000"
     environment:
       MEMCACHED_HOST: ""
+      USAGE_API_BASE_URL: "http://host.docker.internal:6543/"
+      USAGE_REPORT_TIMEOUT_SECONDS: "20"
+      USAGE_YEARLY_TIMEOUT_SECONDS: "120"
