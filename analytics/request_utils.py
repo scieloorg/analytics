@@ -5,6 +5,7 @@ import time
 from urllib.parse import urlparse
 
 import requests
+from analytics import monitoring
 
 from requests.exceptions import (
     ConnectionError,
@@ -68,6 +69,7 @@ def _breaker_mark_success():
     with _breaker_lock:
         _breaker_state["failures"] = 0
         _breaker_state["open_until"] = 0.0
+        monitoring.CIRCUIT_BREAKER_STATE.labels(host=CIRCUIT_BREAKER_HOST).set(0)
 
 
 def _breaker_mark_failure():
@@ -76,6 +78,7 @@ def _breaker_mark_failure():
         failures = _breaker_state["failures"]
         if failures >= CIRCUIT_BREAKER_FAILURE_THRESHOLD:
             _breaker_state["open_until"] = time.time() + CIRCUIT_BREAKER_OPEN_SECONDS
+            monitoring.CIRCUIT_BREAKER_STATE.labels(host=CIRCUIT_BREAKER_HOST).set(1)
             logger.warning(
                 "Circuit breaker opened for host '%s' for %ss after %s failures",
                 CIRCUIT_BREAKER_HOST,
@@ -123,40 +126,46 @@ def fetch_data(url, json=True, params=None, timeout=32, verify=True):
         RetryableError: If a connection or timeout error occurs (for retry).
         NonRetryableError: For schema, URL, or 4xx client errors.
     """
-    if _is_breaker_target(url) and _breaker_is_open():
-        logger.warning(
-            "Circuit breaker open for host '%s', short-circuiting request: %s",
-            CIRCUIT_BREAKER_HOST,
-            url,
-        )
-        raise NonRetryableError(CircuitOpenError(url))
+    def _do_fetch():
+        if _is_breaker_target(url) and _breaker_is_open():
+            logger.warning(
+                "Circuit breaker open for host '%s', short-circuiting request: %s",
+                CIRCUIT_BREAKER_HOST,
+                url,
+            )
+            monitoring.BACKEND_CALLS_TOTAL.labels(
+                backend="usage_api", operation="fetch_data", result="circuit_open"
+            ).inc()
+            raise NonRetryableError(CircuitOpenError(url))
 
-    try:
-        logger.info(f"Fetching URL: {url} with params {params}")
-        response = requests.get(url, params=params, timeout=timeout, verify=verify)
-        response.raise_for_status()
-        if _is_breaker_target(url):
-            _breaker_mark_success()
+        try:
+            logger.info(f"Fetching URL: {url} with params {params}")
+            response = requests.get(url, params=params, timeout=timeout, verify=verify)
+            response.raise_for_status()
+            if _is_breaker_target(url):
+                _breaker_mark_success()
 
-    except (ConnectionError, Timeout) as exc:
-        if _is_breaker_target(url):
-            _breaker_mark_failure()
-        logger.error(f"Erro fetching content: {url}. Retrying... Error: {exc}")
-        raise RetryableError(exc) from exc
-
-    except (InvalidSchema, MissingSchema, InvalidURL) as exc:
-        logger.error(f"Invalid URL or schema: {url}. Error: {exc}")
-        raise NonRetryableError(exc) from exc
-    
-    except HTTPError as exc:
-        status_code = exc.response.status_code
-        if 400 <= status_code < 500:
-            logger.error(f"Client error (non-retryable): {url}. Status: {status_code}")
-            raise NonRetryableError(exc) from exc
-        elif 500 <= status_code < 600:
+        except (ConnectionError, Timeout) as exc:
             if _is_breaker_target(url):
                 _breaker_mark_failure()
-            logger.error(f"Server error: {url}. Retrying... Status: {status_code}")
+            logger.error(f"Erro fetching content: {url}. Retrying... Error: {exc}")
             raise RetryableError(exc) from exc
 
-    return response.json() if json else response.content
+        except (InvalidSchema, MissingSchema, InvalidURL) as exc:
+            logger.error(f"Invalid URL or schema: {url}. Error: {exc}")
+            raise NonRetryableError(exc) from exc
+        
+        except HTTPError as exc:
+            status_code = exc.response.status_code
+            if 400 <= status_code < 500:
+                logger.error(f"Client error (non-retryable): {url}. Status: {status_code}")
+                raise NonRetryableError(exc) from exc
+            elif 500 <= status_code < 600:
+                if _is_breaker_target(url):
+                    _breaker_mark_failure()
+                logger.error(f"Server error: {url}. Retrying... Status: {status_code}")
+                raise RetryableError(exc) from exc
+
+        return response.json() if json else response.content
+
+    return monitoring.observe_backend_call("usage_api", "fetch_data", _do_fetch)

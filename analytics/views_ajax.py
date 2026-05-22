@@ -13,6 +13,7 @@ from dogpile.cache import make_region
 
 from analytics.control_manager import base_data_manager, check_session
 from analytics import request_utils
+from analytics import monitoring
 from analytics.controller import SCIELO_SUSHI_API_FETCH_DATA_TIMEOUT, SCIELO_SUSHI_API_ERROR_KEY, SCIELO_SUSHI_API_ERROR_VALUE
 
 
@@ -25,6 +26,7 @@ _USAGE_REPORT_TIMEOUT_SECONDS = float(os.environ.get("USAGE_REPORT_TIMEOUT_SECON
 _USAGE_YEARLY_TIMEOUT_SECONDS = float(
     os.environ.get("USAGE_YEARLY_TIMEOUT_SECONDS", str(_USAGE_REPORT_TIMEOUT_SECONDS))
 )
+_USAGE_YEARLY_DEFAULT_MONTHS = int(os.environ.get("USAGE_YEARLY_DEFAULT_MONTHS", "24"))
 _USAGE_TIMEOUT_POOL_SIZE = int(os.environ.get("USAGE_TIMEOUT_POOL_SIZE", "8"))
 _USAGE_MAX_INFLIGHT = int(os.environ.get("USAGE_TIMEOUT_MAX_INFLIGHT", str(_USAGE_TIMEOUT_POOL_SIZE)))
 _PUBLICATION_MAX_INFLIGHT = int(
@@ -56,6 +58,8 @@ def _submit_guarded(executor, inflight_guard, callable_obj, operation_name):
             "Inflight guard reached for %s; returning fallback without backend call",
             operation_name
         )
+        backend = "usage" if operation_name.startswith("usage_") else "publication"
+        monitoring.BACKEND_INFLIGHT_REJECTED_TOTAL.labels(backend=backend, operation=operation_name).inc()
         return None
 
     try:
@@ -75,12 +79,20 @@ def _submit_guarded(executor, inflight_guard, callable_obj, operation_name):
 
 
 def _run_with_timeout(executor, inflight_guard, callable_obj, fallback_data, timeout_seconds, operation_name):
+    backend = "usage" if operation_name.startswith("usage_") else "publication"
     future = _submit_guarded(executor, inflight_guard, callable_obj, operation_name)
     if future is None:
+        monitoring.BACKEND_CALLS_TOTAL.labels(backend=backend, operation=operation_name, result="inflight_rejected").inc()
         return fallback_data
 
     try:
-        return future.result(timeout=timeout_seconds)
+        started_at = datetime.datetime.now().timestamp()
+        result = future.result(timeout=timeout_seconds)
+        monitoring.BACKEND_CALLS_TOTAL.labels(backend=backend, operation=operation_name, result="success").inc()
+        monitoring.BACKEND_CALL_DURATION_SECONDS.labels(backend=backend, operation=operation_name).observe(
+            datetime.datetime.now().timestamp() - started_at
+        )
+        return result
     except FuturesTimeoutError:
         future.cancel()
         logger.warning(
@@ -88,6 +100,7 @@ def _run_with_timeout(executor, inflight_guard, callable_obj, fallback_data, tim
             operation_name,
             timeout_seconds
         )
+        monitoring.BACKEND_CALLS_TOTAL.labels(backend=backend, operation=operation_name, result="timeout").inc()
         return fallback_data
     except Exception as exc:
         logger.warning(
@@ -95,6 +108,7 @@ def _run_with_timeout(executor, inflight_guard, callable_obj, fallback_data, tim
             operation_name,
             exc
         )
+        monitoring.BACKEND_CALLS_TOTAL.labels(backend=backend, operation=operation_name, result="error").inc()
         return fallback_data
 
 
@@ -190,6 +204,29 @@ def _usage_date_range(request):
     return range_start, range_end
 
 
+def _subtract_months(yyyy_mm_dd, months):
+    year, month, _ = [int(x) for x in yyyy_mm_dd.split('-')]
+    total = (year * 12 + (month - 1)) - months
+    new_year = total // 12
+    new_month = (total % 12) + 1
+    return "%04d-%02d-01" % (new_year, new_month)
+
+
+def _usage_yearly_date_range(request):
+    # Preserve explicit user filters from query string.
+    if request.GET.get('range_start') and request.GET.get('range_end'):
+        return request.GET.get('range_start'), request.GET.get('range_end')
+
+    today = datetime.datetime.now().isoformat()[0:10]
+    range_end = request.GET.get('range_end') or request.session.get('range_end') or today
+    range_start = request.GET.get('range_start') or request.session.get('range_start')
+
+    if range_start:
+        return range_start, range_end
+
+    return _subtract_months(range_end, _USAGE_YEARLY_DEFAULT_MONTHS), range_end
+
+
 @view_config(route_name='usage_report_chart', request_method='GET', renderer='jsonp')
 @check_session
 def usage_report_chart(request):
@@ -249,7 +286,7 @@ def usage_report_chart(request):
 def usage_report_yearly_chart(request):
 
     api_version = request.GET.get('api_version', 'v2')
-    range_start, range_end = _usage_date_range(request)
+    range_start, range_end = _usage_yearly_date_range(request)
     report_code = request.GET.get('report_code', 'cr_j1')
     metric_type = request.GET.get('metric_type', 'Total_Item_Requests')
     selected_code, selected_collection_code, selected_document_code = _usage_selected_values(request)
